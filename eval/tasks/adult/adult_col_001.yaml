@@ -1,0 +1,61 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Add net_capital = capital-gain minus capital-loss.
+# Snapshot facts : No nulls.   (profiled from data/adult_dev.csv; re-check when you write the task)
+# Watch out for  : sub order (gain - loss, not loss - gain).
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: adult_col_001
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: adult
+data_file: data/adult_dev.csv
+transformation_type: column_transformation
+difficulty: easy                      # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Add a column net_capital equal to capital-gain minus capital-loss.
+assumptions:
+  - "New column name is exactly net_capital."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      out = df.copy()
+      out["net_capital"] = out["capital-gain"] - out["capital-loss"]
+      return out
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: columns_added, target: [net_capital]}
+    - id: c2
+      type: column_value_relation
+      target: net_capital
+      fn: sub
+      args: [{col: capital-gain}, {col: capital-loss}]
+  must_preserve:
+    - {id: p1, type: columns_unchanged, target: "*", except: []}
+    - {id: p2, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 1000
+  columns_added: [net_capital]
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Computes capital-loss minus capital-gain → c2 fails."
+  - "Overwrites capital-gain → c1, p1 fail."
+  - "Adds the two columns → c2 fails."
+notes: ""

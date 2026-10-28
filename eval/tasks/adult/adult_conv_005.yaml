@@ -1,0 +1,57 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Make sex a categorical column.
+# Snapshot facts : 2 values.   (profiled from data/adult_dev.csv; re-check when you write the task)
+# Watch out for  : Values unchanged.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: adult_conv_005
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: adult
+data_file: data/adult_dev.csv
+transformation_type: type_conversion
+difficulty: medium                    # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Change the sex column to a categorical type.
+assumptions:
+  - "Categories are the existing two values, unchanged."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      out = df.copy()
+      out["sex"] = out["sex"].astype("category")
+      return out
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: column_dtype, target: sex, dtype: category}
+  must_preserve:
+    - {id: p1, type: column_values_unchanged, target: sex}
+    - {id: p2, type: null_count, target: sex, op: unchanged}
+    - {id: p3, type: columns_unchanged, target: "*", except: [sex]}
+    - {id: p4, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 1000
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Encodes sex as 0/1 → p1 fails."
+  - "Converts race too → p3 fails."
+notes: ""

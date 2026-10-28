@@ -1,0 +1,57 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Store price as a float instead of an integer.
+# Snapshot facts : price is int64, no nulls.   (profiled from data/airbnb_dev.csv; re-check when you write the task)
+# Watch out for  : Values must stay equal; other int columns must not change type.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: airbnb_conv_002
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: airbnb
+data_file: data/airbnb_dev.csv
+transformation_type: type_conversion
+difficulty: easy                      # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Store price as a decimal number (float) instead of an integer.
+assumptions:
+  - "Only the price column changes type; values stay the same."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      out = df.copy()
+      out["price"] = out["price"].astype(float)
+      return out
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: column_dtype, target: price, dtype: float}
+  must_preserve:
+    - {id: p1, type: column_values_unchanged, target: price}
+    - {id: p2, type: null_count, target: price, op: unchanged}
+    - {id: p3, type: columns_unchanged, target: "*", except: [price]}
+    - {id: p4, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 1000
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Converts every integer column to float → p3 fails."
+  - "Divides or rounds price while converting → p1 fails."
+notes: ""

@@ -1,0 +1,68 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Drop every record that has any missing value.
+# Snapshot facts : 78 rows have at least one null.   (profiled from data/adult_dev.csv; re-check when you write the task)
+# Watch out for  : Contrast task: here dropna() IS correct; contract must still preserve the other rows.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: adult_miss_006
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: dev                         # test | dev
+dataset: adult
+data_file: data/adult_dev.csv
+transformation_type: missing_values
+difficulty: easy                      # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Drop every record that has any missing value.
+assumptions:
+  - "On this file only workclass, occupation and native-country contain missing values, so the condition lists those three columns."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      return df.dropna().copy()
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - id: c1
+      type: rows_removed_where
+      target: null
+      condition: 
+        any:
+          - {column: native-country, op: is_null}
+          - {column: occupation, op: is_null}
+          - {column: workclass, op: is_null}
+    - {id: c2, type: row_count, target: null, op: decreased}
+  must_preserve:
+    - id: p1
+      type: rows_retained_where
+      target: null
+      condition: 
+        all:
+          - {column: native-country, op: not_null}
+          - {column: occupation, op: not_null}
+          - {column: workclass, op: not_null}
+    - {id: p2, type: columns_unchanged, target: "*", except: []}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 922
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Drops only rows missing workclass → c1 fails (native-country nulls stay)."
+  - "Fills missing values instead of dropping → c1, c2, p2 fail."
+notes: "Data-dependent condition: lists the columns that have nulls in data/adult_dev.csv. Re-check if the data file changes."

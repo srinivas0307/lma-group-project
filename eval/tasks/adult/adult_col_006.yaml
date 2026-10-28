@@ -1,0 +1,60 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Rename education-num to education_years.
+# Snapshot facts : No nulls.   (profiled from data/adult_dev.csv; re-check when you write the task)
+# Watch out for  : Contract: columns_added + columns_removed + identity relation.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: adult_col_006
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: dev                         # test | dev
+dataset: adult
+data_file: data/adult_dev.csv
+transformation_type: column_transformation
+difficulty: medium                    # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Rename the education-num column to education_years.
+assumptions:
+  - "Pure rename: values are unchanged."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      return df.rename(columns={"education-num": "education_years"})
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: columns_added, target: [education_years]}
+    - {id: c2, type: columns_removed, target: [education-num]}
+    - id: c3
+      type: column_value_relation
+      target: education_years
+      fn: identity
+      args: [{col: education-num}]
+  must_preserve:
+    - {id: p1, type: columns_unchanged, target: "*", except: [education-num]}
+    - {id: p2, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 1000
+  columns_added: [education_years]
+  columns_removed: [education-num]
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Copies the column and keeps education-num → c2 fails."
+  - "Renames education instead → c1, c2, p1 fail."
+  - "Uses education_num (underscore, different name) → c1 fails."
+notes: "c3 reads education-num from the BEFORE data (§5.5 #9), so the old column being gone in AFTER is fine."

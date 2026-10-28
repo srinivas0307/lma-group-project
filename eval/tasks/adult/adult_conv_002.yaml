@@ -1,0 +1,61 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Convert income to a number: 1 for >50K and 0 for <=50K.
+# Snapshot facts : 232 rows >50K, 768 rows <=50K.   (profiled from data/adult_dev.csv; re-check when you write the task)
+# Watch out for  : map + int dtype; swapped labels are a silent error.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: adult_conv_002
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: adult
+data_file: data/adult_dev.csv
+transformation_type: type_conversion
+difficulty: medium                    # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Convert income into a number: 1 if it is >50K and 0 if it is <=50K.
+assumptions:
+  - "The income column itself is converted (no new column); its type becomes integer."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      out = df.copy()
+      out["income"] = out["income"].map({">50K": 1, "<=50K": 0}).astype(int)
+      return out
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - id: c1
+      type: column_value_relation
+      target: income
+      fn: map
+      args: [{col: income}, {lit: {"<=50K": 0, ">50K": 1}}]
+    - {id: c2, type: column_dtype, target: income, dtype: int}
+  must_preserve:
+    - {id: p1, type: columns_unchanged, target: "*", except: [income]}
+    - {id: p2, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 1000
+  columns_added: []
+  columns_removed: []
+  cells_changed: 1000
+
+# ---------- notes ----------
+pitfalls:
+  - "Swaps the labels (>50K → 0) → c1 fails."
+  - "Leaves the result as float or text '1'/'0' → c2 fails."
+  - "Writes the result to a new column and keeps income as text → c1, c2 fail."
+notes: ""

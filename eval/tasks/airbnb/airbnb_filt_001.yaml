@@ -1,0 +1,61 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Remove listings that are never available (availability_365 is 0).
+# Snapshot facts : 196 of 1000 rows have availability_365 == 0.   (profiled from data/airbnb_dev.csv; re-check when you write the task)
+# Watch out for  : Boundary: '== 0' vs '<= 1'; don't drop other columns.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: airbnb_filt_001
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: airbnb
+data_file: data/airbnb_dev.csv
+transformation_type: filtering
+difficulty: easy                      # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Remove the listings that have zero availability during the year.
+assumptions:
+  - "\"Zero availability\" means availability_365 == 0."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      return df[df["availability_365"] != 0].copy()
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - id: c1
+      type: rows_removed_where
+      target: null
+      condition: {column: availability_365, op: "==", value: 0}
+    - {id: c2, type: row_count, target: null, op: decreased}
+  must_preserve:
+    - id: p1
+      type: rows_retained_where
+      target: null
+      condition: {column: availability_365, op: "!=", value: 0}
+    - {id: p2, type: columns_unchanged, target: "*", except: []}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 804
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Uses availability_365 <= 1 or < 30 (removes partly available listings) → p1 fails."
+  - "Filters on a different numeric column (e.g. number_of_reviews == 0) → c1, p1 fail."
+  - "Adds dropna() → p1 fails (removes the 42 rows with missing values)."
+notes: ""

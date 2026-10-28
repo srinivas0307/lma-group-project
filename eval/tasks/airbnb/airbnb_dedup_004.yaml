@@ -1,0 +1,54 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Keep one listing per host and room type, keeping the last one.
+# Snapshot facts : 132 rows removed on (host_id, room_type).   (profiled from data/airbnb_dev.csv; re-check when you write the task)
+# Watch out for  : keep='last' is easy to get wrong.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: airbnb_dedup_004
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: airbnb
+data_file: data/airbnb_dev.csv
+transformation_type: deduplication
+difficulty: hard                      # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  For each host, keep just one listing per room type, using the last one that appears.
+assumptions:
+  - "Duplicate means same host_id and same room_type; 'last' means latest in the original row order."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      return df.drop_duplicates(subset=["host_id", "room_type"], keep="last").copy()
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: duplicate_count, target: [host_id, room_type], op: eq, value: 0, keep: last}
+    - {id: c2, type: row_count, target: null, op: decreased}
+  must_preserve:
+    - {id: p1, type: columns_unchanged, target: "*", except: []}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 868
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "keep='first' → c1 fails (keep rule)."
+  - "Deduplicates on host_id only → c1 fails."
+  - "Deduplicates on room_type only → c1 fails (only 3 rows left)."
+notes: ""

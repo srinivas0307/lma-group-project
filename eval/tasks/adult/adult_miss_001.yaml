@@ -1,0 +1,66 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Fill missing workclass values with 'Unknown'.
+# Snapshot facts : 62 nulls in workclass.   (profiled from data/adult_dev.csv; re-check when you write the task)
+# Watch out for  : Must not fill occupation or native-country.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: adult_miss_001
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: adult
+data_file: data/adult_dev.csv
+transformation_type: missing_values
+difficulty: easy                      # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Fill the missing workclass values with 'Unknown'.
+assumptions:
+  - "Only workclass is filled; occupation and native-country keep their missing values."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      out = df.copy()
+      out["workclass"] = out["workclass"].fillna("Unknown")
+      return out
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - id: c1
+      type: column_value_relation
+      target: workclass
+      where: {column: workclass, op: is_null}
+      fn: const
+      args: [{lit: Unknown}]
+    - {id: c2, type: null_count, target: workclass, op: eq, value: 0}
+  must_preserve:
+    - id: p1
+      type: column_values_unchanged
+      target: workclass
+      where: {column: workclass, op: not_null}
+    - {id: p2, type: columns_unchanged, target: "*", except: [workclass]}
+    - {id: p3, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 1000
+  columns_added: []
+  columns_removed: []
+  cells_changed: 62
+
+# ---------- notes ----------
+pitfalls:
+  - "df.fillna('Unknown') → also fills occupation and native-country → p2 fails."
+  - "Fills occupation too because the nulls are in the same rows → p2 fails."
+  - "Drops the rows instead → c1, p3 fail."
+notes: ""

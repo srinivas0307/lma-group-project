@@ -1,0 +1,66 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Fill missing reviews_per_month with 0.
+# Snapshot facts : 41 nulls in reviews_per_month.   (profiled from data/airbnb_dev.csv; re-check when you write the task)
+# Watch out for  : Must not fill other columns (last_review, host_name) or drop rows.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: airbnb_miss_001
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: airbnb
+data_file: data/airbnb_dev.csv
+transformation_type: missing_values
+difficulty: easy                      # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Fill in the missing reviews_per_month values with 0.
+assumptions:
+  - "Only reviews_per_month is filled; existing values stay as they are."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      out = df.copy()
+      out["reviews_per_month"] = out["reviews_per_month"].fillna(0)
+      return out
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - id: c1
+      type: column_value_relation
+      target: reviews_per_month
+      where: {column: reviews_per_month, op: is_null}
+      fn: const
+      args: [{lit: 0}]
+    - {id: c2, type: null_count, target: reviews_per_month, op: eq, value: 0}
+  must_preserve:
+    - id: p1
+      type: column_values_unchanged
+      target: reviews_per_month
+      where: {column: reviews_per_month, op: not_null}
+    - {id: p2, type: columns_unchanged, target: "*", except: [reviews_per_month]}
+    - {id: p3, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 1000
+  columns_added: []
+  columns_removed: []
+  cells_changed: 41
+
+# ---------- notes ----------
+pitfalls:
+  - "df.fillna(0) on the whole frame → also fills last_review and host_name → p2 fails."
+  - "Drops the rows instead of filling → c1, p3 fail."
+  - "Fills with the mean → c1 fails."
+notes: ""

@@ -1,0 +1,54 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Each host should have at most one listing per neighbourhood; keep the first.
+# Snapshot facts : 143 rows removed on (host_id, neighbourhood).   (profiled from data/airbnb_dev.csv; re-check when you write the task)
+# Watch out for  : Don't confuse neighbourhood with neighbourhood_group.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: airbnb_dedup_005
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: airbnb
+data_file: data/airbnb_dev.csv
+transformation_type: deduplication
+difficulty: medium                    # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Each host should have at most one listing per neighbourhood. Keep the first listing and remove the rest.
+assumptions:
+  - "Uses the neighbourhood column (not neighbourhood_group); 'first' means earliest in the original row order."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      return df.drop_duplicates(subset=["host_id", "neighbourhood"], keep="first").copy()
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: duplicate_count, target: [host_id, neighbourhood], op: eq, value: 0, keep: first}
+    - {id: c2, type: row_count, target: null, op: decreased}
+  must_preserve:
+    - {id: p1, type: columns_unchanged, target: "*", except: []}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 857
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Uses neighbourhood_group instead of neighbourhood → c1 fails (more rows removed)."
+  - "keep='last' → c1 fails."
+  - "Deduplicates on host_id only → c1 fails."
+notes: ""

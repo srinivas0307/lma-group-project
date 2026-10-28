@@ -1,0 +1,60 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Make education an ordered category following the education-num order (Preschool lowest, Doctorate highest).
+# Snapshot facts : 16 levels; order = education-num 1..16.   (profiled from data/adult_dev.csv; re-check when you write the task)
+# Watch out for  : All 16 categories in the right order.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: adult_conv_003
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: adult
+data_file: data/adult_dev.csv
+transformation_type: type_conversion
+difficulty: hard                      # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Make education an ordered category that follows the education-num order, from Preschool (lowest) to Doctorate (highest).
+assumptions:
+  - "The order is the order of education-num (1 = Preschool … 16 = Doctorate)."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      order = ["Preschool", "1st-4th", "5th-6th", "7th-8th", "9th", "10th", "11th", "12th", "HS-grad", "Some-college", "Assoc-voc", "Assoc-acdm", "Bachelors", "Masters", "Prof-school", "Doctorate"]
+      out = df.copy()
+      out["education"] = pd.Categorical(out["education"], categories=order, ordered=True)
+      return out
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: column_dtype, target: education, dtype: category, ordered: true, categories: [Preschool, 1st-4th, 5th-6th, 7th-8th, 9th, 10th, 11th, 12th, HS-grad, Some-college, Assoc-voc, Assoc-acdm, Bachelors, Masters, Prof-school, Doctorate]}
+  must_preserve:
+    - {id: p1, type: column_values_unchanged, target: education}
+    - {id: p2, type: null_count, target: education, op: unchanged}
+    - {id: p3, type: columns_unchanged, target: "*", except: [education]}
+    - {id: p4, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 1000
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Uses alphabetical order → c1 fails."
+  - "Creates an unordered category → c1 fails."
+  - "Misspells a level so it becomes NaN → p1, p2 fail."
+  - "Replaces education with education-num values → c1, p1 fail."
+notes: ""

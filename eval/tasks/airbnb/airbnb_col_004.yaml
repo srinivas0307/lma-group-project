@@ -1,0 +1,62 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Add availability_ratio = availability_365 divided by 365.
+# Snapshot facts : availability_365 ranges 0..365.   (profiled from data/airbnb_dev.csv; re-check when you write the task)
+# Watch out for  : Integer division or rounding are silent errors.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: airbnb_col_004
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: airbnb
+data_file: data/airbnb_dev.csv
+transformation_type: column_transformation
+difficulty: easy                      # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Add availability_ratio: the number of available days divided by 365.
+assumptions:
+  - "Exact division, no rounding; new column name is availability_ratio."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      out = df.copy()
+      out["availability_ratio"] = out["availability_365"] / 365
+      return out
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: columns_added, target: [availability_ratio]}
+    - id: c2
+      type: column_value_relation
+      target: availability_ratio
+      fn: div
+      args: [{col: availability_365}, {lit: 365}]
+      atol: 1.0e-9
+  must_preserve:
+    - {id: p1, type: columns_unchanged, target: "*", except: []}
+    - {id: p2, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 1000
+  columns_added: [availability_ratio]
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Uses integer division (//) → c2 fails."
+  - "Rounds the ratio → c2 fails."
+  - "Overwrites availability_365 → c1, p1 fail."
+notes: ""

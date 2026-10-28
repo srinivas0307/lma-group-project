@@ -1,0 +1,56 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Remove duplicates on age, education, marital-status, occupation, relationship, race and sex; keep the first.
+# Snapshot facts : 71 duplicates on that key.   (profiled from data/adult_dev.csv; re-check when you write the task)
+# Watch out for  : Seven-column key; missing one column changes the count.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: adult_dedup_005
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: adult
+data_file: data/adult_dev.csv
+transformation_type: deduplication
+difficulty: hard                      # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Remove duplicates based on age, education, marital-status, occupation, relationship, race and sex. Keep the first record of each group.
+assumptions:
+  - "Missing occupation values count as equal to each other."
+  - "'First' means earliest in the original row order."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      keys = ["age", "education", "marital-status", "occupation", "relationship", "race", "sex"]
+      return df.drop_duplicates(subset=keys, keep="first").copy()
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: duplicate_count, target: [age, education, marital-status, occupation, race, relationship, sex], op: eq, value: 0, keep: first}
+    - {id: c2, type: row_count, target: null, op: decreased}
+  must_preserve:
+    - {id: p1, type: columns_unchanged, target: "*", except: []}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 929
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Leaves out one of the seven key columns → c1 fails."
+  - "Uses education-num instead of education → passes (same grouping); acceptable."
+  - "keep='last' → c1 fails."
+notes: ""

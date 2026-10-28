@@ -1,0 +1,61 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Remove people whose education is Preschool or 1st-4th.
+# Snapshot facts : 9 rows match.   (profiled from data/adult_dev.csv; re-check when you write the task)
+# Watch out for  : Filtering on education-num instead is equivalent only if done exactly; check both.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: adult_filt_004
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: adult
+data_file: data/adult_dev.csv
+transformation_type: filtering
+difficulty: medium                    # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Remove the people whose education level is Preschool or 1st-4th.
+assumptions:
+  - "Matches the education column exactly; no other education levels are removed."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      return df[~df["education"].isin(["Preschool", "1st-4th"])].copy()
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - id: c1
+      type: rows_removed_where
+      target: null
+      condition: {column: education, op: in, value: [1st-4th, Preschool]}
+    - {id: c2, type: row_count, target: null, op: decreased}
+  must_preserve:
+    - id: p1
+      type: rows_retained_where
+      target: null
+      condition: {column: education, op: not_in, value: [1st-4th, Preschool]}
+    - {id: p2, type: columns_unchanged, target: "*", except: []}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 991
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Uses education-num <= 3 (also removes 5th-6th) → p1 fails."
+  - "Removes only one of the two levels → c1 fails."
+  - "Misspells a level (e.g. '1st-4th ' with a space) so it matches nothing → c1 fails."
+notes: ""

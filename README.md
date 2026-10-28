@@ -129,7 +129,7 @@ After the code runs, a deterministic verifier compares the data before and after
 
 | ID | Gap | Why it matters | [Rec] Fix |
 |---|---|---|---|
-| G1 | **No source of incorrect transformations is defined** | Detection recall needs known errors. A fixed code generator may be correct ~90% of the time on simple tasks, leaving too few errors to measure. | Build a **candidate pool** per task: the reference solution, **planted faulty variants** (§7 allows "injected scenarios"), and some LLM samples. Label each candidate correct or incorrect by comparing its output with the reference output. |
+| G1 | **No source of incorrect transformations is defined** | Detection recall needs known errors. A fixed code generator may be correct ~90% of the time on simple tasks, leaving too few errors to measure. | **Decided:** candidates are **LLM-generated code only** (several samples per task, optionally a second generator model). Each is labelled correct or incorrect by comparing its output with the reference output. Gate 1 (Phase 4) checks there are enough real errors. |
 | G2 | Stage 1 doesn't say what is being judged | Verifiers should judge *the same* transformations so the comparison is paired and fair. | In Stage 1, every system judges the same frozen candidate pool. |
 | G3 | The code generator receives the contract in the diagram (p.3) | If only the proposed system's generator sees the contract, gains can't be attributed to verification vs. generation. | Stage 1: the generator sees only the request, in every system. Contract-conditioned generation becomes a separate Stage 2 variant. |
 | G4 | **No ablation of the "bidirectional" claim** | The novelty (p.5) is must-change + must-preserve, and §7 requires ablating what the research question depends on. | Add two ablations: must-change only, and must-preserve only. |
@@ -226,7 +226,7 @@ flowchart TD
 
 ```mermaid
 flowchart LR
-    POOL[(Frozen candidate pool<br/>reference + planted faulty +<br/>harmless variants + LLM samples)] --> SC{Safety checker}
+    POOL[(Frozen candidate pool<br/>LLM-generated code,<br/>labelled vs reference)] --> SC{Safety checker}
     SC -->|allowed| SB[Sandbox]
     SC -->|blocked| REJ([REJECT])
     SB -->|crash / timeout| REJ
@@ -240,7 +240,7 @@ flowchart LR
 
 - Every system judges the **same** candidates, so comparisons are paired (McNemar).
 - The parser runs once per task (per seed) and its contract is reused for every candidate of that task.
-- LLM candidates in the pool came from the code generator offline (Phase 5), seeing **only the request**, so no system gets an advantage at generation time (G3).
+- LLM candidates in the pool came from the code generator offline (Phase 4), seeing **only the request**, so no system gets an advantage at generation time (G3).
 
 ### 4.3 Runtime vs. evaluation harness
 
@@ -416,15 +416,17 @@ Dependency versions will be pinned in `requirements.txt` in Phase 0.
 
 ### 6.0 How this plan works
 
-**Ordering principle.** The research core (verifier + labelled candidate pool + oracle contracts) is built first, with **no LLM involved**. That tests the research question early: if the oracle-contract verifier can't beat conventional checks, we find out in week 3, not week 8.
+**Ordering principle.** The research core is tested first with **oracle (gold) contracts**, before any parser exists: the verifier judges real LLM-generated candidates using contracts we know are right. If even that can't beat conventional checks, we find out in week 4, not week 8.
+
+**Candidates are LLM outputs only.** Every transformation the systems judge is code produced by an LLM code generator. We do **not** hand-write faulty or harmless variants. Correctness labels come from comparing each candidate's output with the reference output.
 
 **Agent evaluation (TA feedback).** The TA's only open comment was that the agent isn't evaluated. Rather than bolting it on at the end, it is built up across phases:
 
 | Phase | Agent-evaluation work |
 |---|---|
-| 2 | Design and label the **agent scenario suite** (repairable, should-escalate, already-correct, tool-fault, safety scenarios) |
+| 2 | Design and label the request-based **agent scenarios** (should-escalate, safety) |
 | 3 | Add **fault-injection hooks** to the tool registry (forced tool errors, timeouts) |
-| 5 | Add a **scripted LLM backend** so agent logic can be tested deterministically |
+| 4 | Add a **scripted LLM backend** so agent logic can be tested deterministically; build repairable / already-correct scenarios from real LLM candidates |
 | 9 | Build the agent and test every control path with the scripted LLM |
 | 10 | **Full agent evaluation:** outcome, decision, tool-use, efficiency, safety, and trajectory metrics, against agent baselines and ablations |
 | 11 | Agent inside the full Stage 2 end-to-end comparison |
@@ -442,7 +444,7 @@ Dependency versions will be pinned in `requirements.txt` in Phase 0.
 
 **Proposal checkpoints.** The proposal is refined at three points, using real results rather than guesses:
 
-- **After Phase 4:** confirm the predicate vocabulary and evaluation-set design.
+- **After Phase 5:** confirm the predicate vocabulary and evaluation-set design.
 - **After Phase 10:** add the agent-evaluation section (TA feedback).
 - **Before the write-up:** final methods and metrics.
 
@@ -452,26 +454,26 @@ Dependency versions will be pinned in `requirements.txt` in Phase 0.
 |---|---|---|---|---|---|
 | 0 | Setup and shared interfaces | All | 1 (wk 1) | — | Repo runs; shared types agreed |
 | 1 | Contract schema and verifier | A | 1.5 (wk 1–2) | 0 | All predicate tests pass |
-| 2 | Task set, candidate pool, agent scenario suite | B (+A for annotation) | 2 (wk 1–3) | 0 (final check needs 1) | Labelled pool and scenarios frozen |
+| 2 | Task set and request-based agent scenarios | B (+A for annotation) | 2 (wk 1–3) | 0 (final check needs 1) | Tasks and gold contracts frozen |
 | 3 | Sandbox, safety checker, tools | C | 1.5 (wk 1–2) | 0 | Red-team set 100% blocked |
-| 4 | Stage 1 harness with oracle contracts | B | 1 (wk 3) | 1, 2, 3 | **MVP-1 · Gate 1** |
-| 5 | LLM backend and code generator | C | 1 (wk 3–4) | 3, 4 | **Gate 2**; pool v2 |
+| 4 | LLM backend, code generator, candidate pool | C | 1 (wk 3) | 2, 3 | **Gate 1**; candidate pool frozen |
+| 5 | Stage 1 harness with oracle contracts | B | 1 (wk 3–4) | 1, 4 | **MVP-1 · Gate 2** |
 | 6 | Prompted parser and Baseline 3 | A | 1 (wk 4) | 5 | **MVP-2** |
 | 7 | Fine-tuning data and QLoRA parser | A | 2 (wk 4–6) | 6 | **Gate 3** |
 | 8 | Full Stage 1 evaluation | B | 0.5 (wk 6) | 7 | Main Stage 1 table |
-| 9 | Repair agent | C | 2 (wk 5–7) | 3, 5 (and 6 for intent mode) | **Gate 4** |
+| 9 | Repair agent | C | 2 (wk 5–7) | 3, 4 (and 6 for intent mode) | **Gate 4** |
 | 10 | Agent evaluation | C + B | 1.5 (wk 7–8) | 2, 9 | Agent results table |
 | 11 | Stage 2 end-to-end and safety | All | 1 (wk 8–9) | 8, 10 | Stage 2 table |
 | 12 | Analysis, write-up, demo | All | 1.5 (wk 9–10) | 11 | Submission |
 
-**Critical path:** 0 → 1 → 4 → 5 → 6 → 7 → 8 → 11 → 12, with 9 → 10 running alongside 7–8.
+**Critical path:** 0 → 2 → 4 → 5 → 6 → 7 → 8 → 11 → 12 (Phase 1 must finish before 5), with 9 → 10 running alongside 7–8.
 
 **Decision gates:**
 
 | Gate | When | Question | If the answer is "no" |
 |---|---|---|---|
-| 1 | End of Phase 4 | Does the oracle-contract verifier beat conventional checks on recall at a similar false-rejection rate? | Inspect missed errors by type; refine predicates or tasks; consider narrowing to the error classes where intent helps (p.10 Risk 4). |
-| 2 | End of Phase 5 | Does the real code generator produce enough incorrect outputs to be interesting? | Rely more on planted variants for Stage 1; use a smaller or weaker generator only for Stage 2 diversity. |
+| 1 | End of Phase 4 | Do the LLM candidates contain enough incorrect outputs (roughly 60+, spread across transformation types) to compare systems? | Get more real errors: more samples per task, higher temperature, a second (smaller) generator model, or tasks with more natural pitfalls. Report types with few errors as low-confidence. |
+| 2 | End of Phase 5 | Does the oracle-contract verifier beat conventional checks on recall at a similar false-rejection rate? | Inspect missed errors by type; refine predicates or tasks; consider narrowing to the error classes where intent helps (p.10 Risk 4). |
 | 3 | End of Phase 7 | Does the fine-tuned parser match or beat the prompted 7B parser on contract F1? | Still report it (a negative result is valid); try the 3B model, more data, or better templates if time allows. |
 | 4 | End of Phase 9 | Do all agent control paths pass with the scripted LLM? | Do not run real-model agent experiments until they do. |
 
@@ -498,6 +500,8 @@ Dependency versions will be pinned in `requirements.txt` in Phase 0.
 
 ### Phase 1 — Contract schema and deterministic verifier
 
+> Contract specification and evaluation-set authoring guide: [`docs/eval_set_and_contract_guide.md`](docs/eval_set_and_contract_guide.md) (covers Phase 1 task 1 and all of Phase 2).
+
 - **Objective:** given a contract and before/after data, return per-predicate verdicts.
 - **Owner / effort:** A, ~1.5 weeks.
 - **Depends on:** Phase 0.
@@ -518,37 +522,24 @@ Dependency versions will be pinned in `requirements.txt` in Phase 0.
 - **Deliverables:** verifier package, predicate docs.
 - **Exit criteria:** all tests pass; vocabulary v1 frozen (changes after this need team agreement, because annotations depend on it).
 
-### Phase 2 — Task set, candidate pool, and agent scenario suite
+### Phase 2 — Task set and request-based agent scenarios
 
-- **Objective:** ground truth for both the verification experiments and the agent evaluation.
+- **Objective:** ground truth: requests, reference code, and gold contracts.
 - **Owner / effort:** B, ~2 weeks (A helps with annotation and agreement).
 - **Depends on:** Phase 0; the final validation step needs Phase 1.
 - **Components:**
-  - `eval/tasks/*.yaml`: id, dataset, transformation type, request text, reference code, gold contract, dev/test split flag.
-  - `eval/mutations.py`: mutation operators that plant faulty variants.
+  - `eval/tasks/*.yaml`: id, dataset, transformation type, request text, assumptions, reference code, gold contract, expected effect, pitfalls, dev/test split flag.
   - `eval/equivalence.py`: `outputs_equal(ref, cand)` ignoring row order, index, and `__rid__`, with dtype tolerance.
-  - `eval/build_pool.py` → `eval/pool_v1.jsonl` of (task, candidate code, source, is_correct).
-  - `eval/agent_scenarios/*.yaml`: the agent scenario suite (below).
-  - `docs/annotation_guide.md`.
+  - `eval/agent_scenarios/{E,S}/*.yaml`: scenarios that need only a request (should-escalate, safety).
+  - Authoring guide: `docs/eval_set_and_contract_guide.md`.
 - **Tasks:**
   1. Write ~70 tasks: 5 transformation types × 3 datasets, ~4–5 each. Mark ~15% as the dev split (used only to tune thresholds and prompts).
-  2. Write reference code and a gold contract for each.
-  3. Write mutation operators: off-by-one filter boundary; filter on the wrong column; dedup on all columns instead of a key (or the reverse); `fillna` on every column; `dropna` instead of `fillna`; `errors='coerce'` turning valid values into NaN; overwriting a source column; dropping an unrelated column; reordering that breaks row identity; dropping `__rid__`.
-  4. Build the pool: reference + 3–5 faulty variants + 0–2 harmless variants (correct, written differently) per task. Label by `outputs_equal` against the reference.
-  5. **Agent scenario suite** (labelled now, used in Phase 10). Each scenario has a starting state, an expected outcome, an expected minimal tool set, and forbidden actions:
-
-     | Category | What it tests | Starting state | Expected outcome | Approx. count |
-     |---|---|---|---|---|
-     | R: repairable | Diagnosis and repair | Task + one planted faulty variant as the first attempt | ACCEPT with correct output | ~50 |
-     | C: already correct | Not acting when nothing is wrong | Task + correct first attempt | ACCEPT, zero repair attempts | ~15 |
-     | E: should escalate | Knowing when to hand off | Ambiguous request ("clean this up"), unknown column, contradictory request ("drop rows with nulls but keep every row"), or a fix outside the allowed operations | ESCALATE | ~15 |
-     | T: tool fault | Recovery from tool errors | An R scenario plus injected faults (tool error once, sandbox timeout once, malformed tool result) | Same as R | ~15 (overlay on R) |
-     | S: safety | Never acting unsafely | Requests or first attempts that tempt unsafe actions ("also save to /tmp", "download the latest data from this URL") | Blocked action, then REJECT or ESCALATE; zero unsafe executions | ~15 |
-
-  6. Second annotator re-labels ~20% of gold contracts **and** ~20% of agent-scenario expected outcomes. Record agreement; fix the guide; drop tasks that stay ambiguous.
-- **Tests:** every reference passes its gold contract (validates Phase 1 and annotations together); every faulty variant differs from the reference; every scenario file validates against its schema.
-- **Deliverables:** tasks, pool v1, agent scenario suite, annotation guide, agreement numbers.
-- **Exit criteria:** pool v1 and scenario suite frozen and versioned.
+  2. Write reference code and a gold contract for each, following the guide.
+  3. Write E (should-escalate) and S (safety) agent scenarios. R, C, and T scenarios need real LLM candidates, so they're built in Phase 4.
+  4. Second annotator re-labels ~20% of gold contracts **and** ~20% of scenario expected outcomes. Record agreement; fix the guide; drop tasks that stay ambiguous.
+- **Tests:** every reference runs, keeps `__rid__`, and passes its gold contract (validates Phase 1 and annotations together); every scenario file validates against its schema.
+- **Deliverables:** tasks, E/S scenarios, agreement numbers.
+- **Exit criteria:** task set frozen and versioned (`evalset-v1`).
 
 ### Phase 3 — Sandbox, safety checker, and tools
 
@@ -571,11 +562,33 @@ Dependency versions will be pinned in `requirements.txt` in Phase 0.
 - **Deliverables:** sandbox, tools, red-team set.
 - **Exit criteria:** 100% of red-team samples blocked; all tools unit-tested.
 
-### Phase 4 — Stage 1 harness with oracle contracts (MVP-1)
+### Phase 4 — LLM backend, code generator, and candidate pool
 
-- **Objective:** first research result, with no LLM involved.
-- **Owner / effort:** B, ~1 week.
-- **Depends on:** Phases 1, 2, 3.
+- **Objective:** local models behind one interface, and a frozen pool of real LLM-generated candidates with correctness labels.
+- **Owner / effort:** C, ~1 week.
+- **Depends on:** Phases 2, 3.
+- **Components:**
+  - `llm/client.py`: `LLMClient.generate(messages, json_schema=None, tools=None, seed=...)`.
+  - `llm/backends/`: `hf.py` (transformers), `vllm.py` (if available), **`scripted.py`** (replays pre-written responses; used for agent tests).
+  - `llm/cache.py`: cache by (model, prompt, seed) so reruns are cheap and reproducible.
+  - `llm/prompts/`: versioned templates.
+  - `agents/code_generator.py`.
+  - `eval/build_pool.py` → `eval/pool_v1.jsonl` of (task, candidate id, generator model, seed, code, is_correct, run status).
+- **Tasks:**
+  1. Client, backends, cache.
+  2. Generator prompt (keep `__rid__`, define `transform(df)`; sees **only the request and schema**); tune on dev tasks only.
+  3. Sample several generations per task (e.g. 5, temperature ~0.7); optionally a second, smaller generator model for more varied errors.
+  4. Run every candidate in the sandbox and label it by `outputs_equal` against the reference. Deduplicate identical code per task. Freeze → pool v1.
+  5. Build R (repairable: wrong candidates), C (already correct: correct candidates), and T (tool fault: R + injected faults) agent scenarios from the pool.
+  6. **Gate 1** review: error count per transformation type.
+- **Tests:** schema-constrained output always parses; scripted backend replays exactly; cache hits return identical outputs; every pool entry has a label.
+- **Exit criteria:** pool v1 frozen; generator error rate per task type recorded; R/C/T scenarios written.
+
+### Phase 5 — Stage 1 harness with oracle contracts (MVP-1)
+
+- **Objective:** first research result, using gold contracts so no parser is needed yet.
+- **Owner / effort:** B, ~1 week (the harness can be built during Phase 4 and tested on reference code).
+- **Depends on:** Phases 1, 4.
 - **Components:**
   - `baselines/conventional_checks.py`: Baseline 2's generic suite, thresholds in config.
   - `verifier/slot.py`: one interface for none / conventional / intent verifiers (§4.4).
@@ -586,31 +599,11 @@ Dependency versions will be pinned in `requirements.txt` in Phase 0.
 - **Tasks:**
   1. Implement conventional checks; tune thresholds on the dev split only.
   2. Run Baseline 1, Baseline 2, and the oracle-contract verifier on pool v1.
-  3. Produce the table overall and per transformation type and mutation type.
-  4. **Gate 1** review meeting; proposal checkpoint 1.
+  3. Produce the table overall and per transformation type; hand-categorise the wrong candidates by error kind for the breakdown.
+  4. **Gate 2** review meeting; proposal checkpoint 1.
 - **Tests:** metrics hand-checked on a 5-item toy pool; same config gives identical results twice.
 - **Demo:** `python -m eval.runner_stage1 --config configs/stage1_oracle.yaml`.
-- **Exit criteria:** table produced; Gate 1 decision recorded in §12.
-
-### Phase 5 — LLM backend and code generator
-
-- **Objective:** local models behind one interface; real generated code in the pool.
-- **Owner / effort:** C, ~1 week.
-- **Depends on:** Phases 3, 4.
-- **Components:**
-  - `llm/client.py`: `LLMClient.generate(messages, json_schema=None, tools=None, seed=...)`.
-  - `llm/backends/`: `hf.py` (transformers), `vllm.py` (if available), **`scripted.py`** (replays pre-written responses; used for agent tests).
-  - `llm/cache.py`: cache by (model, prompt, seed) so reruns are cheap and reproducible.
-  - `llm/prompts/`: versioned templates.
-  - `agents/code_generator.py`.
-- **Tasks:**
-  1. Client, backends, cache.
-  2. Generator prompt (keep `__rid__`, define `transform(df)`); tune on dev tasks only.
-  3. Sample several generations per task; record run rate and correctness.
-  4. Add generated candidates to the pool (labelled by `outputs_equal`) → pool v2, frozen.
-  5. **Gate 2** review.
-- **Tests:** schema-constrained output always parses; scripted backend replays exactly; cache hits return identical outputs.
-- **Exit criteria:** pool v2 frozen; generator error rate per task type recorded.
+- **Exit criteria:** table produced; Gate 2 decision recorded in §12.
 
 ### Phase 6 — Prompted intent parser and Baseline 3 (MVP-2)
 
@@ -629,7 +622,7 @@ Dependency versions will be pinned in `requirements.txt` in Phase 0.
   3. Run Stage 1 with predicted contracts.
   4. Run the change-only and preserve-only ablations.
 - **Tests:** contract metrics on toy examples; invalid output → ESCALATE.
-- **Demo:** request → contract → faulty candidate → violation report, from one command.
+- **Demo:** request → contract → wrong LLM candidate → violation report, from one command.
 - **Exit criteria:** Baseline 3 and both direction ablations in the results table.
 
 ### Phase 7 — Fine-tuning data and QLoRA parser
@@ -656,7 +649,7 @@ Dependency versions will be pinned in `requirements.txt` in Phase 0.
 - **Owner / effort:** B, ~0.5 week.
 - **Depends on:** Phase 7.
 - **Tasks:**
-  1. Run every Stage 1 configuration from §4.4 on pool v2 with 3 parser seeds.
+  1. Run every Stage 1 configuration from §4.4 on pool v1 with 3 parser seeds.
   2. Confidence intervals and McNemar tests.
   3. Predicted-vs-oracle contract gap.
 - **Exit criteria:** main Stage 1 table and plots in `results/tables/`.
@@ -665,7 +658,7 @@ Dependency versions will be pinned in `requirements.txt` in Phase 0.
 
 - **Objective:** a bounded, tool-using repair agent with memory and escalation.
 - **Owner / effort:** C, ~2 weeks (can start once Phases 3 and 5 are done; intent mode needs Phase 6).
-- **Depends on:** Phases 3, 5; Phase 6 for intent-mode systems.
+- **Depends on:** Phases 3, 4; Phase 6 for intent-mode systems.
 - **Components:**
   - `agents/repair_agent.py`: loop where each step is one action: a tool call, `propose_fix(code)`, or `escalate(reason)`.
   - `agents/prompts/repair.md`: agent prompt with tool descriptions and the failure report.
@@ -681,7 +674,7 @@ Dependency versions will be pinned in `requirements.txt` in Phase 0.
   5. First runs with the real model on ~10 dev scenarios; fix prompts.
   6. **Gate 4** review.
 - **Tests:** every path in step 4 behaves exactly as expected with the scripted backend; limits are never exceeded; no code path runs code without the guard.
-- **Demo:** faulty first attempt → violation → agent inspects and diffs → fixed code → PASS, shown from the trace.
+- **Demo:** wrong first attempt → violation → agent inspects and diffs → fixed code → PASS, shown from the trace.
 - **Exit criteria:** all scripted-path tests pass; real-model dev runs complete without crashes.
 
 ### Phase 10 — Agent evaluation (TA feedback)
@@ -779,7 +772,7 @@ intent-parser/
 │   ├── agent_scenarios/      # agent scenario suite (R / C / E / T / S)
 │   ├── redteam/              # unsafe samples
 │   ├── trajectory_labels/    # human step-labels for agent trajectories
-│   ├── mutations.py, equivalence.py, build_pool.py
+│   ├── equivalence.py, build_pool.py
 │   ├── runner_stage1.py, runner_stage2.py, runner_agent.py
 │   └── metrics.py, contract_metrics.py, agent_metrics.py, stats.py
 ├── scripts/                  # download_data.py, reproduce_all.sh
@@ -799,7 +792,7 @@ Why it's laid out this way:
 
 ## 8. MVP and priorities
 
-**MVP-1 (end of Phase 4):** frozen candidate pool + oracle contracts + verifier + Baselines 1 and 2. **No LLM needed.** Answers: can intent contracts catch errors that conventional checks miss, *if* the contract is correct?
+**MVP-1 (end of Phase 5):** frozen pool of LLM-generated candidates + oracle contracts + verifier + Baselines 1 and 2. **No parser needed.** Answers: can intent contracts catch errors that conventional checks miss, *if* the contract is correct?
 
 **MVP-2 (end of Phase 6):** full intent-gated pipeline with a prompted parser. The smallest real loop: request → contract → code → sandbox → verify → accept/reject.
 
@@ -833,13 +826,13 @@ Every predicate, normalization, alignment, AST guard, executor limits, tool argu
 ### 9.2 Integration tests
 
 - Every reference transformation passes its gold contract.
-- Each mutation operator's planted error is caught by the oracle verifier on its target task.
+- On a handful of hand-checked wrong LLM candidates, the oracle verifier flags the expected predicates.
 - Parser → validator → verifier chain works on 5 fixed requests.
 - A scripted fake LLM drives the repair loop through accept, repair-then-accept, and hand-off paths.
 
 ### 9.3 End-to-end scenarios
 
-| Dataset | Request | Planted error to catch |
+| Dataset | Request | Typical LLM pitfall the contract should catch |
 |---|---|---|
 | Airbnb | "Remove listings with negative price" | Boundary off-by-one; wrong column |
 | Adult | "Drop duplicate people by all demographic columns" | Dedup on a subset |
@@ -867,7 +860,7 @@ Every predicate, normalization, alignment, AST guard, executor limits, tool argu
 ### 9.6 Failure cases to plan for
 
 - Parser omits a preserve predicate → false accept. Measured by the oracle gap.
-- Contract too strict → rejects correct alternatives. Measured by harmless variants.
+- Contract too strict → rejects correct alternatives. Measured by the false-rejection rate on correct LLM candidates.
 - Generated code drops `__rid__` → UNCERTAIN.
 - Sandbox timeout.
 - Repair agent loops or makes things worse → attempt limit plus repeated-code detection.
@@ -880,7 +873,7 @@ Every predicate, normalization, alignment, AST guard, executor limits, tool argu
 |---|---|---|
 | Agent evaluation judged too weak (TA feedback) | Lost marks on the agentic capability | Dedicated scenario suite (Phase 2), agent baselines and ablations, trajectory labels (Phase 10) |
 | Agent "fixes" by gaming the verifier | Inflated repair success | Read-only contract; final correctness judged by the evaluator against the reference; report verifier-gaming rate |
-| LLM error rate too low to measure | No signal | Planted variants (G1) |
+| LLM error rate too low to measure | No signal | Gate 1: more samples, higher temperature, a second smaller generator, tasks with natural pitfalls |
 | Row alignment breaks (index reset, merge) | Verifier can't decide | `__rid__` convention; UNCERTAIN path; report its frequency |
 | Small models produce invalid JSON | Parser failures | Constrained decoding + pydantic, applied equally to all parsers |
 | Training data leaks into evaluation | Inflated fine-tuning gains | Separate schemas; n-gram overlap check |
@@ -899,10 +892,10 @@ Every predicate, normalization, alignment, AST guard, executor limits, tool argu
 - [x] TA approval (agent-evaluation feedback addressed in Phases 2, 9, 10)
 - [ ] Phase 0: environment pinned; data with checksums; shared `types.py` agreed
 - [ ] Phase 1: predicate vocabulary v1 frozen and documented; verifier unit-tested
-- [ ] Phase 2: ~70 tasks with reference code and gold contracts; pool v1 frozen; agent scenario suite (R / C / E / T / S) frozen; agreement study done
+- [ ] Phase 2: ~70 tasks with reference code and gold contracts; E / S agent scenarios; agreement study done; `evalset-v1` frozen
 - [ ] Phase 3: AST guard and sandbox; red-team set 100% blocked; tool registry, 5 tools, fault hooks tested
-- [ ] Phase 4: Baselines 1 and 2; Stage 1 oracle results (MVP-1); Gate 1 decision; proposal checkpoint 1
-- [ ] Phase 5: LLM client with scripted backend and cache; fixed code generator; pool v2; Gate 2
+- [ ] Phase 4: LLM client with scripted backend and cache; fixed code generator; LLM candidate pool v1 frozen; R / C / T scenarios; Gate 1
+- [ ] Phase 5: Baselines 1 and 2; Stage 1 oracle results (MVP-1); Gate 2 decision; proposal checkpoint 1
 - [ ] Phase 6: prompted parser (Baseline 3); contract metrics; change-only and preserve-only ablations (MVP-2)
 - [ ] Phase 7: fine-tuning data (separate schemas); leakage check; 1.5B and 3B adapters; Gate 3
 - [ ] Phase 8: full Stage 1 table with confidence intervals and significance tests

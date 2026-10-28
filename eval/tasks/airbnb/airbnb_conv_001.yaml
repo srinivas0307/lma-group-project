@@ -1,0 +1,62 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Convert last_review to a datetime column.
+# Snapshot facts : All non-null values are ISO YYYY-MM-DD; 41 nulls must stay null.   (profiled from data/airbnb_dev.csv; re-check when you write the task)
+# Watch out for  : errors='coerce' or dropna would change null_count / row_count.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: airbnb_conv_001
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: airbnb
+data_file: data/airbnb_dev.csv
+transformation_type: type_conversion
+difficulty: medium                    # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Convert last_review into a proper date column. The dates are written in YYYY-MM-DD format (for example 2019-05-21).
+assumptions:
+  - "Dates are in ISO format YYYY-MM-DD; listings with no review date stay missing."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      out = df.copy()
+      out["last_review"] = pd.to_datetime(out["last_review"], format="%Y-%m-%d")
+      return out
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: column_dtype, target: last_review, dtype: datetime}
+  must_preserve:
+    - id: p1
+      type: column_value_relation
+      target: last_review
+      fn: cast
+      args: [{col: last_review}, {lit: datetime}]
+    - {id: p2, type: null_count, target: last_review, op: unchanged}
+    - {id: p3, type: columns_unchanged, target: "*", except: [last_review]}
+    - {id: p4, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 1000
+  columns_added: []
+  columns_removed: []
+  cells_changed: 959
+
+# ---------- notes ----------
+pitfalls:
+  - "Parses with dayfirst=True or a wrong format (day/month swapped) → p1 fails."
+  - "Drops listings with no review date first → p2, p4 fail."
+  - "Fills missing dates with a placeholder before converting → p2 fails."
+notes: ""

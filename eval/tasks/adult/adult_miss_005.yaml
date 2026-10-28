@@ -1,0 +1,78 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Fill missing workclass and occupation with 'Not-working'.
+# Snapshot facts : 62 nulls in each, same rows.   (profiled from data/adult_dev.csv; re-check when you write the task)
+# Watch out for  : Two columns; native-country nulls (18) must stay.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: adult_miss_005
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: adult
+data_file: data/adult_dev.csv
+transformation_type: missing_values
+difficulty: hard                      # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  People with no workclass and no occupation listed are not working. Fill both missing workclass and missing occupation with 'Not-working'.
+assumptions:
+  - "Both columns are filled with exactly 'Not-working'; native-country keeps its missing values."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      out = df.copy()
+      out["workclass"] = out["workclass"].fillna("Not-working")
+      out["occupation"] = out["occupation"].fillna("Not-working")
+      return out
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - id: c1
+      type: column_value_relation
+      target: workclass
+      where: {column: workclass, op: is_null}
+      fn: const
+      args: [{lit: Not-working}]
+    - {id: c2, type: null_count, target: workclass, op: eq, value: 0}
+    - id: c3
+      type: column_value_relation
+      target: occupation
+      where: {column: occupation, op: is_null}
+      fn: const
+      args: [{lit: Not-working}]
+    - {id: c4, type: null_count, target: occupation, op: eq, value: 0}
+  must_preserve:
+    - id: p1
+      type: column_values_unchanged
+      target: workclass
+      where: {column: workclass, op: not_null}
+    - id: p2
+      type: column_values_unchanged
+      target: occupation
+      where: {column: occupation, op: not_null}
+    - {id: p3, type: columns_unchanged, target: "*", except: [workclass, occupation]}
+    - {id: p4, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 1000
+  columns_added: []
+  columns_removed: []
+  cells_changed: 124
+
+# ---------- notes ----------
+pitfalls:
+  - "df.fillna('Not-working') → also fills native-country → p3 fails."
+  - "Fills only one of the two columns → c1/c2 or c3/c4 fail."
+  - "Drops these rows → p4 fails."
+notes: ""

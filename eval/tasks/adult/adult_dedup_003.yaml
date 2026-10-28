@@ -1,0 +1,55 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : fnlwgt should identify a record; remove repeats of the same fnlwgt, keeping the first.
+# Snapshot facts : 13 duplicate fnlwgt values.   (profiled from data/adult_dev.csv; re-check when you write the task)
+# Watch out for  : Single-column key.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: adult_dedup_003
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: adult
+data_file: data/adult_dev.csv
+transformation_type: deduplication
+difficulty: medium                    # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  fnlwgt should identify a record, so remove repeated fnlwgt values and keep the first record for each.
+assumptions:
+  - "'First' means earliest in the original row order."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      keys = ["fnlwgt"]
+      return df.drop_duplicates(subset=keys, keep="first").copy()
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: duplicate_count, target: [fnlwgt], op: eq, value: 0, keep: first}
+    - {id: c2, type: row_count, target: null, op: decreased}
+  must_preserve:
+    - {id: p1, type: columns_unchanged, target: "*", except: []}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 987
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "keep='last' → c1 fails."
+  - "Removes every record whose fnlwgt is repeated (keep=False) → c1 fails."
+  - "Deduplicates on all columns → nothing removed → c1, c2 fail."
+notes: ""

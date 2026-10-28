@@ -1,0 +1,63 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Add is_married: 'Married' for Married-civ-spouse, Married-spouse-absent, Married-AF-spouse; 'Not married' otherwise.
+# Snapshot facts : 7 marital-status values; list all 7 in the map.   (profiled from data/adult_dev.csv; re-check when you write the task)
+# Watch out for  : New column; marital-status itself unchanged.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: adult_col_005
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: adult
+data_file: data/adult_dev.csv
+transformation_type: column_transformation
+difficulty: hard                      # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Add a column is_married: 'Married' for Married-civ-spouse, Married-spouse-absent and Married-AF-spouse, and 'Not married' for everyone else.
+assumptions:
+  - "All seven marital-status values are mapped; marital-status itself is unchanged."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      married = {"Married-civ-spouse", "Married-spouse-absent", "Married-AF-spouse"}
+      out = df.copy()
+      out["is_married"] = out["marital-status"].map(lambda v: "Married" if v in married else "Not married")
+      return out
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: columns_added, target: [is_married]}
+    - id: c2
+      type: column_value_relation
+      target: is_married
+      fn: map
+      args: [{col: marital-status}, {lit: {Divorced: Not married, Married-AF-spouse: Married, Married-civ-spouse: Married, Married-spouse-absent: Married, Never-married: Not married, Separated: Not married, Widowed: Not married}}]
+  must_preserve:
+    - {id: p1, type: columns_unchanged, target: "*", except: []}
+    - {id: p2, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 1000
+  columns_added: [is_married]
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Uses str.startswith('Married') → passes (same result); acceptable."
+  - "Treats only Married-civ-spouse as married → c2 fails."
+  - "Writes True/False instead of the two labels → c2 fails."
+  - "Overwrites marital-status → c1, p1 fail."
+notes: ""

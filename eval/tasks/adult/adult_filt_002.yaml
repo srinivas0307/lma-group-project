@@ -1,0 +1,60 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Remove records with more than 60 working hours per week.
+# Snapshot facts : 26 rows > 60; 47 rows are exactly 60.   (profiled from data/adult_dev.csv; re-check when you write the task)
+# Watch out for  : Must keep the rows at exactly 60.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: adult_filt_002
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: adult
+data_file: data/adult_dev.csv
+transformation_type: filtering
+difficulty: medium                    # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Drop the records of people who work more than 60 hours a week.
+assumptions:
+  - "'More than 60' is strict: exactly 60 hours is kept."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      return df[df["hours-per-week"] <= 60].copy()
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - id: c1
+      type: rows_removed_where
+      target: null
+      condition: {column: hours-per-week, op: ">", value: 60}
+    - {id: c2, type: row_count, target: null, op: decreased}
+  must_preserve:
+    - id: p1
+      type: rows_retained_where
+      target: null
+      condition: {column: hours-per-week, op: "<=", value: 60}
+    - {id: p2, type: columns_unchanged, target: "*", except: []}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 974
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Uses >= 60 → p1 fails (drops the 47 people at exactly 60)."
+  - "Caps hours at 60 instead of removing rows → c1, c2, p2 fail."
+notes: ""

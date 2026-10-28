@@ -1,0 +1,61 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Keep only listings in Brooklyn and Manhattan.
+# Snapshot facts : 73 rows are in other boroughs (Queens, Bronx, Staten Island).   (profiled from data/airbnb_dev.csv; re-check when you write the task)
+# Watch out for  : Use an `in` condition; string match is exact and case-sensitive.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: airbnb_filt_002
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: airbnb
+data_file: data/airbnb_dev.csv
+transformation_type: filtering
+difficulty: easy                      # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  I only want to keep listings located in Brooklyn and Manhattan.
+assumptions:
+  - "Borough is the neighbourhood_group column; values match exactly ('Brooklyn', 'Manhattan')."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      return df[df["neighbourhood_group"].isin(["Brooklyn", "Manhattan"])].copy()
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - id: c1
+      type: rows_removed_where
+      target: null
+      condition: {column: neighbourhood_group, op: not_in, value: [Brooklyn, Manhattan]}
+    - {id: c2, type: row_count, target: null, op: decreased}
+  must_preserve:
+    - id: p1
+      type: rows_retained_where
+      target: null
+      condition: {column: neighbourhood_group, op: in, value: [Brooklyn, Manhattan]}
+    - {id: p2, type: columns_unchanged, target: "*", except: []}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 927
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Filters on neighbourhood instead of neighbourhood_group (keeps nothing / wrong rows) → c1, p1 fail."
+  - "Keeps only one of the two boroughs → p1 fails."
+  - "Lower-cases or renames borough values while filtering → p2 fails."
+notes: ""

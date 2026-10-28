@@ -1,0 +1,61 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Add a column minimum_stay_cost equal to price times minimum_nights.
+# Snapshot facts : No nulls in either column.   (profiled from data/airbnb_dev.csv; re-check when you write the task)
+# Watch out for  : Must add a new column, not overwrite price.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: airbnb_col_001
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: airbnb
+data_file: data/airbnb_dev.csv
+transformation_type: column_transformation
+difficulty: easy                      # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Add a column minimum_stay_cost that is the price multiplied by the minimum number of nights.
+assumptions:
+  - "New column name is exactly minimum_stay_cost; existing columns are unchanged."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      out = df.copy()
+      out["minimum_stay_cost"] = out["price"] * out["minimum_nights"]
+      return out
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: columns_added, target: [minimum_stay_cost]}
+    - id: c2
+      type: column_value_relation
+      target: minimum_stay_cost
+      fn: mul
+      args: [{col: price}, {col: minimum_nights}]
+  must_preserve:
+    - {id: p1, type: columns_unchanged, target: "*", except: []}
+    - {id: p2, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 1000
+  columns_added: [minimum_stay_cost]
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Overwrites price with the product instead of adding a column → c1, p1 fail."
+  - "Adds price + minimum_nights → c2 fails."
+  - "Uses number_of_reviews instead of minimum_nights → c2 fails."
+notes: ""

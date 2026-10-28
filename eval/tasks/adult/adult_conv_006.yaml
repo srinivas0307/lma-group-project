@@ -1,0 +1,57 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Make workclass a categorical column, keeping missing values as missing.
+# Snapshot facts : 6 values + 62 nulls.   (profiled from data/adult_dev.csv; re-check when you write the task)
+# Watch out for  : fillna before converting would change null_count.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: adult_conv_006
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: dev                         # test | dev
+dataset: adult
+data_file: data/adult_dev.csv
+transformation_type: type_conversion
+difficulty: medium                    # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Make workclass a categorical column. Missing workclass values should stay missing.
+assumptions:
+  - "Missing values are not turned into a category; they remain NaN."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      out = df.copy()
+      out["workclass"] = out["workclass"].astype("category")
+      return out
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: column_dtype, target: workclass, dtype: category}
+  must_preserve:
+    - {id: p1, type: column_values_unchanged, target: workclass}
+    - {id: p2, type: null_count, target: workclass, op: unchanged}
+    - {id: p3, type: columns_unchanged, target: "*", except: [workclass]}
+    - {id: p4, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 1000
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Fills missing values (e.g. 'Unknown') before converting → p1, p2 fail."
+  - "astype(str) first: with pandas 3.x missing values stay missing (accepted); with older pandas they become the text 'nan' → p1, p2 fail."
+notes: ""

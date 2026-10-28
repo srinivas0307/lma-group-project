@@ -1,0 +1,57 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Store age as a float.
+# Snapshot facts : age is int64, no nulls.   (profiled from data/adult_dev.csv; re-check when you write the task)
+# Watch out for  : Other int columns must not change.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: adult_conv_004
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: adult
+data_file: data/adult_dev.csv
+transformation_type: type_conversion
+difficulty: easy                      # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Store age as a float instead of an integer.
+assumptions:
+  - "Only age changes type; values are unchanged."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      out = df.copy()
+      out["age"] = out["age"].astype(float)
+      return out
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: column_dtype, target: age, dtype: float}
+  must_preserve:
+    - {id: p1, type: column_values_unchanged, target: age}
+    - {id: p2, type: null_count, target: age, op: unchanged}
+    - {id: p3, type: columns_unchanged, target: "*", except: [age]}
+    - {id: p4, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 1000
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Converts every integer column to float → p3 fails."
+  - "Divides age (e.g. into decades) while converting → p1 fails."
+notes: ""
