@@ -53,8 +53,36 @@ def _evidence(mask_index):
     return [int(i) if isinstance(i, (int, np.integer)) else str(i) for i in list(mask_index)[:MAX_EVIDENCE]]
 
 
+def _hashable(df):
+    """Copy where unhashable cells (lists, dicts, Index objects...) are replaced by their repr, so
+    duplicate/uniqueness checks work on any output. Columns without such cells are left as they are."""
+    out = None
+    for c in df.columns[df.dtypes == object] if len(df.columns) else []:
+        col = df[c] if not isinstance(df[c], pd.DataFrame) else None
+        if col is None:
+            continue
+        bad = col.map(lambda v: not isinstance(v, (str, int, float, bool, type(None), np.generic, pd.Timestamp))
+                      and getattr(v, "__hash__", None) is None)
+        if bad.any():
+            out = df.copy() if out is None else out
+            out[c] = col.where(~bad, col.map(repr))
+    return df if out is None else out
+
+
+def _index_subset(before_idx, after_idx):
+    """True if the output index is unique and every label is an input row label.
+    A different number of index levels (e.g. a MultiIndex left by groupby().apply) is never a subset."""
+    if after_idx.nlevels != before_idx.nlevels or not after_idx.is_unique:
+        return False
+    try:
+        return bool(after_idx.isin(before_idx).all())
+    except (TypeError, ValueError):
+        return False
+
+
 def measure(before, after):
     """Raw measurements. Each entry: value, plus the column/rows responsible when relevant."""
+    after = _hashable(after)
     m = {}
     n_b, n_a = len(before), len(after)
     b_cols, a_cols = [str(c) for c in before.columns], [str(c) for c in after.columns]
@@ -71,7 +99,7 @@ def measure(before, after):
 
     # rows
     m["row_ratio"] = dict(value=(n_a / n_b) if n_b else 1.0, rows_before=n_b, rows_after=n_a)
-    idx_subset = bool(after.index.is_unique and after.index.isin(before.index).all())
+    idx_subset = _index_subset(before.index, after.index)
     m["index_not_subset"] = dict(value=int(not idx_subset))
 
     # nulls
@@ -178,7 +206,7 @@ def judge(m, thresholds):
             mode = thresholds.get("dtype_mode", "compatible")
             src = {"strict": "dtype_changes", "compatible": "dtype_incompatible_changes"}.get(mode)
             if src and m[src]["value"] > 0:
-                failures.append(dict(check=name, value=m[src]["value"], threshold=f"mode={mode}",
+                failures.append(dict(kind="check", check=name, value=m[src]["value"], threshold=f"mode={mode}",
                                      columns=m[src]["columns"]))
             continue
         val = m[key]["value"]
@@ -191,7 +219,7 @@ def judge(m, thresholds):
             thr = 0 if tkey is None else _num(thresholds.get(tkey, 0))
             bad = val < thr
         if bad:
-            f = dict(check=name, value=round(val, 6) if isinstance(val, float) and math.isfinite(val) else val,
+            f = dict(kind="check", check=name, value=round(val, 6) if isinstance(val, float) and math.isfinite(val) else val,
                      threshold=thr)
             for extra in ("column", "columns"):
                 if m[key].get(extra):

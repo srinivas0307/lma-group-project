@@ -1,0 +1,34 @@
+{
+  "dev": {
+    "generations": 60,
+    "status": {
+      "ok": 58,
+      "blocked": 2
+    },
+    "correct": 32,
+    "runnable_wrong": 26,
+    "unique_runnable_wrong_by_type": {
+      "column_transformation": 1,
+      "deduplication": 10,
+      "filtering": 7,
+      "missing_values": 3
+    }
+  },
+  "test": {
+    "generations": 300,
+    "status": {
+      "ok": 282,
+      "error": 14,
+      "blocked": 4
+    },
+    "correct": 214,
+    "runnable_wrong": 68,
+    "unique_runnable_wrong_by_type": {
+      "column_transformation": 7,
+      "deduplication": 31,
+      "filtering": 16,
+      "missing_values": 4,
+      "type_conversion": 8
+    }
+  }
+}

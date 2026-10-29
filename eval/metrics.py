@@ -15,11 +15,14 @@ Paired comparison of two systems: exact McNemar test on per-candidate "decision 
 Usage:
     python eval/metrics.py --verdicts results/baseline2/verdicts_baseline2.jsonl eval/pool_v1/verdicts_baseline1.jsonl
 """
-import argparse, json, math, random
-from collections import defaultdict
+import argparse, json, math, random, sys
+from collections import Counter, defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "src"))
+from igt.types import validate_record  # noqa: E402
+
 TYPES = ["column_transformation", "deduplication", "filtering", "missing_values", "type_conversion"]
 
 
@@ -124,16 +127,34 @@ def compare(pool, va, vb):
     return dict(only_a_right=b, only_b_right=c, p_value=round(mcnemar_exact(b, c), 4))
 
 
-def evaluate(pool_path, verdict_paths, n_boot=2000):
+def load_verdicts(path, pool, strict=True):
+    """Load one verdicts file and check it against the shared format (src/igt/types.py, docs/verdict_format.md)."""
+    V = load_jsonl(path)
+    if not V:
+        raise SystemExit(f"{path}: empty")
+    names = {v.get("system") for v in V}
+    if len(names) != 1:
+        raise SystemExit(f"{path}: one system per file, found {names}")
+    dup = [k for k, n in Counter(v.get("candidate_id") for v in V).items() if n > 1]
+    unknown = sorted({v.get("candidate_id") for v in V} - set(pool))
+    missing = sorted(set(pool) - {v.get("candidate_id") for v in V})
+    problems = [f"duplicate candidate_id {k}" for k in dup[:3]] + [f"not in pool: {k}" for k in unknown[:3]]
+    problems += [f"{len(missing)} pool candidates have no verdict (e.g. {missing[:3]})"] if missing else []
+    if strict:
+        for v in V:
+            problems += [f"{v.get('candidate_id')}: {p}" for p in validate_record(v, pool.get(v.get("candidate_id")))]
+    if problems:
+        raise SystemExit(f"{path}: {len(problems)} format problem(s):\n  " + "\n  ".join(problems[:10]))
+    return names.pop(), {v["candidate_id"]: v["outcome"] for v in V}
+
+
+def evaluate(pool_path, verdict_paths, n_boot=2000, strict=True):
     pool = {c["candidate_id"]: c for c in load_jsonl(pool_path)}
     systems = {}
     for p in verdict_paths:
-        V = load_jsonl(p)
-        name = V[0]["system"]
-        out = {v["candidate_id"]: v["outcome"] for v in V}
-        missing = set(pool) - set(out)
-        if missing:
-            raise SystemExit(f"{p}: {len(missing)} pool candidates have no verdict (e.g. {sorted(missing)[:3]})")
+        name, out = load_verdicts(p, pool, strict)
+        if name in systems:
+            raise SystemExit(f"{p}: system name '{name}' used by two files")
         systems[name] = out
     report = {}
     for split in sorted({c["split"] for c in pool.values()}):

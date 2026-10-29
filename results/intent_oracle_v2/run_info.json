@@ -1,0 +1,33 @@
+{
+  "pool": "/home/srinivas-billuri/4-1/LMA/intent-parser/eval/pool_v2/pool_v2.jsonl",
+  "n_candidates": 395,
+  "stats": {
+    "intent_oracle": {
+      "alignment_index": 345,
+      "PASS": 227,
+      "VIOLATION": 132,
+      "execution": 34,
+      "uncertain_predicate_not_evaluable": 6,
+      "UNCERTAIN": 2,
+      "alignment_content": 16
+    },
+    "intent_oracle_change_only": {
+      "alignment_index": 345,
+      "PASS": 254,
+      "VIOLATION": 104,
+      "execution": 34,
+      "uncertain_predicate_not_evaluable": 5,
+      "UNCERTAIN": 3,
+      "alignment_content": 16
+    },
+    "intent_oracle_preserve_only": {
+      "alignment_index": 345,
+      "PASS": 309,
+      "execution": 34,
+      "VIOLATION": 51,
+      "alignment_content": 16,
+      "UNCERTAIN": 1,
+      "uncertain_predicate_not_evaluable": 1
+    }
+  }
+}
