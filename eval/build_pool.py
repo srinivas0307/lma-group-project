@@ -1,63 +1,41 @@
-"""Build the frozen candidate pool v1 from the Baseline 1 Kaggle outputs (CPU only, no model needed).
+"""Build a frozen candidate pool from one or more labelled generation folders (CPU only).
 
-Inputs (unzip baseline1_outputs.zip from the Kaggle run into --b1, e.g. outputs/baseline1/):
-    candidates.jsonl   every generation with its sandbox label
-    harness.py         the exact sandbox/comparator used on Kaggle
-    env.json           run settings (model, prompt hash, pinned versions)
+    # pool v1 (already frozen): Baseline 1 Kaggle outputs
+    .venv/bin/python eval/build_pool.py --sources notebooks/baseline1_outputs --version v1
+    # pool v2: v1 sources first (so v1 candidate ids stay the same), then the new generator
+    .venv/bin/python eval/build_pool.py --sources notebooks/baseline1_outputs outputs/gen_qwen15b --version v2
 
-Outputs (in --out, default eval/pool_v1/):
-    pool_v1.jsonl              one row per unique (task, code); this is what every system judges
-    outputs/<candidate_id>.pkl the candidate's output DataFrame (only for candidates that ran)
-    verdicts_baseline1.jsonl   Baseline 1 verdicts in the shared Verdict format
-    manifest.json              counts, settings and sha256 of every file
+Each source folder needs candidates.jsonl (from the Baseline 1 notebook or eval/label_candidates.py).
 
-Each candidate is re-executed with the same harness.py. Its label must match the Kaggle label;
-any mismatch is reported and makes the script exit with an error, so the pool is never frozen
-with labels that can't be reproduced.
+Outputs (in eval/pool_<version>/):
+    pool_<version>.jsonl        one row per unique (task, normalized code); what every system judges
+    outputs/<candidate_id>.pkl  the candidate's output DataFrame (candidates that ran)
+    verdicts_baseline1.jsonl    Baseline 1 verdicts (verifier "none")
+    manifest.json               counts, sources, settings and sha256 of every file
 
-Run with the pinned environment (pandas 2.3.3, numpy 2.1.3):
-    .venv/bin/python eval/build_pool.py --b1 outputs/baseline1
+Every candidate is re-executed with the project sandbox (igt.sandbox.safe_run) and re-labelled with
+eval.equivalence.outputs_equal. Any label that differs from the source label stops the build.
 """
-import argparse, hashlib, json, os, subprocess, sys, tempfile
+import argparse
+import hashlib
+import json
+import pickle
+import sys
 from collections import Counter, defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
-PINNED = {"pandas": "2.3.3", "numpy": "2.1.3"}
-CRASH = {"error", "bad_return", "timeout", "killed", "memory"}
-
-# Runs in a fresh subprocess per candidate: execute, label, pickle the output.
-RUNNER = r'''
-import json, pickle, sys, time, hashlib
-sys.path.insert(0, sys.argv[1])
-import harness
 import pandas as pd
-root, ref_dir, job_path, out_pkl, res_path, cpu_s, mem_gb = sys.argv[2:9]
-job = json.load(open(job_path))
-df = harness.load_data(root, job["data_file"])
-ref = pickle.load(open(f"{ref_dir}/{job['task_id']}.pkl", "rb"))
-res = dict(status="error", ran_ok=False, correct=False)
-try:
-    harness.set_limits(int(cpu_s), float(mem_gb))
-except Exception:
-    pass
-try:
-    out = harness.exec_transform(job["code"], job["func_name"], df)
-    if not isinstance(out, pd.DataFrame):
-        res.update(status="bad_return", error=f"returned {type(out).__name__}, not a DataFrame")
-    else:
-        ok, reason = harness.outputs_equal(ref, out)
-        blob = pickle.dumps(out)
-        open(out_pkl, "wb").write(blob)
-        res.update(status="ok", ran_ok=True, correct=bool(ok), reason=reason,
-                   output_sha256=hashlib.sha256(blob).hexdigest())
-except MemoryError:
-    res.update(status="memory", error="MemoryError")
-except BaseException as e:
-    res.update(status="error", error=f"{type(e).__name__}: {str(e)[:300]}")
-json.dump(res, open(res_path, "w"), default=str)
-'''
+
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "src"))
+sys.path.insert(0, str(ROOT))
+from eval.equivalence import outputs_equal  # noqa: E402
+from igt.agents.code_generator import load_tasks  # noqa: E402
+from igt.sandbox import safe_run  # noqa: E402
+
+PINNED = {"pandas": "2.3.3"}
+CRASH = {"error", "bad_return", "timeout", "killed", "memory"}
 
 
 def sha256_file(p):
@@ -79,13 +57,28 @@ def write_jsonl(p, rows):
             fh.write(json.dumps(r, sort_keys=True, default=str) + "\n")
 
 
-def check_env(py):
-    v = subprocess.run([py, "-c", "import pandas, numpy; print(pandas.__version__, numpy.__version__)"],
-                       capture_output=True, text=True, check=True).stdout.split()
-    got = dict(zip(["pandas", "numpy"], v))
-    if got != PINNED:
-        sys.exit(f"pinned versions required {PINNED}, got {got}. Use .venv/bin/python.")
-    return got
+def load_sources(sources):
+    gens = []
+    for si, src in enumerate(sources):
+        rows = load_jsonl(src / "candidates.jsonl")
+        for field in ["model", "prompt_hash"]:
+            vals = {g[field] for g in rows}
+            if len(vals) != 1:
+                sys.exit(f"{src}: candidates.jsonl mixes several values of {field}: {vals}")
+        for g in rows:
+            g["_source"] = si
+        gens += rows
+    hashes = {g["prompt_hash"] for g in gens}
+    if len(hashes) != 1:
+        sys.exit(f"sources use different prompts ({hashes}); a pool must use one prompt version")
+    keys = Counter((g["model"], g["gen_id"]) for g in gens)
+    if any(n > 1 for n in keys.values()):
+        sys.exit(f"duplicate (model, gen_id): {[k for k, n in keys.items() if n > 1][:5]}")
+    return gens
+
+
+def order_key(g):
+    return (g["_source"], g["mode"] != "greedy", g["sample_idx"])
 
 
 def group_candidates(gens):
@@ -96,17 +89,16 @@ def group_candidates(gens):
         groups[(g["task_id"], key)].append(g)
     pool = []
     for task_id in sorted({k[0] for k in groups}):
-        keys = [k for k in groups if k[0] == task_id]
-        # stable order: greedy first, then by first sample index
-        keys.sort(key=lambda k: min((g["mode"] != "greedy", g["sample_idx"]) for g in groups[k]))
+        keys = sorted((k for k in groups if k[0] == task_id), key=lambda k: min(map(order_key, groups[k])))
         for n, k in enumerate(keys):
-            members = sorted(groups[k], key=lambda g: (g["mode"] != "greedy", g["sample_idx"]))
+            members = sorted(groups[k], key=order_key)
             first = members[0]
             labels = {(m["ran_ok"], m["correct"]) for m in members}
             pool.append(dict(
                 candidate_id=f"{task_id}__c{n:02d}", task_id=task_id, split=first["split"],
                 dataset=first["dataset"], transformation_type=first["transformation_type"],
                 difficulty=first.get("difficulty"), generator_model=first["model"],
+                generator_models=sorted({m["model"] for m in members}),
                 prompt_version=first["prompt_version"], prompt_hash=first["prompt_hash"],
                 gen_ids=[m["gen_id"] for m in members], n_generations=len(members),
                 includes_greedy=any(m["mode"] == "greedy" for m in members),
@@ -120,34 +112,10 @@ def group_candidates(gens):
     return pool
 
 
-def rerun(cand, args, tmp, out_dir):
-    if not cand["parse_ok"] or cand["blocked"]:
-        return dict(status="parse_error" if not cand["parse_ok"] else "blocked", ran_ok=False, correct=False)
-    job = Path(tmp) / f"{cand['candidate_id']}.json"
-    res = Path(tmp) / f"{cand['candidate_id']}.result.json"
-    pkl = out_dir / f"{cand['candidate_id']}.pkl"
-    job.write_text(json.dumps(dict(task_id=cand["task_id"], data_file=args.data_file[cand["task_id"]],
-                                   code=cand["code"], func_name=cand["func_name"])))
-    runner = Path(tmp) / "runner.py"
-    cwd = Path(tmp) / cand["candidate_id"]
-    cwd.mkdir(exist_ok=True)
-    try:
-        p = subprocess.run([args.python, str(runner), str(args.b1), str(args.root), str(args.b1 / "refs"),
-                            str(job), str(pkl), str(res), str(args.cpu), str(args.mem)],
-                           capture_output=True, text=True, timeout=args.timeout, cwd=cwd,
-                           env=dict(os.environ, PYTHONNOUSERSITE="1"))
-    except subprocess.TimeoutExpired:
-        return dict(status="timeout", ran_ok=False, correct=False, error=f"no result after {args.timeout}s")
-    if not res.exists():
-        return dict(status="killed", ran_ok=False, correct=False, error=f"exit {p.returncode}: {p.stderr[-300:]}")
-    return json.loads(res.read_text())
-
-
 def verdict_b1(c):
     """Baseline 1 = verifier 'none': PASS whenever the code ran; anything else is REJECT (repair off)."""
     if c["ran_ok"]:
-        v = dict(status="PASS", failures=[], evidence_rows=[])
-        outcome = "ACCEPT"
+        v, outcome = dict(status="PASS", failures=[], evidence_rows=[]), "ACCEPT"
     else:
         v = dict(status="VIOLATION", failures=[dict(kind="execution", status=c["status"], detail=c.get("error"))],
                  evidence_rows=[])
@@ -158,45 +126,56 @@ def verdict_b1(c):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--b1", type=Path, required=True, help="unzipped baseline1_outputs folder")
-    ap.add_argument("--root", type=Path, default=ROOT, help="project root with data/ and eval/tasks/")
-    ap.add_argument("--out", type=Path, default=ROOT / "eval" / "pool_v1")
-    ap.add_argument("--python", default=sys.executable)
+    ap.add_argument("--sources", type=Path, nargs="+", help="labelled generation folders, in priority order")
+    ap.add_argument("--b1", type=Path, help="(old name) single source folder")
+    ap.add_argument("--version", default="v1")
+    ap.add_argument("--root", type=Path, default=ROOT)
+    ap.add_argument("--out", type=Path, help="default: eval/pool_<version>")
     ap.add_argument("--workers", type=int, default=4)
-    ap.add_argument("--timeout", type=int, default=60)
+    ap.add_argument("--timeout", type=float, default=60)
     ap.add_argument("--cpu", type=int, default=30)
     ap.add_argument("--mem", type=float, default=4)
     ap.add_argument("--force", action="store_true", help="overwrite an existing pool")
     args = ap.parse_args()
-    args.b1, args.root, args.out = args.b1.resolve(), args.root.resolve(), args.out.resolve()
+    sources = [p.resolve() for p in (args.sources or ([args.b1] if args.b1 else []))]
+    if not sources:
+        sys.exit("give --sources")
+    out = (args.out or ROOT / "eval" / f"pool_{args.version}").resolve()
+    pool_file = out / f"pool_{args.version}.jsonl"
+    if pd.__version__ != PINNED["pandas"]:
+        sys.exit(f"pandas {PINNED['pandas']} required, got {pd.__version__}. Use .venv/bin/python.")
+    if pool_file.exists() and not args.force:
+        sys.exit(f"{pool_file} already exists; the pool is frozen. Use --force only if you mean it.")
 
-    for f in ["candidates.jsonl", "harness.py", "refs"]:
-        if not (args.b1 / f).exists():
-            sys.exit(f"missing {args.b1 / f}; unzip baseline1_outputs.zip into --b1")
-    if (args.out / "pool_v1.jsonl").exists() and not args.force:
-        sys.exit(f"{args.out / 'pool_v1.jsonl'} already exists; the pool is frozen. Use --force only if you mean it.")
-    versions = check_env(args.python)
-
-    gens = load_jsonl(args.b1 / "candidates.jsonl")
-    for field in ["model", "prompt_hash"]:
-        vals = {g[field] for g in gens}
-        if len(vals) != 1:
-            sys.exit(f"candidates.jsonl mixes several values of {field}: {vals}")
-    ids = Counter(g["gen_id"] for g in gens)
-    if any(n > 1 for n in ids.values()):
-        sys.exit(f"duplicate gen_ids in candidates.jsonl: {[k for k, n in ids.items() if n > 1][:5]}")
-
-    sys.path.insert(0, str(args.b1))
-    import harness  # noqa: E402  (the exact Kaggle harness)
-    args.data_file = {t["id"]: t["data_file"] for t in harness.load_tasks(str(args.root))}
+    gens = load_sources(sources)
+    tasks = {t["id"]: t for t in load_tasks(args.root)}
+    data = {f: pd.read_csv(args.root / f) for f in {t["data_file"] for t in tasks.values()}}
+    limits = dict(timeout_s=args.timeout, cpu_s=args.cpu, mem_gb=args.mem)
+    refs = {}
+    for tid in sorted({g["task_id"] for g in gens}):
+        r = safe_run(tasks[tid]["reference_code"], data[tasks[tid]["data_file"]], **limits)
+        if not r.ran_ok:
+            sys.exit(f"reference for {tid} failed: {r.status} {r.error}")
+        refs[tid] = r.df_out
 
     pool = group_candidates(gens)
-    out_dir = args.out / "outputs"
+    out_dir = out / "outputs"
     out_dir.mkdir(parents=True, exist_ok=True)
-    with tempfile.TemporaryDirectory() as tmp:
-        (Path(tmp) / "runner.py").write_text(RUNNER)
-        with ThreadPoolExecutor(args.workers) as ex:
-            results = list(ex.map(lambda c: rerun(c, args, tmp, out_dir), pool))
+
+    def rerun(c):
+        if not c["parse_ok"] or c["blocked"]:
+            return dict(status="parse_error" if not c["parse_ok"] else "blocked", ran_ok=False, correct=False)
+        r = safe_run(c["code"], data[tasks[c["task_id"]]["data_file"]], c["func_name"], **limits)
+        if not r.ran_ok:
+            return dict(status=r.status, ran_ok=False, correct=False, error=r.error)
+        ok, reason = outputs_equal(refs[c["task_id"]], r.df_out)
+        blob = pickle.dumps(r.df_out)
+        (out_dir / f"{c['candidate_id']}.pkl").write_bytes(blob)
+        return dict(status="ok", ran_ok=True, correct=bool(ok), reason=reason,
+                    output_sha256=hashlib.sha256(blob).hexdigest())
+
+    with ThreadPoolExecutor(args.workers) as ex:
+        results = list(ex.map(rerun, pool))
 
     mismatches = []
     for c, r in zip(pool, results):
@@ -205,12 +184,12 @@ def main():
                  output_file=f"outputs/{c['candidate_id']}.pkl" if r["ran_ok"] else None,
                  output_sha256=r.get("output_sha256"))
         if (c["ran_ok"], c["is_correct"]) != (c["kaggle_ran_ok"], c["kaggle_correct"]):
-            mismatches.append(dict(candidate_id=c["candidate_id"], kaggle=(c["kaggle_ran_ok"], c["kaggle_correct"]),
+            mismatches.append(dict(candidate_id=c["candidate_id"], source=(c["kaggle_ran_ok"], c["kaggle_correct"]),
                                    local=(c["ran_ok"], c["is_correct"]), local_error=c["error"]))
     inconsistent = [c["candidate_id"] for c in pool if not c["consistent_within_group"]]
 
-    write_jsonl(args.out / "pool_v1.jsonl", pool)
-    write_jsonl(args.out / "verdicts_baseline1.jsonl", [verdict_b1(c) for c in pool])
+    write_jsonl(pool_file, pool)
+    write_jsonl(out / "verdicts_baseline1.jsonl", [verdict_b1(c) for c in pool])
 
     summary = {}
     for split in sorted({c["split"] for c in pool}):
@@ -222,24 +201,28 @@ def main():
             crashed=sum(c["status"] in CRASH for c in S),
             runnable_wrong_by_type=dict(sorted(Counter(c["transformation_type"] for c in S
                                                        if c["ran_ok"] and not c["is_correct"]).items())),
+            runnable_wrong_by_generator=dict(sorted(Counter(m for c in S if c["ran_ok"] and not c["is_correct"]
+                                                            for m in c["generator_models"]).items())),
         )
+    envs = []
+    for s in sources:
+        e = s / "env.json"
+        envs.append(dict(path=str(s), env=json.loads(e.read_text()) if e.exists() else None,
+                         sha256_candidates_jsonl=sha256_file(s / "candidates.jsonl")))
     manifest = dict(
-        pool_version="v1", source=str(args.b1), kaggle_env=json.loads((args.b1 / "env.json").read_text())
-        if (args.b1 / "env.json").exists() else None, local_versions=versions,
+        pool_version=args.version, sources=envs, local_versions=dict(pandas=pd.__version__),
         n_generations=len(gens), n_candidates=len(pool), summary=summary,
         label_mismatches=mismatches, inconsistent_groups=inconsistent,
-        sha256={p.relative_to(args.out).as_posix(): sha256_file(p)
-                for p in sorted(args.out.rglob("*")) if p.is_file() and p.name != "manifest.json"},
-        sha256_candidates_jsonl=sha256_file(args.b1 / "candidates.jsonl"),
-        sha256_harness=sha256_file(args.b1 / "harness.py"),
+        sha256={p.relative_to(out).as_posix(): sha256_file(p)
+                for p in sorted(out.rglob("*")) if p.is_file() and p.name != "manifest.json"},
     )
-    (args.out / "manifest.json").write_text(json.dumps(manifest, indent=2, default=str))
+    (out / "manifest.json").write_text(json.dumps(manifest, indent=2, default=str))
 
-    print(f"{len(gens)} generations -> {len(pool)} unique candidates -> {args.out}")
+    print(f"{len(gens)} generations from {len(sources)} source(s) -> {len(pool)} unique candidates -> {out}")
     for split, s in summary.items():
         print(f"  {split}: {s}")
     if inconsistent:
-        print(f"WARNING: identical code got different Kaggle labels in {len(inconsistent)} groups: {inconsistent[:5]}")
+        print(f"WARNING: identical code got different source labels in {len(inconsistent)} groups: {inconsistent[:5]}")
     if mismatches:
         print(f"ERROR: {len(mismatches)} labels could not be reproduced locally:")
         for m in mismatches[:10]:
