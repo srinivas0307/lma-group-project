@@ -1,0 +1,65 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Fill missing Cabin values with 'Unknown'.
+# Snapshot facts : 687 rows have no Cabin.   (profiled from data/Titanic-Dataset.csv; re-check when you write the task)
+# Watch out for  : Only Cabin; other missing columns (Age, Embarked) stay missing.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: titanic_miss_001
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: titanic
+data_file: data/Titanic-Dataset.csv
+transformation_type: missing_values
+difficulty: easy                      # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Fill the missing Cabin values with 'Unknown'.
+assumptions:
+  - "Existing cabin values are not changed."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      out = df.copy()
+      out["Cabin"] = out["Cabin"].fillna("Unknown")
+      return out
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - id: c1
+      type: column_value_relation
+      target: Cabin
+      where: {column: Cabin, op: is_null}
+      fn: const
+      args: [{lit: Unknown}]
+    - {id: c2, type: null_count, target: Cabin, op: eq, value: 0}
+  must_preserve:
+    - id: p1
+      type: column_values_unchanged
+      target: Cabin
+      where: {column: Cabin, op: not_null}
+    - {id: p2, type: columns_unchanged, target: "*", except: [Cabin]}
+    - {id: p3, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 891
+  rows_after: 891
+  columns_added: []
+  columns_removed: []
+  cells_changed: 687
+
+# ---------- notes ----------
+pitfalls:
+  - "df.fillna('Unknown') on the whole frame (Age becomes text) → p2 fails."
+  - "Fills with 'unknown' (lower case) → c1 fails."
+notes: ""

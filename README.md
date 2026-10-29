@@ -44,7 +44,7 @@ Anything marked **[Rec]** is a recommendation from the planning stage. It is not
 | D2 | Available GPU | (a) Colab/Kaggle T4 16 GB, (b) lab GPU ≥ 24 GB on Linux, (c) laptop GPU or CPU only | |
 | D3 | Deadline and milestones | (a) about 4–6 weeks (drop P2 items), (b) about 8+ weeks (P2 feasible), (c) other dates | |
 | D4 | Team size | **Decided:** 3 members. | ✅ |
-| D5 | Predicate vocabulary additions | Add `columns_added` and `rows_retained_where`? Decide in Phase 1. | |
+| D5 | Predicate vocabulary additions | Add `columns_added` and `rows_retained_where`? Decide in Phase 1. | **Decided 2026-10-29:** both kept (with `columns_removed`); vocabulary v1.0 frozen, see §12. |
 
 Already decided:
 
@@ -890,11 +890,11 @@ Every predicate, normalization, alignment, AST guard, executor limits, tool argu
 
 - [x] TA approval (agent-evaluation feedback addressed in Phases 2, 9, 10)
 - [ ] Phase 0: environment pinned; data with checksums; shared `types.py` agreed
-- [ ] Phase 1: predicate vocabulary v1 frozen and documented; verifier unit-tested
-- [ ] Phase 2: ~70 tasks with reference code and gold contracts; E / S agent scenarios; agreement study done; `evalset-v1` frozen
-- [ ] Phase 3: AST guard and sandbox; red-team set 100% blocked; tool registry, 5 tools, fault hooks tested
-- [ ] Phase 4: LLM client with scripted backend and cache; fixed code generator; LLM candidate pool v1 frozen; R / C / T scenarios; Gate 1
-- [ ] Phase 5: Baselines 1 and 2; Stage 1 oracle results (MVP-1); Gate 2 decision; proposal checkpoint 1
+- [x] Phase 1: predicate vocabulary v1 frozen and documented; verifier unit-tested *(vocabulary documented in guide §5; `src/igt/contracts`, `src/igt/verifier`, `tests/verifier`)*
+- [ ] Phase 2: ~70 tasks with reference code and gold contracts; E / S agent scenarios; agreement study done; `evalset-v1` frozen *(60 draft tasks; references pass their contracts. Open: review, agreement study, E/S scenarios, freeze)*
+- [ ] Phase 3: AST guard and sandbox; red-team set 100% blocked; tool registry, 5 tools, fault hooks tested *(done: guard, sandbox, red-team. Open: tools, fault hooks)*
+- [ ] Phase 4: LLM client with scripted backend and cache; fixed code generator; LLM candidate pool v1 frozen; R / C / T scenarios; Gate 1 *(done: generator, pools v1 and v2, Gate 1. Open: LLM client/cache/scripted backend, R/C/T scenarios)*
+- [ ] Phase 5: Baselines 1 and 2; Stage 1 oracle results (MVP-1); Gate 2 decision; proposal checkpoint 1 *(done except proposal checkpoint 1)*
 - [ ] Phase 6: prompted parser (Baseline 3); contract metrics; change-only and preserve-only ablations (MVP-2)
 - [ ] Phase 7: fine-tuning data (separate schemas); leakage check; 1.5B and 3B adapters; Gate 3
 - [ ] Phase 8: full Stage 1 table with confidence intervals and significance tests
@@ -911,4 +911,7 @@ Use this section to record team feedback before Phase 0 starts.
 
 | Reviewer | Section | Comment | Resolution |
 |---|---|---|---|
-| | | | |
+| Team | §5, guide §5 | Freeze the contract vocabulary | **v1.0 frozen (2026-10-29).** OI-7 (no predicate for "no extra columns", no dtype for new columns) is kept as a reported limitation: it costs 2 of 98 test errors in the oracle run, and changing the vocabulary after seeing test results would tune the method on the test set. |
+| Team | §4.5 Structured output | Constrained decoding for parsers | **Plain greedy generation + JSON extraction + pydantic validation for every LLM parser** (prompted 7B, fine-tuned 1.5B/3B). Same decoding for all, so the comparison stays fair; invalid outputs are reported (invalid-output rate) and escalated. Constrained decoding may be added later as a variant for all parsers at once. |
+| Team | §8 Gate 1 | Enough wrong candidates? | **Passed with pool v2** (Qwen2.5-3B + 1.5B): 136 runnable wrong candidates (98 test). Column transformation (7) and missing values (4) reported as low-confidence. Pool v1 kept frozen. |
+| Team | §8 Gate 2 | Oracle verifier vs conventional checks | **Passed (2026-10-29).** Test, pool v2: oracle recall 0.980 / FRR 0.000 vs Baseline 2 0.510 / 0.081; McNemar p < 0.001. Caveats: gold contracts are unreviewed drafts (OI-8); oracle FRR ≈ 0 by construction. Proceed to Phase 6. Details: `results/STAGE1_RESULTS.md`. |

@@ -1,0 +1,87 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Fill missing Age with the median age of the passenger's class.
+# Snapshot facts : Missing Age by class: 1: 30, 2: 11, 3: 136. Medians: 1: 37.0, 2: 29.0, 3: 24.0.   (profiled from data/Titanic-Dataset.csv; re-check when you write the task)
+# Watch out for  : Per-class median, not the overall median (28.0).
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: titanic_miss_005
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: titanic
+data_file: data/Titanic-Dataset.csv
+transformation_type: missing_values
+difficulty: hard                      # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Fill each missing Age with the median age of passengers in the same class (Pclass).
+assumptions:
+  - "Medians are computed from the known ages within each class: 37.0 (1st), 29.0 (2nd), 24.0 (3rd)."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      out = df.copy()
+      out["Age"] = out["Age"].fillna(out.groupby("Pclass")["Age"].transform("median"))
+      return out
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - id: c1
+      type: column_value_relation
+      target: Age
+      where:
+        all:
+          - {column: Age, op: is_null}
+          - {column: Pclass, op: "==", value: 1}
+      fn: const
+      args: [{lit: 37.0}]
+    - id: c2
+      type: column_value_relation
+      target: Age
+      where:
+        all:
+          - {column: Age, op: is_null}
+          - {column: Pclass, op: "==", value: 2}
+      fn: const
+      args: [{lit: 29.0}]
+    - id: c3
+      type: column_value_relation
+      target: Age
+      where:
+        all:
+          - {column: Age, op: is_null}
+          - {column: Pclass, op: "==", value: 3}
+      fn: const
+      args: [{lit: 24.0}]
+    - {id: c4, type: null_count, target: Age, op: eq, value: 0}
+  must_preserve:
+    - id: p1
+      type: column_values_unchanged
+      target: Age
+      where: {column: Age, op: not_null}
+    - {id: p2, type: columns_unchanged, target: "*", except: [Age]}
+    - {id: p3, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 891
+  rows_after: 891
+  columns_added: []
+  columns_removed: []
+  cells_changed: 177
+
+# ---------- notes ----------
+pitfalls:
+  - "Uses the overall median (28.0) → c1, c2, c3 fail."
+  - "Uses the per-class mean → c1, c2, c3 fail."
+  - "Groups by Pclass and Sex → c1, c2, c3 fail."
+notes: "The three median literals are data-dependent."

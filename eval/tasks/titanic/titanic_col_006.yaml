@@ -1,0 +1,59 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Rename Pclass to passenger_class.
+# Snapshot facts : Pclass int 1-3.   (profiled from data/Titanic-Dataset.csv; re-check when you write the task)
+# Watch out for  : Rename only; values and position not checked.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: titanic_col_006
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: dev                        # test | dev
+dataset: titanic
+data_file: data/Titanic-Dataset.csv
+transformation_type: column_transformation
+difficulty: medium                    # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Rename the Pclass column to passenger_class.
+assumptions:
+  - "Values are unchanged."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      return df.rename(columns={"Pclass": "passenger_class"})
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: columns_added, target: [passenger_class]}
+    - {id: c2, type: columns_removed, target: [Pclass]}
+    - id: c3
+      type: column_value_relation
+      target: passenger_class
+      fn: identity
+      args: [{col: Pclass}]
+  must_preserve:
+    - {id: p1, type: columns_unchanged, target: "*", except: [Pclass]}
+    - {id: p2, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 891
+  rows_after: 891
+  columns_added: ["passenger_class"]
+  columns_removed: ["Pclass"]
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Copies instead of renaming (Pclass kept) → c2 fails."
+  - "Uses 'Passenger_Class' → c1, c3 fail."
+notes: ""

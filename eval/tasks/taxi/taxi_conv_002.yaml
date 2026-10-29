@@ -1,0 +1,70 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Convert both pickup and dropoff times to datetime.
+# Snapshot facts : Both text, no missing.   (profiled from data/yellow_tripdata_2026-01.csv; re-check when you write the task)
+# Watch out for  : Both columns.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: taxi_conv_002
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: taxi
+data_file: data/yellow_tripdata_2026-01.csv
+transformation_type: type_conversion
+difficulty: hard                      # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Convert both tpep_pickup_datetime and tpep_dropoff_datetime into proper datetime columns. The pickup and dropoff times are text in the form YYYY-MM-DD HH:MM:SS (for example 2026-01-01 00:54:04).
+assumptions:
+  - "Time of day is kept; no time zone."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      out = df.copy()
+      for c in ["tpep_pickup_datetime", "tpep_dropoff_datetime"]:
+          out[c] = pd.to_datetime(out[c], format="%Y-%m-%d %H:%M:%S")
+      return out
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: column_dtype, target: tpep_pickup_datetime, dtype: datetime}
+    - {id: c2, type: column_dtype, target: tpep_dropoff_datetime, dtype: datetime}
+  must_preserve:
+    - id: p1
+      type: column_value_relation
+      target: tpep_pickup_datetime
+      fn: cast
+      args: [{col: tpep_pickup_datetime}, {lit: datetime}, {lit: "%Y-%m-%d %H:%M:%S"}]
+    - {id: p2, type: null_count, target: tpep_pickup_datetime, op: unchanged}
+    - id: p3
+      type: column_value_relation
+      target: tpep_dropoff_datetime
+      fn: cast
+      args: [{col: tpep_dropoff_datetime}, {lit: datetime}, {lit: "%Y-%m-%d %H:%M:%S"}]
+    - {id: p4, type: null_count, target: tpep_dropoff_datetime, op: unchanged}
+    - {id: p5, type: columns_unchanged, target: "*", except: [tpep_pickup_datetime, tpep_dropoff_datetime]}
+    - {id: p6, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 1000
+  columns_added: []
+  columns_removed: []
+  cells_changed: 2000
+
+# ---------- notes ----------
+pitfalls:
+  - "Converts only the pickup column → c2, p3 fail."
+  - "Uses dayfirst=True / '%Y-%d-%m' (fails to parse day 31 or swaps day/month) → p1, p2, p3, p4 fail."
+  - "Adds a trip-duration column too (extra columns are not forbidden by the contract) (not distinguishable on this file; passes)."
+notes: ""

@@ -1,0 +1,60 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Convert store_and_fwd_flag (Y/N) to boolean.
+# Snapshot facts : All 1000 values are 'N'.   (profiled from data/yellow_tripdata_2026-01.csv; re-check when you write the task)
+# Watch out for  : bool('N') is True; strings must be mapped, not cast.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: taxi_conv_005
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: taxi
+data_file: data/yellow_tripdata_2026-01.csv
+transformation_type: type_conversion
+difficulty: hard                      # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Convert store_and_fwd_flag to a boolean column: True for 'Y' and False for 'N'.
+assumptions:
+  - "The column has no missing values."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      out = df.copy()
+      out["store_and_fwd_flag"] = out["store_and_fwd_flag"].map({"Y": True, "N": False}).astype(bool)
+      return out
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: column_dtype, target: store_and_fwd_flag, dtype: bool}
+  must_preserve:
+    - id: p1
+      type: column_value_relation
+      target: store_and_fwd_flag
+      fn: map
+      args: [{col: store_and_fwd_flag}, {lit: {"Y": true, "N": false}}]
+    - {id: p2, type: columns_unchanged, target: "*", except: [store_and_fwd_flag]}
+    - {id: p3, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 1000
+  columns_added: []
+  columns_removed: []
+  cells_changed: 1000
+
+# ---------- notes ----------
+pitfalls:
+  - "astype(bool) on the strings (every non-empty string is True) → p1 fails."
+  - "Maps to 1/0 integers → c1, p1 fail."
+notes: "Every value is 'N' in this file, so a mapping that sends everything to False also passes."

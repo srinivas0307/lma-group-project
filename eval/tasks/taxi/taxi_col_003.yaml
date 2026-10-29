@@ -1,0 +1,60 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Cap trip_distance at 30 miles.
+# Snapshot facts : 1 trip is longer than 30 (40.14).   (profiled from data/yellow_tripdata_2026-01.csv; re-check when you write the task)
+# Watch out for  : Cap, don't drop.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: taxi_col_003
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: taxi
+data_file: data/yellow_tripdata_2026-01.csv
+transformation_type: column_transformation
+difficulty: medium                    # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Cap trip_distance at 30 (longer distances become 30).
+assumptions:
+  - "A distance of exactly 30 is unchanged."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      out = df.copy()
+      out["trip_distance"] = out["trip_distance"].clip(upper=30)
+      return out
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - id: c1
+      type: column_value_relation
+      target: trip_distance
+      fn: clip
+      args: [{col: trip_distance}, {lit: null}, {lit: 30}]
+  must_preserve:
+    - {id: p1, type: columns_unchanged, target: "*", except: [trip_distance]}
+    - {id: p2, type: row_count, target: null, op: unchanged}
+    - {id: p3, type: column_dtype, target: trip_distance, dtype: float}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 1000
+  columns_added: []
+  columns_removed: []
+  cells_changed: 1
+
+# ---------- notes ----------
+pitfalls:
+  - "Removes trips over 30 instead → p2 fails."
+  - "Sets long trips to missing → c1 fails."
+notes: ""

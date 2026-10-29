@@ -1,0 +1,66 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Fill missing Embarked with the most common port.
+# Snapshot facts : Embarked is missing in 2 rows; the most common port is S (644 rows).   (profiled from data/Titanic-Dataset.csv; re-check when you write the task)
+# Watch out for  : Mode, not a hard-coded other port.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: titanic_miss_002
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: titanic
+data_file: data/Titanic-Dataset.csv
+transformation_type: missing_values
+difficulty: medium                    # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Fill the missing Embarked values with the most common port of embarkation.
+assumptions:
+  - "The most common port in this data is 'S' (Southampton)."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      out = df.copy()
+      out["Embarked"] = out["Embarked"].fillna(out["Embarked"].mode()[0])
+      return out
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - id: c1
+      type: column_value_relation
+      target: Embarked
+      where: {column: Embarked, op: is_null}
+      fn: const
+      args: [{lit: S}]
+    - {id: c2, type: null_count, target: Embarked, op: eq, value: 0}
+  must_preserve:
+    - id: p1
+      type: column_values_unchanged
+      target: Embarked
+      where: {column: Embarked, op: not_null}
+    - {id: p2, type: columns_unchanged, target: "*", except: [Embarked]}
+    - {id: p3, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 891
+  rows_after: 891
+  columns_added: []
+  columns_removed: []
+  cells_changed: 2
+
+# ---------- notes ----------
+pitfalls:
+  - "Uses df['Embarked'].mode() without [0] inside fillna (a Series, aligned on index) → c1, c2 fail."
+  - "Fills with 'C' → c1 fails."
+  - "Drops the rows instead → p3 fails."
+notes: "The literal 'S' is data-dependent: it is the mode of this file."

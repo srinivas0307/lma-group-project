@@ -1,0 +1,53 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Same key as dedup_001, but keep the last passenger.
+# Snapshot facts : 210 rows repeat an earlier ticket.   (profiled from data/Titanic-Dataset.csv; re-check when you write the task)
+# Watch out for  : keep='first' (the default) is the silent error.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: titanic_dedup_002
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: titanic
+data_file: data/Titanic-Dataset.csv
+transformation_type: deduplication
+difficulty: hard                      # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Passengers who share the same ticket number are duplicates. Keep only the last passenger listed for each ticket.
+assumptions:
+  - "'Last' means last in the original row order."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      return df.drop_duplicates(subset=["Ticket"], keep="last").copy()
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: duplicate_count, target: ["Ticket"], op: eq, value: 0, keep: last}
+    - {id: c2, type: row_count, target: null, op: decreased}
+  must_preserve:
+    - {id: p1, type: columns_unchanged, target: "*", except: []}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 891
+  rows_after: 681
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "keep='first' (the default) → c1 fails."
+  - "Sorts by Ticket before deduplicating and returns the sorted frame with a new index → c1 fails."
+notes: ""

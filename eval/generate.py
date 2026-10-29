@@ -36,7 +36,7 @@ def append_jsonl(p, rows):
 
 
 class HFBackend:
-    def __init__(self, model_id, max_new_tokens, temperature, top_p, dtype):
+    def __init__(self, model_id, max_new_tokens, temperature, top_p, dtype, load_in_4bit=False):
         import torch
         from transformers import AutoModelForCausalLM, AutoTokenizer
         self.torch = torch
@@ -44,8 +44,12 @@ class HFBackend:
         self.tok.padding_side = "left"
         if self.tok.pad_token is None:
             self.tok.pad_token = self.tok.eos_token
-        self.model = AutoModelForCausalLM.from_pretrained(
-            model_id, dtype=getattr(torch, dtype), device_map="auto").eval()
+        kw = dict(dtype=getattr(torch, dtype), device_map="auto")
+        if load_in_4bit:
+            from transformers import BitsAndBytesConfig
+            kw["quantization_config"] = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4",
+                                                           bnb_4bit_compute_dtype=getattr(torch, dtype))
+        self.model = AutoModelForCausalLM.from_pretrained(model_id, **kw).eval()
         self.max_new_tokens, self.temperature, self.top_p = max_new_tokens, temperature, top_p
 
     def info(self):
@@ -103,6 +107,7 @@ def main():
     ap.add_argument("--backend", choices=["hf", "reference"], default="hf")
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--splits", nargs="+", default=["dev", "test"])
+    ap.add_argument("--datasets", nargs="+", default=None, help="only these datasets (e.g. taxi titanic)")
     ap.add_argument("--limit", type=int, default=None, help="first N tasks only (dry run)")
     ap.add_argument("--n-samples", type=int, default=5)
     ap.add_argument("--temperature", type=float, default=0.7)
@@ -115,7 +120,8 @@ def main():
 
     all_tasks = load_tasks(ROOT)
     task_index = {t["id"]: i for i, t in enumerate(all_tasks)}
-    tasks = [t for t in all_tasks if t["split"] in args.splits][: args.limit]
+    tasks = [t for t in all_tasks if t["split"] in args.splits
+             and (args.datasets is None or t["dataset"] in args.datasets)][: args.limit]
     schema = load_prompt_schema(ROOT)
     model_id = "reference" if args.backend == "reference" else args.model
     be = ReferenceBackend(all_tasks) if args.backend == "reference" else HFBackend(
@@ -161,7 +167,8 @@ def main():
     env = dict(model=model_id, backend=args.backend, prompt_version=PROMPT_VERSION, prompt_hash=PROMPT_HASH,
                n_samples=args.n_samples, temperature=args.temperature, top_p=args.top_p,
                max_new_tokens=args.max_new_tokens, greedy_batch=args.greedy_batch, seed=args.seed,
-               splits=args.splits, limit=args.limit, dtype=args.dtype, python=platform.python_version(),
+               splits=args.splits, datasets=args.datasets, limit=args.limit, dtype=args.dtype,
+               python=platform.python_version(),
                n_generations=len(load_jsonl(gen_path)), **be.info())
     (args.out / "env.json").write_text(json.dumps(env, indent=2))
     print(f"generations on disk: {env['n_generations']} -> {gen_path}")

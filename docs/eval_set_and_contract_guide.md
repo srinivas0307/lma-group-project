@@ -301,7 +301,7 @@ Used to compare a predicted contract with the gold one:
 |---|---|---|---|
 | 0.1 | — | Initial draft from proposal p.4 + extensions | — |
 | 0.2 | — | Removed hand-written variants from the evaluation set; candidates are LLM outputs only | Team decision |
-| 1.0 | (after pilot) | Freeze | — |
+| 1.0 | 2026-10-29 | Freeze (includes `columns_added`, `columns_removed`, `rows_retained_where`). Known gap: no "no extra columns" predicate (OI-7) | Phase 1 implemented; Gate 2 passed |
 
 After 1.0, any change needs team agreement **and** re-checking every task that uses the changed predicate.
 

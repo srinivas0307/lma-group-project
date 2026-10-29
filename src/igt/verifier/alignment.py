@@ -64,7 +64,10 @@ def _index_trusted(before, after, key_cols) -> bool:
         return False
     renumbered = len(after) > 0 and list(ai) == list(range(len(after)))
     if renumbered:
-        return _row_agreement(before, after, key_cols) >= AGREE_FRAC
+        # Same length: index 0..n-1 is the original one unless rows were reordered (tolerate damaged values).
+        # Fewer rows: a reset after removing rows shifts every later row, so require every row to agree.
+        need = AGREE_FRAC if len(after) == len(before) else 1.0
+        return _row_agreement(before, after, key_cols) >= need
     return True
 
 

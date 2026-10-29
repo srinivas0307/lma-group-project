@@ -21,15 +21,26 @@ def test_prompt_hash_matches_kaggle_run():
 def test_frozen_schema_matches_kaggle_schema():
     if not (B1 / "schema.json").exists():
         pytest.skip("Baseline 1 outputs not present")
-    assert load_prompt_schema(ROOT) == json.loads((B1 / "schema.json").read_text())["datasets"]
+    frozen = load_prompt_schema(ROOT)
+    kaggle = json.loads((B1 / "schema.json").read_text())["datasets"]
+    assert {k: frozen[k] for k in kaggle} == kaggle          # datasets added later must not change these
 
 
 def test_tasks_and_messages():
     tasks = load_tasks(ROOT)
-    assert len(tasks) == 60 and len({t["id"] for t in tasks}) == 60
-    msgs = build_messages(tasks[0], load_prompt_schema(ROOT))
-    assert msgs[0]["role"] == "system" and msgs[1]["content"].endswith("Request: " + tasks[0]["request"])
+    assert len(tasks) >= 60 and len({t["id"] for t in tasks}) == len(tasks)
+    schema = load_prompt_schema(ROOT)
+    t0 = next(t for t in tasks if t["data_file"] in schema)
+    msgs = build_messages(t0, schema)
+    assert msgs[0]["role"] == "system" and msgs[1]["content"].endswith("Request: " + t0["request"])
     assert "Dataset: 1000 rows, 15 columns." in msgs[1]["content"]
+
+
+def test_task_order_keeps_original_seeds():
+    """New datasets must sort after adult/airbnb so the per-task sample seeds of pool v1/v2 don't change."""
+    tasks = load_tasks(ROOT)
+    first = [t["id"] for t in tasks[:60]]
+    assert all(i.startswith(("adult_", "airbnb_")) for i in first)
 
 
 def test_extraction_reproduces_kaggle_code_hashes():

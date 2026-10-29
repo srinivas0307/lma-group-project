@@ -1,0 +1,60 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Remove passengers whose fare was 0.
+# Snapshot facts : 15 rows have Fare == 0; Fare has no missing values.   (profiled from data/Titanic-Dataset.csv; re-check when you write the task)
+# Watch out for  : Only Fare == 0 rows go; no dropna().
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: titanic_filt_001
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: titanic
+data_file: data/Titanic-Dataset.csv
+transformation_type: filtering
+difficulty: easy                      # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Remove the passengers whose fare was 0.
+assumptions:
+  - "Only an exact fare of 0 counts; Fare has no negative values."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      return df[df["Fare"] != 0].copy()
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - id: c1
+      type: rows_removed_where
+      target: null
+      condition: {column: Fare, op: "==", value: 0}
+    - {id: c2, type: row_count, target: null, op: decreased}
+  must_preserve:
+    - id: p1
+      type: rows_retained_where
+      target: null
+      condition: {column: Fare, op: "!=", value: 0}
+    - {id: p2, type: columns_unchanged, target: "*", except: []}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 891
+  rows_after: 876
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Adds dropna() (drops rows missing Age/Cabin/Embarked) → p1 fails."
+  - "Removes cheap fares too (Fare < 5) → p1 fails."
+notes: ""

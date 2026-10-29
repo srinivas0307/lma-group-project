@@ -1,0 +1,66 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Keep only trips with 1 to 4 passengers.
+# Snapshot facts : 12 trips have 0 passengers, 10 have 5; 22 removed.   (profiled from data/yellow_tripdata_2026-01.csv; re-check when you write the task)
+# Watch out for  : Inclusive bounds on a float column.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: taxi_filt_006
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: dev                        # test | dev
+dataset: taxi
+data_file: data/yellow_tripdata_2026-01.csv
+transformation_type: filtering
+difficulty: hard                      # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Keep only the trips that carried between 1 and 4 passengers, inclusive.
+assumptions:
+  - "passenger_count is stored as a float; 1.0 and 4.0 are kept."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      return df[df["passenger_count"].between(1, 4)].copy()
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - id: c1
+      type: rows_removed_where
+      target: null
+      condition:
+        any:
+          - {column: passenger_count, op: "<", value: 1}
+          - {column: passenger_count, op: ">", value: 4}
+    - {id: c2, type: row_count, target: null, op: decreased}
+  must_preserve:
+    - id: p1
+      type: rows_retained_where
+      target: null
+      condition:
+        all:
+          - {column: passenger_count, op: ">=", value: 1}
+          - {column: passenger_count, op: "<=", value: 4}
+    - {id: p2, type: columns_unchanged, target: "*", except: []}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 978
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Uses exclusive bounds (1 < n < 4) → p1 fails."
+  - "Converts passenger_count to int as well → p2 fails."
+notes: ""

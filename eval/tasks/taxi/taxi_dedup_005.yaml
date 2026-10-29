@@ -1,0 +1,53 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Keep the first trip for each pickup/dropoff zone pair.
+# Snapshot facts : 308 rows repeat an earlier (PULocationID, DOLocationID) pair.   (profiled from data/yellow_tripdata_2026-01.csv; re-check when you write the task)
+# Watch out for  : Ordered pair: A->B differs from B->A.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: taxi_dedup_005
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: taxi
+data_file: data/yellow_tripdata_2026-01.csv
+transformation_type: deduplication
+difficulty: medium                    # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Keep only the first trip for each combination of pickup zone (PULocationID) and dropoff zone (DOLocationID).
+assumptions:
+  - "A trip from zone A to zone B is a different pair from B to A."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      return df.drop_duplicates(subset=["PULocationID", "DOLocationID"], keep="first").copy()
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: duplicate_count, target: ["PULocationID", "DOLocationID"], op: eq, value: 0, keep: first}
+    - {id: c2, type: row_count, target: null, op: decreased}
+  must_preserve:
+    - {id: p1, type: columns_unchanged, target: "*", except: []}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 692
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Sorts the zones so A->B equals B->A → c1 fails."
+  - "groupby(...).first() (no nulls in this file, so it equals drop_duplicates) (not distinguishable on this file; passes)."
+notes: ""

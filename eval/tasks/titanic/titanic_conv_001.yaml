@@ -1,0 +1,57 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Make Sex a categorical column.
+# Snapshot facts : 2 values: male 577, female 314.   (profiled from data/Titanic-Dataset.csv; re-check when you write the task)
+# Watch out for  : Values unchanged; only dtype.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: titanic_conv_001
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: titanic
+data_file: data/Titanic-Dataset.csv
+transformation_type: type_conversion
+difficulty: easy                      # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Make Sex a categorical column.
+assumptions:
+  - "Categories are the existing two values, unchanged; no ordering."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      out = df.copy()
+      out["Sex"] = out["Sex"].astype("category")
+      return out
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: column_dtype, target: Sex, dtype: category}
+  must_preserve:
+    - {id: p1, type: column_values_unchanged, target: Sex}
+    - {id: p2, type: null_count, target: Sex, op: unchanged}
+    - {id: p3, type: columns_unchanged, target: "*", except: [Sex]}
+    - {id: p4, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 891
+  rows_after: 891
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Encodes Sex as 0/1 codes → c1, p1 fail."
+  - "Converts every text column to category → p3 fails."
+notes: ""

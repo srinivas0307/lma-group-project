@@ -41,6 +41,11 @@ Not urgent; apply whenever the Kaggle notebook is run again.
 
 ## OI-4: Scope differences from the plan
 
+- **Update 2026-10-29:** Taxi and Titanic added (60 more tasks; 120 total, 4 datasets, 20 dev). All 120 references
+  pass their gold contracts. Pools v1/v2 only cover adult/airbnb: the new tasks need candidates (both generators,
+  `notebooks/gate1_generate_kaggle.ipynb` with `DATASETS = ["taxi", "titanic"]`) and then a pool v3 that adds them.
+  Task order keeps adult/airbnb first, so pool v1/v2 seeds and ids are unaffected.
+
 - Plan: 3 datasets, ~70 tasks. Current: 2 datasets (Adult, Airbnb), 60 tasks. Decide whether to add Wine Quality.
 
 ## OI-5: Baseline 2 tuning choice made after test was printed
@@ -58,7 +63,8 @@ Not urgent; apply whenever the Kaggle notebook is run again.
 
 ## OI-7: Contract vocabulary can't forbid extra columns or type new columns
 
-- **Status:** open (found 2026-10-29 in the oracle run; gold contracts deliberately not changed).
+- **Status:** decided 2026-10-29: keep vocabulary v1.0 and report this as a limitation (README §12). Revisit only as a
+  versioned v1.1 for all systems at once, after the main results.
 - The default-preservation rule (guide §6.1, item 4: "no rows or columns are added unless requested") has no
   predicate for columns: `columns_unchanged: "*"` only covers before-columns. Two test errors pass the oracle
   because of this (`adult_miss_005__c07` leaves a helper column; `airbnb_col_001__c03` makes the new column float).
@@ -82,3 +88,5 @@ Not urgent; apply whenever the Kaggle notebook is run again.
 - 2026-10-29: pool v2 frozen (720 generations → 395 unique candidates; all labels reproduced; all 161 v1 candidates kept with the same ids). 6 Qwen-1.5B generations were blocked for importing sklearn (correct behaviour; one of them was otherwise a correct dedup). Baseline 2 re-tuned on v2 dev with the same config (`configs/baseline2_v2.yaml`): test recall 0.510, FRR 0.081, silent error rate 0.210 (Baseline 1: 0 / 0 / 0.332). Fixed two crashes in the conventional checks on unusual outputs (MultiIndex, unhashable cells); pool v1 verdicts unchanged.
 - 2026-10-29: verdict format v1.0 decided (`docs/verdict_format.md`), implemented in `src/igt/types.py`, and enforced by `eval/metrics.py` (every verdicts file is validated). Existing Baseline 1/2 files pass; 92 tests pass.
 - 2026-10-29: Phase 1 implemented: contract schema (`src/igt/contracts/schema.py`, vocabulary v1.0, pydantic), verifier (`src/igt/verifier/`: values, conditions, functions, alignment, 11 predicates, `verify`), oracle runner (`eval/run_intent_oracle.py`). All 60 gold contracts validate; every reference passes its contract (also after reset_index and row reversal) and no no-op passes. 239 tests pass. Stage 1 oracle results in `results/STAGE1_RESULTS.md`: test recall 0.980 / FRR 0.000 vs Baseline 2 0.510 / 0.081. Gate 2: yes (with OI-7, OI-8 caveats).
+- 2026-10-29: decisions recorded in README §12 (vocabulary v1.0 frozen, OI-7 kept as a limitation; plain greedy decoding + validation for every parser; Gate 1 and Gate 2 passed). Fixed row alignment after `reset_index()` when late rows are removed (found by the new `taxi_filt_004` reference check; pool v2 oracle verdicts unchanged). Taxi/Titanic added to the frozen prompt schema (adult/airbnb unchanged).
+- 2026-10-29: Baseline 3 pipeline ready, waiting for the Kaggle run: parser prompt `p1-v1` (`src/igt/agents/intent_parser.py`, 5 dev few-shot examples, leave-one-out for dev), `eval/parse_contracts.py` (GPU), `notebooks/baseline3_parse_kaggle.ipynb`, `src/igt/contracts/normalize.py` + `eval/contract_metrics.py` (guide §5.8), `eval/run_intent_oracle.py --parses ... --system intent_prompted_7b`. Checked end to end with gold contracts as fake parser output (metrics 1.0; verdicts identical to the oracle) and with broken outputs (ESCALATE). 377 tests pass.

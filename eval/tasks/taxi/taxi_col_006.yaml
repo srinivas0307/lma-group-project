@@ -1,0 +1,59 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Rename Airport_fee to airport_fee.
+# Snapshot facts : Airport_fee is the only capitalised fee column.   (profiled from data/yellow_tripdata_2026-01.csv; re-check when you write the task)
+# Watch out for  : Case-only rename; values unchanged.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: taxi_col_006
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: dev                        # test | dev
+dataset: taxi
+data_file: data/yellow_tripdata_2026-01.csv
+transformation_type: column_transformation
+difficulty: medium                    # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Rename the Airport_fee column to airport_fee.
+assumptions:
+  - "Values are unchanged."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      return df.rename(columns={"Airport_fee": "airport_fee"})
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: columns_added, target: [airport_fee]}
+    - {id: c2, type: columns_removed, target: [Airport_fee]}
+    - id: c3
+      type: column_value_relation
+      target: airport_fee
+      fn: identity
+      args: [{col: Airport_fee}]
+  must_preserve:
+    - {id: p1, type: columns_unchanged, target: "*", except: [Airport_fee]}
+    - {id: p2, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 1000
+  columns_added: ["airport_fee"]
+  columns_removed: ["Airport_fee"]
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Lower-cases every column name (VendorID, RatecodeID, ...) → p1 fails."
+  - "Copies instead of renaming → c2 fails."
+notes: ""

@@ -1,0 +1,57 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Store SibSp and Parch as floats.
+# Snapshot facts : Both int, no missing values.   (profiled from data/Titanic-Dataset.csv; re-check when you write the task)
+# Watch out for  : Both columns, values unchanged.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: titanic_conv_006
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: dev                        # test | dev
+dataset: titanic
+data_file: data/Titanic-Dataset.csv
+transformation_type: type_conversion
+difficulty: easy                      # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Store SibSp and Parch as floating-point numbers.
+assumptions:
+  - "Values are unchanged; only the type changes."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      out = df.copy()
+      out[["SibSp", "Parch"]] = out[["SibSp", "Parch"]].astype(float)
+      return out
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: column_dtype, target: SibSp, dtype: float}
+    - {id: c2, type: column_dtype, target: Parch, dtype: float}
+  must_preserve:
+    - {id: p1, type: column_values_unchanged, target: [SibSp, Parch]}
+    - {id: p2, type: columns_unchanged, target: "*", except: [SibSp, Parch]}
+    - {id: p3, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 891
+  rows_after: 891
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Converts only SibSp → c2 fails."
+  - "Converts every int column (also PassengerId, Survived, Pclass) → p2 fails."
+notes: ""

@@ -1,0 +1,66 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Remove credit-card trips with no tip.
+# Snapshot facts : payment_type 1 (credit card) 824 rows; 50 of them have tip_amount == 0.   (profiled from data/yellow_tripdata_2026-01.csv; re-check when you write the task)
+# Watch out for  : Both conditions.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: taxi_filt_005
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: taxi
+data_file: data/yellow_tripdata_2026-01.csv
+transformation_type: filtering
+difficulty: medium                    # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Remove the credit-card trips (payment_type 1) that have no tip (tip_amount is 0).
+assumptions:
+  - "Cash and other payment types are kept even with no tip."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      return df[~((df["payment_type"] == 1) & (df["tip_amount"] == 0))].copy()
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - id: c1
+      type: rows_removed_where
+      target: null
+      condition:
+        all:
+          - {column: payment_type, op: "==", value: 1}
+          - {column: tip_amount, op: "==", value: 0}
+    - {id: c2, type: row_count, target: null, op: decreased}
+  must_preserve:
+    - id: p1
+      type: rows_retained_where
+      target: null
+      condition:
+        any:
+          - {column: payment_type, op: "!=", value: 1}
+          - {column: tip_amount, op: "!=", value: 0}
+    - {id: p2, type: columns_unchanged, target: "*", except: []}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 950
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Removes every trip with no tip → p1 fails."
+  - "Removes all credit-card trips → p1 fails."
+notes: ""

@@ -1,0 +1,66 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Remove male passengers travelling in third class.
+# Snapshot facts : 347 passengers are male and in Pclass 3.   (profiled from data/Titanic-Dataset.csv; re-check when you write the task)
+# Watch out for  : Both conditions together, not either.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: titanic_filt_004
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: titanic
+data_file: data/Titanic-Dataset.csv
+transformation_type: filtering
+difficulty: medium                    # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Remove the male passengers who travelled in third class.
+assumptions:
+  - "Third class is Pclass 3. Women in third class and men in other classes are kept."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      return df[~((df["Pclass"] == 3) & (df["Sex"] == "male"))].copy()
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - id: c1
+      type: rows_removed_where
+      target: null
+      condition:
+        all:
+          - {column: Pclass, op: "==", value: 3}
+          - {column: Sex, op: "==", value: male}
+    - {id: c2, type: row_count, target: null, op: decreased}
+  must_preserve:
+    - id: p1
+      type: rows_retained_where
+      target: null
+      condition:
+        any:
+          - {column: Pclass, op: "!=", value: 3}
+          - {column: Sex, op: "!=", value: male}
+    - {id: p2, type: columns_unchanged, target: "*", except: []}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 891
+  rows_after: 544
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Removes passengers who are male OR in third class → p1 fails."
+  - "Removes all third-class passengers → p1 fails."
+notes: ""

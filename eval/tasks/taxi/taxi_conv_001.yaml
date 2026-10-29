@@ -1,0 +1,62 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Convert the pickup time to a datetime column.
+# Snapshot facts : Text 'YYYY-MM-DD HH:MM:SS', no missing.   (profiled from data/yellow_tripdata_2026-01.csv; re-check when you write the task)
+# Watch out for  : Only the pickup column; keep full time of day.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: taxi_conv_001
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: taxi
+data_file: data/yellow_tripdata_2026-01.csv
+transformation_type: type_conversion
+difficulty: medium                    # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Convert tpep_pickup_datetime into a proper datetime column. The pickup and dropoff times are text in the form YYYY-MM-DD HH:MM:SS (for example 2026-01-01 00:54:04).
+assumptions:
+  - "Time of day is kept (not just the date); no time zone."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      out = df.copy()
+      out["tpep_pickup_datetime"] = pd.to_datetime(out["tpep_pickup_datetime"], format="%Y-%m-%d %H:%M:%S")
+      return out
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: column_dtype, target: tpep_pickup_datetime, dtype: datetime}
+  must_preserve:
+    - id: p1
+      type: column_value_relation
+      target: tpep_pickup_datetime
+      fn: cast
+      args: [{col: tpep_pickup_datetime}, {lit: datetime}, {lit: "%Y-%m-%d %H:%M:%S"}]
+    - {id: p2, type: null_count, target: tpep_pickup_datetime, op: unchanged}
+    - {id: p3, type: columns_unchanged, target: "*", except: [tpep_pickup_datetime]}
+    - {id: p4, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 1000
+  columns_added: []
+  columns_removed: []
+  cells_changed: 1000
+
+# ---------- notes ----------
+pitfalls:
+  - "Keeps only the date (.dt.normalize()) → p1 fails."
+  - "Converts both pickup and dropoff → p3 fails."
+  - "Localises to UTC (tz-aware result is rejected by the sandbox unpickler, so it counts as a crash) → does not run."
+notes: ""

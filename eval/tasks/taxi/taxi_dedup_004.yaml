@@ -1,0 +1,53 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Same pickup time and pickup zone are duplicates; keep the first.
+# Snapshot facts : 14 rows repeat an earlier (pickup time, PULocationID).   (profiled from data/yellow_tripdata_2026-01.csv; re-check when you write the task)
+# Watch out for  : Two-column key.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: taxi_dedup_004
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: taxi
+data_file: data/yellow_tripdata_2026-01.csv
+transformation_type: deduplication
+difficulty: medium                    # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Treat trips with the same pickup time and the same pickup location (PULocationID) as duplicates; keep the first.
+assumptions:
+  - "'First' means first in the original row order."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      return df.drop_duplicates(subset=["tpep_pickup_datetime", "PULocationID"], keep="first").copy()
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: duplicate_count, target: ["tpep_pickup_datetime", "PULocationID"], op: eq, value: 0, keep: first}
+    - {id: c2, type: row_count, target: null, op: decreased}
+  must_preserve:
+    - {id: p1, type: columns_unchanged, target: "*", except: []}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 986
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Uses DOLocationID instead of PULocationID → c1 fails."
+  - "Deduplicates on pickup time only → c1 fails."
+notes: ""

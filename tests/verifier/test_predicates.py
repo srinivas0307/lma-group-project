@@ -177,6 +177,15 @@ def test_alignment_index_and_content():
     assert al.method == "content" and sorted(al.before_ids) == [0, 2, 4] and al.ok()
 
 
+def test_reset_index_after_removing_late_rows_is_not_trusted():
+    """Regression (taxi_filt_004): removing rows near the end, then reset_index(), leaves most rows in place;
+    the shifted tail must not be matched by position."""
+    b = pd.DataFrame({"k": range(100), "v": [i * 10 for i in range(100)]})
+    out = b.drop(index=[95, 97]).reset_index(drop=True)
+    al = align(b, out, ["k", "v"])
+    assert al.method == "content" and sorted(al.removed) == [95, 97]
+
+
 def test_ambiguous_rows_are_uncertain():
     b = pd.DataFrame({"k": [1, 1, 2], "v": [10, 20, 30]})
     after = pd.DataFrame({"k": [1, 2], "v": [99, 30]})          # index lost; which k=1 row survived?

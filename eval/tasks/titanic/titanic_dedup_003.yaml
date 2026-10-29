@@ -1,0 +1,53 @@
+# =====================================================================
+# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
+#
+# Suggested idea : Duplicates on Ticket, Pclass and Embarked; keep the first.
+# Snapshot facts : 208 rows repeat an earlier (Ticket, Pclass, Embarked) combination (210 on Ticket alone).   (profiled from data/Titanic-Dataset.csv; re-check when you write the task)
+# Watch out for  : Ticket-only key removes 2 extra rows.
+#
+# You may replace the idea entirely; keep the id, dataset and type.
+# =====================================================================
+
+# ---------- identity ----------
+id: titanic_dedup_003
+version: 1
+status: draft                      # draft | reviewed | frozen
+split: test                        # test | dev
+dataset: titanic
+data_file: data/Titanic-Dataset.csv
+transformation_type: deduplication
+difficulty: medium                    # suggested; easy | medium | hard
+annotator: kiro-draft
+reviewer: null
+
+# ---------- the user request ----------
+request: >
+  Treat passengers with the same Ticket, Pclass and Embarked values as duplicates and keep only the first of each.
+assumptions:
+  - "Missing Embarked values count as equal to each other."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      return df.drop_duplicates(subset=["Ticket", "Pclass", "Embarked"], keep="first").copy()
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: duplicate_count, target: ["Ticket", "Pclass", "Embarked"], op: eq, value: 0, keep: first}
+    - {id: c2, type: row_count, target: null, op: decreased}
+  must_preserve:
+    - {id: p1, type: columns_unchanged, target: "*", except: []}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 891
+  rows_after: 683
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+pitfalls:
+  - "Deduplicates on Ticket only → c1 fails."
+  - "keep='last' → c1 fails."
+notes: ""
