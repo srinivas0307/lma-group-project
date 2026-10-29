@@ -1,0 +1,1 @@
+{"status": "bad_return", "ran_ok": false, "correct": false, "rows_before": 1000, "runtime_s": 0.005, "error": "returned NoneType, not a DataFrame"}

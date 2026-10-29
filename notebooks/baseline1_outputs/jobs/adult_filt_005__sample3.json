@@ -1,0 +1,1 @@
+{"task_id": "adult_filt_005", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    df_filtered = df[(df['occupation'] != 'Self-emp-not-inc') | (df['occupation'] == 'Self-emp-not-inc' & df['age'] <= 60)]\n    return df_filtered", "func_name": "transform"}

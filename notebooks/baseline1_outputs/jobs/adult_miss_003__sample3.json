@@ -1,0 +1,1 @@
+{"task_id": "adult_miss_003", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    return df[df['native-country'].notna()]", "func_name": "transform"}

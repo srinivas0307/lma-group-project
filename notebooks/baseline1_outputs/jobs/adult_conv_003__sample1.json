@@ -1,0 +1,1 @@
+{"task_id": "adult_conv_003", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    cat_vars = ['education']\n    for var in cat_vars:\n        df[var] = pd.Categorical(df[var], categories=df[var].unique(), ordered=True)\n    df['education'] = df['education'].cat.reorder_categories(df['education_num'].unique())\n    return df", "func_name": "transform"}

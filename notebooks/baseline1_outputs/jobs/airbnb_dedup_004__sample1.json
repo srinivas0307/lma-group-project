@@ -1,0 +1,1 @@
+{"task_id": "airbnb_dedup_004", "data_file": "data/airbnb_dev.csv", "code": "def transform(df):\n    df['keep'] = df.groupby(['host_id', 'room_type']).cumcount() > 0\n    return df[df['keep']].drop('keep', axis=1)", "func_name": "transform"}

@@ -1,0 +1,1 @@
+{"task_id": "airbnb_conv_002", "data_file": "data/airbnb_dev.csv", "code": "def transform(df):\n    return df.astype({'price': float, 'reviews_per_month': float, 'calculated_host_listings_count': float, 'availability_365': float})", "func_name": "transform"}

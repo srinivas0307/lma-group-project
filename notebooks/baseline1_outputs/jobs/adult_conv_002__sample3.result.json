@@ -1,0 +1,1 @@
+{"status": "ok", "ran_ok": true, "correct": false, "rows_before": 1000, "runtime_s": 0.006, "reason": "columns differ (extra=['income_num'], missing=['income'])", "rows_after": 1000, "cols_added": ["income_num"], "cols_removed": ["income"], "index_kept": true}

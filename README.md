@@ -137,7 +137,7 @@ After the code runs, a deterministic verifier compares the data before and after
 | G6 | The agentic part is thin | Pass → accept, fail → repair is close to a fixed loop. | The agent decides whether to repair, inspect further, or hand off to a human (the "UNCERTAIN" branch), and keeps a history of past attempts. |
 | G7 | "UNCERTAIN / Flag" is undefined | It affects the metrics. | UNCERTAIN = contract failed to parse, references an unknown column, or a predicate can't be evaluated. Report it separately, and count it as a reject in the main metrics. |
 | G8 | Silent semantic error rate and recall overlap | If both use "incorrect transformations" as the denominator, the error rate is just 1 − recall. | Define silent error rate = incorrect-and-accepted ÷ all accepted (how polluted accepted outputs are). Report recall and false-rejection rate as well. |
-| G9 | No method for matching rows before and after | `column_values_unchanged` can't be checked after filtering or dedup without knowing which row is which. | Add a hidden `__rid__` row-ID column before execution. Instruct the generator to keep it. If it's missing afterwards, return UNCERTAIN. |
+| G9 | No method for matching rows before and after | `column_values_unchanged` can't be checked after filtering or dedup without knowing which row is which. | **Decided:** the DataFrame **index** is the row id (0..n-1 on load); no extra column is added and the LLM is told nothing. Rows are matched by index label; if the index was lost (e.g. `reset_index(drop=True)`), fall back to matching by content; if still ambiguous, UNCERTAIN. Correctness labels compare outputs by content and need no row id. |
 | G10 | The predicate vocabulary misses some cases | Column transformations that *add* columns, and "rows not matching the filter must be kept". | Proposed additions: `columns_added`, `rows_retained_where`. Freeze the vocabulary before annotation. |
 | G11 | Fine-tuning data could leak into evaluation | 3–5k auto-generated examples over the *same* datasets could copy evaluation patterns. | Generate training data from **different schemas/datasets** and templates. Hold out evaluation datasets, or at least their columns and phrasings. |
 | G12 | Who generates the code isn't stated | Qwen 1.5B writes poor pandas code. | Use one fixed generator (e.g. Qwen2.5-Coder-7B-Instruct, 4-bit) for every system. |
@@ -164,8 +164,8 @@ After the code runs, a deterministic verifier compares the data before and after
 |---|---|---|---|
 | A1 | One diagram mixed Stage 1 and Stage 2 | Stage 1 judges a **frozen candidate pool** (G2), so the online code generator isn't part of it. v1 even said the generator "sees request only in Stage 1", which contradicts the frozen pool. | Separate diagrams for the Stage 2 runtime (§4.1) and Stage 1 mode (§4.2). The generator builds the pool offline for Stage 1 and runs online only in Stage 2. |
 | A2 | Baseline 2 (conventional checks) was a dead-end node with no outputs | You couldn't see how Baseline 2 produces a verdict or triggers repair (Phase 9 runs "Baseline 2 + repair"). | One **verifier slot** with three modes: none / conventional / intent. Every mode produces the same verdict type. |
-| A3 | The before snapshot never reached the diff | A diff needs both datasets; v1 only showed the sandbox output going in. | `__rid__` injector → read-only before snapshot, which feeds both the sandbox and the diff. |
-| A4 | Several failure paths were missing | Invalid contract, blocked code, sandbox crash or timeout, and missing `__rid__` all just stopped. Blocked code went only to the logger. | Every failure goes to an explicit outcome: a failure report for repair, REJECT, or ESCALATE. |
+| A3 | The before snapshot never reached the diff | A diff needs both datasets; v1 only showed the sandbox output going in. | Read-only before snapshot (index = row id), which feeds both the sandbox and the diff. |
+| A4 | Several failure paths were missing | Invalid contract, blocked code, sandbox crash or timeout, and unmatchable rows all just stopped. Blocked code went only to the logger. | Every failure goes to an explicit outcome: a failure report for repair, REJECT, or ESCALATE. |
 | A5 | The tool registry wasn't in the diagram | Tool calling is a graded capability (§2.5, H5), yet the agent's tools were invisible. Tool calls could also bypass the safety checker. | Repair agent ↔ tool registry is shown. `run_transformation` always goes through the safety checker and sandbox. The registry enforces a tool allow-list. |
 | A6 | No separation between the runtime system and evaluation | Nothing stopped gold contracts or reference outputs from leaking into the runtime. The evaluator was listed as step 7 of the request flow. | A separate **evaluation harness** (§4.3). Ground truth reaches the runtime only through the oracle parser, which is the point of that ablation. |
 | A7 | The repair agent could, in principle, change the contract | An agent could "fix" a violation by weakening the checks. That would inflate repair success. | The contract and before snapshot are **read-only** once created. The agent changes only code. |
@@ -181,8 +181,7 @@ flowchart TD
     U[User request]
     D[(Input dataset)]
 
-    D --> RID[Row-ID injector<br/>adds hidden __rid__]
-    RID --> BEF[(Before snapshot<br/>read-only)]
+    D --> BEF[(Before snapshot<br/>read-only, index = row id)]
     BEF --> SCH[Schema extractor<br/>columns, dtypes, nulls, sample rows]
 
     U --> P[Intent parser slot<br/>fine-tuned / prompted / oracle / none]
@@ -201,14 +200,14 @@ flowchart TD
     BEF --> SB
     SB -->|ok| AFT[(After snapshot)]
 
-    BEF --> DF[Diff + profiler<br/>aligned on __rid__]
+    BEF --> DF[Diff + profiler<br/>rows aligned by index,<br/>content fallback]
     AFT --> DF
     DF --> V{Verifier slot<br/>none / conventional / intent}
     C --> V
 
     SC -->|blocked| FR
     SB -->|crash / timeout| FR
-    DF -->|__rid__ missing| ESC
+    DF -->|rows can't be matched| ESC
     V -->|PASS| ACC([ACCEPT])
     V -->|UNCERTAIN| ESC([ESCALATE<br/>hand off to human])
     V -->|VIOLATION| FR[Failure report<br/>violated predicates / failed checks /<br/>error, with example rows]
@@ -282,16 +281,15 @@ Each row is one YAML file in `configs/`.
 
 | Component | Responsibility | Uses LLM? |
 |---|---|---|
-| Row-ID injector | Adds a hidden integer `__rid__` column so before and after rows can be matched. It is removed from the final output; `outputs_equal` ignores it. | No |
-| Before snapshot | The input dataset with `__rid__`. Read-only for the rest of the run. | No |
+| Before snapshot | The input dataset as loaded, with its default index 0..n-1 serving as the row id. Nothing is added to the data, so generated code sees exactly what a user would. Read-only for the rest of the run. | No |
 | Schema extractor | Column names, dtypes, null counts, a few sample rows. Feeds the parser and the generator. | No |
 | Intent parser slot | Request + schema → contract JSON. Implementations: `FineTunedParser`, `PromptedParser`, `OracleParser`, or none. Same constrained decoding for every LLM parser. | Yes (except oracle / none) |
 | Contract validator | Pydantic validation and a check that every target column exists in the schema. Failure → ESCALATE (counted as UNCERTAIN). | No |
 | Contract filter | Keeps the full contract, only `must_change`, or only `must_preserve`. Used for the G4 ablations. | No |
-| Code generator | Request + schema → `transform(df) -> df`. Instructed to keep `__rid__`. Used **offline** to build the Stage 1 pool and **online** in Stage 2. | Yes (one fixed model for all systems) |
+| Code generator | Request + schema → `transform(df) -> df`. Gets no instructions about row ids or the index. Used **offline** to build the Stage 1 pool and **online** in Stage 2. | Yes (one fixed model for all systems) |
 | Safety checker | AST allow-list: only `pandas` and `numpy` imports. Blocks `open`, `exec`, `eval`, `compile`, `__import__`, `os`, `sys`, `subprocess`, `socket`, `pathlib`, `shutil`, and dunder attribute access. Every block is logged as an unsafe attempt. | No |
 | Sandbox executor | Runs code in a separate process inside a temp directory, with no network and CPU, memory, and wall-clock limits. Data goes in and out by file. Returns `ok`, `crash`, or `timeout` plus stderr. | No |
-| Diff and profiler | Aligns on `__rid__`. Rows removed or added, changed cells per column, columns added or dropped, dtype and null changes. Missing `__rid__` → ESCALATE. | No |
+| Diff and profiler | Aligns rows by index label. If the index was lost (labels renumbered or not a subset of the input), falls back to matching rows by content; if rows still can't be matched unambiguously → ESCALATE (UNCERTAIN). Reports rows removed or added, changed cells per column, columns added or dropped, dtype and null changes, and which alignment method was used. | No |
 | Verifier slot | **none**: PASS whenever the code ran. **conventional**: Baseline 2's fixed generic suite (schema, nulls, dtypes, uniqueness, ranges, row consistency, distribution shift), thresholds tuned on dev. **intent**: one deterministic function per predicate. All return the same `Verdict(status, failures, evidence_rows)`. | No |
 | Failure report | One format for every kind of failure: violated predicates or failed checks, sandbox errors, safety blocks, with example rows. This is what the repair agent sees. | No |
 | Repair agent | Inputs: request, schema, current code, failure report, attempt history, and the read-only contract (intent systems only). Actions: a tool call, `propose_fix(code)`, or `escalate(reason)`. It never sees gold contracts, reference code, or reference outputs. | Yes |
@@ -327,20 +325,20 @@ stateDiagram-v2
     ESCALATED --> [*]
 ```
 
-- **PREPARE** = inject `__rid__`, freeze the before snapshot, extract the schema.
+- **PREPARE** = load the data (index = row id), freeze the before snapshot, extract the schema.
 - In Stage 1, **GENERATE** means "load the next candidate from the pool", and repair is always off.
 - PARSE and GENERATE don't depend on each other, so they can run in either order (or in parallel).
 
 ### 4.7 Request flow (proposed system, Stage 2)
 
-1. **Prepare.** The request and CSV arrive. `__rid__` is added, the before snapshot is frozen, and the schema is extracted.
+1. **Prepare.** The request and CSV arrive. The data is loaded with its default index as the row id, the before snapshot is frozen, and the schema is extracted.
 2. **Parse.** The fine-tuned parser produces a contract. The validator checks it; if it's invalid, the run ends as ESCALATE. Otherwise the contract is frozen.
 3. **Generate.** The fixed generator writes `transform(df)` from the request and schema.
 4. **Safety check.** Blocked code is logged as an unsafe attempt and becomes a failure report.
 5. **Execute.** The sandbox runs the code on the before snapshot. A crash or timeout becomes a failure report.
-6. **Diff and verify.** The diff is computed on `__rid__`, and the intent verifier checks every predicate. PASS → ACCEPT; UNCERTAIN → ESCALATE; VIOLATION → failure report.
+6. **Diff and verify.** The diff is computed by matching rows on the index (content fallback if the index was lost), and the intent verifier checks every predicate. PASS → ACCEPT; UNCERTAIN → ESCALATE; VIOLATION → failure report.
 7. **Repair.** The agent reads the failure report and history, may call tools, then proposes revised code (back to step 4) or escalates. Limits in §4.8.
-8. **Finish.** `__rid__` is stripped from the final output, and the outcome and full trace are written. Evaluation happens later in the harness (§4.3).
+8. **Finish.** The outcome and full trace are written. Evaluation happens later in the harness (§4.3).
 
 ### 4.8 Limits, error handling, and invariants
 
@@ -368,6 +366,7 @@ stateDiagram-v2
 3. All verifiers are deterministic and use no LLM.
 4. Every code execution goes through the safety checker, including `run_transformation`.
 5. The generator, decoding settings, and budgets are identical across systems. Only the slots in §4.4 differ.
+6. Generated code always runs on the data exactly as loaded; the harness never adds columns the LLM wasn't shown.
 
 **Outcomes and metrics:** each run ends as ACCEPT, REJECT, or ESCALATE. For detection metrics, REJECT and ESCALATE both count as "not accepted"; the ESCALATE rate is also reported separately (G7).
 
@@ -518,7 +517,7 @@ Dependency versions will be pinned in `requirements.txt` in Phase 0.
   3. Implement alignment and diff.
   4. Implement the predicates, one at a time, each with tests.
   5. Implement the verifier and a readable report (`Verdict.explain()`).
-- **Tests:** per predicate: pass case, violation case, edge cases (empty frame, all-null column, missing column → UNCERTAIN, dropped `__rid__` → UNCERTAIN). Normalization treats equivalent conditions as equal.
+- **Tests:** per predicate: pass case, violation case, edge cases (empty frame, all-null column, missing column → UNCERTAIN, index reset → content fallback, unmatchable rows → UNCERTAIN). Normalization treats equivalent conditions as equal.
 - **Deliverables:** verifier package, predicate docs.
 - **Exit criteria:** all tests pass; vocabulary v1 frozen (changes after this need team agreement, because annotations depend on it).
 
@@ -529,7 +528,7 @@ Dependency versions will be pinned in `requirements.txt` in Phase 0.
 - **Depends on:** Phase 0; the final validation step needs Phase 1.
 - **Components:**
   - `eval/tasks/*.yaml`: id, dataset, transformation type, request text, assumptions, reference code, gold contract, expected effect, pitfalls, dev/test split flag.
-  - `eval/equivalence.py`: `outputs_equal(ref, cand)` ignoring row order, index, and `__rid__`, with dtype tolerance.
+  - `eval/equivalence.py`: `outputs_equal(ref, cand)`: compares by content, ignoring row order and index (rows sorted by all columns), same column set, values equal with float tolerance, same dtype family.
   - `eval/agent_scenarios/{E,S}/*.yaml`: scenarios that need only a request (should-escalate, safety).
   - Authoring guide: `docs/eval_set_and_contract_guide.md`.
 - **Tasks:**
@@ -537,7 +536,7 @@ Dependency versions will be pinned in `requirements.txt` in Phase 0.
   2. Write reference code and a gold contract for each, following the guide.
   3. Write E (should-escalate) and S (safety) agent scenarios. R, C, and T scenarios need real LLM candidates, so they're built in Phase 4.
   4. Second annotator re-labels ~20% of gold contracts **and** ~20% of scenario expected outcomes. Record agreement; fix the guide; drop tasks that stay ambiguous.
-- **Tests:** every reference runs, keeps `__rid__`, and passes its gold contract (validates Phase 1 and annotations together); every scenario file validates against its schema.
+- **Tests:** every reference runs and passes its gold contract (validates Phase 1 and annotations together); every scenario file validates against its schema.
 - **Deliverables:** tasks, E/S scenarios, agreement numbers.
 - **Exit criteria:** task set frozen and versioned (`evalset-v1`).
 
@@ -576,7 +575,7 @@ Dependency versions will be pinned in `requirements.txt` in Phase 0.
   - `eval/build_pool.py` → `eval/pool_v1.jsonl` of (task, candidate id, generator model, seed, code, is_correct, run status).
 - **Tasks:**
   1. Client, backends, cache.
-  2. Generator prompt (keep `__rid__`, define `transform(df)`; sees **only the request and schema**); tune on dev tasks only.
+  2. Generator prompt (define `transform(df)`; sees **only the request and schema**); tune on dev tasks only.
   3. Sample several generations per task (e.g. 5, temperature ~0.7); optionally a second, smaller generator model for more varied errors.
   4. Run every candidate in the sandbox and label it by `outputs_equal` against the reference. Deduplicate identical code per task. Freeze → pool v1.
   5. Build R (repairable: wrong candidates), C (already correct: correct candidates), and T (tool fault: R + injected faults) agent scenarios from the pool.
@@ -753,7 +752,7 @@ intent-parser/
 ├── configs/                  # one YAML per experiment (models, seeds, systems, paths)
 ├── data/
 │   ├── raw/                  # downloaded datasets (gitignored) + checksums
-│   └── processed/            # cleaned copies with __rid__
+│   └── processed/            # fixed snapshots (e.g. parquet) of the data files
 ├── src/igt/                  # "intent-gated transformation" package
 │   ├── types.py              # shared data classes (Phase 0)
 │   ├── contracts/            # schema.py, normalize.py, validator.py, filter.py
@@ -861,7 +860,7 @@ Every predicate, normalization, alignment, AST guard, executor limits, tool argu
 
 - Parser omits a preserve predicate → false accept. Measured by the oracle gap.
 - Contract too strict → rejects correct alternatives. Measured by the false-rejection rate on correct LLM candidates.
-- Generated code drops `__rid__` → UNCERTAIN.
+- Generated code resets the index → content-based fallback; if rows can't be matched → UNCERTAIN (frequency reported).
 - Sandbox timeout.
 - Repair agent loops or makes things worse → attempt limit plus repeated-code detection.
 
@@ -874,7 +873,7 @@ Every predicate, normalization, alignment, AST guard, executor limits, tool argu
 | Agent evaluation judged too weak (TA feedback) | Lost marks on the agentic capability | Dedicated scenario suite (Phase 2), agent baselines and ablations, trajectory labels (Phase 10) |
 | Agent "fixes" by gaming the verifier | Inflated repair success | Read-only contract; final correctness judged by the evaluator against the reference; report verifier-gaming rate |
 | LLM error rate too low to measure | No signal | Gate 1: more samples, higher temperature, a second smaller generator, tasks with natural pitfalls |
-| Row alignment breaks (index reset, merge) | Verifier can't decide | `__rid__` convention; UNCERTAIN path; report its frequency |
+| Row alignment breaks (index reset, merge) | Verifier can't decide | Index as row id; content-based fallback; UNCERTAIN path; report how often each alignment method is used |
 | Small models produce invalid JSON | Parser failures | Constrained decoding + pydantic, applied equally to all parsers |
 | Training data leaks into evaluation | Inflated fine-tuning gains | Separate schemas; n-gram overlap check |
 | Baseline 2 is a strawman | Weak claim | Document the suite; tune thresholds on dev; report per-check results |

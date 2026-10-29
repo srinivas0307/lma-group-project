@@ -1,0 +1,1 @@
+{"task_id": "adult_dedup_006", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    df = df.sort_values(by='fnlwgt').drop_duplicates(subset=df.columns.difference(['fnlwgt', 'income']), keep='first')\n    df['income'] = df['income'].replace(['<=50K', '>50K'], [0, 1])\n    return df", "func_name": "transform"}

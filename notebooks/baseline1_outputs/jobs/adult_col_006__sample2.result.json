@@ -1,0 +1,1 @@
+{"status": "ok", "ran_ok": true, "correct": true, "rows_before": 1000, "runtime_s": 0.001, "reason": "equal", "rows_after": 1000, "cols_added": ["education_years"], "cols_removed": ["education-num"], "index_kept": true}

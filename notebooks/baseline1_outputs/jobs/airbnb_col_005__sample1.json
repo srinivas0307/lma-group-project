@@ -1,0 +1,1 @@
+{"task_id": "airbnb_col_005", "data_file": "data/airbnb_dev.csv", "code": "def transform(df):\n    room_type_mapping = {'Entire home/apt': 'entire', 'Private room': 'private', 'Shared room': 'shared'}\n    df['room_type'] = df['room_type'].map(room_type_mapping)\n    return df", "func_name": "transform"}

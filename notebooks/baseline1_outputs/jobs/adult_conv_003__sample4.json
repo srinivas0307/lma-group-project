@@ -1,0 +1,1 @@
+{"task_id": "adult_conv_003", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    cat_map = {v: k for k, v in enumerate(sorted(set(df.education_num.unique())), start=0)}\n    df['education'] = df['education'].astype('category', categories=cat_map.keys(), ordered=True)\n    return df", "func_name": "transform"}

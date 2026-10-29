@@ -3,7 +3,7 @@
 #
 # Suggested idea : Listings with the same name are duplicates; keep the first one.
 # Snapshot facts : 20 duplicate rows by name; no exact duplicate rows exist.   (profiled from data/airbnb_dev.csv; re-check when you write the task)
-# Watch out for  : drop_duplicates() without subset removes nothing (no exact duplicates, and __rid__ makes rows unique).
+# Watch out for  : drop_duplicates() without subset removes nothing (no exact duplicate rows exist).
 #
 # You may replace the idea entirely; keep the id, dataset and type.
 # =====================================================================
@@ -48,7 +48,7 @@ expected_effect:                   # fill in by running the reference (guide §1
 
 # ---------- notes ----------
 pitfalls:
-  - "drop_duplicates() without subset: no exact duplicate rows exist (and __rid__ is unique), so nothing is removed → c1, c2 fail."
+  - "drop_duplicates() without subset: no exact duplicate rows exist, so nothing is removed → c1, c2 fail."
   - "keep='last' → c1 fails (keep rule)."
   - "Strips or lower-cases names before comparing → c1 fails (different groups) and p1 may fail."
 notes: ""

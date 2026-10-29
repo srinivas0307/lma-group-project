@@ -1,0 +1,1 @@
+{"task_id": "airbnb_conv_006", "data_file": "data/airbnb_dev.csv", "code": "def transform(df):\n    return df.assign(id=df['id'].astype(str))", "func_name": "transform"}

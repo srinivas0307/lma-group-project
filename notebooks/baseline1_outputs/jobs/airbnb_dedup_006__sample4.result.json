@@ -1,0 +1,1 @@
+{"status": "ok", "ran_ok": true, "correct": false, "rows_before": 1000, "runtime_s": 0.004, "reason": "columns differ (extra=['is_first_instance'], missing=[])", "rows_after": 55, "cols_added": ["is_first_instance"], "cols_removed": [], "index_kept": true}

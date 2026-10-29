@@ -1,0 +1,1 @@
+{"task_id": "adult_col_006", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    return df.rename(columns={'education-num': 'education_years'})", "func_name": "transform"}

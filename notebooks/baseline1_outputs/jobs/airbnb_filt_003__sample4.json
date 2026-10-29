@@ -1,0 +1,1 @@
+{"task_id": "airbnb_filt_003", "data_file": "data/airbnb_dev.csv", "code": "def transform(df):\n    return df[df['price'] < 500]", "func_name": "transform"}

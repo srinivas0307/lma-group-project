@@ -1,0 +1,1 @@
+{"status": "ok", "ran_ok": true, "correct": false, "rows_before": 1000, "runtime_s": 0.007, "reason": "values differ", "rows_after": 980, "cols_added": [], "cols_removed": [], "index_kept": false}

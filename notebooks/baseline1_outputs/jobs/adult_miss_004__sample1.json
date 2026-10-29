@@ -1,0 +1,1 @@
+{"task_id": "adult_miss_004", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    df['native-country'].fillna('United-States', inplace=True)\n    return df", "func_name": "transform"}

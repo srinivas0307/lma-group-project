@@ -1,0 +1,1 @@
+{"task_id": "adult_filt_002", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    df = df[df['hours-per-week'] <= 60]\n    return df", "func_name": "transform"}

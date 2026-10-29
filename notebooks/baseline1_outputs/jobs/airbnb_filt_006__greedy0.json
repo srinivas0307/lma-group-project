@@ -1,0 +1,1 @@
+{"task_id": "airbnb_filt_006", "data_file": "data/airbnb_dev.csv", "code": "def transform(df):\n    df = df[df['neighbourhood_group'] == 'Manhattan'].copy()\n    df = df[df['price'] >= 60].copy()\n    df = df[~df['room_type'].str.contains('Private room', regex=True)].copy()\n    return df", "func_name": "transform"}

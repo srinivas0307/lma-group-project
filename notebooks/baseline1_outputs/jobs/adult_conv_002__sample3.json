@@ -1,0 +1,1 @@
+{"task_id": "adult_conv_002", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    df['income_num'] = df['income'].apply(lambda x: 1 if '>' in x else 0)\n    df.drop('income', axis=1, inplace=True)\n    return df", "func_name": "transform"}

@@ -1,0 +1,202 @@
+{
+  "tuning_split": "dev",
+  "n_dev_runnable": 32,
+  "max_false_rejection_rate": 0.1,
+  "tuned": {
+    "tie_break": "lenient",
+    "thresholds": {
+      "max_dropped_columns": "inf",
+      "max_row_ratio": "inf",
+      "min_row_ratio": 0,
+      "max_index_not_subset": "inf",
+      "max_null_increase": 0.01,
+      "max_new_column_null_frac": "inf",
+      "dtype_mode": "off",
+      "max_lost_unique_columns": "inf",
+      "max_duplicate_rows_increase": "inf",
+      "max_out_of_range_frac": "inf",
+      "max_mean_shift_z": 0.1,
+      "max_category_tvd": "inf",
+      "max_new_value_frac": "inf"
+    },
+    "dev_score": {
+      "recall": 0.765,
+      "frr": 0.0
+    },
+    "trace": [
+      {
+        "pass_": 0,
+        "param": "min_row_ratio",
+        "old": 0,
+        "new": 0.95,
+        "recall": 0.647,
+        "frr": 0.067
+      },
+      {
+        "pass_": 0,
+        "param": "max_null_increase",
+        "old": "inf",
+        "new": 0.01,
+        "recall": 0.706,
+        "frr": 0.067
+      },
+      {
+        "pass_": 0,
+        "param": "max_mean_shift_z",
+        "old": "inf",
+        "new": 0.1,
+        "recall": 0.765,
+        "frr": 0.067
+      },
+      {
+        "pass_": 1,
+        "param": "min_row_ratio",
+        "old": 0.95,
+        "new": 0,
+        "recall": 0.765,
+        "frr": 0.0
+      }
+    ]
+  },
+  "sensitivity_tie_break": {
+    "tie_break": "strict",
+    "thresholds": {
+      "max_dropped_columns": 1,
+      "max_row_ratio": 1.0,
+      "min_row_ratio": 0.95,
+      "max_index_not_subset": 0,
+      "max_null_increase": 0.01,
+      "max_new_column_null_frac": 0.05,
+      "dtype_mode": "off",
+      "max_lost_unique_columns": 0,
+      "max_duplicate_rows_increase": 0,
+      "max_out_of_range_frac": 0.0,
+      "max_mean_shift_z": 0.1,
+      "max_category_tvd": 0.02,
+      "max_new_value_frac": 0.01
+    },
+    "dev_score": {
+      "recall": 0.765,
+      "frr": 0.067
+    },
+    "trace": [
+      {
+        "pass_": 0,
+        "param": "max_dropped_columns",
+        "old": "inf",
+        "new": 1,
+        "recall": 0.0,
+        "frr": 0.0
+      },
+      {
+        "pass_": 0,
+        "param": "max_row_ratio",
+        "old": "inf",
+        "new": 1.0,
+        "recall": 0.0,
+        "frr": 0.0
+      },
+      {
+        "pass_": 0,
+        "param": "min_row_ratio",
+        "old": 0,
+        "new": 0.95,
+        "recall": 0.647,
+        "frr": 0.067
+      },
+      {
+        "pass_": 0,
+        "param": "max_index_not_subset",
+        "old": "inf",
+        "new": 0,
+        "recall": 0.647,
+        "frr": 0.067
+      },
+      {
+        "pass_": 0,
+        "param": "max_null_increase",
+        "old": "inf",
+        "new": 0.01,
+        "recall": 0.706,
+        "frr": 0.067
+      },
+      {
+        "pass_": 0,
+        "param": "max_new_column_null_frac",
+        "old": "inf",
+        "new": 0.05,
+        "recall": 0.706,
+        "frr": 0.067
+      },
+      {
+        "pass_": 0,
+        "param": "max_lost_unique_columns",
+        "old": "inf",
+        "new": 0,
+        "recall": 0.706,
+        "frr": 0.067
+      },
+      {
+        "pass_": 0,
+        "param": "max_duplicate_rows_increase",
+        "old": "inf",
+        "new": 0,
+        "recall": 0.706,
+        "frr": 0.067
+      },
+      {
+        "pass_": 0,
+        "param": "max_out_of_range_frac",
+        "old": "inf",
+        "new": 0.0,
+        "recall": 0.706,
+        "frr": 0.067
+      },
+      {
+        "pass_": 0,
+        "param": "max_mean_shift_z",
+        "old": "inf",
+        "new": 0.1,
+        "recall": 0.765,
+        "frr": 0.067
+      },
+      {
+        "pass_": 0,
+        "param": "max_category_tvd",
+        "old": "inf",
+        "new": 0.02,
+        "recall": 0.765,
+        "frr": 0.067
+      },
+      {
+        "pass_": 0,
+        "param": "max_new_value_frac",
+        "old": "inf",
+        "new": 0.01,
+        "recall": 0.765,
+        "frr": 0.067
+      }
+    ]
+  },
+  "default": {
+    "thresholds": {
+      "max_dropped_columns": 0,
+      "max_row_ratio": 1.0,
+      "min_row_ratio": 0.5,
+      "max_index_not_subset": 0,
+      "max_null_increase": 0.0,
+      "max_new_column_null_frac": 0.5,
+      "dtype_mode": "compatible",
+      "max_lost_unique_columns": 0,
+      "max_duplicate_rows_increase": 0,
+      "max_out_of_range_frac": 0.0,
+      "max_mean_shift_z": 0.5,
+      "max_category_tvd": 0.1,
+      "max_new_value_frac": 0.01
+    },
+    "dev_score": {
+      "recall": 0.941,
+      "frr": 0.667
+    }
+  }
+}

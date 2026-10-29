@@ -1,0 +1,1 @@
+{"task_id": "airbnb_dedup_004", "data_file": "data/airbnb_dev.csv", "code": "def transform(df):\n    df['last_price'] = df.groupby('host_name')['price'].transform('last')\n    df['keep'] = df['last_price'] == df['price']\n    return df[df['keep']].drop(columns='last_price')", "func_name": "transform"}

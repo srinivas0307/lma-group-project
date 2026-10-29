@@ -1,0 +1,1 @@
+{"task_id": "airbnb_col_006", "data_file": "data/airbnb_dev.csv", "code": "def transform(df):\n    return df.rename(columns={'reviews_per_month': 'monthly_reviews'})", "func_name": "transform"}

@@ -1,0 +1,1 @@
+{"task_id": "adult_filt_004", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    df = df[(df['education'] != 'Preschool') & (df['education'] != '1st-4th')]\n    return df", "func_name": "transform"}

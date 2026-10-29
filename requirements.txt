@@ -1,0 +1,4 @@
+# Pinned for task validation, labelling and verification (must match on Kaggle).
+pandas==2.3.3
+numpy==2.1.3
+pyyaml==6.0.2

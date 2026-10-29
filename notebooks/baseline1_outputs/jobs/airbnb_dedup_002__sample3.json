@@ -1,0 +1,1 @@
+{"task_id": "airbnb_dedup_002", "data_file": "data/airbnb_dev.csv", "code": "def transform(df):\n    df = df.sort_values(by='last_review', ascending=False).drop_duplicates(subset=['name'], keep='first').reset_index(drop=True)\n    return df", "func_name": "transform"}

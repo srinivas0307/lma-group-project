@@ -1,0 +1,1 @@
+{"task_id": "airbnb_dedup_006", "data_file": "data/airbnb_dev.csv", "code": "def transform(df):\n    df['is_duplicate'] = df.duplicated(subset=['host_name', 'room_type', 'price'], keep=False)\n    df = df[df['is_duplicate'] == False].drop('is_duplicate', axis=1)\n    return df.drop_duplicates(subset=['host_name', 'room_type', 'price'], keep='first')", "func_name": "transform"}

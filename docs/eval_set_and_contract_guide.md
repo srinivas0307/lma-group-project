@@ -50,7 +50,7 @@ We **don't store transformed CSVs**. We store code, and re-run it on a fixed sna
 
 ```
 snapshot (data/processed/<dataset>.parquet)
-   │  load + add hidden __rid__
+   │  load (default index 0..n-1 = row id; nothing is added)
    ▼
 before ──┬── run your reference_code ──► reference output   (correct answer)
          │
@@ -114,7 +114,7 @@ Rules:
 
 - Write the exact loading steps in `data/README.md` so the snapshot can be rebuilt byte-for-byte.
 - Record row counts and a checksum for each snapshot.
-- The hidden `__rid__` column is added **at runtime**, not stored in the snapshot.
+- Nothing is added to the data. Loaded fresh, the DataFrame index runs 0..n-1, and that index is the row id (§5.2).
 - If tasks become slow on Airbnb (~49k rows), we can use a fixed seeded sample later; decide as a team, not per task.
 
 ### 4.2 Column notes (verify during profiling)
@@ -123,7 +123,7 @@ Rules:
 > - **adult:** missing values are **empty cells (read as NaN)**, not the string `?` (62 in workclass and occupation, same rows; 18 in native-country). The `?` example in §10.3 doesn't apply to this file.
 > - **Neither file has exact duplicate rows**, so every dedup task needs a key subset.
 > - **airbnb:** `price` ranges 20–3000 (no zeros), so the §7 / §10.1 "price of 0" example would remove nothing on this file.
-> - With pandas 3.x, text columns load with dtype `str`; treat it as the `string` family (§5.7).
+> - **Pinned versions: pandas 2.3.3, numpy 2.1.3** (`requirements.txt`). Use them everywhere (local, Kaggle) for validation, labelling and verification. With pandas 2.x, text columns load with dtype `object`; treat it as the `string` family (§5.7). `astype(str)` turns missing values into the text `"nan"`, and `pd.to_datetime` gives `datetime64[ns]`.
 > - Per-task facts are in the header comment of each template in `eval/tasks/`, and `eval/tasks/INDEX.md` lists all 60.
 
 These are from memory of the public datasets. **Check every number when you profile**; they decide which tasks are possible.
@@ -186,11 +186,12 @@ The "notes / task ideas" column is where most of your task ideas will come from.
 | Term | Meaning |
 |---|---|
 | before / after | The dataset before and after the transformation. |
-| `__rid__` | Hidden row id added before execution. Rows are matched by `__rid__`, never by index or position. |
-| Surviving rows | Rows whose `__rid__` is present in both before and after. |
-| Removed rows | `__rid__` in before but not in after. |
-| Added rows | Rows in after whose `__rid__` is missing or not in before. |
-| Column set `*` | All columns of the **before** data except `__rid__`. Used with `except` to avoid long lists. |
+| Row id | The DataFrame **index** of the before data (0..n-1 when loaded). No column is added, so code runs on exactly the data a user would have. Filters, dedup, sorting and in-place edits keep index labels, so rows are matched by index label. |
+| Lost index | The output index can't be trusted as row ids: e.g. after `reset_index(drop=True)` it is renumbered 0..m-1 although rows were removed, or it contains labels not in before. The verifier then matches rows **by content** (values of the columns both frames share and that the contract says are unchanged). If rows still can't be matched unambiguously → UNCERTAIN. |
+| Surviving rows | Before rows matched to an after row. |
+| Removed rows | Before rows with no match in after. |
+| Added rows | After rows with no match in before. |
+| Column set `*` | All columns of the **before** data. Used with `except` to avoid long lists. |
 | Value equality | Two values are equal if both are null, or both are non-null and equal. Floats use `atol` (default `1e-9`) and `rtol` (default `0`). Numbers compare by value across int/float (`3 == 3.0`). |
 | Row order | Never matters. |
 
@@ -240,7 +241,7 @@ Because null makes every comparison false, `{"not": {"column": "price", "op": "=
 | 1 | `row_count` | Core | `null` (table-level) | `op`, `value` | Number of rows after satisfies `op` relative to before (or the absolute value). | — |
 | 2 | `rows_removed_where` | Core | `null` | `condition` | **Every** before-row matching `condition` is removed. Must match ≥ 1 before-row. | Condition references a missing column; matches 0 rows |
 | 3 | `rows_retained_where` | Extension | `null` | `condition` | **Every** before-row matching `condition` survives. | Condition references a missing column |
-| 4 | `duplicate_count` | Core | list of key columns, or `"*"` (+ optional `except`) | `op`, `value`, optional `keep` (`first` / `last`) | Number of rows in after that duplicate an earlier row on the key columns satisfies `op`. If `keep` is set (only with `op: eq, value: 0`): for every key group in before, **exactly one** row survives, and it's the first / last by `__rid__`. | Key column missing in after |
+| 4 | `duplicate_count` | Core | list of key columns, or `"*"` (+ optional `except`) | `op`, `value`, optional `keep` (`first` / `last`) | Number of rows in after that duplicate an earlier row on the key columns satisfies `op`. If `keep` is set (only with `op: eq, value: 0`): for every key group in before, **exactly one** row survives, and it's the first / last in the original row order (lowest / highest index). | Key column missing in after |
 | 5 | `null_count` | Core | column name | `op`, `value` | Null count in that column after satisfies `op` relative to before (or absolute). | Column missing in after |
 | 6 | `column_values_unchanged` | Core | column name, list, or `"*"` (+ `except`) | optional `where` (condition) | For every surviving row (matching `where`, if given), each target column's after value equals its before value. **dtype may change** as long as values are equal (e.g. int → float). | Target column missing in after |
 | 7 | `columns_unchanged` | Core | column name, list, or `"*"` (+ `except`) | — | Each target column still exists, has the **same dtype family**, and is value-equal on every surviving row. Stronger than #6. | — (missing column = violation) |
@@ -253,7 +254,7 @@ Notes:
 
 - `target: "*"` with `except: [...]` expands against the **before** schema. Expanded lists are what get compared during metrics (one item per column, which gives partial credit).
 - Predicates 6, 7 and 9 say nothing about removed rows; row removal is covered by predicates 1–4.
-- Added rows (a `__rid__` not in before) are never "surviving". If a task must not add rows, add `row_count` (`unchanged` or `decreased`).
+- Added rows (no match in before) are never "surviving". If a task must not add rows, add `row_count` (`unchanged` or `decreased`).
 
 ### 5.6 Relation functions for `column_value_relation`
 
@@ -280,7 +281,7 @@ If a task needs a function that isn't here, **don't invent one in the gold contr
 | `int` | int8–int64, uint*, nullable `Int*` |
 | `float` | float16–float64, nullable `Float*` |
 | `bool` | bool, nullable `boolean` |
-| `string` | `object` containing only str/null, `string`, pandas 3.x `str` |
+| `string` | `object` containing only str/null, `string` |
 | `category` | `category` (`ordered` and `categories` optional; `categories` order matters only if `ordered: true`) |
 | `datetime` | `datetime64[*]` (tz-naive) |
 
@@ -332,7 +333,7 @@ Turn each applicable item into explicit `must_preserve` predicates.
 ### 6.3 Minimal-but-complete rule
 
 - **Complete:** walk through the pitfall checklist (§9) for the task's type. For every plausible wrong reading, the gold contract must contain a predicate that would fail. If none would, add one. Write the readings you considered in the task's `pitfalls` field.
-- **Correct code must pass:** the reference code must satisfy the gold contract, and so must any other reasonable correct way of writing it (different API, different row order, index reset with `__rid__` kept). Don't add predicates that depend on *how* the code is written.
+- **Correct code must pass:** the reference code must satisfy the gold contract, and so must any other reasonable correct way of writing it (different API, different row order, an index reset). Don't add predicates that depend on *how* the code is written.
 - **Minimal:** don't add predicates that are implied by others **in the same section**. Example: with `rows_removed_where` and `rows_retained_where` both present, `row_count decreased` is implied; whether to include it anyway is a convention decided at the pilot (§6.6), applied consistently.
 - **One column, one statement:** don't put the same column in both `columns_unchanged` and `column_values_unchanged`.
 
@@ -447,15 +448,14 @@ notes: ""
 def transform(df):
     # 1. Only pandas (pd) and numpy (np); assume both are already imported.
     # 2. Never modify the input in place: work on df.copy() or return a new frame.
-    # 3. Keep the __rid__ column. Never drop, rename, or recompute it.
-    # 4. Never include __rid__ in logic (e.g. in drop_duplicates subsets).
-    # 5. No sorting or index resets unless the request asks for them (order is ignored anyway).
-    # 6. Deterministic: no randomness, no current-date logic.
-    # 7. No file, network, or print/IO calls.
+    # 3. Keep the original index: don't reset or reassign it (it is the row id, §5.2).
+    # 4. No sorting unless the request asks for it (order is ignored anyway).
+    # 5. Deterministic: no randomness, no current-date logic.
+    # 6. No file, network, or print/IO calls.
     return df
 ```
 
-Rule 4 matters a lot for deduplication: `df.drop_duplicates()` with `__rid__` present does **nothing**, because every row has a unique id. Always pass `subset=` (e.g. `[c for c in df.columns if c != "__rid__"]`). Tell the generator-prompt owner about this too: LLM code will hit the same trap.
+Rule 3 applies to the reference only. Generated code is never told about the index; if it resets the index, the verifier falls back to content matching (§5.2). For deduplication, remember that neither dev file has exact duplicate rows, so `df.drop_duplicates()` without `subset=` removes nothing.
 
 ### 8.3 Difficulty levels
 
@@ -480,7 +480,7 @@ Use this when writing each gold contract (§6.3). For each line that applies to 
 | filtering | Inverted condition | `rows_removed_where`, `row_count` |
 | any | Extra side operation (`dropna()`, extra filter) | `rows_retained_where`, `row_count` |
 | dedup | Too few key columns (removes non-duplicates) | `duplicate_count` with `keep`, `rows_retained_where` |
-| dedup | `__rid__` included in the key (no-op) | `duplicate_count` |
+| dedup | No key given (exact-duplicate check removes nothing on these files) | `duplicate_count` |
 | dedup | Wrong `keep` (last instead of first) | `duplicate_count.keep` |
 | missing / conv | Applied to all columns instead of one | `columns_unchanged` on the others |
 | missing | Drops rows instead of filling | `row_count unchanged`, `column_value_relation` |
@@ -491,7 +491,7 @@ Use this when writing each gold contract (§6.3). For each line that applies to 
 | column | Arithmetic or rounding error | `column_value_relation` |
 | any | Drops an unrelated column | `columns_unchanged` |
 | any | Dtype drift on another column (int → float via NaN) | `columns_unchanged` (dtype family) |
-| any | Drops or recomputes `__rid__` | Verifier returns UNCERTAIN (no predicate needed) |
+| any | Resets the index | Verifier uses content matching; UNCERTAIN only if rows can't be matched (no predicate needed) |
 
 ---
 
@@ -514,11 +514,10 @@ request: >
   Remove duplicate records. Two records are duplicates if every field is the same;
   keep the first one.
 assumptions:
-  - "'First' means earliest in the original file order (lowest __rid__)."
+  - "'First' means earliest in the original file order (lowest index)."
 reference_code: |
   def transform(df):
-      keys = [c for c in df.columns if c != "__rid__"]
-      return df.drop_duplicates(subset=keys, keep="first").copy()
+      return df.drop_duplicates(keep="first").copy()
 gold_contract:
   contract_version: "1.0"
   must_change:
@@ -527,7 +526,7 @@ gold_contract:
   must_preserve:
     - {id: p1, type: columns_unchanged, target: "*", except: []}
 pitfalls:
-  - "drop_duplicates() without subset: __rid__ makes rows unique, nothing removed → c1, c2 fail."
+  - "keep=False removes every copy, including the first → c1 fails."
   - "keep='last' → c1 fails (keep rule)."
   - "Dedup on a few columns only → c1 fails (more rows removed than duplicate groups)."
 ```
@@ -689,16 +688,14 @@ Until the verifier exists, run this manual check in a scratch notebook (not comm
 ```python
 import numpy as np, pandas as pd
 df = pd.read_parquet("data/processed/airbnb.parquet")
-df["__rid__"] = np.arange(len(df))
 out = transform(df.copy())          # paste reference_code above this line
-assert "__rid__" in out.columns
 print(len(df), len(out))            # → expected_effect.rows_before / rows_after
 print(set(out.columns) - set(df.columns), set(df.columns) - set(out.columns))
 ```
 
 Checklist:
 
-- [ ] Reference runs and keeps `__rid__`.
+- [ ] Reference runs and keeps the original index (no reset).
 - [ ] Every `must_change` predicate is non-vacuous (§6.5); counts recorded in `expected_effect`.
 - [ ] Gold contract follows canonical form (§5.3) and the pilot conventions (§6.6).
 - [ ] Pitfall checklist (§9) walked through; `pitfalls` filled in.
@@ -770,7 +767,7 @@ After the freeze, changes go through a new version (`evalset-v1.1`) with a chang
 | Who | What they need from you | When |
 |---|---|---|
 | Verifier implementer (Phase 1) | §5 frozen as v1.0; the 10 pilot tasks as test fixtures | End of Step 3 |
-| Generator / pool builder (Phase 4) | Frozen tasks (request + reference code); the `__rid__` dedup warning (§8.2) | After freeze |
+| Generator / pool builder (Phase 4) | Frozen tasks (request + reference code); the note that code runs on the data exactly as loaded (§5.2) | After freeze |
 | Metrics (Phase 5) | Task YAML format (§7) stable; dev/test split | During Step 4 |
 | Parser and fine-tuning (Phases 6–7) | §5 + the dev split; **no test-split phrasings** may be used in prompts or training data | After freeze |
 | Agent (Phases 9–10) | E and S scenarios (§11) | After Step 5 |

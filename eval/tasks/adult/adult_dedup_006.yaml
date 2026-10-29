@@ -29,7 +29,7 @@ assumptions:
 # ---------- ground truth ----------
 reference_code: |
   def transform(df):
-      keys = [c for c in df.columns if c not in ("__rid__", "fnlwgt", "income")]
+      keys = [c for c in df.columns if c not in ("fnlwgt", "income")]
       return df.drop_duplicates(subset=keys, keep="first").copy()
 
 gold_contract:

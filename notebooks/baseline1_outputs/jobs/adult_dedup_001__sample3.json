@@ -1,0 +1,1 @@
+{"task_id": "adult_dedup_001", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    df_no_duplicates = df.loc[df.duplicated(subset=df.columns[:-1], keep='first'), :]\n    return df_no_duplicates", "func_name": "transform"}

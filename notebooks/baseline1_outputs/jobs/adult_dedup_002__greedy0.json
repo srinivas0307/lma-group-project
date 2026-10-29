@@ -1,0 +1,1 @@
+{"task_id": "adult_dedup_002", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    df_filtered = df.drop(columns='fnlwgt')\n    duplicates = df_filtered.duplicated(keep='last')\n    return df[~df['fnlwgt'].isin(df[duplicates]['fnlwgt'])]", "func_name": "transform"}

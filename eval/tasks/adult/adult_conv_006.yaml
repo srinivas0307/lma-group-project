@@ -53,5 +53,5 @@ expected_effect:                   # fill in by running the reference (guide §1
 # ---------- notes ----------
 pitfalls:
   - "Fills missing values (e.g. 'Unknown') before converting → p1, p2 fail."
-  - "astype(str) first: with pandas 3.x missing values stay missing (accepted); with older pandas they become the text 'nan' → p1, p2 fail."
+  - "astype(str) first: with pandas 2.3.3 missing values become the text 'nan' → p1, p2 fail."
 notes: ""

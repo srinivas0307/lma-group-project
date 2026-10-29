@@ -1,0 +1,1 @@
+{"task_id": "airbnb_filt_001", "data_file": "data/airbnb_dev.csv", "code": "def transform(df):\n    df = df[df['availability_365'] > 0].copy()\n    return df", "func_name": "transform"}

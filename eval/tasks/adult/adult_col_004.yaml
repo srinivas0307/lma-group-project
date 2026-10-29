@@ -54,7 +54,7 @@ expected_effect:                   # fill in by running the reference (guide §1
 
 # ---------- notes ----------
 pitfalls:
-  - "astype(str).str.lower(): with pandas 3.x missing values stay missing (accepted); with older pandas they become the text 'nan' → c1 fails."
+  - "astype(str).str.lower(): with pandas 2.3.3 missing values become the text 'nan' → c1 fails."
   - "Lower-cases every text column → p1 fails."
   - "Upper-cases instead → c1 fails."
 notes: ""

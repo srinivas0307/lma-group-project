@@ -1,0 +1,1 @@
+{"task_id": "adult_filt_003", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    df = df[df['native-country'] == 'United-States']\n    return df", "func_name": "transform"}

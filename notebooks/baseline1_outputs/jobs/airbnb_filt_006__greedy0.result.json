@@ -1,0 +1,1 @@
+{"status": "ok", "ran_ok": true, "correct": false, "rows_before": 1000, "runtime_s": 0.004, "reason": "row count differs (279 vs 987)", "rows_after": 279, "cols_added": [], "cols_removed": [], "index_kept": true}

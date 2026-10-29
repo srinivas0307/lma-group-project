@@ -1,0 +1,1 @@
+{"task_id": "airbnb_miss_003", "data_file": "data/airbnb_dev.csv", "code": "def transform(df):\n    df.dropna(subset=['last_review'], inplace=True)\n    return df", "func_name": "transform"}
