@@ -18,7 +18,8 @@ ROOT = Path(__file__).resolve().parent.parent
 PY = sys.executable
 BASE = [ROOT / "eval/pool_v2/verdicts_baseline1.jsonl", ROOT / "results/baseline2_v2/verdicts_baseline2.jsonl",
         ROOT / "results/intent_oracle_v2/verdicts_intent_oracle.jsonl"]
-ORDER = ["intent_prompted_7b", "intent_prompted_3b", "intent_prompted_1_5b", "intent_ft_3b", "intent_ft_1_5b"]
+ORDER = ["intent_prompted_7b", "intent_prompted_3b", "intent_prompted_1_5b",
+         "intent_prompted_7b_p1v2", "intent_prompted_3b_p1v2", "intent_prompted_1_5b_p1v2", "intent_ft_3b", "intent_ft_1_5b"]
 
 
 def run(*cmd):

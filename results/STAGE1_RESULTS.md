@@ -81,3 +81,36 @@ The gold contracts were **not** changed after seeing these (that would leak test
 Question: does the oracle-contract verifier beat conventional checks on recall at a similar false-rejection rate?
 **Yes:** recall 0.980 vs 0.510 at FRR 0.000 vs 0.081 (test, pool v2), McNemar p < 0.001. Proceed to Phase 6
 (Baseline 3, prompted parser), with caveats 1–2 above.
+
+## Baseline 3: prompted parsers, prompt p1-v1 (first run, 2026-10-29)
+
+Same pool (v2, test). Contracts come from the parser instead of the gold annotation. `eval/score_parsers.py`.
+
+| System | Invalid contracts (tasks) | Change F1 | Preserve F1 | Recall | FRR | ESCALATE rate |
+|---|---|---|---|---|---|---|
+| Baseline 2 (conventional) | – | – | – | 0.510 | 0.081 | 0.000 |
+| intent_oracle (gold) | 0 | 1 | 1 | 0.980 | 0.000 | 0.003 |
+| intent_prompted_7b (Baseline 3) | 0.340 | 0.720 | 0.771 | 1.000 | 0.477 | 0.337 |
+| intent_prompted_3b | 0.440 | 0.403 | 0.660 | 0.949 | 0.594 | 0.331 |
+| intent_prompted_1_5b | 0.500 | 0.329 | 0.588 | 0.949 | 0.782 | 0.477 |
+
+Contract metrics: test split, 100 tasks. Recall/FRR: test split, 323 candidates. Invalid or unusable contracts are
+escalated (count as "not accepted"), which is where most of the false rejections come from.
+
+**Findings**
+1. **Invalid output is the main failure.** 34–50% of the contracts are rejected by the schema, mostly for format:
+   pandas dtype names (`int64`) instead of the six families, `and`/`or` instead of `all`/`any`, several arguments
+   merged into one object, functions outside the vocabulary (`median`), `ordered` on non-category dtypes, `keep` with
+   the wrong op. Larger model → fewer invalid outputs and higher F1 (7B > 3B > 1.5B on every metric).
+2. **When the contract is valid it is useful but too strict.** On test tasks with a valid 7B contract
+   (66 tasks, 205 candidates): recall 1.000, FRR 0.226, ESCALATE 0.093 (oracle on the same candidates: 0.986 / 0.000;
+   Baseline 2: 0.514 / 0.120). Precision is high (change 0.93, preserve 0.99) and recall is low (0.59 / 0.63): the
+   predicates the parser writes are mostly right, but it leaves some out and writes some wrong ones that reject correct code.
+3. **Baseline 3 does not beat Baseline 2 overall** (McNemar: Baseline 2 right on 89 candidates where Baseline 3 was
+   wrong, the reverse on 59; p = 0.017), because of the escalations. The intent approach needs a reliable parser:
+   this is the motivation for fine-tuning (Gate 3) and is a result in itself.
+
+**Next:** prompt p1-v2 adds explicit format rules, each one aimed at an invalid-output type that **also occurs on the
+dev split** (dev invalid outputs: 7B 7/20, 3B 9/20, 1.5B 15/20). Few-shot examples, decoding and verifier are unchanged.
+Both versions are reported. Caveat: the test results of p1-v1 had been seen when p1-v2 was written; the changes are
+limited to format rules justified by dev errors, not to content.

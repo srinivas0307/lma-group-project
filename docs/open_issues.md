@@ -78,6 +78,14 @@ Not urgent; apply whenever the Kaggle notebook is run again.
   are an upper bound until the second annotation / agreement study (Phase 2, task 4) is done.
 - FRR 0 is expected by construction (correct = equal to the reference, references pass their contracts).
 
+## OI-9: Prompted parsers produce many invalid contracts
+
+- **Status:** open (2026-10-29). p1-v1: 34–50% of test contracts invalid (format errors). p1-v2 written from dev
+  errors; needs a Kaggle run. Caveat to report: p1-v1 test results were seen before p1-v2 was written.
+- If p1-v2 still leaves many invalid outputs, options (decide as a team, apply to **every** parser): constrained
+  decoding (README §5.1 originally planned it), or one automatic re-ask with the validation error (counted as a second
+  parser call). Not acceptable: loosening the schema or repairing outputs by hand.
+
 ## Log
 
 - 2026-10-29: pool v1 frozen at `eval/pool_v1/` from `notebooks/baseline1_outputs/` (360 generations → 161 unique candidates; all labels reproduced locally; checksums in `manifest.json`).
@@ -93,3 +101,4 @@ Not urgent; apply whenever the Kaggle notebook is run again.
 - 2026-10-29: parser size ablation added: the same prompt on Qwen2.5-3B and 1.5B (`intent_prompted_3b`, `intent_prompted_1_5b`) next to Baseline 3 (7B), so size and fine-tuning effects can be separated (README §12). `notebooks/baseline3_parse_kaggle.ipynb` runs all three parsers in one session; `eval/score_parsers.py` scores every downloaded parser and builds one table (`results/parsers_v2/`).
 - 2026-10-29: fine-tuning data guide `docs/finetune_data_guide.md` (Phase 7) with ready tools `finetune/data_gen/check_examples.py` (7 automatic checks incl. verifier pass/no-op fail and leakage vs evaluation requests) and `finetune/data_gen/build_sft.py` (chat format identical to the evaluation prompt; validation split by whole dataset). Wine Quality, planned for evaluation but never used there, is now a training candidate; it must not be added to evaluation later.
 - 2026-10-29: Phase 7 training pipeline ready: `finetune/train_qlora.py` (transformers Trainer + peft, QLoRA nf4, loss on contract tokens only, over-long examples dropped not truncated), configs for 1.5B / 3B / CPU smoke, `eval/parse_contracts.py --adapter` (fine-tuned parser, zero-shot), `notebooks/finetune_qlora_kaggle.ipynb` (smoke mode, then train + parse both sizes), `finetune/README.md`. CPU smoke on Qwen2.5-0.5B: loss 0.55 → 0.05 in 6 steps, adapter reload gives identical output, output is a valid contract. Fixed: `finetune/datasets/` shadowed the HuggingFace `datasets` library when running the script. Waiting for the SFT data.
+- 2026-10-29: Baseline 3 first run (prompt p1-v1, 7B/3B/1.5B) scored: invalid contracts 34% / 44% / 50% (test), test recall 1.00 / 0.95 / 0.95 at FRR 0.48 / 0.59 / 0.78, mostly from escalated invalid contracts. Prompt p1-v2 added (format rules from dev errors); p1-v1 hash unchanged so the run stays reproducible. 1.5B result renamed to `intent_prompted_1_5b`. See OI-9.

@@ -111,7 +111,7 @@ Examples:
 | `intent_ft_1_5b`, `intent_ft_3b` | fine-tuned Qwen2.5 | full | intent |
 | `intent_ft_3b_change_only` / `intent_ft_3b_preserve_only` | fine-tuned 3B | one direction | intent |
 
-Sensitivity variants add a suffix, e.g. `baseline2_strict`. Every intent system can also have `_change_only` /
+Sensitivity variants add a suffix, e.g. `baseline2_strict`. Parser prompt versions after the first add a suffix too, e.g. `intent_prompted_7b_p1v2`. Every intent system can also have `_change_only` /
 `_preserve_only` variants (the runner writes all three).
 
 **Why the parser grid:** the prompted 3B / 1.5B runs separate the effect of model size (prompted 7B vs 3B vs 1.5B)

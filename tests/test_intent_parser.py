@@ -110,3 +110,11 @@ def test_contract_metrics_on_toy_parses():
     # must_preserve: gold 4 columns, pred 3 of them
     assert (m["must_preserve"]["tp"], m["must_preserve"]["fp"], m["must_preserve"]["fn"]) == (3, 0, 1)
     assert m["invalid_rate"] == 0.5 and m["exact_match"] == 0.0
+
+
+def test_prompt_versions():
+    from igt.agents.intent_parser import PROMPTS, prompt_hash
+    assert prompt_hash("p1-v1") == "1b8d8783f898"                 # the first Kaggle run must stay reproducible
+    assert PROMPTS["p1-v2"].startswith(PROMPTS["p1-v1"]) and "Format rules" in PROMPTS["p1-v2"]
+    t = next(t for t in TASKS if t["split"] == "test")
+    assert build_messages(t, SCHEMA, few_shot_examples(TASKS), "p1-v1")[0]["content"] == PROMPTS["p1-v1"]
