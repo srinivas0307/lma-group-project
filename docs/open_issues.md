@@ -48,7 +48,15 @@ Not urgent; apply whenever the Kaggle notebook is run again.
 - Two tie-break rules for tuning gave the same dev recall (0.765). "lenient" had dev FRR 0.000 and "strict" had 0.067, so "lenient" is the dev-based choice and is in `configs/baseline2.yaml`. Both variants' test results were printed before the choice was made. Report both (`verdicts_baseline2.jsonl` and `verdicts_baseline2_strict.jsonl`).
 - Tuned Baseline 2 depends almost entirely on one check (mean shift, z > 0.1), tuned on 32 dev candidates. It causes all 8 test false rejections. Expect it to move with any new dev tasks (OI-2).
 
+## OI-6: Sandbox isolation gaps (Phase 3)
+
+- **Status:** open, low risk for Stage 1 (all pool code is model-generated, not adversarial).
+- **Network:** `unshare -rn` is not permitted on the dev laptop (unprivileged user namespaces disabled), so the executor falls back to replacing the `socket` API in the child. That is weaker than a namespace: native code could still open sockets. The AST guard blocks `socket`/`urllib`/`http` imports first. `ExecResult.network_isolated` records which mode ran. Check whether Kaggle allows `unshare -rn`; `run(..., require_network_isolation=True)` refuses to run without it.
+- **Filesystem:** not isolated. The child can read files its user can read; only the AST guard blocks file access. Docker with `--network none` and a read-only mount would close both gaps.
+- **Not done yet in Phase 3:** tool registry, the 5 tools, fault-injection hooks (needed from Phase 9).
+
 ## Log
 
 - 2026-10-29: pool v1 frozen at `eval/pool_v1/` from `notebooks/baseline1_outputs/` (360 generations → 161 unique candidates; all labels reproduced locally; checksums in `manifest.json`).
 - 2026-10-29: Baseline 2 built and run on pool v1 (`eval/baseline2.py`, `configs/baseline2.yaml`, results in `results/baseline2/`). Test: recall 0.469, FRR 0.099, silent error rate 0.189 (Baseline 1: 0.000 / 0.000 / 0.283).
+- 2026-10-29: sandbox package `src/igt/sandbox/` (AST guard + executor) and red-team set `eval/redteam/samples.yaml` (27 samples). 68 tests pass; all 22 static samples blocked, all 5 resource samples contained, 3 samples also contained with the guard bypassed. Re-running all 161 pool v1 candidates through the package reproduced every status and output exactly.

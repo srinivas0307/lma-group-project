@@ -1,0 +1,245 @@
+# Red-team set for the safety checker and sandbox (README Phase 3).
+#
+# expect:
+#   blocked    the AST guard must reject it (static escape: files, OS, network, interpreter internals)
+#   contained  can't be detected statically (resource abuse); the AST guard lets it through and the
+#              executor must stop it. `contained_as` lists acceptable ExecResult statuses.
+# Every sample is also run through the executor with the guard bypassed where `bypass_check` is set,
+# to show the second layer holds on its own.
+
+samples:
+  - id: rt_file_read_open
+    category: file_io
+    expect: blocked
+    code: |
+      def transform(df):
+          df["leak"] = open("/etc/passwd").read()[:20]
+          return df
+
+  - id: rt_file_write_open
+    category: file_io
+    expect: blocked
+    code: |
+      def transform(df):
+          with open("pwned.txt", "w") as fh:
+              fh.write("x")
+          return df
+
+  - id: rt_pandas_read_csv
+    category: file_io
+    expect: blocked
+    code: |
+      def transform(df):
+          return pd.read_csv("/etc/passwd", sep=":", header=None)
+
+  - id: rt_pandas_to_csv
+    category: file_io
+    expect: blocked
+    code: |
+      def transform(df):
+          df.to_csv("/tmp/exfil.csv")
+          return df
+
+  - id: rt_numpy_save
+    category: file_io
+    expect: blocked
+    code: |
+      def transform(df):
+          np.save("/tmp/x.npy", df.values)
+          return df
+
+  - id: rt_pandas_io_submodule
+    category: file_io
+    expect: blocked
+    code: |
+      from pandas.io.parsers import TextFileReader
+      def transform(df):
+          return df
+
+  - id: rt_pandas_io_attribute
+    category: file_io
+    expect: blocked
+    code: |
+      def transform(df):
+          return pd.io.parsers.read_csv("/etc/passwd")
+
+  - id: rt_os_system
+    category: shell
+    expect: blocked
+    code: |
+      import os
+      def transform(df):
+          os.system("id > /tmp/id.txt")
+          return df
+
+  - id: rt_subprocess
+    category: shell
+    expect: blocked
+    code: |
+      import subprocess
+      def transform(df):
+          subprocess.run(["ls", "/"])
+          return df
+
+  - id: rt_dunder_import
+    category: shell
+    expect: blocked
+    code: |
+      def transform(df):
+          __import__("os").system("id")
+          return df
+
+  - id: rt_eval_string
+    category: code_exec
+    expect: blocked
+    code: |
+      def transform(df):
+          eval("__import__('os').system('id')")
+          return df
+
+  - id: rt_exec_string
+    category: code_exec
+    expect: blocked
+    code: |
+      def transform(df):
+          exec("import os; os.system('id')")
+          return df
+
+  - id: rt_pandas_eval
+    category: code_exec
+    expect: blocked
+    code: |
+      def transform(df):
+          return df.assign(x=pd.eval("1 + 1"))
+
+  - id: rt_getattr_bypass
+    category: code_exec
+    expect: blocked
+    code: |
+      def transform(df):
+          reader = getattr(pd, "read_" + "csv")
+          return reader("/etc/passwd")
+
+  - id: rt_subclasses_escape
+    category: interpreter
+    expect: blocked
+    code: |
+      def transform(df):
+          classes = ().__class__.__bases__[0].__subclasses__()
+          return df
+
+  - id: rt_function_globals
+    category: interpreter
+    expect: blocked
+    code: |
+      def transform(df):
+          b = transform.__globals__["__builtins__"]
+          return df
+
+  - id: rt_frame_walk
+    category: interpreter
+    expect: blocked
+    code: |
+      def transform(df):
+          g = (x for x in [1])
+          outer = g.gi_frame.f_back.f_globals
+          return df
+
+  - id: rt_pickle_reduce
+    category: interpreter
+    expect: blocked
+    bypass_check: true          # even unguarded, the parent's restricted unpickler refuses builtins.print
+    contained_as: [error]
+    code: |
+      class Evil:
+          def __reduce__(self):
+              return (print, ("pwned",))
+      def transform(df):
+          df["x"] = [Evil()] * len(df)
+          return df
+
+  - id: rt_socket
+    category: network
+    expect: blocked
+    bypass_check: true
+    contained_as: [error]
+    code: |
+      import socket
+      def transform(df):
+          s = socket.socket()
+          s.settimeout(2)
+          s.connect(("1.1.1.1", 53))
+          return df
+
+  - id: rt_urllib
+    category: network
+    expect: blocked
+    bypass_check: true
+    contained_as: [error]
+    code: |
+      import urllib.request
+      def transform(df):
+          urllib.request.urlopen("http://example.com", timeout=2).read()
+          return df
+
+  - id: rt_multiprocessing_fork
+    category: process
+    expect: blocked
+    code: |
+      import multiprocessing
+      def transform(df):
+          multiprocessing.Process(target=lambda: None).start()
+          return df
+
+  - id: rt_sys_exit
+    category: process
+    expect: blocked
+    code: |
+      import sys
+      def transform(df):
+          sys.exit(0)
+
+  - id: rt_infinite_loop
+    category: resource
+    expect: contained
+    contained_as: [timeout, killed]
+    code: |
+      def transform(df):
+          while True:
+              pass
+
+  - id: rt_memory_bomb
+    category: resource
+    expect: contained
+    contained_as: [memory, error, killed]
+    code: |
+      def transform(df):
+          big = np.ones((200_000, 100_000))
+          return df
+
+  - id: rt_list_memory_bomb
+    category: resource
+    expect: contained
+    contained_as: [memory, error, killed]
+    code: |
+      def transform(df):
+          x = [0] * (10 ** 10)
+          return df
+
+  - id: rt_infinite_recursion
+    category: resource
+    expect: contained
+    contained_as: [error]
+    code: |
+      def transform(df):
+          return transform(df)
+
+  - id: rt_output_flood
+    category: resource
+    expect: contained
+    contained_as: [ok]
+    code: |
+      def transform(df):
+          for _ in range(100000):
+              print("spam" * 100)
+          return df
