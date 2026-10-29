@@ -107,10 +107,17 @@ Examples:
 | `intent_oracle` | gold contract | full | intent |
 | `intent_oracle_change_only` / `intent_oracle_preserve_only` | gold contract | one direction | intent |
 | `intent_prompted_7b` | prompted Qwen2.5-7B (Baseline 3) | full | intent |
+| `intent_prompted_3b`, `intent_prompted_1_5b` | same prompt on Qwen2.5-3B / 1.5B, no fine-tuning (size ablation) | full | intent |
 | `intent_ft_1_5b`, `intent_ft_3b` | fine-tuned Qwen2.5 | full | intent |
 | `intent_ft_3b_change_only` / `intent_ft_3b_preserve_only` | fine-tuned 3B | one direction | intent |
 
-Sensitivity variants add a suffix, e.g. `baseline2_strict`.
+Sensitivity variants add a suffix, e.g. `baseline2_strict`. Every intent system can also have `_change_only` /
+`_preserve_only` variants (the runner writes all three).
+
+**Why the parser grid:** the prompted 3B / 1.5B runs separate the effect of model size (prompted 7B vs 3B vs 1.5B)
+from the effect of fine-tuning (prompted 3B vs fine-tuned 3B, same for 1.5B). Prompt, decoding, verifier and pool
+are identical across all of them. The candidate code generator (Qwen2.5-3B + 1.5B) is not part of this comparison:
+it only produces the pool every system judges.
 
 ## 6. Minimal example for the intent verifier
 

@@ -22,7 +22,7 @@ MAX_EVIDENCE = 5
 SYSTEMS = (
     "baseline1", "baseline2",
     "intent_oracle", "intent_oracle_change_only", "intent_oracle_preserve_only",
-    "intent_prompted_7b",
+    "intent_prompted_7b", "intent_prompted_3b", "intent_prompted_1_5b",
     "intent_ft_1_5b", "intent_ft_3b", "intent_ft_3b_change_only", "intent_ft_3b_preserve_only",
 )
 
