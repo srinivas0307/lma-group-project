@@ -36,7 +36,7 @@ def append_jsonl(p, rows):
 
 
 class HFBackend:
-    def __init__(self, model_id, max_new_tokens, temperature, top_p, dtype, load_in_4bit=False):
+    def __init__(self, model_id, max_new_tokens, temperature, top_p, dtype, load_in_4bit=False, adapter=None):
         import torch
         from transformers import AutoModelForCausalLM, AutoTokenizer
         self.torch = torch
@@ -44,12 +44,15 @@ class HFBackend:
         self.tok.padding_side = "left"
         if self.tok.pad_token is None:
             self.tok.pad_token = self.tok.eos_token
-        kw = dict(dtype=getattr(torch, dtype), device_map="auto")
+        kw = dict(dtype=getattr(torch, dtype), device_map="auto" if torch.cuda.is_available() else None)
         if load_in_4bit:
             from transformers import BitsAndBytesConfig
             kw["quantization_config"] = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4",
                                                            bnb_4bit_compute_dtype=getattr(torch, dtype))
         self.model = AutoModelForCausalLM.from_pretrained(model_id, **kw).eval()
+        if adapter:
+            from peft import PeftModel
+            self.model = PeftModel.from_pretrained(self.model, str(adapter)).eval()
         self.max_new_tokens, self.temperature, self.top_p = max_new_tokens, temperature, top_p
 
     def info(self):

@@ -1,0 +1,17 @@
+{
+  "train": 13,
+  "val": 4,
+  "val_datasets": [
+    "smoke_shop_val"
+  ],
+  "train_by_type": {
+    "filtering": 9,
+    "deduplication": 2,
+    "missing_values": 2
+  },
+  "train_by_dataset": {
+    "smoke_shop": 13
+  },
+  "max_chars": 3891,
+  "approx_max_tokens": 1111
+}

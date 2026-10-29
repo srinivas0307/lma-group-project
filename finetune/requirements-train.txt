@@ -1,0 +1,4 @@
+# Extra libraries for fine-tuning (Kaggle GPU kernel already has torch + transformers + accelerate).
+# Versions used in the CPU smoke test: torch 2.15.0, transformers 5.22.0, peft 0.21.2.
+peft==0.21.2
+bitsandbytes

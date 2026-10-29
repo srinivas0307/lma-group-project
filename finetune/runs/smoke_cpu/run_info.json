@@ -1,0 +1,71 @@
+{
+  "config": {
+    "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "train_file": "finetune/data/smoke/sft_train.jsonl",
+    "val_file": "finetune/data/smoke/sft_val.jsonl",
+    "output_dir": "finetune/runs/smoke_cpu",
+    "load_in_4bit": false,
+    "compute_dtype": "float32",
+    "gradient_checkpointing": true,
+    "lora_r": 8,
+    "lora_alpha": 16,
+    "lora_dropout": 0.05,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "learning_rate": 0.001,
+    "num_epochs": 1,
+    "max_steps": 6,
+    "warmup_ratio": 0.03,
+    "weight_decay": 0.0,
+    "lr_scheduler": "cosine",
+    "per_device_batch_size": 1,
+    "gradient_accumulation_steps": 1,
+    "max_seq_len": 2048,
+    "logging_steps": 1,
+    "eval_steps": 3,
+    "save_steps": 0,
+    "seed": 1234,
+    "limit_train": null,
+    "limit_val": null,
+    "optim": null
+  },
+  "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "runtime_s": 158.5,
+  "train_loss": 0.2886145239075025,
+  "final_eval": {
+    "eval_loss": 0.07136785984039307,
+    "eval_runtime": 21.2666,
+    "eval_samples_per_second": 0.188,
+    "eval_steps_per_second": 0.188,
+    "epoch": 0.46153846153846156
+  },
+  "first_logged_loss": 0.5525873899459839,
+  "last_logged_loss": 0.04945056885480881,
+  "n_train": 13,
+  "n_val": 4,
+  "dropped_too_long": {
+    "train": 0,
+    "val": 0
+  },
+  "max_tokens": 1184,
+  "steps": 6,
+  "trainable_params": 4399104,
+  "data_sha256": {
+    "train_file": "abed0470c29547bc114f025720a4c71bb50c83076b516410c8c530e12b713904",
+    "val_file": "61d1ae0f57ece1a1786a0cbfb2cdd8ea126626b22c636980a878748c06939674"
+  },
+  "versions": {
+    "python": "3.12.3",
+    "torch": "2.15.0+cpu",
+    "transformers": "5.22.0",
+    "peft": "0.21.2"
+  },
+  "gpu": null
+}

@@ -1,6 +1,6 @@
 """Prompted intent parser (Baseline 3): request + dataset schema -> intent contract JSON (vocabulary v1.0).
 
-Prompt version p1-v1. Few-shot examples are DEV tasks only (README: no test phrasings in prompts). The same
+Prompt versions p1-v1 (first run) and p1-v2 (default; adds format rules). Few-shot examples are DEV tasks only (README: no test phrasings in prompts). The same
 prompt, extraction and decoding (greedy, plain generation + JSON extraction + pydantic validation; README §12)
 are used for every LLM parser, so prompted and fine-tuned parsers are compared fairly.
 No pandas/torch imports: this module runs inside the Kaggle GPU kernel unchanged.
@@ -11,11 +11,10 @@ import re
 
 from igt.agents.code_generator import load_prompt_schema, load_tasks  # noqa: F401  (re-exported for scripts)
 
-PARSER_PROMPT_VERSION = "p1-v1"
 FEW_SHOT_IDS = ("adult_dedup_006", "airbnb_filt_006", "airbnb_miss_006", "adult_conv_006", "adult_col_006")
 HEAD_ROWS = 3
 
-SYSTEM_PROMPT = """You turn a data-transformation request into an intent contract: a JSON object that states what the transformation must change and what it must preserve. You never write code.
+SYSTEM_PROMPT_V1 = """You turn a data-transformation request into an intent contract: a JSON object that states what the transformation must change and what it must preserve. You never write code.
 
 Output exactly one JSON object in a ```json block:
 {"contract_version": "1.0", "must_change": [...], "must_preserve": [...]}
@@ -43,6 +42,25 @@ DTYPE: "int" | "float" | "bool" | "string" | "category" | "datetime".
 
 Use the exact column names and values shown in the data. Every must_change predicate must be something the correct transformation actually changes."""
 
+# p1-v2 (2026-10-29): p1-v1 + explicit format rules. Each rule targets an invalid-output type that also occurs on
+# the DEV split in the p1-v1 run (7B/3B/1.5B): pandas dtype names, "and"/"or" instead of "all"/"any", several
+# arguments merged into one object, functions outside the list, "ordered" on non-category dtypes, "keep" with an
+# op other than eq 0. Few-shot examples, user template and decoding are unchanged.
+FORMAT_RULES = """
+
+Format rules (outputs that break them are rejected):
+- DTYPE is one of the six words int, float, bool, string, category, datetime. Never a pandas name such as int64, float64, object or str.
+- Combine conditions only with "all", "any" and "not". There is no "and" or "or" key.
+- "args" is a list, and every element is its own object with exactly one key: {"col": "name"} or {"lit": value}. Example: clip to at most 60 is "args": [{"col": "hours"}, {"lit": null}, {"lit": 60}].
+- "fn" is one of the FN names above. There is no mean, median, mode or replace; if the request needs a statistic of the data, write its value from the data as a {"lit": ...}.
+- "ordered" and "categories" appear only with "dtype": "category".
+- "keep" appears only together with "op": "eq", "value": 0.
+- Output the JSON block and nothing else."""
+
+PROMPTS = {"p1-v1": SYSTEM_PROMPT_V1, "p1-v2": SYSTEM_PROMPT_V1 + FORMAT_RULES}
+PARSER_PROMPT_VERSION = "p1-v2"                 # default for new runs (prompted and fine-tuned parsers)
+SYSTEM_PROMPT = PROMPTS[PARSER_PROMPT_VERSION]
+
 USER_TEMPLATE = """Dataset: {n_rows} rows, {n_cols} columns.
 
 Columns (name: dtype, missing values):
@@ -52,8 +70,12 @@ First {k} rows (CSV):
 {head}
 Request: {request}"""
 
-PROMPT_HASH = hashlib.sha256((PARSER_PROMPT_VERSION + SYSTEM_PROMPT + USER_TEMPLATE + ",".join(FEW_SHOT_IDS))
-                             .encode()).hexdigest()[:12]
+def prompt_hash(version=None):
+    v = version or PARSER_PROMPT_VERSION
+    return hashlib.sha256((v + PROMPTS[v] + USER_TEMPLATE + ",".join(FEW_SHOT_IDS)).encode()).hexdigest()[:12]
+
+
+PROMPT_HASH = prompt_hash()
 
 
 def _user(task, schema):
@@ -82,11 +104,11 @@ def contract_to_text(contract):
     return "```json\n" + "\n".join(lines) + "\n```"
 
 
-def build_messages(task, schema, examples):
+def build_messages(task, schema, examples, version=None):
     """examples: list of dicts with request, data_file and gold_contract (DEV tasks only)."""
     if task.get("split") == "test" and any(e["id"] == task["id"] for e in examples):
         raise ValueError("test task used as a few-shot example")
-    msgs = [{"role": "system", "content": SYSTEM_PROMPT}]
+    msgs = [{"role": "system", "content": PROMPTS[version or PARSER_PROMPT_VERSION]}]
     for e in examples:
         if e["id"] == task["id"]:
             continue

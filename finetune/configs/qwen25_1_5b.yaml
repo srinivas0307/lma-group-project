@@ -1,0 +1,19 @@
+# QLoRA, Qwen2.5-1.5B-Instruct, Kaggle T4. Same settings as the 3B run except the model.
+# System name after training: intent_ft_1_5b
+base_model: Qwen/Qwen2.5-1.5B-Instruct
+train_file: finetune/data/sft_train.jsonl
+val_file: finetune/data/sft_val.jsonl
+output_dir: finetune/runs/qwen25_1_5b
+load_in_4bit: true
+compute_dtype: float16
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+learning_rate: 2.0e-4
+num_epochs: 2
+per_device_batch_size: 4
+gradient_accumulation_steps: 4    # effective batch 16
+max_seq_len: 2048
+logging_steps: 10
+eval_steps: 100
+seed: 1234

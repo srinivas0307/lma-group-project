@@ -2,6 +2,9 @@
 
 Kaggle (GPU T4, internet on; 7B needs 4-bit):
     !python eval/parse_contracts.py --model Qwen/Qwen2.5-7B-Instruct --load-in-4bit --out /kaggle/working/parse_qwen7b
+Fine-tuned parser (base model + LoRA adapter; zero-shot = the format it was trained on):
+    !python eval/parse_contracts.py --model Qwen/Qwen2.5-3B-Instruct --adapter finetune/runs/qwen25_3b/adapter \
+        --out /kaggle/working/parse_ft_qwen25_3b
 CPU smoke test (no model; replies are the gold contracts, so every metric should be perfect):
     python eval/parse_contracts.py --backend gold --out /tmp/parse_gold
 
@@ -21,8 +24,9 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT))
 from eval.generate import HFBackend, append_jsonl, load_jsonl  # noqa: E402
-from igt.agents.intent_parser import (PARSER_PROMPT_VERSION, PROMPT_HASH, build_messages,  # noqa: E402
-                                      contract_to_text, extract_contract, few_shot_examples, load_prompt_schema)
+from igt.agents.intent_parser import (PARSER_PROMPT_VERSION, PROMPTS, build_messages,  # noqa: E402
+                                      contract_to_text, extract_contract, few_shot_examples, load_prompt_schema,
+                                      prompt_hash)
 
 
 def load_tasks_with_contracts(root):
@@ -54,44 +58,50 @@ def main():
     ap.add_argument("--model", default="Qwen/Qwen2.5-7B-Instruct")
     ap.add_argument("--backend", choices=["hf", "gold"], default="hf")
     ap.add_argument("--load-in-4bit", action="store_true")
+    ap.add_argument("--adapter", type=Path, default=None, help="LoRA adapter folder (fine-tuned parser)")
+    ap.add_argument("--shots", choices=["few", "zero"], default=None,
+                    help="few-shot examples (prompted parsers) or none (fine-tuned); default: zero with --adapter")
     ap.add_argument("--dtype", default="float16")
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--splits", nargs="+", default=["dev", "test"])
     ap.add_argument("--datasets", nargs="+", default=None)
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--batch", type=int, default=4)
+    ap.add_argument("--prompt-version", choices=sorted(PROMPTS), default=PARSER_PROMPT_VERSION)
     ap.add_argument("--max-new-tokens", type=int, default=1024)
     args = ap.parse_args()
 
     tasks = load_tasks_with_contracts(ROOT)
-    examples = few_shot_examples(tasks)
+    shots = args.shots or ("zero" if args.adapter else "few")
+    examples = few_shot_examples(tasks) if shots == "few" else []
     schema = load_prompt_schema(ROOT)
     # Few-shot (dev) tasks are parsed too, leave-one-out: build_messages drops a task from its own examples.
     todo_tasks = [t for t in tasks if t["split"] in args.splits
                   and (args.datasets is None or t["dataset"] in args.datasets)][: args.limit]
-    model_id = "gold" if args.backend == "gold" else args.model
+    model_id = "gold" if args.backend == "gold" else args.model + (f"+adapter:{args.adapter.resolve().parent.name}" if args.adapter else "")
     be = GoldBackend(tasks) if args.backend == "gold" else HFBackend(
-        args.model, args.max_new_tokens, 0.0, None, args.dtype, load_in_4bit=args.load_in_4bit)
+        args.model, args.max_new_tokens, 0.0, None, args.dtype, load_in_4bit=args.load_in_4bit, adapter=args.adapter)
 
     args.out.mkdir(parents=True, exist_ok=True)
     path = args.out / "parses.jsonl"
     existing = load_jsonl(path)
-    if existing and {r["model"] for r in existing} != {model_id}:
-        sys.exit(f"{path} has parses from another model; use a new --out")
+    if existing and {(r["model"], r["parser_prompt_version"]) for r in existing} != {(model_id, args.prompt_version)}:
+        sys.exit(f"{path} has parses from another model or prompt version; use a new --out")
     done = {r["task_id"] for r in existing}
     todo = [t for t in todo_tasks if t["id"] not in done]
     t_start = time.time()
     for i in range(0, len(todo), args.batch):
         batch = todo[i:i + args.batch]
         t0 = time.time()
-        texts, pts, ots = be.generate([build_messages(t, schema, examples) for t in batch], do_sample=False)
+        texts, pts, ots = be.generate([build_messages(t, schema, examples, args.prompt_version) for t in batch], do_sample=False)
         secs = (time.time() - t0) / len(batch)
         rows = []
         for t, x, p, o in zip(batch, texts, pts, ots):
             ex = extract_contract(x)
             rows.append(dict(task_id=t["id"], split=t["split"], dataset=t["dataset"],
                              transformation_type=t["transformation_type"], model=model_id,
-                             parser_prompt_version=PARSER_PROMPT_VERSION, parser_prompt_hash=PROMPT_HASH,
+                             parser_prompt_version=args.prompt_version, parser_prompt_hash=prompt_hash(args.prompt_version),
+                             shots=shots, adapter=str(args.adapter) if args.adapter else None,
                              decoding="greedy", max_new_tokens=args.max_new_tokens, raw_output=x,
                              parse_status=ex["status"], parse_error=ex["error"], prompt_tokens=p, output_tokens=o,
                              truncated=o >= args.max_new_tokens, gen_time_s=round(secs, 2)))
@@ -101,7 +111,8 @@ def main():
 
     allrows = load_jsonl(path)
     env = dict(model=model_id, backend=args.backend, load_in_4bit=args.load_in_4bit, dtype=args.dtype,
-               parser_prompt_version=PARSER_PROMPT_VERSION, parser_prompt_hash=PROMPT_HASH,
+               parser_prompt_version=args.prompt_version, parser_prompt_hash=prompt_hash(args.prompt_version),
+               shots=shots, adapter=str(args.adapter) if args.adapter else None,
                few_shot=list(e["id"] for e in examples), decoding="greedy", max_new_tokens=args.max_new_tokens,
                batch=args.batch, splits=args.splits, datasets=args.datasets, python=platform.python_version(),
                n_parses=len(allrows), **be.info())

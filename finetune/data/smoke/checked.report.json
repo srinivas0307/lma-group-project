@@ -1,0 +1,46 @@
+{
+  "summary": {
+    "n_input": 19,
+    "n_kept": 17,
+    "by_status": {
+      "ok": 17,
+      "leakage": 2
+    },
+    "kept_by_type": {
+      "filtering": 12,
+      "deduplication": 3,
+      "missing_values": 2
+    },
+    "kept_by_dataset": {
+      "smoke_shop": 13,
+      "smoke_shop_val": 4
+    },
+    "kept_by_predicate": {
+      "rows_removed_where": 12,
+      "row_count": 17,
+      "rows_retained_where": 12,
+      "columns_unchanged": 17,
+      "duplicate_count": 3,
+      "column_value_relation": 2,
+      "null_count": 2,
+      "column_values_unchanged": 2
+    },
+    "kept_by_style": {
+      "plain": 5,
+      "casual": 7,
+      "domain": 5
+    }
+  },
+  "dropped": [
+    {
+      "id": "smoke_dedup_015",
+      "status": "leakage",
+      "reason": "shares 2 word 5-grams with evaluation requests, e.g. 'are duplicates keep the last'"
+    },
+    {
+      "id": "smoke_miss_017",
+      "status": "leakage",
+      "reason": "character similarity 0.84 with an evaluation request"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+# Tiny CPU smoke run: checks the pipeline (data -> masked loss -> adapter -> reload), not the quality.
+base_model: Qwen/Qwen2.5-0.5B-Instruct
+train_file: finetune/data/smoke/sft_train.jsonl
+val_file: finetune/data/smoke/sft_val.jsonl
+output_dir: finetune/runs/smoke_cpu
+load_in_4bit: false
+compute_dtype: float32
+gradient_checkpointing: true      # needed to fit 15 GB RAM on CPU
+lora_r: 8
+lora_alpha: 16
+learning_rate: 1.0e-3
+num_epochs: 1
+max_steps: 6
+per_device_batch_size: 1
+gradient_accumulation_steps: 1
+max_seq_len: 2048
+logging_steps: 1
+eval_steps: 3
