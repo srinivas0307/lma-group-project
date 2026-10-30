@@ -67,10 +67,16 @@ def main():
     ap.add_argument("--datasets", nargs="+", default=None)
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--batch", type=int, default=4)
-    ap.add_argument("--prompt-version", choices=sorted(PROMPTS), default=PARSER_PROMPT_VERSION)
+    ap.add_argument("--prompt-version", choices=sorted(PROMPTS), default=None,
+                    help="default: the adapter's training version (fine-tuned), else the module default")
     ap.add_argument("--max-new-tokens", type=int, default=1024)
     args = ap.parse_args()
 
+    trained = (args.adapter / "igt_prompt_version.txt") if args.adapter else None
+    trained = trained.read_text().strip() if trained and trained.exists() else None
+    if trained and args.prompt_version and args.prompt_version != trained:
+        sys.exit(f"adapter was trained with prompt {trained}, but --prompt-version {args.prompt_version} was given")
+    args.prompt_version = args.prompt_version or trained or PARSER_PROMPT_VERSION
     tasks = load_tasks_with_contracts(ROOT)
     shots = args.shots or ("zero" if args.adapter else "few")
     examples = few_shot_examples(tasks) if shots == "few" else []

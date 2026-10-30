@@ -20,7 +20,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "src"))
-from igt.agents.intent_parser import SYSTEM_PROMPT, _user, contract_to_text  # noqa: E402
+from igt.agents.intent_parser import FT_PROMPT_VERSION, PROMPTS, _user, contract_to_text  # noqa: E402
 
 
 def schema_entry(df):
@@ -29,9 +29,9 @@ def schema_entry(df):
                                          for c in df.columns], head_csv=df.head(5).to_csv(index=False))
 
 
-def to_messages(ex, schema):
+def to_messages(ex, schema, version=FT_PROMPT_VERSION):
     task = dict(data_file=ex["data_file"], request=" ".join(ex["request"].split()))
-    return [{"role": "system", "content": SYSTEM_PROMPT},
+    return [{"role": "system", "content": PROMPTS[version]},
             {"role": "user", "content": _user(task, schema)},
             {"role": "assistant", "content": contract_to_text(ex["contract"])}]
 
@@ -42,13 +42,15 @@ def main():
     ap.add_argument("--val-datasets", nargs="+", required=True, help="source datasets used only for validation")
     ap.add_argument("--out-dir", type=Path, default=ROOT / "finetune" / "data")
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--prompt-version", choices=sorted(PROMPTS), default=FT_PROMPT_VERSION,
+                    help="system prompt to train with; must match the version used when parsing with the adapter")
     args = ap.parse_args()
     exs = [json.loads(l) for l in args.checked.read_text().splitlines() if l.strip()]
     schema = {f: schema_entry(pd.read_csv(ROOT / f)) for f in sorted({e["data_file"] for e in exs})}
     train, val = [], []
     for e in exs:
         rec = dict(id=e["id"], source_dataset=e["source_dataset"], transformation_type=e["transformation_type"],
-                   messages=to_messages(e, schema))
+                   prompt_version=args.prompt_version, messages=to_messages(e, schema, args.prompt_version))
         (val if e["source_dataset"] in args.val_datasets else train).append(rec)
     random.Random(args.seed).shuffle(train)
     args.out_dir.mkdir(parents=True, exist_ok=True)
@@ -57,7 +59,7 @@ def main():
             for r in rows:
                 fh.write(json.dumps(r, ensure_ascii=False) + "\n")
     chars = [sum(len(m["content"]) for m in r["messages"]) for r in train + val]
-    stats = dict(train=len(train), val=len(val), val_datasets=args.val_datasets,
+    stats = dict(train=len(train), val=len(val), val_datasets=args.val_datasets, prompt_version=args.prompt_version,
                  train_by_type=dict(Counter(r["transformation_type"] for r in train)),
                  train_by_dataset=dict(Counter(r["source_dataset"] for r in train)),
                  max_chars=max(chars) if chars else 0, approx_max_tokens=int(max(chars) / 3.5) if chars else 0)

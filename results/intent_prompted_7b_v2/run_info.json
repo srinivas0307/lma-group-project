@@ -1,7 +1,7 @@
 {
   "pool": "/home/srinivas-billuri/4-1/LMA/intent-parser/eval/pool_v2/pool_v2.jsonl",
   "n_candidates": 395,
-  "contracts": "/home/srinivas-billuri/4-1/LMA/intent-parser/outputs/parse_qwen25-7b-instruct/parses.jsonl",
+  "contracts": "/home/srinivas-billuri/4-1/LMA/intent-parser/outputs/parse_qwen25-7b-instruct_p1-v1/parses.jsonl",
   "stats": {
     "intent_prompted_7b": {
       "alignment_index": 231,

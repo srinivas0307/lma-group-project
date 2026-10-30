@@ -58,7 +58,49 @@ Format rules (outputs that break them are rejected):
 - Output the JSON block and nothing else."""
 
 PROMPTS = {"p1-v1": SYSTEM_PROMPT_V1, "p1-v2": SYSTEM_PROMPT_V1 + FORMAT_RULES}
-PARSER_PROMPT_VERSION = "p1-v2"                 # default for new runs (prompted and fine-tuned parsers)
+
+# p1-v3 (2026-10-30): p1-v2 + a reference card with one exact JSON snippet for every part of the vocabulary the
+# few-shot examples don't demonstrate (13 of 14 functions, 6 condition operators, "any", every count op, every dtype).
+# Design rule fixed before any p1-v3 run: every vocabulary element appears at least once in exact JSON
+# (tests/test_intent_parser.py checks coverage and validity). Column names are invented, not from evaluation data.
+REFERENCE_CARD = """
+
+Reference card (exact JSON for every part of the vocabulary; column names are only illustrations):
+Conditions:
+  {"column": "score", "op": "!=", "value": 0}
+  {"column": "score", "op": "<=", "value": 10}
+  {"column": "score", "op": ">", "value": 10}
+  {"column": "score", "op": ">=", "value": 10}
+  {"column": "color", "op": "in", "value": ["blue", "red"]}
+  {"column": "color", "op": "not_in", "value": ["blue", "red"]}
+  {"any": [{"column": "score", "op": ">", "value": 90}, {"column": "color", "op": "is_null"}]}
+Functions in column_value_relation:
+  {"type": "column_value_relation", "target": "color", "fn": "const", "args": [{"lit": "unknown"}], "where": {"column": "color", "op": "is_null"}}
+  {"type": "column_value_relation", "target": "color", "fn": "null", "args": [], "where": {"column": "color", "op": "==", "value": "n/a"}}
+  {"type": "column_value_relation", "target": "total", "fn": "add", "args": [{"col": "base"}, {"col": "bonus"}]}
+  {"type": "column_value_relation", "target": "net", "fn": "sub", "args": [{"col": "gross"}, {"col": "tax"}]}
+  {"type": "column_value_relation", "target": "cost", "fn": "mul", "args": [{"col": "units"}, {"col": "unit_cost"}]}
+  {"type": "column_value_relation", "target": "per_day", "fn": "div", "args": [{"col": "per_week"}, {"lit": 7}]}
+  {"type": "column_value_relation", "target": "weight", "fn": "round", "args": [{"col": "weight"}, {"lit": 1}]}
+  {"type": "column_value_relation", "target": "score", "fn": "clip", "args": [{"col": "score"}, {"lit": 0}, {"lit": 100}]}
+  {"type": "column_value_relation", "target": "city", "fn": "lower", "args": [{"col": "city"}]}
+  {"type": "column_value_relation", "target": "code", "fn": "upper", "args": [{"col": "code"}]}
+  {"type": "column_value_relation", "target": "title", "fn": "strip", "args": [{"col": "title"}]}
+  {"type": "column_value_relation", "target": "size", "fn": "map", "args": [{"col": "size"}, {"lit": {"L": "large", "S": "small"}}]}
+  {"type": "column_value_relation", "target": "signup", "fn": "cast", "args": [{"col": "signup"}, {"lit": "datetime"}]}
+Counts:
+  {"type": "row_count", "target": null, "op": "unchanged"}   also "decreased", "increased"
+  {"type": "null_count", "target": "color", "op": "eq", "value": 0}   also "lt", "le", "gt", "ge" with "value"
+  {"type": "duplicate_count", "target": ["shop", "day"], "op": "eq", "value": 0, "keep": "last"}
+Dtypes:
+  {"type": "column_dtype", "target": "score", "dtype": "float"}   also "int", "bool", "string", "datetime"
+  {"type": "column_dtype", "target": "size", "dtype": "category", "ordered": true, "categories": ["S", "M", "L"]}"""
+
+PROMPTS["p1-v3"] = PROMPTS["p1-v2"] + REFERENCE_CARD
+PARSER_PROMPT_VERSION = "p1-v3"                 # default for prompted runs; the final Baseline 3 version is chosen on DEV
+# Fine-tuned parsers train and parse with p1-v2 (format rules, no reference card): they learn the vocabulary from the
+# training data, which covers every function and operator, and the card would add ~900 tokens to every example.
+FT_PROMPT_VERSION = "p1-v2"
 SYSTEM_PROMPT = PROMPTS[PARSER_PROMPT_VERSION]
 
 USER_TEMPLATE = """Dataset: {n_rows} rows, {n_cols} columns.

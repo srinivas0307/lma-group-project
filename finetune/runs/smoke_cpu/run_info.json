@@ -21,7 +21,7 @@
     ],
     "learning_rate": 0.001,
     "num_epochs": 1,
-    "max_steps": 6,
+    "max_steps": 3,
     "warmup_ratio": 0.03,
     "weight_decay": 0.0,
     "lr_scheduler": "cosine",
@@ -37,29 +37,30 @@
     "optim": null
   },
   "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
-  "runtime_s": 158.5,
-  "train_loss": 0.2886145239075025,
+  "parser_prompt_version": "p1-v2",
+  "runtime_s": 173.4,
+  "train_loss": 0.47471462686856586,
   "final_eval": {
-    "eval_loss": 0.07136785984039307,
-    "eval_runtime": 21.2666,
-    "eval_samples_per_second": 0.188,
-    "eval_steps_per_second": 0.188,
-    "epoch": 0.46153846153846156
+    "eval_loss": 0.21191203594207764,
+    "eval_runtime": 40.6054,
+    "eval_samples_per_second": 0.099,
+    "eval_steps_per_second": 0.099,
+    "epoch": 0.23076923076923078
   },
-  "first_logged_loss": 0.5525873899459839,
-  "last_logged_loss": 0.04945056885480881,
+  "first_logged_loss": 0.5541746020317078,
+  "last_logged_loss": 0.33786603808403015,
   "n_train": 13,
   "n_val": 4,
   "dropped_too_long": {
     "train": 0,
     "val": 0
   },
-  "max_tokens": 1184,
-  "steps": 6,
+  "max_tokens": 1416,
+  "steps": 3,
   "trainable_params": 4399104,
   "data_sha256": {
-    "train_file": "abed0470c29547bc114f025720a4c71bb50c83076b516410c8c530e12b713904",
-    "val_file": "61d1ae0f57ece1a1786a0cbfb2cdd8ea126626b22c636980a878748c06939674"
+    "train_file": "5e214055902cc072d908193f286959d004da4e2423ba354c252e09a3eacc4fa6",
+    "val_file": "fed5276e65ffc0ccbfbf534f7d5d44b4f8f462e3d375e409bc8643a329cded1d"
   },
   "versions": {
     "python": "3.12.3",

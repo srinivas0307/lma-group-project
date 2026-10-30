@@ -18,8 +18,33 @@ ROOT = Path(__file__).resolve().parent.parent
 PY = sys.executable
 BASE = [ROOT / "eval/pool_v2/verdicts_baseline1.jsonl", ROOT / "results/baseline2_v2/verdicts_baseline2.jsonl",
         ROOT / "results/intent_oracle_v2/verdicts_intent_oracle.jsonl"]
-ORDER = ["intent_prompted_7b", "intent_prompted_3b", "intent_prompted_1_5b",
-         "intent_prompted_7b_p1v2", "intent_prompted_3b_p1v2", "intent_prompted_1_5b_p1v2", "intent_ft_3b", "intent_ft_1_5b"]
+ORDER = [f"intent_prompted_{m}{v}" for v in ("", "_p1v2", "_p1v3") for m in ("7b", "3b", "1_5b")] + \
+    ["intent_ft_3b", "intent_ft_1_5b"]
+VERSION_SUFFIX = {"": "p1-v1", "_p1v2": "p1-v2", "_p1v3": "p1-v3"}
+
+
+def select_on_dev(summary):
+    """Baseline 3 prompt selection rule (decided 2026-10-30, before the p1-v3 run): per prompted model, pick the prompt
+    version with the lowest DEV invalid-output rate; ties -> higher DEV mean of change/preserve F1 -> earlier version.
+    Test results are never used to choose."""
+    groups = {}
+    for system, info in summary.items():
+        if not system.startswith("intent_prompted_"):
+            continue
+        base, suffix = system, ""
+        for suf in ("_p1v2", "_p1v3"):
+            if system.endswith(suf):
+                base, suffix = system[: -len(suf)], suf
+        cm = json.loads((Path(info["folder"]) / "contract_metrics.json").read_text())["by_split"]["dev"]
+        f1 = [cm[s]["f1"] or 0.0 for s in ("must_change", "must_preserve")]
+        groups.setdefault(base, []).append(dict(system=system, version=VERSION_SUFFIX[suffix],
+                                                dev_invalid=cm["invalid_rate"], dev_mean_f1=round(sum(f1) / 2, 3)))
+    out = {}
+    for base, cands in groups.items():
+        order = ["p1-v1", "p1-v2", "p1-v3"]
+        best = min(cands, key=lambda c: (c["dev_invalid"], -c["dev_mean_f1"], order.index(c["version"])))
+        out[base] = dict(selected=best["system"], version=best["version"], candidates=cands)
+    return out
 
 
 def run(*cmd):
@@ -52,11 +77,17 @@ def main():
     out = ROOT / "results" / "parsers_v2"
     out.mkdir(parents=True, exist_ok=True)
     (out / "contract_summary.json").write_text(json.dumps(summary, indent=2))
+    selection = select_on_dev(summary)
+    (out / "baseline3_selection.json").write_text(json.dumps(selection, indent=2))
     table = run("eval/metrics.py", "--pool", "eval/pool_v2/pool_v2.jsonl", "--verdicts", *verdicts,
                 "--out", out / "metrics_stage1.json")
     keep = [l for l in table.splitlines() if l.startswith(("===", "system")) or " overall " in l or l.startswith("McNemar baseline2 vs")
             or ("McNemar intent_oracle vs" in l)]
     print("\n".join(keep))
+    print("\nPrompt selection on DEV only (lowest invalid rate, then F1):")
+    for base, sel in selection.items():
+        print(f"  {base:<22} -> {sel['selected']:<28} " +
+              " | ".join(f"{c['version']}: invalid {c['dev_invalid']:.3f}, F1 {c['dev_mean_f1']:.3f}" for c in sel["candidates"]))
     print(f"\nfull table: {out / 'metrics_stage1.json'}")
 
 

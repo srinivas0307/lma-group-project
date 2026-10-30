@@ -12,7 +12,7 @@ learning_rate: 2.0e-4
 num_epochs: 2
 per_device_batch_size: 2
 gradient_accumulation_steps: 8    # effective batch 16
-max_seq_len: 2048                 # prompts are ~1-1.5k tokens without few-shot examples
+max_seq_len: 3072                 # p1-v2 prompt ~1.5k tokens + contract; margin so nothing is dropped
 logging_steps: 10
 eval_steps: 100
 seed: 1234

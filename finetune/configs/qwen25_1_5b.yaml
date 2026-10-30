@@ -13,7 +13,7 @@ learning_rate: 2.0e-4
 num_epochs: 2
 per_device_batch_size: 4
 gradient_accumulation_steps: 4    # effective batch 16
-max_seq_len: 2048
+max_seq_len: 3072                 # see qwen25_3b.yaml
 logging_steps: 10
 eval_steps: 100
 seed: 1234

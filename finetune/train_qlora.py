@@ -187,9 +187,13 @@ def main():
 
     model.save_pretrained(out / "adapter")
     tok.save_pretrained(out / "adapter")
+    versions = sorted({r.get("prompt_version", "unknown") for r in train_rows})
+    if len(versions) != 1:
+        sys.exit(f"training data mixes parser prompt versions {versions}; rebuild it with build_sft.py")
+    (out / "adapter" / "igt_prompt_version.txt").write_text(versions[0])      # parse_contracts.py reads this
     logs = [json.loads(l) for l in log_path.read_text().splitlines() if l.strip()]
     losses = [l["loss"] for l in logs if "loss" in l]
-    info = dict(config=cfg, base_model=cfg["base_model"], runtime_s=round(secs, 1),
+    info = dict(config=cfg, base_model=cfg["base_model"], parser_prompt_version=versions[0], runtime_s=round(secs, 1),
                 train_loss=result.training_loss, final_eval=final_eval,
                 first_logged_loss=losses[0] if losses else None, last_logged_loss=losses[-1] if losses else None,
                 n_train=len(train_ds), n_val=len(val_ds), dropped_too_long=dict(train=drop_tr, val=drop_va),

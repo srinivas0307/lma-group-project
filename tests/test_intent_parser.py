@@ -118,3 +118,74 @@ def test_prompt_versions():
     assert PROMPTS["p1-v2"].startswith(PROMPTS["p1-v1"]) and "Format rules" in PROMPTS["p1-v2"]
     t = next(t for t in TASKS if t["split"] == "test")
     assert build_messages(t, SCHEMA, few_shot_examples(TASKS), "p1-v1")[0]["content"] == PROMPTS["p1-v1"]
+
+
+# ---------------- p1-v3 reference card ----------------
+def _card_snippets():
+    import json as _json
+    from igt.agents.intent_parser import REFERENCE_CARD
+    out = []
+    for line in REFERENCE_CARD.splitlines():
+        line = line.strip()
+        if line.startswith("{"):
+            obj, _ = _json.JSONDecoder().raw_decode(line)
+            out.append(obj)
+    return out
+
+
+def test_card_snippets_are_valid():
+    from igt.contracts import load_contract
+    for s in _card_snippets():
+        if "type" in s:
+            load_contract({"must_change": [s]})
+        else:
+            load_contract({"must_change": [{"type": "rows_removed_where", "target": None, "condition": s}]})
+
+
+def test_prompt_v3_covers_whole_vocabulary():
+    """Design rule of p1-v3: every vocabulary element appears in exact JSON (few-shot examples + card)."""
+    import json as _json
+    from igt.agents.intent_parser import PROMPTS
+    from igt.contracts.schema import COMPARE_OPS, COUNT_OPS_ABSOLUTE, COUNT_OPS_RELATIVE, DTYPE_FAMILIES, FUNCTIONS, PREDICATE_TYPES
+    shown = PROMPTS["p1-v3"] + "".join(contract_to_text(e["gold_contract"]) for e in few_shot_examples(TASKS))
+    for t in PREDICATE_TYPES:
+        assert f'"type": "{t}"' in shown, t
+    for f in FUNCTIONS:
+        assert f'"fn": "{f}"' in shown, f
+    for op in list(COMPARE_OPS) + ["in", "not_in", "is_null", "not_null"]:
+        assert f'"op": "{op}"' in shown, op
+    for k in ("all", "any", "not"):
+        assert f'"{k}": ' in shown, k
+    for op in COUNT_OPS_RELATIVE + COUNT_OPS_ABSOLUTE:
+        assert f'"{op}"' in shown, op
+    for d in DTYPE_FAMILIES:
+        assert f'"{d}"' in shown, d
+    assert '"keep": "first"' in shown and '"keep": "last"' in shown
+
+
+def test_card_uses_no_evaluation_columns_or_phrasing():
+    from igt.agents.intent_parser import REFERENCE_CARD
+    eval_cols = {c["name"] for ds in SCHEMA.values() for c in ds["columns"]}
+    def names(o):
+        if isinstance(o, dict):
+            for k, v in o.items():
+                if k in ("column", "col", "target"):
+                    yield from ([v] if isinstance(v, str) else v if isinstance(v, list) else [])
+                else:
+                    yield from names(v)
+        elif isinstance(o, list):
+            for x in o:
+                yield from names(x)
+    card_cols = {n for s in _card_snippets() for n in names(s)}
+    assert not (card_cols & eval_cols), card_cols & eval_cols
+    import re as _re
+    words = lambda t: _re.findall(r"[a-z0-9_]+", t.lower())
+    grams = lambda t, n=5: {tuple(words(t)[i:i + n]) for i in range(len(words(t)) - n + 1)}
+    test_grams = set().union(*(grams(t["request"]) for t in TASKS if t["split"] == "test"))
+    assert not (grams(REFERENCE_CARD) & test_grams)
+
+
+def test_prompt_v3_fits_context():
+    from igt.agents.intent_parser import build_messages
+    worst = max(sum(len(m["content"]) for m in build_messages(t, SCHEMA, few_shot_examples(TASKS), "p1-v3")) for t in TASKS)
+    assert worst < 24_000, worst

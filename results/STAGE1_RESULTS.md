@@ -114,3 +114,27 @@ escalated (count as "not accepted"), which is where most of the false rejections
 dev split** (dev invalid outputs: 7B 7/20, 3B 9/20, 1.5B 15/20). Few-shot examples, decoding and verifier are unchanged.
 Both versions are reported. Caveat: the test results of p1-v1 had been seen when p1-v2 was written; the changes are
 limited to format rules justified by dev errors, not to content.
+
+## Baseline 3, prompt p1-v2 (format rules from dev errors), 2026-10-30
+
+Same models, few-shot examples, decoding, verifier and pool. Test split.
+
+| System | Invalid (test) | Invalid (dev) | Change F1 | Preserve F1 | Recall | FRR | ESCALATE |
+|---|---|---|---|---|---|---|---|
+| Baseline 2 | – | – | – | – | 0.510 | 0.081 | 0.000 |
+| intent_prompted_7b (p1-v1) | 0.340 | 0.350 | 0.720 | 0.771 | 1.000 | 0.477 | 0.337 |
+| **intent_prompted_7b_p1v2** | **0.330** | 0.250 | 0.709 | 0.773 | 0.949 | **0.391** | 0.279 |
+| intent_prompted_3b (p1-v1) | 0.440 | 0.450 | 0.403 | 0.660 | 0.949 | 0.594 | 0.331 |
+| intent_prompted_3b_p1v2 | 0.290 | 0.350 | 0.411 | 0.781 | 0.969 | 0.487 | 0.285 |
+| intent_prompted_1_5b (p1-v1) | 0.500 | 0.750 | 0.329 | 0.588 | 0.949 | 0.782 | 0.477 |
+| intent_prompted_1_5b_p1v2 | 0.440 | 0.600 | 0.367 | 0.658 | 0.980 | 0.731 | 0.402 |
+
+Paired McNemar (test): p1-v2 better than p1-v1 for 7B (21 vs 9 candidates, p = 0.043) and 3B (27 vs 4, p < 0.001).
+Baseline 2 vs 7B p1-v2: 73 vs 55, p = 0.13 (no longer significantly worse, not better).
+
+**Findings:** format rules cut invalid outputs (most for 3B: 44% → 29%) and false rejections, but 29–44% of contracts
+are still invalid. The remaining errors are the same kinds (condition ops outside the vocabulary, merged arguments,
+pandas dtype names, `keep` with the wrong op): small prompted models don't follow a strict schema reliably.
+**Decision:** no more prompt editing (more rounds would mean tuning on what we've seen). p1-v2 is the Baseline 3
+prompt. Remaining format reliability is addressed the same way for every parser (OI-9) and is the main motivation
+for fine-tuning.

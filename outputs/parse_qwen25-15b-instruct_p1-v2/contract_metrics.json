@@ -1,174 +1,174 @@
 {
-  "parses": "/home/srinivas-billuri/4-1/LMA/intent-parser/outputs/parse_qwen25-15b-instruct/parses.jsonl",
+  "parses": "/home/srinivas-billuri/4-1/LMA/intent-parser/outputs/parse_qwen25-15b-instruct_p1-v2/parses.jsonl",
   "overall": {
     "n_tasks": 120,
-    "invalid_rate": 0.542,
-    "exact_match": 0.042,
+    "invalid_rate": 0.467,
+    "exact_match": 0.067,
     "must_change": {
-      "precision": 0.406,
-      "recall": 0.226,
-      "f1": 0.29,
-      "tp": 65,
-      "fp": 95,
-      "fn": 223
+      "precision": 0.439,
+      "recall": 0.274,
+      "f1": 0.338,
+      "tp": 79,
+      "fp": 101,
+      "fn": 209
     },
     "must_preserve": {
-      "precision": 0.978,
-      "recall": 0.387,
-      "f1": 0.555,
-      "tp": 771,
-      "fp": 17,
-      "fn": 1221
+      "precision": 0.981,
+      "recall": 0.462,
+      "f1": 0.628,
+      "tp": 920,
+      "fp": 18,
+      "fn": 1072
     }
   },
   "by_split": {
     "dev": {
       "n_tasks": 20,
-      "invalid_rate": 0.75,
-      "exact_match": 0.0,
+      "invalid_rate": 0.6,
+      "exact_match": 0.05,
       "must_change": {
-        "precision": 0.2,
-        "recall": 0.07,
-        "f1": 0.104,
-        "tp": 4,
+        "precision": 0.333,
+        "recall": 0.14,
+        "f1": 0.198,
+        "tp": 8,
         "fp": 16,
-        "fn": 53
+        "fn": 49
       },
       "must_preserve": {
-        "precision": 0.961,
-        "recall": 0.223,
-        "f1": 0.361,
-        "tp": 73,
+        "precision": 0.97,
+        "recall": 0.296,
+        "f1": 0.453,
+        "tp": 97,
         "fp": 3,
-        "fn": 255
+        "fn": 231
       }
     },
     "test": {
       "n_tasks": 100,
-      "invalid_rate": 0.5,
-      "exact_match": 0.05,
+      "invalid_rate": 0.44,
+      "exact_match": 0.07,
       "must_change": {
-        "precision": 0.436,
-        "recall": 0.264,
-        "f1": 0.329,
-        "tp": 61,
-        "fp": 79,
-        "fn": 170
+        "precision": 0.455,
+        "recall": 0.307,
+        "f1": 0.367,
+        "tp": 71,
+        "fp": 85,
+        "fn": 160
       },
       "must_preserve": {
-        "precision": 0.98,
-        "recall": 0.419,
-        "f1": 0.588,
-        "tp": 698,
-        "fp": 14,
-        "fn": 966
+        "precision": 0.982,
+        "recall": 0.495,
+        "f1": 0.658,
+        "tp": 823,
+        "fp": 15,
+        "fn": 841
       }
     }
   },
   "test_by_type": {
     "column_transformation": {
       "n_tasks": 20,
-      "invalid_rate": 0.7,
+      "invalid_rate": 0.55,
       "exact_match": 0.05,
       "must_change": {
-        "precision": 0.158,
-        "recall": 0.1,
-        "f1": 0.122,
-        "tp": 3,
-        "fp": 16,
-        "fn": 27
+        "precision": 0.286,
+        "recall": 0.2,
+        "f1": 0.235,
+        "tp": 6,
+        "fp": 15,
+        "fn": 24
       },
       "must_preserve": {
-        "precision": 0.978,
-        "recall": 0.278,
-        "f1": 0.433,
-        "tp": 91,
-        "fp": 2,
-        "fn": 236
+        "precision": 0.971,
+        "recall": 0.416,
+        "f1": 0.582,
+        "tp": 136,
+        "fp": 4,
+        "fn": 191
       }
     },
     "deduplication": {
       "n_tasks": 20,
-      "invalid_rate": 0.55,
+      "invalid_rate": 0.45,
       "exact_match": 0.0,
       "must_change": {
-        "precision": 0.609,
-        "recall": 0.429,
-        "f1": 0.503,
-        "tp": 42,
-        "fp": 27,
-        "fn": 56
+        "precision": 0.662,
+        "recall": 0.48,
+        "f1": 0.556,
+        "tp": 47,
+        "fp": 24,
+        "fn": 51
       },
       "must_preserve": {
-        "precision": 0.972,
-        "recall": 0.333,
-        "f1": 0.496,
-        "tp": 105,
-        "fp": 3,
-        "fn": 210
+        "precision": 0.993,
+        "recall": 0.441,
+        "f1": 0.611,
+        "tp": 139,
+        "fp": 1,
+        "fn": 176
       }
     },
     "filtering": {
       "n_tasks": 20,
-      "invalid_rate": 0.3,
+      "invalid_rate": 0.35,
       "exact_match": 0.0,
       "must_change": {
-        "precision": 0.231,
-        "recall": 0.075,
-        "f1": 0.113,
-        "tp": 3,
-        "fp": 10,
-        "fn": 37
+        "precision": 0.308,
+        "recall": 0.1,
+        "f1": 0.151,
+        "tp": 4,
+        "fp": 9,
+        "fn": 36
       },
       "must_preserve": {
-        "precision": 0.975,
+        "precision": 0.965,
         "recall": 0.579,
-        "f1": 0.727,
+        "f1": 0.724,
         "tp": 194,
-        "fp": 5,
+        "fp": 7,
         "fn": 141
       }
     },
     "missing_values": {
       "n_tasks": 20,
-      "invalid_rate": 0.45,
+      "invalid_rate": 0.55,
       "exact_match": 0.0,
       "must_change": {
-        "precision": 0.167,
+        "precision": 0.121,
         "recall": 0.098,
-        "f1": 0.123,
+        "f1": 0.108,
         "tp": 4,
-        "fp": 20,
+        "fp": 29,
         "fn": 37
       },
       "must_preserve": {
-        "precision": 0.98,
-        "recall": 0.432,
-        "f1": 0.6,
-        "tp": 146,
-        "fp": 3,
-        "fn": 192
+        "precision": 0.992,
+        "recall": 0.391,
+        "f1": 0.561,
+        "tp": 132,
+        "fp": 1,
+        "fn": 206
       }
     },
     "type_conversion": {
       "n_tasks": 20,
-      "invalid_rate": 0.5,
-      "exact_match": 0.2,
+      "invalid_rate": 0.3,
+      "exact_match": 0.3,
       "must_change": {
-        "precision": 0.6,
-        "recall": 0.409,
-        "f1": 0.486,
-        "tp": 9,
-        "fp": 6,
-        "fn": 13
+        "precision": 0.556,
+        "recall": 0.455,
+        "f1": 0.5,
+        "tp": 10,
+        "fp": 8,
+        "fn": 12
       },
       "must_preserve": {
-        "precision": 0.994,
-        "recall": 0.464,
-        "f1": 0.633,
-        "tp": 162,
-        "fp": 1,
-        "fn": 187
+        "precision": 0.991,
+        "recall": 0.636,
+        "f1": 0.775,
+        "tp": 222,
+        "fp": 2,
+        "fn": 127
       }
     }
   },
@@ -207,28 +207,26 @@
       "task_id": "adult_col_002",
       "split": "test",
       "transformation_type": "column_transformation",
-      "status": "invalid_contract",
+      "status": "ok",
       "exact": false,
       "must_change": {
         "tp": 0,
-        "fp": 0,
+        "fp": 1,
         "fn": 2,
         "missing": [
           "{\"args\": [{\"col\": \"hours-per-week\"}, {\"lit\": 5}], \"fn\": \"div\", \"section\": \"must_change\", \"target\": \"hours_per_day\", \"type\": \"column_value_relation\", \"where\": null}",
           "{\"section\": \"must_change\", \"target\": \"hours_per_day\", \"type\": \"columns_added\"}"
         ],
-        "extra": []
+        "extra": [
+          "{\"args\": [{\"col\": \"hours-per-week\"}, {\"lit\": 5}], \"fn\": \"div\", \"section\": \"must_change\", \"target\": \"hours-per-week\", \"type\": \"column_value_relation\", \"where\": null}"
+        ]
       },
       "must_preserve": {
-        "tp": 0,
+        "tp": 15,
         "fp": 0,
-        "fn": 16,
+        "fn": 1,
         "missing": [
-          "{\"op\": \"unchanged\", \"section\": \"must_preserve\", \"target\": null, \"type\": \"row_count\", \"value\": null}",
-          "{\"section\": \"must_preserve\", \"target\": \"age\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"capital-gain\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"capital-loss\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"education\", \"type\": \"columns_unchanged\"}"
+          "{\"section\": \"must_preserve\", \"target\": \"hours-per-week\", \"type\": \"columns_unchanged\"}"
         ],
         "extra": []
       }
@@ -237,27 +235,21 @@
       "task_id": "adult_col_003",
       "split": "test",
       "transformation_type": "column_transformation",
-      "status": "invalid_contract",
+      "status": "ok",
       "exact": false,
       "must_change": {
-        "tp": 0,
+        "tp": 1,
         "fp": 0,
-        "fn": 1,
-        "missing": [
-          "{\"args\": [{\"col\": \"hours-per-week\"}, {\"lit\": null}, {\"lit\": 60}], \"fn\": \"clip\", \"section\": \"must_change\", \"target\": \"hours-per-week\", \"type\": \"column_value_relation\", \"where\": null}"
-        ],
+        "fn": 0,
+        "missing": [],
         "extra": []
       },
       "must_preserve": {
-        "tp": 0,
+        "tp": 15,
         "fp": 0,
-        "fn": 16,
+        "fn": 1,
         "missing": [
-          "{\"categories\": null, \"dtype\": \"int\", \"ordered\": null, \"section\": \"must_preserve\", \"target\": \"hours-per-week\", \"type\": \"column_dtype\"}",
-          "{\"op\": \"unchanged\", \"section\": \"must_preserve\", \"target\": null, \"type\": \"row_count\", \"value\": null}",
-          "{\"section\": \"must_preserve\", \"target\": \"age\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"capital-gain\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"capital-loss\", \"type\": \"columns_unchanged\"}"
+          "{\"categories\": null, \"dtype\": \"int\", \"ordered\": null, \"section\": \"must_preserve\", \"target\": \"hours-per-week\", \"type\": \"column_dtype\"}"
         ],
         "extra": []
       }
@@ -428,28 +420,20 @@
       "task_id": "adult_conv_004",
       "split": "test",
       "transformation_type": "type_conversion",
-      "status": "invalid_contract",
-      "exact": false,
+      "status": "ok",
+      "exact": true,
       "must_change": {
-        "tp": 0,
+        "tp": 1,
         "fp": 0,
-        "fn": 1,
-        "missing": [
-          "{\"categories\": null, \"dtype\": \"float\", \"ordered\": null, \"section\": \"must_change\", \"target\": \"age\", \"type\": \"column_dtype\"}"
-        ],
+        "fn": 0,
+        "missing": [],
         "extra": []
       },
       "must_preserve": {
-        "tp": 0,
+        "tp": 17,
         "fp": 0,
-        "fn": 17,
-        "missing": [
-          "{\"op\": \"unchanged\", \"section\": \"must_preserve\", \"target\": \"age\", \"type\": \"null_count\", \"value\": null}",
-          "{\"op\": \"unchanged\", \"section\": \"must_preserve\", \"target\": null, \"type\": \"row_count\", \"value\": null}",
-          "{\"section\": \"must_preserve\", \"target\": \"age\", \"type\": \"column_values_unchanged\", \"where\": null}",
-          "{\"section\": \"must_preserve\", \"target\": \"capital-gain\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"capital-loss\", \"type\": \"columns_unchanged\"}"
-        ],
+        "fn": 0,
+        "missing": [],
         "extra": []
       }
     },
@@ -561,28 +545,23 @@
       "task_id": "adult_dedup_003",
       "split": "test",
       "transformation_type": "deduplication",
-      "status": "invalid_contract",
+      "status": "ok",
       "exact": false,
       "must_change": {
-        "tp": 0,
+        "tp": 1,
         "fp": 0,
-        "fn": 2,
+        "fn": 1,
         "missing": [
-          "{\"keep\": \"first\", \"op\": \"eq\", \"section\": \"must_change\", \"target\": \"fnlwgt\", \"type\": \"duplicate_count\", \"value\": 0}",
           "{\"op\": \"decreased\", \"section\": \"must_change\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
         ],
         "extra": []
       },
       "must_preserve": {
-        "tp": 0,
+        "tp": 14,
         "fp": 0,
-        "fn": 15,
+        "fn": 1,
         "missing": [
-          "{\"section\": \"must_preserve\", \"target\": \"age\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"capital-gain\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"capital-loss\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"education\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"education-num\", \"type\": \"columns_unchanged\"}"
+          "{\"section\": \"must_preserve\", \"target\": \"fnlwgt\", \"type\": \"columns_unchanged\"}"
         ],
         "extra": []
       }
@@ -624,11 +603,11 @@
       "task_id": "adult_dedup_005",
       "split": "test",
       "transformation_type": "deduplication",
-      "status": "invalid_contract",
+      "status": "ok",
       "exact": false,
       "must_change": {
         "tp": 0,
-        "fp": 0,
+        "fp": 8,
         "fn": 8,
         "missing": [
           "{\"keep\": \"first\", \"op\": \"eq\", \"section\": \"must_change\", \"target\": \"age\", \"type\": \"duplicate_count\", \"value\": 0}",
@@ -637,18 +616,24 @@
           "{\"keep\": \"first\", \"op\": \"eq\", \"section\": \"must_change\", \"target\": \"occupation\", \"type\": \"duplicate_count\", \"value\": 0}",
           "{\"keep\": \"first\", \"op\": \"eq\", \"section\": \"must_change\", \"target\": \"race\", \"type\": \"duplicate_count\", \"value\": 0}"
         ],
-        "extra": []
+        "extra": [
+          "{\"keep\": \"first\", \"op\": \"eq\", \"section\": \"must_change\", \"target\": \"capital-gain\", \"type\": \"duplicate_count\", \"value\": 0}",
+          "{\"keep\": \"first\", \"op\": \"eq\", \"section\": \"must_change\", \"target\": \"capital-loss\", \"type\": \"duplicate_count\", \"value\": 0}",
+          "{\"keep\": \"first\", \"op\": \"eq\", \"section\": \"must_change\", \"target\": \"education-num\", \"type\": \"duplicate_count\", \"value\": 0}",
+          "{\"keep\": \"first\", \"op\": \"eq\", \"section\": \"must_change\", \"target\": \"fnlwgt\", \"type\": \"duplicate_count\", \"value\": 0}",
+          "{\"keep\": \"first\", \"op\": \"eq\", \"section\": \"must_change\", \"target\": \"hours-per-week\", \"type\": \"duplicate_count\", \"value\": 0}"
+        ]
       },
       "must_preserve": {
-        "tp": 0,
+        "tp": 8,
         "fp": 0,
-        "fn": 15,
+        "fn": 7,
         "missing": [
           "{\"section\": \"must_preserve\", \"target\": \"age\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"capital-gain\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"capital-loss\", \"type\": \"columns_unchanged\"}",
           "{\"section\": \"must_preserve\", \"target\": \"education\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"education-num\", \"type\": \"columns_unchanged\"}"
+          "{\"section\": \"must_preserve\", \"target\": \"marital-status\", \"type\": \"columns_unchanged\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"occupation\", \"type\": \"columns_unchanged\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"race\", \"type\": \"columns_unchanged\"}"
         ],
         "extra": []
       }
@@ -697,7 +682,7 @@
         "fp": 0,
         "fn": 1,
         "missing": [
-          "{\"condition\": {\"column\": \"age\", \"op\": \"<\", \"value\": 18}, \"section\": \"must_change\", \"target\": null, \"type\": \"rows_removed_where\"}"
+          "{\"op\": \"decreased\", \"section\": \"must_change\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
         ],
         "extra": []
       },
@@ -749,44 +734,14 @@
       "exact": false,
       "must_change": {
         "tp": 0,
-        "fp": 0,
+        "fp": 1,
         "fn": 2,
         "missing": [
           "{\"condition\": {\"not\": {\"column\": \"native-country\", \"op\": \"==\", \"value\": \"United-States\"}}, \"section\": \"must_change\", \"target\": null, \"type\": \"rows_removed_where\"}",
           "{\"op\": \"decreased\", \"section\": \"must_change\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
         ],
-        "extra": []
-      },
-      "must_preserve": {
-        "tp": 1,
-        "fp": 0,
-        "fn": 15,
-        "missing": [
-          "{\"section\": \"must_preserve\", \"target\": \"age\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"capital-gain\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"capital-loss\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"education\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"education-num\", \"type\": \"columns_unchanged\"}"
-        ],
-        "extra": []
-      }
-    },
-    {
-      "task_id": "adult_filt_004",
-      "split": "test",
-      "transformation_type": "filtering",
-      "status": "ok",
-      "exact": false,
-      "must_change": {
-        "tp": 0,
-        "fp": 1,
-        "fn": 2,
-        "missing": [
-          "{\"condition\": {\"column\": \"education\", \"op\": \"in\", \"value\": [\"1st-4th\", \"Preschool\"]}, \"section\": \"must_change\", \"target\": null, \"type\": \"rows_removed_where\"}",
-          "{\"op\": \"decreased\", \"section\": \"must_change\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
-        ],
         "extra": [
-          "{\"section\": \"must_change\", \"target\": \"education\", \"type\": \"column_values_unchanged\", \"where\": {\"column\": \"education\", \"op\": \"in\", \"value\": [\"1st-4th\", \"Preschool\"]}}"
+          "{\"condition\": {\"column\": \"native-country\", \"op\": \"==\", \"value\": \"United-States\"}, \"section\": \"must_change\", \"target\": null, \"type\": \"rows_retained_where\"}"
         ]
       },
       "must_preserve": {
@@ -794,12 +749,42 @@
         "fp": 1,
         "fn": 2,
         "missing": [
-          "{\"condition\": {\"column\": \"education\", \"op\": \"not_in\", \"value\": [\"1st-4th\", \"Preschool\"]}, \"section\": \"must_preserve\", \"target\": null, \"type\": \"rows_retained_where\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"education\", \"type\": \"columns_unchanged\"}"
+          "{\"condition\": {\"column\": \"native-country\", \"op\": \"==\", \"value\": \"United-States\"}, \"section\": \"must_preserve\", \"target\": null, \"type\": \"rows_retained_where\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"native-country\", \"type\": \"columns_unchanged\"}"
         ],
         "extra": [
-          "{\"op\": \"decreased\", \"section\": \"must_preserve\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
+          "{\"op\": \"unchanged\", \"section\": \"must_preserve\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
         ]
+      }
+    },
+    {
+      "task_id": "adult_filt_004",
+      "split": "test",
+      "transformation_type": "filtering",
+      "status": "invalid_contract",
+      "exact": false,
+      "must_change": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 2,
+        "missing": [
+          "{\"condition\": {\"column\": \"education\", \"op\": \"in\", \"value\": [\"1st-4th\", \"Preschool\"]}, \"section\": \"must_change\", \"target\": null, \"type\": \"rows_removed_where\"}",
+          "{\"op\": \"decreased\", \"section\": \"must_change\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
+        ],
+        "extra": []
+      },
+      "must_preserve": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 16,
+        "missing": [
+          "{\"condition\": {\"column\": \"education\", \"op\": \"not_in\", \"value\": [\"1st-4th\", \"Preschool\"]}, \"section\": \"must_preserve\", \"target\": null, \"type\": \"rows_retained_where\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"age\", \"type\": \"columns_unchanged\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"capital-gain\", \"type\": \"columns_unchanged\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"capital-loss\", \"type\": \"columns_unchanged\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"education\", \"type\": \"columns_unchanged\"}"
+        ],
+        "extra": []
       }
     },
     {
@@ -836,30 +821,31 @@
       "task_id": "adult_filt_006",
       "split": "dev",
       "transformation_type": "filtering",
-      "status": "invalid_contract",
+      "status": "ok",
       "exact": false,
       "must_change": {
         "tp": 0,
-        "fp": 0,
+        "fp": 1,
         "fn": 2,
         "missing": [
           "{\"condition\": {\"all\": [{\"column\": \"hours-per-week\", \"op\": \"<\", \"value\": 20}, {\"column\": \"workclass\", \"op\": \"==\", \"value\": \"Private\"}]}, \"section\": \"must_change\", \"target\": null, \"type\": \"rows_removed_where\"}",
           "{\"op\": \"decreased\", \"section\": \"must_change\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
         ],
-        "extra": []
+        "extra": [
+          "{\"condition\": {\"all\": [{\"column\": \"hours-per-week\", \"op\": \"<\", \"value\": 20}, {\"column\": \"occupation\", \"op\": \"==\", \"value\": \"Handlers-cleaners\"}]}, \"section\": \"must_change\", \"target\": null, \"type\": \"rows_removed_where\"}"
+        ]
       },
       "must_preserve": {
-        "tp": 0,
-        "fp": 0,
-        "fn": 16,
+        "tp": 14,
+        "fp": 1,
+        "fn": 2,
         "missing": [
           "{\"condition\": {\"not\": {\"all\": [{\"column\": \"hours-per-week\", \"op\": \"<\", \"value\": 20}, {\"column\": \"workclass\", \"op\": \"==\", \"value\": \"Private\"}]}}, \"section\": \"must_preserve\", \"target\": null, \"type\": \"rows_retained_where\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"age\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"capital-gain\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"capital-loss\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"education\", \"type\": \"columns_unchanged\"}"
+          "{\"section\": \"must_preserve\", \"target\": \"occupation\", \"type\": \"columns_unchanged\"}"
         ],
-        "extra": []
+        "extra": [
+          "{\"op\": \"decreased\", \"section\": \"must_preserve\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
+        ]
       }
     },
     {
@@ -927,28 +913,24 @@
       "exact": false,
       "must_change": {
         "tp": 0,
-        "fp": 0,
+        "fp": 1,
         "fn": 2,
         "missing": [
           "{\"condition\": {\"column\": \"native-country\", \"op\": \"is_null\"}, \"section\": \"must_change\", \"target\": null, \"type\": \"rows_removed_where\"}",
           "{\"op\": \"decreased\", \"section\": \"must_change\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
         ],
-        "extra": []
+        "extra": [
+          "{\"condition\": {\"all\": [{\"column\": \"native_country\", \"op\": \"==\", \"value\": \"\"}, {\"column\": \"native_country\", \"op\": \"is_null\"}]}, \"section\": \"must_change\", \"target\": null, \"type\": \"rows_removed_where\"}"
+        ]
       },
       "must_preserve": {
-        "tp": 0,
-        "fp": 1,
-        "fn": 16,
+        "tp": 15,
+        "fp": 0,
+        "fn": 1,
         "missing": [
-          "{\"condition\": {\"column\": \"native-country\", \"op\": \"not_null\"}, \"section\": \"must_preserve\", \"target\": null, \"type\": \"rows_retained_where\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"age\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"capital-gain\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"capital-loss\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"education\", \"type\": \"columns_unchanged\"}"
+          "{\"condition\": {\"column\": \"native-country\", \"op\": \"not_null\"}, \"section\": \"must_preserve\", \"target\": null, \"type\": \"rows_retained_where\"}"
         ],
-        "extra": [
-          "{\"condition\": {\"all\": [{\"column\": \"native_country\", \"op\": \"!=\", \"value\": \"\"}, {\"column\": \"native_country\", \"op\": \"is_null\"}]}, \"section\": \"must_preserve\", \"target\": null, \"type\": \"rows_removed_where\"}"
-        ]
+        "extra": []
       }
     },
     {
@@ -959,12 +941,13 @@
       "exact": false,
       "must_change": {
         "tp": 1,
-        "fp": 1,
+        "fp": 2,
         "fn": 1,
         "missing": [
           "{\"args\": [{\"lit\": \"United-States\"}], \"fn\": \"const\", \"section\": \"must_change\", \"target\": \"native-country\", \"type\": \"column_value_relation\", \"where\": {\"column\": \"native-country\", \"op\": \"is_null\"}}"
         ],
         "extra": [
+          "{\"args\": [{\"col\": \"native-country\"}, {\"lit\": null}, {\"lit\": \"United-States\"}], \"fn\": \"clip\", \"section\": \"must_change\", \"target\": \"native-country\", \"type\": \"column_value_relation\", \"where\": null}",
           "{\"args\": [{\"col\": \"native-country\"}], \"fn\": \"identity\", \"section\": \"must_change\", \"target\": \"native-country\", \"type\": \"column_value_relation\", \"where\": null}"
         ]
       },
@@ -986,7 +969,7 @@
       "exact": false,
       "must_change": {
         "tp": 0,
-        "fp": 6,
+        "fp": 17,
         "fn": 4,
         "missing": [
           "{\"args\": [{\"lit\": \"Not-working\"}], \"fn\": \"const\", \"section\": \"must_change\", \"target\": \"occupation\", \"type\": \"column_value_relation\", \"where\": {\"column\": \"occupation\", \"op\": \"is_null\"}}",
@@ -997,16 +980,17 @@
         "extra": [
           "{\"args\": [{\"col\": \"occupation\"}], \"fn\": \"identity\", \"section\": \"must_change\", \"target\": \"occupation\", \"type\": \"column_value_relation\", \"where\": null}",
           "{\"args\": [{\"col\": \"workclass\"}], \"fn\": \"identity\", \"section\": \"must_change\", \"target\": \"workclass\", \"type\": \"column_value_relation\", \"where\": null}",
-          "{\"section\": \"must_change\", \"target\": \"occupation\", \"type\": \"columns_added\"}",
-          "{\"section\": \"must_change\", \"target\": \"occupation\", \"type\": \"columns_removed\"}",
-          "{\"section\": \"must_change\", \"target\": \"workclass\", \"type\": \"columns_added\"}"
+          "{\"section\": \"must_change\", \"target\": \"age\", \"type\": \"columns_unchanged\"}",
+          "{\"section\": \"must_change\", \"target\": \"capital-gain\", \"type\": \"columns_unchanged\"}",
+          "{\"section\": \"must_change\", \"target\": \"capital-loss\", \"type\": \"columns_unchanged\"}"
         ]
       },
       "must_preserve": {
-        "tp": 14,
+        "tp": 13,
         "fp": 0,
-        "fn": 2,
+        "fn": 3,
         "missing": [
+          "{\"op\": \"unchanged\", \"section\": \"must_preserve\", \"target\": null, \"type\": \"row_count\", \"value\": null}",
           "{\"section\": \"must_preserve\", \"target\": \"occupation\", \"type\": \"column_values_unchanged\", \"where\": {\"column\": \"occupation\", \"op\": \"not_null\"}}",
           "{\"section\": \"must_preserve\", \"target\": \"workclass\", \"type\": \"column_values_unchanged\", \"where\": {\"column\": \"workclass\", \"op\": \"not_null\"}}"
         ],
@@ -1017,7 +1001,7 @@
       "task_id": "adult_miss_006",
       "split": "dev",
       "transformation_type": "missing_values",
-      "status": "invalid_contract",
+      "status": "ok",
       "exact": false,
       "must_change": {
         "tp": 0,
@@ -1031,7 +1015,7 @@
       },
       "must_preserve": {
         "tp": 0,
-        "fp": 0,
+        "fp": 1,
         "fn": 16,
         "missing": [
           "{\"condition\": {\"all\": [{\"column\": \"native-country\", \"op\": \"not_null\"}, {\"column\": \"occupation\", \"op\": \"not_null\"}, {\"column\": \"workclass\", \"op\": \"not_null\"}]}, \"section\": \"must_preserve\", \"target\": null, \"type\": \"rows_retained_where\"}",
@@ -1040,7 +1024,9 @@
           "{\"section\": \"must_preserve\", \"target\": \"capital-loss\", \"type\": \"columns_unchanged\"}",
           "{\"section\": \"must_preserve\", \"target\": \"education\", \"type\": \"columns_unchanged\"}"
         ],
-        "extra": []
+        "extra": [
+          "{\"condition\": {\"all\": [{\"column\": \"capital_gain\", \"op\": \"is_null\"}, {\"column\": \"capital_loss\", \"op\": \"is_null\"}, {\"column\": \"education_num\", \"op\": \"is_null\"}, {\"column\": \"hours_per_week\", \"op\": \"is_null\"}, {\"column\": \"income\", \"op\": \"is_null\"}, {\"column\": \"marital_status\", \"op\": \"is_null\"}, {\"column\": \"native_country\", \"op\": \"is_null\"}, {\"column\": \"occupation\", \"op\": \"is_null\"}, {\"column\": \"race\", \"op\": \"is_null\"}, {\"column\": \"relationship\", \"op\": \"is_null\"}, {\"column\": \"sex\", \"op\": \"is_null\"}, {\"column\": \"workclass\", \"op\": \"is_null\"}]}, \"section\": \"must_preserve\", \"target\": null, \"type\": \"rows_removed_where\"}"
+        ]
       }
     },
     {
@@ -1101,27 +1087,21 @@
       "task_id": "airbnb_col_003",
       "split": "test",
       "transformation_type": "column_transformation",
-      "status": "invalid_contract",
+      "status": "ok",
       "exact": false,
       "must_change": {
-        "tp": 0,
+        "tp": 1,
         "fp": 0,
-        "fn": 1,
-        "missing": [
-          "{\"args\": [{\"col\": \"minimum_nights\"}, {\"lit\": null}, {\"lit\": 30}], \"fn\": \"clip\", \"section\": \"must_change\", \"target\": \"minimum_nights\", \"type\": \"column_value_relation\", \"where\": null}"
-        ],
+        "fn": 0,
+        "missing": [],
         "extra": []
       },
       "must_preserve": {
-        "tp": 0,
+        "tp": 16,
         "fp": 0,
-        "fn": 17,
+        "fn": 1,
         "missing": [
-          "{\"categories\": null, \"dtype\": \"int\", \"ordered\": null, \"section\": \"must_preserve\", \"target\": \"minimum_nights\", \"type\": \"column_dtype\"}",
-          "{\"op\": \"unchanged\", \"section\": \"must_preserve\", \"target\": null, \"type\": \"row_count\", \"value\": null}",
-          "{\"section\": \"must_preserve\", \"target\": \"availability_365\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"calculated_host_listings_count\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"host_id\", \"type\": \"columns_unchanged\"}"
+          "{\"categories\": null, \"dtype\": \"int\", \"ordered\": null, \"section\": \"must_preserve\", \"target\": \"minimum_nights\", \"type\": \"column_dtype\"}"
         ],
         "extra": []
       }
@@ -1192,23 +1172,20 @@
       "status": "ok",
       "exact": false,
       "must_change": {
-        "tp": 1,
+        "tp": 2,
         "fp": 0,
-        "fn": 2,
+        "fn": 1,
         "missing": [
-          "{\"args\": [{\"col\": \"reviews_per_month\"}], \"fn\": \"identity\", \"section\": \"must_change\", \"target\": \"monthly_reviews\", \"type\": \"column_value_relation\", \"where\": null}",
-          "{\"section\": \"must_change\", \"target\": \"reviews_per_month\", \"type\": \"columns_removed\"}"
+          "{\"args\": [{\"col\": \"reviews_per_month\"}], \"fn\": \"identity\", \"section\": \"must_change\", \"target\": \"monthly_reviews\", \"type\": \"column_value_relation\", \"where\": null}"
         ],
         "extra": []
       },
       "must_preserve": {
         "tp": 16,
-        "fp": 1,
+        "fp": 0,
         "fn": 0,
         "missing": [],
-        "extra": [
-          "{\"section\": \"must_preserve\", \"target\": \"reviews_per_month\", \"type\": \"columns_unchanged\"}"
-        ]
+        "extra": []
       }
     },
     {
@@ -1244,28 +1221,20 @@
       "task_id": "airbnb_conv_002",
       "split": "test",
       "transformation_type": "type_conversion",
-      "status": "invalid_contract",
-      "exact": false,
+      "status": "ok",
+      "exact": true,
       "must_change": {
-        "tp": 0,
+        "tp": 1,
         "fp": 0,
-        "fn": 1,
-        "missing": [
-          "{\"categories\": null, \"dtype\": \"float\", \"ordered\": null, \"section\": \"must_change\", \"target\": \"price\", \"type\": \"column_dtype\"}"
-        ],
+        "fn": 0,
+        "missing": [],
         "extra": []
       },
       "must_preserve": {
-        "tp": 0,
+        "tp": 18,
         "fp": 0,
-        "fn": 18,
-        "missing": [
-          "{\"op\": \"unchanged\", \"section\": \"must_preserve\", \"target\": \"price\", \"type\": \"null_count\", \"value\": null}",
-          "{\"op\": \"unchanged\", \"section\": \"must_preserve\", \"target\": null, \"type\": \"row_count\", \"value\": null}",
-          "{\"section\": \"must_preserve\", \"target\": \"availability_365\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"calculated_host_listings_count\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"host_id\", \"type\": \"columns_unchanged\"}"
-        ],
+        "fn": 0,
+        "missing": [],
         "extra": []
       }
     },
@@ -1440,30 +1409,30 @@
       "task_id": "airbnb_dedup_003",
       "split": "test",
       "transformation_type": "deduplication",
-      "status": "ok",
+      "status": "invalid_contract",
       "exact": false,
       "must_change": {
         "tp": 0,
-        "fp": 1,
+        "fp": 0,
         "fn": 2,
         "missing": [
           "{\"keep\": \"first\", \"op\": \"eq\", \"section\": \"must_change\", \"target\": \"host_id\", \"type\": \"duplicate_count\", \"value\": 0}",
           "{\"op\": \"decreased\", \"section\": \"must_change\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
         ],
-        "extra": [
-          "{\"condition\": {\"all\": [{\"column\": \"host_name\", \"op\": \"==\", \"value\": \"Elisabeth\"}, {\"column\": \"host_name\", \"op\": \"==\", \"value\": \"Jennifer\"}, {\"column\": \"host_name\", \"op\": \"==\", \"value\": \"John\"}]}, \"section\": \"must_change\", \"target\": null, \"type\": \"rows_retained_where\"}"
-        ]
+        "extra": []
       },
       "must_preserve": {
-        "tp": 15,
-        "fp": 1,
-        "fn": 1,
+        "tp": 0,
+        "fp": 0,
+        "fn": 16,
         "missing": [
-          "{\"section\": \"must_preserve\", \"target\": \"host_name\", \"type\": \"columns_unchanged\"}"
+          "{\"section\": \"must_preserve\", \"target\": \"availability_365\", \"type\": \"columns_unchanged\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"calculated_host_listings_count\", \"type\": \"columns_unchanged\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"host_id\", \"type\": \"columns_unchanged\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"host_name\", \"type\": \"columns_unchanged\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"id\", \"type\": \"columns_unchanged\"}"
         ],
-        "extra": [
-          "{\"op\": \"unchanged\", \"section\": \"must_preserve\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
-        ]
+        "extra": []
       }
     },
     {
@@ -1564,35 +1533,6 @@
       "task_id": "airbnb_filt_001",
       "split": "test",
       "transformation_type": "filtering",
-      "status": "ok",
-      "exact": false,
-      "must_change": {
-        "tp": 0,
-        "fp": 1,
-        "fn": 2,
-        "missing": [
-          "{\"condition\": {\"column\": \"availability_365\", \"op\": \"==\", \"value\": 0}, \"section\": \"must_change\", \"target\": null, \"type\": \"rows_removed_where\"}",
-          "{\"op\": \"decreased\", \"section\": \"must_change\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
-        ],
-        "extra": [
-          "{\"condition\": {\"all\": [{\"column\": \"availability_365\", \"op\": \"==\", \"value\": 0}, {\"column\": \"last_review\", \"op\": \"==\", \"value\": \"2023-01-01\"}]}, \"section\": \"must_change\", \"target\": null, \"type\": \"rows_removed_where\"}"
-        ]
-      },
-      "must_preserve": {
-        "tp": 15,
-        "fp": 0,
-        "fn": 2,
-        "missing": [
-          "{\"condition\": {\"column\": \"availability_365\", \"op\": \"!=\", \"value\": 0}, \"section\": \"must_preserve\", \"target\": null, \"type\": \"rows_retained_where\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"availability_365\", \"type\": \"columns_unchanged\"}"
-        ],
-        "extra": []
-      }
-    },
-    {
-      "task_id": "airbnb_filt_002",
-      "split": "test",
-      "transformation_type": "filtering",
       "status": "invalid_contract",
       "exact": false,
       "must_change": {
@@ -1600,7 +1540,7 @@
         "fp": 0,
         "fn": 2,
         "missing": [
-          "{\"condition\": {\"column\": \"neighbourhood_group\", \"op\": \"not_in\", \"value\": [\"Brooklyn\", \"Manhattan\"]}, \"section\": \"must_change\", \"target\": null, \"type\": \"rows_removed_where\"}",
+          "{\"condition\": {\"column\": \"availability_365\", \"op\": \"==\", \"value\": 0}, \"section\": \"must_change\", \"target\": null, \"type\": \"rows_removed_where\"}",
           "{\"op\": \"decreased\", \"section\": \"must_change\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
         ],
         "extra": []
@@ -1610,7 +1550,7 @@
         "fp": 0,
         "fn": 17,
         "missing": [
-          "{\"condition\": {\"column\": \"neighbourhood_group\", \"op\": \"in\", \"value\": [\"Brooklyn\", \"Manhattan\"]}, \"section\": \"must_preserve\", \"target\": null, \"type\": \"rows_retained_where\"}",
+          "{\"condition\": {\"column\": \"availability_365\", \"op\": \"!=\", \"value\": 0}, \"section\": \"must_preserve\", \"target\": null, \"type\": \"rows_retained_where\"}",
           "{\"section\": \"must_preserve\", \"target\": \"availability_365\", \"type\": \"columns_unchanged\"}",
           "{\"section\": \"must_preserve\", \"target\": \"calculated_host_listings_count\", \"type\": \"columns_unchanged\"}",
           "{\"section\": \"must_preserve\", \"target\": \"host_id\", \"type\": \"columns_unchanged\"}",
@@ -1620,7 +1560,7 @@
       }
     },
     {
-      "task_id": "airbnb_filt_003",
+      "task_id": "airbnb_filt_002",
       "split": "test",
       "transformation_type": "filtering",
       "status": "ok",
@@ -1630,11 +1570,11 @@
         "fp": 1,
         "fn": 2,
         "missing": [
-          "{\"condition\": {\"column\": \"price\", \"op\": \">=\", \"value\": 500}, \"section\": \"must_change\", \"target\": null, \"type\": \"rows_removed_where\"}",
+          "{\"condition\": {\"column\": \"neighbourhood_group\", \"op\": \"not_in\", \"value\": [\"Brooklyn\", \"Manhattan\"]}, \"section\": \"must_change\", \"target\": null, \"type\": \"rows_removed_where\"}",
           "{\"op\": \"decreased\", \"section\": \"must_change\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
         ],
         "extra": [
-          "{\"section\": \"must_change\", \"target\": \"price\", \"type\": \"column_values_unchanged\", \"where\": {\"column\": \"price\", \"op\": \">=\", \"value\": 500}}"
+          "{\"condition\": {\"all\": [{\"column\": \"neighbourhood_group\", \"op\": \"!=\", \"value\": \"Brooklyn\"}, {\"column\": \"neighbourhood_group\", \"op\": \"!=\", \"value\": \"Manhattan\"}]}, \"section\": \"must_change\", \"target\": null, \"type\": \"rows_removed_where\"}"
         ]
       },
       "must_preserve": {
@@ -1642,11 +1582,40 @@
         "fp": 1,
         "fn": 2,
         "missing": [
+          "{\"condition\": {\"column\": \"neighbourhood_group\", \"op\": \"in\", \"value\": [\"Brooklyn\", \"Manhattan\"]}, \"section\": \"must_preserve\", \"target\": null, \"type\": \"rows_retained_where\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"neighbourhood_group\", \"type\": \"columns_unchanged\"}"
+        ],
+        "extra": [
+          "{\"op\": \"unchanged\", \"section\": \"must_preserve\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
+        ]
+      }
+    },
+    {
+      "task_id": "airbnb_filt_003",
+      "split": "test",
+      "transformation_type": "filtering",
+      "status": "ok",
+      "exact": false,
+      "must_change": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 1,
+        "missing": [
+          "{\"condition\": {\"column\": \"price\", \"op\": \">=\", \"value\": 500}, \"section\": \"must_change\", \"target\": null, \"type\": \"rows_removed_where\"}"
+        ],
+        "extra": []
+      },
+      "must_preserve": {
+        "tp": 15,
+        "fp": 2,
+        "fn": 2,
+        "missing": [
           "{\"condition\": {\"column\": \"price\", \"op\": \"<\", \"value\": 500}, \"section\": \"must_preserve\", \"target\": null, \"type\": \"rows_retained_where\"}",
           "{\"section\": \"must_preserve\", \"target\": \"price\", \"type\": \"columns_unchanged\"}"
         ],
         "extra": [
-          "{\"op\": \"decreased\", \"section\": \"must_preserve\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
+          "{\"op\": \"eq\", \"section\": \"must_preserve\", \"target\": \"price\", \"type\": \"null_count\", \"value\": 0}",
+          "{\"section\": \"must_preserve\", \"target\": \"price\", \"type\": \"column_values_unchanged\", \"where\": {\"column\": \"price\", \"op\": \">=\", \"value\": 500}}"
         ]
       }
     },
@@ -1665,17 +1634,15 @@
           "{\"op\": \"decreased\", \"section\": \"must_change\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
         ],
         "extra": [
-          "{\"condition\": {\"all\": [{\"column\": \"minimum_nights\", \"op\": \">=\", \"value\": 30}, {\"column\": \"number_of_reviews\", \"op\": \">\", \"value\": 0}]}, \"section\": \"must_change\", \"target\": null, \"type\": \"rows_removed_where\"}"
+          "{\"condition\": {\"all\": [{\"column\": \"minimum_nights\", \"op\": \">=\", \"value\": 30}, {\"column\": \"number_of_reviews\", \"op\": \">\", \"value\": 100}]}, \"section\": \"must_change\", \"target\": null, \"type\": \"rows_removed_where\"}"
         ]
       },
       "must_preserve": {
-        "tp": 14,
+        "tp": 16,
         "fp": 0,
-        "fn": 3,
+        "fn": 1,
         "missing": [
-          "{\"condition\": {\"column\": \"minimum_nights\", \"op\": \"<=\", \"value\": 30}, \"section\": \"must_preserve\", \"target\": null, \"type\": \"rows_retained_where\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"minimum_nights\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"number_of_reviews\", \"type\": \"columns_unchanged\"}"
+          "{\"condition\": {\"column\": \"minimum_nights\", \"op\": \"<=\", \"value\": 30}, \"section\": \"must_preserve\", \"target\": null, \"type\": \"rows_retained_where\"}"
         ],
         "extra": []
       }
@@ -1771,24 +1738,27 @@
       "task_id": "airbnb_miss_002",
       "split": "test",
       "transformation_type": "missing_values",
-      "status": "ok",
+      "status": "invalid_contract",
       "exact": false,
       "must_change": {
-        "tp": 1,
-        "fp": 1,
-        "fn": 1,
+        "tp": 0,
+        "fp": 0,
+        "fn": 2,
         "missing": [
+          "{\"args\": [{\"lit\": \"Unknown\"}], \"fn\": \"const\", \"section\": \"must_change\", \"target\": \"host_name\", \"type\": \"column_value_relation\", \"where\": {\"column\": \"host_name\", \"op\": \"is_null\"}}",
           "{\"op\": \"eq\", \"section\": \"must_change\", \"target\": \"host_name\", \"type\": \"null_count\", \"value\": 0}"
         ],
-        "extra": [
-          "{\"args\": [{\"col\": \"host_name\"}], \"fn\": \"identity\", \"section\": \"must_change\", \"target\": \"host_name\", \"type\": \"column_value_relation\", \"where\": null}"
-        ]
+        "extra": []
       },
       "must_preserve": {
-        "tp": 16,
+        "tp": 0,
         "fp": 0,
-        "fn": 1,
+        "fn": 17,
         "missing": [
+          "{\"op\": \"unchanged\", \"section\": \"must_preserve\", \"target\": null, \"type\": \"row_count\", \"value\": null}",
+          "{\"section\": \"must_preserve\", \"target\": \"availability_365\", \"type\": \"columns_unchanged\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"calculated_host_listings_count\", \"type\": \"columns_unchanged\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"host_id\", \"type\": \"columns_unchanged\"}",
           "{\"section\": \"must_preserve\", \"target\": \"host_name\", \"type\": \"column_values_unchanged\", \"where\": {\"column\": \"host_name\", \"op\": \"not_null\"}}"
         ],
         "extra": []
@@ -1798,7 +1768,7 @@
       "task_id": "airbnb_miss_003",
       "split": "test",
       "transformation_type": "missing_values",
-      "status": "invalid_json",
+      "status": "invalid_contract",
       "exact": false,
       "must_change": {
         "tp": 0,
@@ -1977,26 +1947,27 @@
       "task_id": "taxi_col_003",
       "split": "test",
       "transformation_type": "column_transformation",
-      "status": "ok",
+      "status": "invalid_contract",
       "exact": false,
       "must_change": {
         "tp": 0,
-        "fp": 2,
+        "fp": 0,
         "fn": 1,
         "missing": [
           "{\"args\": [{\"col\": \"trip_distance\"}, {\"lit\": null}, {\"lit\": 30}], \"fn\": \"clip\", \"section\": \"must_change\", \"target\": \"trip_distance\", \"type\": \"column_value_relation\", \"where\": null}"
         ],
-        "extra": [
-          "{\"section\": \"must_change\", \"target\": \"trip_distance\", \"type\": \"column_values_unchanged\", \"where\": {\"column\": \"trip_distance\", \"op\": \"<\", \"value\": 30}}",
-          "{\"section\": \"must_change\", \"target\": \"trip_distance\", \"type\": \"column_values_unchanged\", \"where\": {\"column\": \"trip_distance\", \"op\": \">\", \"value\": 30}}"
-        ]
+        "extra": []
       },
       "must_preserve": {
-        "tp": 20,
+        "tp": 0,
         "fp": 0,
-        "fn": 1,
+        "fn": 21,
         "missing": [
-          "{\"categories\": null, \"dtype\": \"float\", \"ordered\": null, \"section\": \"must_preserve\", \"target\": \"trip_distance\", \"type\": \"column_dtype\"}"
+          "{\"categories\": null, \"dtype\": \"float\", \"ordered\": null, \"section\": \"must_preserve\", \"target\": \"trip_distance\", \"type\": \"column_dtype\"}",
+          "{\"op\": \"unchanged\", \"section\": \"must_preserve\", \"target\": null, \"type\": \"row_count\", \"value\": null}",
+          "{\"section\": \"must_preserve\", \"target\": \"Airport_fee\", \"type\": \"columns_unchanged\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"DOLocationID\", \"type\": \"columns_unchanged\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"PULocationID\", \"type\": \"columns_unchanged\"}"
         ],
         "extra": []
       }
@@ -2005,29 +1976,24 @@
       "task_id": "taxi_col_004",
       "split": "test",
       "transformation_type": "column_transformation",
-      "status": "invalid_contract",
+      "status": "ok",
       "exact": false,
       "must_change": {
-        "tp": 0,
+        "tp": 1,
         "fp": 0,
-        "fn": 1,
-        "missing": [
-          "{\"args\": [{\"col\": \"trip_distance\"}, {\"lit\": 1}], \"fn\": \"round\", \"section\": \"must_change\", \"target\": \"trip_distance\", \"type\": \"column_value_relation\", \"where\": null}"
-        ],
+        "fn": 0,
+        "missing": [],
         "extra": []
       },
       "must_preserve": {
-        "tp": 0,
-        "fp": 0,
-        "fn": 20,
-        "missing": [
-          "{\"op\": \"unchanged\", \"section\": \"must_preserve\", \"target\": null, \"type\": \"row_count\", \"value\": null}",
-          "{\"section\": \"must_preserve\", \"target\": \"Airport_fee\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"DOLocationID\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"PULocationID\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"RatecodeID\", \"type\": \"columns_unchanged\"}"
-        ],
-        "extra": []
+        "tp": 20,
+        "fp": 2,
+        "fn": 0,
+        "missing": [],
+        "extra": [
+          "{\"op\": \"unchanged\", \"section\": \"must_preserve\", \"target\": \"trip_distance\", \"type\": \"null_count\", \"value\": null}",
+          "{\"section\": \"must_preserve\", \"target\": \"trip_distance\", \"type\": \"column_values_unchanged\", \"where\": null}"
+        ]
       }
     },
     {
@@ -2067,23 +2033,20 @@
       "status": "ok",
       "exact": false,
       "must_change": {
-        "tp": 1,
+        "tp": 2,
         "fp": 0,
-        "fn": 2,
+        "fn": 1,
         "missing": [
-          "{\"args\": [{\"col\": \"Airport_fee\"}], \"fn\": \"identity\", \"section\": \"must_change\", \"target\": \"airport_fee\", \"type\": \"column_value_relation\", \"where\": null}",
-          "{\"section\": \"must_change\", \"target\": \"Airport_fee\", \"type\": \"columns_removed\"}"
+          "{\"args\": [{\"col\": \"Airport_fee\"}], \"fn\": \"identity\", \"section\": \"must_change\", \"target\": \"airport_fee\", \"type\": \"column_value_relation\", \"where\": null}"
         ],
         "extra": []
       },
       "must_preserve": {
         "tp": 20,
-        "fp": 1,
+        "fp": 0,
         "fn": 0,
         "missing": [],
-        "extra": [
-          "{\"section\": \"must_preserve\", \"target\": \"Airport_fee\", \"type\": \"columns_unchanged\"}"
-        ]
+        "extra": []
       }
     },
     {
@@ -2255,30 +2218,25 @@
       "task_id": "taxi_dedup_001",
       "split": "test",
       "transformation_type": "deduplication",
-      "status": "invalid_contract",
+      "status": "ok",
       "exact": false,
       "must_change": {
-        "tp": 0,
+        "tp": 3,
         "fp": 0,
-        "fn": 4,
+        "fn": 1,
         "missing": [
-          "{\"keep\": \"first\", \"op\": \"eq\", \"section\": \"must_change\", \"target\": \"VendorID\", \"type\": \"duplicate_count\", \"value\": 0}",
-          "{\"keep\": \"first\", \"op\": \"eq\", \"section\": \"must_change\", \"target\": \"tpep_dropoff_datetime\", \"type\": \"duplicate_count\", \"value\": 0}",
-          "{\"keep\": \"first\", \"op\": \"eq\", \"section\": \"must_change\", \"target\": \"tpep_pickup_datetime\", \"type\": \"duplicate_count\", \"value\": 0}",
           "{\"op\": \"decreased\", \"section\": \"must_change\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
         ],
         "extra": []
       },
       "must_preserve": {
-        "tp": 0,
+        "tp": 17,
         "fp": 0,
-        "fn": 20,
+        "fn": 3,
         "missing": [
-          "{\"section\": \"must_preserve\", \"target\": \"Airport_fee\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"DOLocationID\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"PULocationID\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"RatecodeID\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"VendorID\", \"type\": \"columns_unchanged\"}"
+          "{\"section\": \"must_preserve\", \"target\": \"VendorID\", \"type\": \"columns_unchanged\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"tpep_dropoff_datetime\", \"type\": \"columns_unchanged\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"tpep_pickup_datetime\", \"type\": \"columns_unchanged\"}"
         ],
         "extra": []
       }
@@ -2287,30 +2245,25 @@
       "task_id": "taxi_dedup_002",
       "split": "test",
       "transformation_type": "deduplication",
-      "status": "invalid_contract",
+      "status": "ok",
       "exact": false,
       "must_change": {
-        "tp": 0,
+        "tp": 3,
         "fp": 0,
-        "fn": 4,
+        "fn": 1,
         "missing": [
-          "{\"keep\": \"last\", \"op\": \"eq\", \"section\": \"must_change\", \"target\": \"VendorID\", \"type\": \"duplicate_count\", \"value\": 0}",
-          "{\"keep\": \"last\", \"op\": \"eq\", \"section\": \"must_change\", \"target\": \"tpep_dropoff_datetime\", \"type\": \"duplicate_count\", \"value\": 0}",
-          "{\"keep\": \"last\", \"op\": \"eq\", \"section\": \"must_change\", \"target\": \"tpep_pickup_datetime\", \"type\": \"duplicate_count\", \"value\": 0}",
           "{\"op\": \"decreased\", \"section\": \"must_change\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
         ],
         "extra": []
       },
       "must_preserve": {
-        "tp": 0,
+        "tp": 17,
         "fp": 0,
-        "fn": 20,
+        "fn": 3,
         "missing": [
-          "{\"section\": \"must_preserve\", \"target\": \"Airport_fee\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"DOLocationID\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"PULocationID\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"RatecodeID\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"VendorID\", \"type\": \"columns_unchanged\"}"
+          "{\"section\": \"must_preserve\", \"target\": \"VendorID\", \"type\": \"columns_unchanged\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"tpep_dropoff_datetime\", \"type\": \"columns_unchanged\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"tpep_pickup_datetime\", \"type\": \"columns_unchanged\"}"
         ],
         "extra": []
       }
@@ -2351,21 +2304,21 @@
       "status": "ok",
       "exact": false,
       "must_change": {
-        "tp": 2,
+        "tp": 1,
         "fp": 0,
-        "fn": 1,
+        "fn": 2,
         "missing": [
+          "{\"keep\": \"first\", \"op\": \"eq\", \"section\": \"must_change\", \"target\": \"tpep_pickup_datetime\", \"type\": \"duplicate_count\", \"value\": 0}",
           "{\"op\": \"decreased\", \"section\": \"must_change\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
         ],
         "extra": []
       },
       "must_preserve": {
-        "tp": 18,
+        "tp": 19,
         "fp": 0,
-        "fn": 2,
+        "fn": 1,
         "missing": [
-          "{\"section\": \"must_preserve\", \"target\": \"PULocationID\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"tpep_pickup_datetime\", \"type\": \"columns_unchanged\"}"
+          "{\"section\": \"must_preserve\", \"target\": \"PULocationID\", \"type\": \"columns_unchanged\"}"
         ],
         "extra": []
       }
@@ -2536,15 +2489,16 @@
           "{\"op\": \"decreased\", \"section\": \"must_change\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
         ],
         "extra": [
-          "{\"condition\": {\"column\": \"tpep_pickup_datetime\", \"op\": \"<\", \"value\": \"2026-01-01\"}, \"section\": \"must_change\", \"target\": null, \"type\": \"rows_removed_where\"}"
+          "{\"condition\": {\"all\": [{\"column\": \"tpep_dropoff_datetime\", \"op\": \"<\", \"value\": \"2026-01-01 00:00:00\"}, {\"column\": \"tpep_pickup_datetime\", \"op\": \"<\", \"value\": \"2026-01-01 00:00:00\"}]}, \"section\": \"must_change\", \"target\": null, \"type\": \"rows_removed_where\"}"
         ]
       },
       "must_preserve": {
-        "tp": 19,
+        "tp": 18,
         "fp": 0,
-        "fn": 2,
+        "fn": 3,
         "missing": [
           "{\"condition\": {\"column\": \"tpep_pickup_datetime\", \"op\": \">=\", \"value\": \"2026-01-01 00:00:00\"}, \"section\": \"must_preserve\", \"target\": null, \"type\": \"rows_retained_where\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"tpep_dropoff_datetime\", \"type\": \"columns_unchanged\"}",
           "{\"section\": \"must_preserve\", \"target\": \"tpep_pickup_datetime\", \"type\": \"columns_unchanged\"}"
         ],
         "extra": []
@@ -2805,10 +2759,12 @@
         ]
       },
       "must_preserve": {
-        "tp": 13,
+        "tp": 12,
         "fp": 0,
-        "fn": 0,
-        "missing": [],
+        "fn": 1,
+        "missing": [
+          "{\"op\": \"unchanged\", \"section\": \"must_preserve\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
+        ],
         "extra": []
       }
     },
@@ -2930,17 +2886,13 @@
       "split": "dev",
       "transformation_type": "column_transformation",
       "status": "ok",
-      "exact": false,
+      "exact": true,
       "must_change": {
-        "tp": 2,
-        "fp": 1,
-        "fn": 1,
-        "missing": [
-          "{\"args\": [{\"col\": \"Pclass\"}], \"fn\": \"identity\", \"section\": \"must_change\", \"target\": \"passenger_class\", \"type\": \"column_value_relation\", \"where\": null}"
-        ],
-        "extra": [
-          "{\"args\": [{\"col\": \"Pclass\"}], \"fn\": \"identity\", \"section\": \"must_change\", \"target\": \"pclass\", \"type\": \"column_value_relation\", \"where\": null}"
-        ]
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "missing": [],
+        "extra": []
       },
       "must_preserve": {
         "tp": 12,
@@ -2980,27 +2932,27 @@
       "task_id": "titanic_conv_002",
       "split": "test",
       "transformation_type": "type_conversion",
-      "status": "invalid_contract",
+      "status": "ok",
       "exact": false,
       "must_change": {
         "tp": 0,
-        "fp": 0,
+        "fp": 2,
         "fn": 1,
         "missing": [
           "{\"categories\": [3, 2, 1], \"dtype\": \"category\", \"ordered\": true, \"section\": \"must_change\", \"target\": \"Pclass\", \"type\": \"column_dtype\"}"
         ],
-        "extra": []
+        "extra": [
+          "{\"args\": [{\"col\": \"Pclass\"}], \"fn\": \"identity\", \"section\": \"must_change\", \"target\": \"Pclass\", \"type\": \"column_value_relation\", \"where\": null}",
+          "{\"categories\": null, \"dtype\": \"category\", \"ordered\": null, \"section\": \"must_change\", \"target\": \"Pclass\", \"type\": \"column_dtype\"}"
+        ]
       },
       "must_preserve": {
-        "tp": 0,
+        "tp": 12,
         "fp": 0,
-        "fn": 14,
+        "fn": 2,
         "missing": [
           "{\"op\": \"unchanged\", \"section\": \"must_preserve\", \"target\": \"Pclass\", \"type\": \"null_count\", \"value\": null}",
-          "{\"op\": \"unchanged\", \"section\": \"must_preserve\", \"target\": null, \"type\": \"row_count\", \"value\": null}",
-          "{\"section\": \"must_preserve\", \"target\": \"Age\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"Cabin\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"Embarked\", \"type\": \"columns_unchanged\"}"
+          "{\"section\": \"must_preserve\", \"target\": \"Pclass\", \"type\": \"column_values_unchanged\", \"where\": null}"
         ],
         "extra": []
       }
@@ -3012,12 +2964,14 @@
       "status": "ok",
       "exact": false,
       "must_change": {
-        "tp": 1,
+        "tp": 0,
         "fp": 1,
-        "fn": 0,
-        "missing": [],
+        "fn": 1,
+        "missing": [
+          "{\"categories\": null, \"dtype\": \"bool\", \"ordered\": null, \"section\": \"must_change\", \"target\": \"Survived\", \"type\": \"column_dtype\"}"
+        ],
         "extra": [
-          "{\"args\": [{\"col\": \"Survived\"}], \"fn\": \"identity\", \"section\": \"must_change\", \"target\": \"Survived\", \"type\": \"column_value_relation\", \"where\": null}"
+          "{\"args\": [{\"col\": \"Survived\"}], \"fn\": \"identity\", \"section\": \"must_change\", \"target\": \"Survived\", \"type\": \"column_value_relation\", \"where\": {\"column\": \"Survived\", \"op\": \"==\", \"value\": 1}}"
         ]
       },
       "must_preserve": {
@@ -3034,27 +2988,25 @@
       "task_id": "titanic_conv_004",
       "split": "test",
       "transformation_type": "type_conversion",
-      "status": "invalid_contract",
+      "status": "ok",
       "exact": false,
       "must_change": {
         "tp": 0,
-        "fp": 0,
+        "fp": 1,
         "fn": 1,
         "missing": [
           "{\"categories\": null, \"dtype\": \"string\", \"ordered\": null, \"section\": \"must_change\", \"target\": \"PassengerId\", \"type\": \"column_dtype\"}"
         ],
-        "extra": []
+        "extra": [
+          "{\"args\": [{\"col\": \"PassengerId\"}], \"fn\": \"identity\", \"section\": \"must_change\", \"target\": \"PassengerId\", \"type\": \"column_value_relation\", \"where\": null}"
+        ]
       },
       "must_preserve": {
-        "tp": 0,
+        "tp": 12,
         "fp": 0,
-        "fn": 13,
+        "fn": 1,
         "missing": [
-          "{\"args\": [{\"col\": \"PassengerId\"}, {\"lit\": \"string\"}], \"fn\": \"cast\", \"section\": \"must_preserve\", \"target\": \"PassengerId\", \"type\": \"column_value_relation\", \"where\": null}",
-          "{\"op\": \"unchanged\", \"section\": \"must_preserve\", \"target\": null, \"type\": \"row_count\", \"value\": null}",
-          "{\"section\": \"must_preserve\", \"target\": \"Age\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"Cabin\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"Embarked\", \"type\": \"columns_unchanged\"}"
+          "{\"args\": [{\"col\": \"PassengerId\"}, {\"lit\": \"string\"}], \"fn\": \"cast\", \"section\": \"must_preserve\", \"target\": \"PassengerId\", \"type\": \"column_value_relation\", \"where\": null}"
         ],
         "extra": []
       }
@@ -3067,22 +3019,21 @@
       "exact": false,
       "must_change": {
         "tp": 1,
-        "fp": 1,
+        "fp": 0,
         "fn": 0,
         "missing": [],
-        "extra": [
-          "{\"op\": \"eq\", \"section\": \"must_change\", \"target\": \"Embarked\", \"type\": \"null_count\", \"value\": 0}"
-        ]
+        "extra": []
       },
       "must_preserve": {
-        "tp": 12,
-        "fp": 0,
-        "fn": 2,
+        "tp": 13,
+        "fp": 1,
+        "fn": 1,
         "missing": [
-          "{\"op\": \"unchanged\", \"section\": \"must_preserve\", \"target\": \"Embarked\", \"type\": \"null_count\", \"value\": null}",
-          "{\"section\": \"must_preserve\", \"target\": \"Embarked\", \"type\": \"column_values_unchanged\", \"where\": null}"
+          "{\"op\": \"unchanged\", \"section\": \"must_preserve\", \"target\": \"Embarked\", \"type\": \"null_count\", \"value\": null}"
         ],
-        "extra": []
+        "extra": [
+          "{\"op\": \"eq\", \"section\": \"must_preserve\", \"target\": \"Embarked\", \"type\": \"null_count\", \"value\": 0}"
+        ]
       }
     },
     {
@@ -3119,28 +3070,23 @@
       "task_id": "titanic_dedup_001",
       "split": "test",
       "transformation_type": "deduplication",
-      "status": "invalid_contract",
+      "status": "ok",
       "exact": false,
       "must_change": {
-        "tp": 0,
+        "tp": 1,
         "fp": 0,
-        "fn": 2,
+        "fn": 1,
         "missing": [
-          "{\"keep\": \"first\", \"op\": \"eq\", \"section\": \"must_change\", \"target\": \"Ticket\", \"type\": \"duplicate_count\", \"value\": 0}",
           "{\"op\": \"decreased\", \"section\": \"must_change\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
         ],
         "extra": []
       },
       "must_preserve": {
-        "tp": 0,
+        "tp": 11,
         "fp": 0,
-        "fn": 12,
+        "fn": 1,
         "missing": [
-          "{\"section\": \"must_preserve\", \"target\": \"Age\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"Cabin\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"Embarked\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"Fare\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"Name\", \"type\": \"columns_unchanged\"}"
+          "{\"section\": \"must_preserve\", \"target\": \"Ticket\", \"type\": \"columns_unchanged\"}"
         ],
         "extra": []
       }
@@ -3179,11 +3125,11 @@
       "task_id": "titanic_dedup_003",
       "split": "test",
       "transformation_type": "deduplication",
-      "status": "ok",
+      "status": "invalid_contract",
       "exact": false,
       "must_change": {
         "tp": 0,
-        "fp": 10,
+        "fp": 0,
         "fn": 4,
         "missing": [
           "{\"keep\": \"first\", \"op\": \"eq\", \"section\": \"must_change\", \"target\": \"Embarked\", \"type\": \"duplicate_count\", \"value\": 0}",
@@ -3191,26 +3137,20 @@
           "{\"keep\": \"first\", \"op\": \"eq\", \"section\": \"must_change\", \"target\": \"Ticket\", \"type\": \"duplicate_count\", \"value\": 0}",
           "{\"op\": \"decreased\", \"section\": \"must_change\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
         ],
-        "extra": [
-          "{\"args\": [{\"col\": \"Age\"}], \"fn\": \"identity\", \"section\": \"must_change\", \"target\": \"Age\", \"type\": \"column_value_relation\", \"where\": null}",
-          "{\"keep\": \"first\", \"op\": \"eq\", \"section\": \"must_change\", \"target\": \"Age\", \"type\": \"duplicate_count\", \"value\": 0}",
-          "{\"keep\": \"first\", \"op\": \"eq\", \"section\": \"must_change\", \"target\": \"Cabin\", \"type\": \"duplicate_count\", \"value\": 0}",
-          "{\"keep\": \"first\", \"op\": \"eq\", \"section\": \"must_change\", \"target\": \"Fare\", \"type\": \"duplicate_count\", \"value\": 0}",
-          "{\"keep\": \"first\", \"op\": \"eq\", \"section\": \"must_change\", \"target\": \"Name\", \"type\": \"duplicate_count\", \"value\": 0}"
-        ]
+        "extra": []
       },
       "must_preserve": {
-        "tp": 9,
-        "fp": 1,
-        "fn": 3,
+        "tp": 0,
+        "fp": 0,
+        "fn": 12,
         "missing": [
+          "{\"section\": \"must_preserve\", \"target\": \"Age\", \"type\": \"columns_unchanged\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"Cabin\", \"type\": \"columns_unchanged\"}",
           "{\"section\": \"must_preserve\", \"target\": \"Embarked\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"Pclass\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"Ticket\", \"type\": \"columns_unchanged\"}"
+          "{\"section\": \"must_preserve\", \"target\": \"Fare\", \"type\": \"columns_unchanged\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"Name\", \"type\": \"columns_unchanged\"}"
         ],
-        "extra": [
-          "{\"op\": \"decreased\", \"section\": \"must_preserve\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
-        ]
+        "extra": []
       }
     },
     {
@@ -3248,24 +3188,29 @@
       "task_id": "titanic_dedup_005",
       "split": "test",
       "transformation_type": "deduplication",
-      "status": "ok",
+      "status": "invalid_contract",
       "exact": false,
       "must_change": {
-        "tp": 2,
+        "tp": 0,
         "fp": 0,
-        "fn": 1,
+        "fn": 3,
         "missing": [
+          "{\"keep\": \"last\", \"op\": \"eq\", \"section\": \"must_change\", \"target\": \"Cabin\", \"type\": \"duplicate_count\", \"value\": 0}",
+          "{\"keep\": \"last\", \"op\": \"eq\", \"section\": \"must_change\", \"target\": \"Ticket\", \"type\": \"duplicate_count\", \"value\": 0}",
           "{\"op\": \"decreased\", \"section\": \"must_change\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
         ],
         "extra": []
       },
       "must_preserve": {
-        "tp": 10,
+        "tp": 0,
         "fp": 0,
-        "fn": 2,
+        "fn": 12,
         "missing": [
+          "{\"section\": \"must_preserve\", \"target\": \"Age\", \"type\": \"columns_unchanged\"}",
           "{\"section\": \"must_preserve\", \"target\": \"Cabin\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"Ticket\", \"type\": \"columns_unchanged\"}"
+          "{\"section\": \"must_preserve\", \"target\": \"Embarked\", \"type\": \"columns_unchanged\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"Fare\", \"type\": \"columns_unchanged\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"Name\", \"type\": \"columns_unchanged\"}"
         ],
         "extra": []
       }
@@ -3434,7 +3379,7 @@
           "{\"op\": \"decreased\", \"section\": \"must_change\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
         ],
         "extra": [
-          "{\"condition\": {\"all\": [{\"column\": \"Age\", \"op\": \">\", \"value\": 10}, {\"column\": \"Parch\", \"op\": \">=\", \"value\": 1}, {\"column\": \"Sex\", \"op\": \"!=\", \"value\": \"female\"}, {\"column\": \"SibSp\", \"op\": \">=\", \"value\": 1}]}, \"section\": \"must_change\", \"target\": null, \"type\": \"rows_removed_where\"}"
+          "{\"condition\": {\"all\": [{\"column\": \"Age\", \"op\": \">\", \"value\": 18}, {\"column\": \"Parch\", \"op\": \">=\", \"value\": 1}, {\"column\": \"Sex\", \"op\": \"!=\", \"value\": \"female\"}, {\"column\": \"SibSp\", \"op\": \">=\", \"value\": 1}]}, \"section\": \"must_change\", \"target\": null, \"type\": \"rows_removed_where\"}"
         ]
       },
       "must_preserve": {
@@ -3454,28 +3399,25 @@
       "task_id": "titanic_filt_006",
       "split": "dev",
       "transformation_type": "filtering",
-      "status": "invalid_contract",
+      "status": "ok",
       "exact": false,
       "must_change": {
-        "tp": 0,
+        "tp": 1,
         "fp": 0,
-        "fn": 2,
+        "fn": 1,
         "missing": [
-          "{\"condition\": {\"all\": [{\"column\": \"Fare\", \"op\": \"<\", \"value\": 30}, {\"column\": \"Pclass\", \"op\": \"==\", \"value\": 1}]}, \"section\": \"must_change\", \"target\": null, \"type\": \"rows_removed_where\"}",
           "{\"op\": \"decreased\", \"section\": \"must_change\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
         ],
         "extra": []
       },
       "must_preserve": {
-        "tp": 0,
+        "tp": 10,
         "fp": 0,
-        "fn": 13,
+        "fn": 3,
         "missing": [
           "{\"condition\": {\"any\": [{\"column\": \"Fare\", \"op\": \">=\", \"value\": 30}, {\"column\": \"Pclass\", \"op\": \"!=\", \"value\": 1}]}, \"section\": \"must_preserve\", \"target\": null, \"type\": \"rows_retained_where\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"Age\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"Cabin\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"Embarked\", \"type\": \"columns_unchanged\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"Fare\", \"type\": \"columns_unchanged\"}"
+          "{\"section\": \"must_preserve\", \"target\": \"Fare\", \"type\": \"columns_unchanged\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"Pclass\", \"type\": \"columns_unchanged\"}"
         ],
         "extra": []
       }
@@ -3484,27 +3426,28 @@
       "task_id": "titanic_miss_001",
       "split": "test",
       "transformation_type": "missing_values",
-      "status": "ok",
+      "status": "invalid_contract",
       "exact": false,
       "must_change": {
         "tp": 0,
-        "fp": 2,
+        "fp": 0,
         "fn": 2,
         "missing": [
           "{\"args\": [{\"lit\": \"Unknown\"}], \"fn\": \"const\", \"section\": \"must_change\", \"target\": \"Cabin\", \"type\": \"column_value_relation\", \"where\": {\"column\": \"Cabin\", \"op\": \"is_null\"}}",
           "{\"op\": \"eq\", \"section\": \"must_change\", \"target\": \"Cabin\", \"type\": \"null_count\", \"value\": 0}"
         ],
-        "extra": [
-          "{\"args\": [{\"col\": \"Cabin\"}], \"fn\": \"identity\", \"section\": \"must_change\", \"target\": \"Cabin\", \"type\": \"column_value_relation\", \"where\": null}",
-          "{\"section\": \"must_change\", \"target\": \"Cabin\", \"type\": \"column_values_unchanged\", \"where\": {\"column\": \"Cabin\", \"op\": \"is_null\"}}"
-        ]
+        "extra": []
       },
       "must_preserve": {
-        "tp": 12,
+        "tp": 0,
         "fp": 0,
-        "fn": 1,
+        "fn": 13,
         "missing": [
-          "{\"section\": \"must_preserve\", \"target\": \"Cabin\", \"type\": \"column_values_unchanged\", \"where\": {\"column\": \"Cabin\", \"op\": \"not_null\"}}"
+          "{\"op\": \"unchanged\", \"section\": \"must_preserve\", \"target\": null, \"type\": \"row_count\", \"value\": null}",
+          "{\"section\": \"must_preserve\", \"target\": \"Age\", \"type\": \"columns_unchanged\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"Cabin\", \"type\": \"column_values_unchanged\", \"where\": {\"column\": \"Cabin\", \"op\": \"not_null\"}}",
+          "{\"section\": \"must_preserve\", \"target\": \"Embarked\", \"type\": \"columns_unchanged\"}",
+          "{\"section\": \"must_preserve\", \"target\": \"Fare\", \"type\": \"columns_unchanged\"}"
         ],
         "extra": []
       }
@@ -3525,7 +3468,7 @@
         ],
         "extra": [
           "{\"args\": [{\"col\": \"Cabin\"}], \"fn\": \"identity\", \"section\": \"must_change\", \"target\": \"Cabin\", \"type\": \"column_value_relation\", \"where\": null}",
-          "{\"args\": [{\"col\": \"Embarked\"}], \"fn\": \"identity\", \"section\": \"must_change\", \"target\": \"Embarked\", \"type\": \"column_value_relation\", \"where\": null}"
+          "{\"args\": [{\"col\": \"Fare\"}], \"fn\": \"identity\", \"section\": \"must_change\", \"target\": \"Fare\", \"type\": \"column_value_relation\", \"where\": null}"
         ]
       },
       "must_preserve": {
@@ -3547,28 +3490,23 @@
       "status": "ok",
       "exact": false,
       "must_change": {
-        "tp": 0,
-        "fp": 1,
-        "fn": 2,
+        "tp": 1,
+        "fp": 0,
+        "fn": 1,
         "missing": [
-          "{\"condition\": {\"column\": \"Embarked\", \"op\": \"is_null\"}, \"section\": \"must_change\", \"target\": null, \"type\": \"rows_removed_where\"}",
           "{\"op\": \"decreased\", \"section\": \"must_change\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
         ],
-        "extra": [
-          "{\"section\": \"must_change\", \"target\": \"Cabin\", \"type\": \"columns_removed\"}"
-        ]
+        "extra": []
       },
       "must_preserve": {
         "tp": 11,
-        "fp": 1,
+        "fp": 0,
         "fn": 2,
         "missing": [
           "{\"condition\": {\"column\": \"Embarked\", \"op\": \"not_null\"}, \"section\": \"must_preserve\", \"target\": null, \"type\": \"rows_retained_where\"}",
-          "{\"section\": \"must_preserve\", \"target\": \"Cabin\", \"type\": \"columns_unchanged\"}"
+          "{\"section\": \"must_preserve\", \"target\": \"Embarked\", \"type\": \"columns_unchanged\"}"
         ],
-        "extra": [
-          "{\"op\": \"decreased\", \"section\": \"must_preserve\", \"target\": null, \"type\": \"row_count\", \"value\": null}"
-        ]
+        "extra": []
       }
     },
     {

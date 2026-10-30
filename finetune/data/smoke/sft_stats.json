@@ -4,6 +4,7 @@
   "val_datasets": [
     "smoke_shop_val"
   ],
+  "prompt_version": "p1-v2",
   "train_by_type": {
     "filtering": 9,
     "deduplication": 2,
@@ -12,6 +13,6 @@
   "train_by_dataset": {
     "smoke_shop": 13
   },
-  "max_chars": 3891,
-  "approx_max_tokens": 1111
+  "max_chars": 4712,
+  "approx_max_tokens": 1346
 }
