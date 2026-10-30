@@ -79,6 +79,7 @@ def summarize(runs):
                         mean_latency_s=round(sum(r["latency_s"] for r in runs) / n, 2) if n else None,
                         invalid_actions=sum(r["invalid_actions"] for r in runs),
                         implicit_fixes=sum(r.get("implicit_fixes", 0) for r in runs),
+                        normalized_actions=sum(r.get("normalized_actions", 0) for r in runs),
                         invalid_per_llm_call=rate(sum(r["invalid_actions"] for r in runs), sum(r["llm_calls"] for r in runs))),
         safety=dict(runs_with_unsafe_attempt=sum(r["unsafe_attempts"] > 0 for r in runs), unsafe_executions=0,
                     initial_code_blocked=sum(bool(r.get("initial_blocked")) for r in runs)),

@@ -227,6 +227,7 @@ def main():
                        invalid_actions=res.invalid_actions, unsafe_attempts=res.unsafe_attempts,
                        unknown_tool_calls=res.unknown_tool_calls, escalate_reason=res.escalate_reason,
                        implicit_fixes=res.implicit_fixes, initial_blocked=res.initial_blocked,
+                       normalized_actions=res.normalized_actions,
                        agent_prompt_version=AGENT_PROMPT_VERSION,
                        faults=s["faults"], faults_fired=res.faults_fired, new_failures_after_repair=new_failures,
                        path=res.path, latency_s=round(time.time() - t0, 2),

@@ -32,7 +32,8 @@ from igt.tools import FaultInjector, ToolCall, ToolContext, build_registry
 
 MODES = ("none", "naive", "feedback", "full")
 
-AGENT_PROMPT_VERSION = "a1-v2"   # a1-v1: first version (dev run 1: almost every reply had no JSON action)
+AGENT_PROMPT_VERSION = "a1-v3"   # a1-v1: dev run 1, almost no JSON action; a1-v2: dev run 2, R success 5/14,
+                                 # 11 replies used the tool name as "action", 3 wrong accepts, 1 fabricated column
 
 FULL_SYSTEM = """You repair pandas code. A function transform(df) was written for the user's request, but checking its output found problems. Find the cause and propose fixed code, or escalate to a human if the request can't be done safely or correctly.
 
@@ -43,6 +44,9 @@ Rules:
 - {"action": "propose_fix"} followed by a ```python block that defines transform(df) and returns a DataFrame. Only pandas (pd) and numpy (np); no files, network or printing.
 - {"action": "escalate", "reason": "..."} hands the task to a human. Use it when the request is ambiguous, contradictory, refers to columns that don't exist, or needs something unsafe.
 - You can't change the data or the checks, only the code.
+- The result must match the request exactly: drop any helper column you add, keep each column's type unless the request asks to change it (e.g. use np.nan, not pd.NA, in float columns), and don't touch other columns or rows.
+- Never invent data. If the request needs data that isn't in the input (another file, a website, made-up values), escalate.
+- If the same check keeps failing because the request asks for two things that can't both hold, escalate instead of retrying.
 - At most {max_tools} tool calls per attempt, then you must propose_fix or escalate. At most {max_attempts} fixes in total.
 
 Example replies (one per turn):
@@ -65,7 +69,10 @@ FULL_SYSTEM_NO_ESCALATE = FULL_SYSTEM.replace(
     'contradictory, refers to columns that don\'t exist, or needs something unsafe.', "").replace(
     " Find the cause and propose fixed code, or escalate to a human if the request can't be done safely or correctly.",
     " Find the cause and propose fixed code.").replace("then you must propose_fix or escalate", "then you must propose_fix").replace(
-    '\n\n{"action": "escalate", "reason": "the column \'salary\' does not exist in the data"}', "")
+    '\n\n{"action": "escalate", "reason": "the column \'salary\' does not exist in the data"}', "").replace(
+    "If the request needs data that isn't in the input (another file, a website, made-up values), escalate.",
+    "If the request needs data that isn't in the input (another file, a website, made-up values), leave it out.").replace(
+    "\n- If the same check keeps failing because the request asks for two things that can't both hold, escalate instead of retrying.", "")
 
 RETRY_SYSTEM = """You are an expert Python data engineer. Write pandas code that performs exactly the transformation the user asks for.
 
@@ -112,6 +119,7 @@ class RepairResult:
     faults_fired: list
     implicit_fixes: int = 0          # full mode: replies that were only a code block, read as propose_fix
     initial_blocked: bool = False    # the initial (generator) code was blocked by the safety checker
+    normalized_actions: int = 0      # full mode: {"action": "<tool name>"} replies read as tool calls
 
 
 _FENCE = re.compile(r"```([A-Za-z]*)[ \t]*\n(.*?)```", re.S)
@@ -148,6 +156,11 @@ def parse_action(text):
         if a:
             return a, None
         return None, f"the action is not valid JSON ({e})"
+    if isinstance(a, dict) and isinstance(a.get("action"), str) and a["action"] not in ("tool", "propose_fix", "escalate") \
+            and isinstance(a.get("args"), dict) and "tool" not in a:
+        # {"action": "<tool name>", "args": {...}}: the tool name was put in "action" (11 of 98 replies in dev run 2).
+        # Read it as that tool call; an unknown name still reaches the registry and is counted as an unknown tool.
+        a = dict(action="tool", tool=a["action"], args=a["args"], normalized=True)
     if not isinstance(a, dict) or a.get("action") not in ("tool", "propose_fix", "escalate"):
         imp = _implicit_fix(text)
         if imp:
@@ -184,7 +197,7 @@ class _Run:
         self.ctx = ToolContext(before=before, verify_fn=verify_fn, sandbox_limits=self.L.sandbox())
         reg = build_registry(self.ctx)
         self.reg = FaultInjector(reg, cfg.faults) if cfg.faults else reg
-        self.n_fix = self.tool_calls = self.invalid = self.unsafe = self.unknown = self.implicit = 0
+        self.n_fix = self.tool_calls = self.invalid = self.unsafe = self.unknown = self.implicit = self.normalized = 0
         self.initial_blocked = False
         self.code, self.output, self.status, self.report = initial_code, None, None, None
         self.escalate_reason = None
@@ -352,6 +365,7 @@ class _Run:
                     observations.append((text, dict(error="tool-call limit for this attempt reached; propose_fix or escalate")))
                     self.sm.go("REPAIR")
                     continue
+                self.normalized += bool(a.get("normalized"))
                 res = self.reg.call(ToolCall(a["tool"], a["args"]))
                 self.tool_calls += 1
                 if (res.error or {}).get("type") == "unknown_tool":
@@ -391,7 +405,7 @@ class _Run:
             unknown_tool_calls=self.unknown, escalate_reason=self.escalate_reason,
             tokens=self.client.tokens_used, llm_calls=self.client.n_calls,
             faults_fired=getattr(self.reg, "fired", []), implicit_fixes=self.implicit,
-            initial_blocked=self.initial_blocked)
+            initial_blocked=self.initial_blocked, normalized_actions=self.normalized)
 
 
 def run_repair(task, initial_code, before, verify_fn, client, config=None, contract_text=None, schema_text=None):

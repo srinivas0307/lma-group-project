@@ -247,3 +247,25 @@ def test_blocked_initial_code_is_not_an_agent_unsafe_attempt():
 def test_no_escalate_prompt_has_no_escalate_example():
     from igt.agents.repair_agent import FULL_SYSTEM, FULL_SYSTEM_NO_ESCALATE
     assert '"escalate"' in FULL_SYSTEM and '"escalate"' not in FULL_SYSTEM_NO_ESCALATE
+
+
+# ---- a1-v3 fixes (dev run 2) ----
+def test_tool_name_as_action_is_read_as_that_tool_call():
+    a, err = parse_action('{"action": "run_transformation", "args": {"code": "def transform(df):\\n    return df"}}')
+    assert err is None and a["action"] == "tool" and a["tool"] == "run_transformation" and a["normalized"]
+    res, _ = run(BAD, ['{"action": "diff_datasets", "args": {}}', fix(GOOD)])
+    assert res.outcome == "ACCEPT" and res.invalid_actions == 0 and res.normalized_actions == 1 and res.tool_calls == 1
+    res, _ = run(BAD, ['{"action": "delete_everything", "args": {}}', fix(GOOD)])
+    assert res.unknown_tool_calls == 1 and res.outcome == "ACCEPT"
+    assert parse_action('{"action": "dance"}')[0] is None          # no args: still invalid
+
+
+def test_prompt_has_the_new_rules_in_both_variants():
+    from igt.agents.repair_agent import FULL_SYSTEM, FULL_SYSTEM_NO_ESCALATE
+    for t in (FULL_SYSTEM, FULL_SYSTEM_NO_ESCALATE):
+        assert "helper column" in t and "Never invent data" in t
+
+
+def test_no_escalate_prompt_never_mentions_escalating():
+    from igt.agents.repair_agent import FULL_SYSTEM_NO_ESCALATE
+    assert "escalat" not in FULL_SYSTEM_NO_ESCALATE.lower()
