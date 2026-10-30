@@ -32,22 +32,40 @@ from igt.tools import FaultInjector, ToolCall, ToolContext, build_registry
 
 MODES = ("none", "naive", "feedback", "full")
 
+AGENT_PROMPT_VERSION = "a1-v2"   # a1-v1: first version (dev run 1: almost every reply had no JSON action)
+
 FULL_SYSTEM = """You repair pandas code. A function transform(df) was written for the user's request, but checking its output found problems. Find the cause and propose fixed code, or escalate to a human if the request can't be done safely or correctly.
 
 Rules:
-- One action per reply, as a JSON object. Nothing else except, for propose_fix, one ```python block.
+- One action per reply. Start the reply with the JSON object of the action. For propose_fix, put one ```python block after it. Nothing else.
 - {"action": "tool", "tool": NAME, "args": {...}} calls a tool. Tools:
 {tools}
 - {"action": "propose_fix"} followed by a ```python block that defines transform(df) and returns a DataFrame. Only pandas (pd) and numpy (np); no files, network or printing.
 - {"action": "escalate", "reason": "..."} hands the task to a human. Use it when the request is ambiguous, contradictory, refers to columns that don't exist, or needs something unsafe.
 - You can't change the data or the checks, only the code.
-- At most {max_tools} tool calls per attempt, then you must propose_fix or escalate. At most {max_attempts} fixes in total."""
+- At most {max_tools} tool calls per attempt, then you must propose_fix or escalate. At most {max_attempts} fixes in total.
+
+Example replies (one per turn):
+{"action": "tool", "tool": "diff_datasets", "args": {"max_examples": 5}}
+
+{"action": "propose_fix"}
+```python
+def transform(df):
+    out = df.copy()
+    return out[out["price"] > 0]
+```
+
+{"action": "escalate", "reason": "the column 'salary' does not exist in the data"}"""
+
+NEXT_ACTION = ('Reply with your next action. For propose_fix, write {"action": "propose_fix"} and then the complete '
+               "```python block defining transform(df), in the same reply.")
 
 FULL_SYSTEM_NO_ESCALATE = FULL_SYSTEM.replace(
     '\n- {"action": "escalate", "reason": "..."} hands the task to a human. Use it when the request is ambiguous, '
     'contradictory, refers to columns that don\'t exist, or needs something unsafe.', "").replace(
     " Find the cause and propose fixed code, or escalate to a human if the request can't be done safely or correctly.",
-    " Find the cause and propose fixed code.").replace("then you must propose_fix or escalate", "then you must propose_fix")
+    " Find the cause and propose fixed code.").replace("then you must propose_fix or escalate", "then you must propose_fix").replace(
+    '\n\n{"action": "escalate", "reason": "the column \'salary\' does not exist in the data"}', "")
 
 RETRY_SYSTEM = """You are an expert Python data engineer. Write pandas code that performs exactly the transformation the user asks for.
 
@@ -92,18 +110,48 @@ class RepairResult:
     tokens: int
     llm_calls: int
     faults_fired: list
+    implicit_fixes: int = 0          # full mode: replies that were only a code block, read as propose_fix
+    initial_blocked: bool = False    # the initial (generator) code was blocked by the safety checker
+
+
+_FENCE = re.compile(r"```([A-Za-z]*)[ \t]*\n(.*?)```", re.S)
+
+
+def _strip_code_blocks(text):
+    """Remove ```python blocks (and unlabeled blocks holding a def) so only prose / JSON is left."""
+    return _FENCE.sub(lambda m: "" if m.group(1).lower() in ("python", "py") or
+                      (not m.group(1) and "def " in m.group(2)) else m.group(0), text)
+
+
+def _implicit_fix(text):
+    """A reply that is only a code block defining transform(df) is read as propose_fix (marked implicit=True).
+    The retry baselines already accept such replies, so the full agent gets the same leniency."""
+    ex = extract_code(text)
+    if ex["parse_ok"] and ex["func_name"] == "transform":
+        return dict(action="propose_fix", code=ex["code"], implicit=True)
+    return None
 
 
 def parse_action(text):
-    """-> (action dict, None) or (None, error message)."""
-    raw = _first_json_object(text)
+    """-> (action dict, None) or (None, error message).
+    The JSON action is searched outside ```python blocks, so dict literals in the code are not mistaken for it."""
+    raw = _first_json_object(_strip_code_blocks(text))
     if not raw:
+        a = _implicit_fix(text)
+        if a:
+            return a, None
         return None, 'no JSON action found; reply with one JSON object such as {"action": "tool", ...}'
     try:
-        a = json.loads(raw)
+        a = json.loads(raw, strict=False)        # strict=False: raw newlines inside a "code" string are allowed
     except json.JSONDecodeError as e:
+        a = _implicit_fix(text)
+        if a:
+            return a, None
         return None, f"the action is not valid JSON ({e})"
     if not isinstance(a, dict) or a.get("action") not in ("tool", "propose_fix", "escalate"):
+        imp = _implicit_fix(text)
+        if imp:
+            return imp, None
         return None, 'the JSON needs "action": "tool" | "propose_fix" | "escalate"'
     if a["action"] == "tool":
         if not isinstance(a.get("tool"), str):
@@ -117,7 +165,8 @@ def parse_action(text):
             m = re.search(r"```(?:python|py)?\s*\n(.*?)```", text, re.S)
             code = m.group(1) if m else None
         if not code:
-            return None, "propose_fix needs a ```python block (or a \"code\" field) with transform(df)"
+            return None, ('propose_fix needs the code: write {"action": "propose_fix"} and then a ```python block '
+                          "defining transform(df), in the same reply")
         a["code"] = code
     return a, None
 
@@ -135,7 +184,8 @@ class _Run:
         self.ctx = ToolContext(before=before, verify_fn=verify_fn, sandbox_limits=self.L.sandbox())
         reg = build_registry(self.ctx)
         self.reg = FaultInjector(reg, cfg.faults) if cfg.faults else reg
-        self.n_fix = self.tool_calls = self.invalid = self.unsafe = self.unknown = 0
+        self.n_fix = self.tool_calls = self.invalid = self.unsafe = self.unknown = self.implicit = 0
+        self.initial_blocked = False
         self.code, self.output, self.status, self.report = initial_code, None, None, None
         self.escalate_reason = None
 
@@ -153,7 +203,10 @@ class _Run:
                                                                      exec_error=g.reason, code_hash=h)
             self.ev("execute_failed", code_hash=h, status="parse_error", error=g.reason)
         elif not g.ok:
-            self.unsafe += 1
+            if attempt_no == 0:
+                self.initial_blocked = True      # the code generator's code, not an agent action
+            else:
+                self.unsafe += 1
             self.status, self.report = "blocked", failure_report("safety", exec_status="blocked", exec_error=g.reason, code_hash=h)
             self.ev("safety_block", code_hash=h, reason=g.reason)
             self.sm.go("FAILED")
@@ -186,7 +239,7 @@ class _Run:
     def llm(self, messages):
         r = self.client.generate(messages, max_new_tokens=self.L.max_new_tokens, temperature=self.cfg.temperature,
                                  seed=len(self.trace))
-        self.ev("llm", tokens=r.prompt_tokens + r.output_tokens, cached=r.cached)
+        self.ev("llm", tokens=r.prompt_tokens + r.output_tokens, cached=r.cached, reply=r.text[:4000])
         return r.text
 
     # ---- prompts ----
@@ -204,11 +257,11 @@ class _Run:
         tmpl = FULL_SYSTEM if self.cfg.allow_escalate else FULL_SYSTEM_NO_ESCALATE
         system = (tmpl.replace("{tools}", tools).replace("{max_tools}", str(self.L.max_tool_calls_per_attempt))
                   .replace("{max_attempts}", str(self.L.max_attempts)))
-        user = f"{self.task_text()}\n\nHistory:\n{self.mem.history_text()}"
+        user = f"{self.task_text()}\n\nHistory:\n{self.mem.history_text()}\n\n{NEXT_ACTION}"
         msgs = [{"role": "system", "content": system}, {"role": "user", "content": user}]
         for act_text, obs in observations:
             msgs += [{"role": "assistant", "content": act_text},
-                     {"role": "user", "content": "Observation:\n" + json.dumps(obs, default=str)[:6000]}]
+                     {"role": "user", "content": "Observation:\n" + json.dumps(obs, default=str)[:6000] + "\n\n" + NEXT_ACTION}]
         return msgs
 
     def retry_messages(self):
@@ -311,7 +364,8 @@ class _Run:
                 observations.append((text, res.to_observation()))
                 self.sm.go("REPAIR")
                 continue
-            self.ev("propose_fix", code_hash=code_hash(a["code"]))
+            self.ev("propose_fix", code_hash=code_hash(a["code"]), implicit=bool(a.get("implicit")))
+            self.implicit += bool(a.get("implicit"))
             out = self.propose(a["code"], calls)
             if out == "repeated" and self.sm.state == "REPAIR":
                 observations.append((text, dict(error="this exact code was already tried and failed; change it")))
@@ -336,7 +390,8 @@ class _Run:
             invalid_actions=self.invalid, unsafe_attempts=self.unsafe,
             unknown_tool_calls=self.unknown, escalate_reason=self.escalate_reason,
             tokens=self.client.tokens_used, llm_calls=self.client.n_calls,
-            faults_fired=getattr(self.reg, "fired", []))
+            faults_fired=getattr(self.reg, "fired", []), implicit_fixes=self.implicit,
+            initial_blocked=self.initial_blocked)
 
 
 def run_repair(task, initial_code, before, verify_fn, client, config=None, contract_text=None, schema_text=None):

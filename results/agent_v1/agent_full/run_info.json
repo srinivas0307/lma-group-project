@@ -1,0 +1,41 @@
+{
+  "system": "agent_full",
+  "mode": "full",
+  "verifier": "oracle",
+  "backend": "hf",
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "valid_result": true,
+  "ablations": {
+    "memory": true,
+    "report": "full",
+    "show_contract": true,
+    "allow_escalate": true
+  },
+  "limits": {
+    "max_attempts": 3,
+    "max_tool_calls_per_attempt": 8,
+    "max_invalid_actions": 3,
+    "sandbox_timeout_s": 30.0,
+    "sandbox_mem_gb": 2.0,
+    "sandbox_cpu_s": 20,
+    "token_budget": 60000,
+    "max_new_tokens": 768
+  },
+  "temperature": 0.0,
+  "seeds": [
+    0
+  ],
+  "splits": [
+    "dev"
+  ],
+  "categories": [
+    "R",
+    "C",
+    "T",
+    "E",
+    "S"
+  ],
+  "scenarios": "/kaggle/working/repo/eval/agent_scenarios/rct_v2.jsonl",
+  "n_runs": 46,
+  "python": "3.13.15"
+}

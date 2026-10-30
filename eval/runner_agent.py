@@ -36,7 +36,7 @@ from eval.equivalence import outputs_equal  # noqa: E402
 from igt.agents.code_extract import extract_code  # noqa: E402
 from igt.agents.code_generator import build_messages as generator_messages  # noqa: E402
 from igt.agents.intent_parser import extract_contract, load_prompt_schema  # noqa: E402
-from igt.agents.repair_agent import AgentConfig, run_repair  # noqa: E402
+from igt.agents.repair_agent import AGENT_PROMPT_VERSION, AgentConfig, run_repair  # noqa: E402
 from igt.baselines.conventional_checks import judge, measure  # noqa: E402
 from igt.llm import LLMClient, ScriptedBackend  # noqa: E402
 from igt.orchestrator import Limits  # noqa: E402
@@ -178,8 +178,12 @@ def main():
 
     out_dir = args.out / args.system
     out_dir.mkdir(parents=True, exist_ok=True)
-    runs_path = out_dir / "runs.jsonl"
-    done = {(r["scenario_id"], r["seed"]) for r in load_jsonl(runs_path)}
+    runs_path, traces_path = out_dir / "runs.jsonl", out_dir / "traces.jsonl"
+    old = load_jsonl(runs_path)
+    stale = {r.get("agent_prompt_version", "a1-v1") for r in old} - {AGENT_PROMPT_VERSION}
+    if stale:
+        raise SystemExit(f"{runs_path} has runs from agent prompt {sorted(stale)}; use a new --out or --system")
+    done = {(r["scenario_id"], r["seed"]) for r in old}
     t_start = time.time()
     for seed in args.seeds:
         for i, s in enumerate(scen, 1):
@@ -221,16 +225,22 @@ def main():
                        attempts=res.attempts, tool_calls=res.tool_calls, llm_calls=res.llm_calls, tokens=res.tokens,
                        invalid_actions=res.invalid_actions, unsafe_attempts=res.unsafe_attempts,
                        unknown_tool_calls=res.unknown_tool_calls, escalate_reason=res.escalate_reason,
+                       implicit_fixes=res.implicit_fixes, initial_blocked=res.initial_blocked,
+                       agent_prompt_version=AGENT_PROMPT_VERSION,
                        faults=s["faults"], faults_fired=res.faults_fired, new_failures_after_repair=new_failures,
                        path=res.path, latency_s=round(time.time() - t0, 2),
                        tool_trace=[dict(tool=e["tool"], ok=e["ok"], error_type=e["error_type"])
                                    for e in res.trace if e["event"] == "tool"])
+            with open(traces_path, "a") as fh:            # raw replies + every event, for debugging the agent
+                fh.write(json.dumps(dict(scenario_id=s["id"], seed=seed, initial_code=initial, trace=res.trace),
+                                    default=str) + "\n")
             with open(runs_path, "a") as fh:
                 fh.write(json.dumps(rec, default=str) + "\n")
             print(f"[seed {seed}] {i}/{len(scen)} {s['id']} {res.outcome} correct={correct} attempts={res.attempts} "
                   f"tools={res.tool_calls} ({time.time() - t_start:.0f}s)", flush=True)
 
     info = dict(system=args.system, mode=args.mode, verifier=args.verifier, backend=args.backend, model=model_name,
+                agent_prompt_version=AGENT_PROMPT_VERSION,
                 valid_result=args.backend != "reference_policy", ablations=dict(
                     memory=not args.no_memory, report="coarse" if args.coarse_report else "full",
                     show_contract=not args.hide_contract, allow_escalate=not args.no_escalate),

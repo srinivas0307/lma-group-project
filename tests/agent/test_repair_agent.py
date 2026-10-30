@@ -196,7 +196,7 @@ def test_parse_action_variants():
     assert parse_action(tool("inspect_dataset"))[0]["tool"] == "inspect_dataset"
     assert "transform" in parse_action(fix(GOOD))[0]["code"]
     assert parse_action('{"action": "propose_fix", "code": "def transform(df):\\n    return df"}')[0]["code"]
-    assert parse_action('{"action": "propose_fix"}')[1].startswith("propose_fix needs")
+    assert parse_action('{"action": "propose_fix"}')[1].startswith("propose_fix needs the code")
     assert parse_action('{"action": "dance"}')[0] is None and parse_action("hello")[0] is None
 
 
@@ -205,3 +205,45 @@ def test_snapshot_never_modified_by_agent_code():
     run(BAD, [fix("def transform(df):\n    df['price'] = 0\n    return df")],
         limits=Limits(max_attempts=1, sandbox_timeout_s=20, sandbox_cpu_s=10))
     pd.testing.assert_frame_equal(B, before)
+
+
+# ---- a1-v2 parser fixes (dev run 1: 7B replies were read as invalid actions) ----
+RENAME = "def transform(df):\n    return df.rename(columns={'a': 'b'})\n"
+
+
+def test_dict_literal_in_code_is_not_the_json_action():
+    a, err = parse_action('{"action": "propose_fix"}\n```python\n' + RENAME + "```")
+    assert err is None and a["action"] == "propose_fix" and not a.get("implicit")
+    a, err = parse_action("The rename used the wrong name.\n```python\n" + RENAME + "```")
+    assert err is None and a["action"] == "propose_fix" and a["implicit"] and "rename" in a["code"]
+
+
+def test_bare_code_block_is_an_implicit_fix_but_code_without_transform_is_not():
+    a, _ = parse_action("```python\n" + GOOD + "```")
+    assert a["implicit"] and "transform" in a["code"]
+    assert parse_action("```python\ndef helper(df):\n    return df\n\ndef other(df):\n    return df\n```")[0] is None
+    assert parse_action("```python\nx = 1\n```")[0] is None
+
+
+def test_code_field_with_raw_newlines_and_fenced_json_tool():
+    a, err = parse_action('{"action": "propose_fix", "code": "def transform(df):\n    return df"}')
+    assert err is None and "return df" in a["code"]
+    assert parse_action('```json\n{"action": "tool", "tool": "diff_datasets", "args": {}}\n```')[0]["tool"] == "diff_datasets"
+    assert parse_action('```\n{"action": "tool", "tool": "diff_datasets", "args": {}}\n```')[0]["tool"] == "diff_datasets"
+
+
+def test_implicit_fix_is_counted_and_replies_are_logged():
+    res, be = run(BAD, ["```python\n" + GOOD + "```"])
+    assert res.outcome == "ACCEPT" and res.implicit_fixes == 1 and res.invalid_actions == 0
+    assert [e["reply"] for e in res.trace if e["event"] == "llm"][0].startswith("```python")
+    assert be.calls[0][-1]["content"].rstrip().endswith("in the same reply.")
+
+
+def test_blocked_initial_code_is_not_an_agent_unsafe_attempt():
+    res, _ = run(UNSAFE, [fix(GOOD)])
+    assert res.initial_blocked and res.unsafe_attempts == 0 and res.outcome == "ACCEPT"
+
+
+def test_no_escalate_prompt_has_no_escalate_example():
+    from igt.agents.repair_agent import FULL_SYSTEM, FULL_SYSTEM_NO_ESCALATE
+    assert '"escalate"' in FULL_SYSTEM and '"escalate"' not in FULL_SYSTEM_NO_ESCALATE
