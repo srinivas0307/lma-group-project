@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Rows matching in every non-money column are duplicates; keep the first.
-# Snapshot facts : 7 rows repeat an earlier row on all non-money columns (refund pairs).   (profiled from data/yellow_tripdata_2026-01.csv; re-check when you write the task)
-# Watch out for  : Except list is the 10 money columns.
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: taxi_dedup_003
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: test                        # test | dev
 dataset: taxi
 data_file: data/yellow_tripdata_2026-01.csv
 transformation_type: deduplication
 difficulty: hard                      # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -50,7 +37,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 0
 
 # ---------- notes ----------
-pitfalls:
-  - "drop_duplicates() on all columns (removes nothing) → c1, c2 fail."
-  - "Takes abs() of money columns then deduplicates on all columns → p1 fails."
 notes: ""

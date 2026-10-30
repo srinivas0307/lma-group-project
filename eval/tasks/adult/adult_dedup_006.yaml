@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Remove records identical in every column except fnlwgt and income; keep the first.
-# Snapshot facts : 11 duplicates on that key.   (profiled from data/adult_dev.csv; re-check when you write the task)
-# Watch out for  : Differs from dedup_001 by one excluded column (11 vs 7).
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: adult_dedup_006
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: dev                         # test | dev
 dataset: adult
 data_file: data/adult_dev.csv
 transformation_type: deduplication
 difficulty: medium                    # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -48,7 +35,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 0
 
 # ---------- notes ----------
-pitfalls:
-  - "Excludes only fnlwgt (keeps income in the key) → c1 fails (fewer rows removed)."
-  - "keep='last' → c1 fails."
 notes: ""

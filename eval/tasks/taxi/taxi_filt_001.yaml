@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Remove trips with a negative fare (refunds).
-# Snapshot facts : 7 rows have fare_amount < 0.   (profiled from data/yellow_tripdata_2026-01.csv; re-check when you write the task)
-# Watch out for  : A fare of 0 is kept.
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: taxi_filt_001
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: test                        # test | dev
 dataset: taxi
 data_file: data/yellow_tripdata_2026-01.csv
 transformation_type: filtering
 difficulty: easy                      # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -54,8 +41,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 0
 
 # ---------- notes ----------
-pitfalls:
-  - "Uses fare_amount > 0 (also drops the zero-fare trip) → p1 fails."
-  - "Filters on total_amount instead (also drops total 0) → p1 fails."
-  - "Takes abs() of fares instead of removing → c1, c2, p2 fail."
 notes: ""

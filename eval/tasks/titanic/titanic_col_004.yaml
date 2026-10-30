@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Recode Sex: male -> M, female -> F.
-# Snapshot facts : male 577, female 314.   (profiled from data/Titanic-Dataset.csv; re-check when you write the task)
-# Watch out for  : Upper-case single letters; replace in place.
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: titanic_col_004
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: test                        # test | dev
 dataset: titanic
 data_file: data/Titanic-Dataset.csv
 transformation_type: column_transformation
 difficulty: medium                    # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -53,8 +40,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 891
 
 # ---------- notes ----------
-pitfalls:
-  - "Uses str.replace('male', 'M') first, which turns 'female' into 'feM' → c1 fails."
-  - "Takes the first letter without upper-casing → c1 fails."
-  - "Adds a new column instead → c1 fails."
 notes: ""

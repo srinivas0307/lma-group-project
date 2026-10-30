@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Remove trips with zero distance.
-# Snapshot facts : 7 rows have trip_distance == 0.   (profiled from data/yellow_tripdata_2026-01.csv; re-check when you write the task)
-# Watch out for  : Only exact 0.
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: taxi_filt_002
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: test                        # test | dev
 dataset: taxi
 data_file: data/yellow_tripdata_2026-01.csv
 transformation_type: filtering
 difficulty: easy                      # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -54,7 +41,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 0
 
 # ---------- notes ----------
-pitfalls:
-  - "Also removes short trips (< 0.5 miles) → p1 fails."
-  - "Also removes zero-passenger trips → p1 fails."
 notes: ""

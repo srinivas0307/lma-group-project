@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Treat records with the same age, workclass, education, occupation and hours-per-week as duplicates; keep the first.
-# Snapshot facts : 54 duplicates on that key (workclass/occupation nulls count as equal).   (profiled from data/adult_dev.csv; re-check when you write the task)
-# Watch out for  : Null handling in keys: pandas treats NaN as equal in drop_duplicates; state this in assumptions.
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: adult_dedup_004
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: test                        # test | dev
 dataset: adult
 data_file: data/adult_dev.csv
 transformation_type: deduplication
 difficulty: hard                      # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -49,8 +36,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 0
 
 # ---------- notes ----------
-pitfalls:
-  - "Drops rows with missing workclass/occupation before deduplicating → c1 fails."
-  - "Leaves out hours-per-week from the key → c1 fails."
-  - "keep='last' → c1 fails."
 notes: ""

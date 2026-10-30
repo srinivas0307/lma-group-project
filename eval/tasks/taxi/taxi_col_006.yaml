@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Rename Airport_fee to airport_fee.
-# Snapshot facts : Airport_fee is the only capitalised fee column.   (profiled from data/yellow_tripdata_2026-01.csv; re-check when you write the task)
-# Watch out for  : Case-only rename; values unchanged.
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: taxi_col_006
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: dev                        # test | dev
 dataset: taxi
 data_file: data/yellow_tripdata_2026-01.csv
 transformation_type: column_transformation
 difficulty: medium                    # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -53,7 +40,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 0
 
 # ---------- notes ----------
-pitfalls:
-  - "Lower-cases every column name (VendorID, RatecodeID, ...) → p1 fails."
-  - "Copies instead of renaming → c2 fails."
 notes: ""

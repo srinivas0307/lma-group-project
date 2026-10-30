@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Where host_name is missing, use the listing name instead.
-# Snapshot facts : 1 null host_name.   (profiled from data/airbnb_dev.csv; re-check when you write the task)
-# Watch out for  : Relation `identity` from another column, only where host_name is null.
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: airbnb_miss_006
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: dev                         # test | dev
 dataset: airbnb
 data_file: data/airbnb_dev.csv
 transformation_type: missing_values
 difficulty: medium                    # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -59,8 +46,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 1
 
 # ---------- notes ----------
-pitfalls:
-  - "Overwrites name with host_name (direction swapped) → c1, p2 fail."
-  - "Replaces every host_name with the listing name → p1 fails."
-  - "Fills with the literal string 'name' → c1 fails."
 notes: ""

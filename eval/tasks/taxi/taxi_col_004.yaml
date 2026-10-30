@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Round trip_distance to 1 decimal place.
-# Snapshot facts : Distances have 2 decimals; 694 values change.   (profiled from data/yellow_tripdata_2026-01.csv; re-check when you write the task)
-# Watch out for  : Round, not truncate.
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: taxi_col_004
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: test                        # test | dev
 dataset: taxi
 data_file: data/yellow_tripdata_2026-01.csv
 transformation_type: column_transformation
 difficulty: easy                      # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -53,7 +40,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 694
 
 # ---------- notes ----------
-pitfalls:
-  - "Truncates with floor → c1 fails."
-  - "Rounds every float column → p1 fails."
 notes: ""

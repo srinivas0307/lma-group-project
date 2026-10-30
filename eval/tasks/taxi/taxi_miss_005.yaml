@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Mark both sentinels as missing: passenger_count 0 and RatecodeID 99.
-# Snapshot facts : 12 zero passenger counts, 3 rate codes 99; no row has both.   (profiled from data/yellow_tripdata_2026-01.csv; re-check when you write the task)
-# Watch out for  : Two columns; zeros elsewhere are real.
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: taxi_miss_005
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: test                        # test | dev
 dataset: taxi
 data_file: data/yellow_tripdata_2026-01.csv
 transformation_type: missing_values
 difficulty: hard                      # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -67,8 +54,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 15
 
 # ---------- notes ----------
-pitfalls:
-  - "df.replace({0: np.nan, 99: np.nan}) on the whole frame → p3 fails."
-  - "Drops the rows → p4 fails."
-  - "Handles only passenger_count → c2 fails."
 notes: ""

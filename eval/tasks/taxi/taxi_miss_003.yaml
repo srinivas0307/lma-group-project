@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Replace passenger_count 0 with 1.
-# Snapshot facts : 12 rows have passenger_count 0.   (profiled from data/yellow_tripdata_2026-01.csv; re-check when you write the task)
-# Watch out for  : Only zeros change; stays float.
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: taxi_miss_003
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: test                        # test | dev
 dataset: taxi
 data_file: data/yellow_tripdata_2026-01.csv
 transformation_type: missing_values
 difficulty: easy                      # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -59,7 +46,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 12
 
 # ---------- notes ----------
-pitfalls:
-  - "df.replace(0, 1) on the whole frame → p2 fails."
-  - "Replaces with the mean passenger count → c1 fails."
 notes: ""

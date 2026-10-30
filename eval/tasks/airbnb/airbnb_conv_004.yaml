@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Make neighbourhood_group a categorical column.
-# Snapshot facts : 5 boroughs.   (profiled from data/airbnb_dev.csv; re-check when you write the task)
-# Watch out for  : Should not touch neighbourhood (similar name).
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: airbnb_conv_004
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: test                        # test | dev
 dataset: airbnb
 data_file: data/airbnb_dev.csv
 transformation_type: type_conversion
 difficulty: medium                    # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -51,8 +38,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 0
 
 # ---------- notes ----------
-pitfalls:
-  - "Converts neighbourhood instead (similar name) → c1, p3 fail."
-  - "Converts both columns → p3 fails."
-  - "Replaces values with integer codes → p1 fails."
 notes: ""

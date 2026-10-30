@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Convert income to a number: 1 for >50K and 0 for <=50K.
-# Snapshot facts : 232 rows >50K, 768 rows <=50K.   (profiled from data/adult_dev.csv; re-check when you write the task)
-# Watch out for  : map + int dtype; swapped labels are a silent error.
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: adult_conv_002
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: test                        # test | dev
 dataset: adult
 data_file: data/adult_dev.csv
 transformation_type: type_conversion
 difficulty: medium                    # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -54,8 +41,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 1000
 
 # ---------- notes ----------
-pitfalls:
-  - "Swaps the labels (>50K → 0) → c1 fails."
-  - "Leaves the result as float or text '1'/'0' → c2 fails."
-  - "Writes the result to a new column and keeps income as text → c1, c2 fail."
 notes: ""

@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Fill missing host names with 'Unknown'.
-# Snapshot facts : 1 null in host_name (listing id 100184).   (profiled from data/airbnb_dev.csv; re-check when you write the task)
-# Watch out for  : Vacuity is fine (1 row); check nothing else changes.
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: airbnb_miss_002
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: test                        # test | dev
 dataset: airbnb
 data_file: data/airbnb_dev.csv
 transformation_type: missing_values
 difficulty: easy                      # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -59,8 +46,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 1
 
 # ---------- notes ----------
-pitfalls:
-  - "df.fillna('Unknown') on the whole frame → fills last_review and reviews_per_month too → p2 fails."
-  - "Drops the listing with no host name → p3 fails."
-  - "Uses a different placeholder such as 'N/A' → c1 fails."
 notes: ""

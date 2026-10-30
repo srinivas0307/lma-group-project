@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Fill missing reviews_per_month with the median of that column.
-# Snapshot facts : 41 nulls; compute the median once on the snapshot and write it as a literal in the contract.   (profiled from data/airbnb_dev.csv; re-check when you write the task)
-# Watch out for  : Mean vs median; computing median after filling.
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: airbnb_miss_004
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: test                        # test | dev
 dataset: airbnb
 data_file: data/airbnb_dev.csv
 transformation_type: missing_values
 difficulty: medium                    # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -59,8 +46,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 41
 
 # ---------- notes ----------
-pitfalls:
-  - "Fills with the mean (≈0.93) → c1 fails."
-  - "Fills with 0 → c1 fails."
-  - "Fills every numeric column with its median → p2 fails."
 notes: "Data-dependent literal: 0.59 is the median on data/airbnb_dev.csv only. Re-compute if the data file changes."

@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Fill missing Cabin values with 'Unknown'.
-# Snapshot facts : 687 rows have no Cabin.   (profiled from data/Titanic-Dataset.csv; re-check when you write the task)
-# Watch out for  : Only Cabin; other missing columns (Age, Embarked) stay missing.
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: titanic_miss_001
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: test                        # test | dev
 dataset: titanic
 data_file: data/Titanic-Dataset.csv
 transformation_type: missing_values
 difficulty: easy                      # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -59,7 +46,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 687
 
 # ---------- notes ----------
-pitfalls:
-  - "df.fillna('Unknown') on the whole frame (Age becomes text) → p2 fails."
-  - "Fills with 'unknown' (lower case) → c1 fails."
 notes: ""

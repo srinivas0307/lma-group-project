@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Remove listings that have never been reviewed.
-# Snapshot facts : 41 rows have number_of_reviews == 0; they are the same rows where last_review is missing.   (profiled from data/airbnb_dev.csv; re-check when you write the task)
-# Watch out for  : LLM may use dropna() on everything: that also drops the 1 row with missing host_name (42 rows).
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: airbnb_filt_005
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: test                        # test | dev
 dataset: airbnb
 data_file: data/airbnb_dev.csv
 transformation_type: filtering
 difficulty: medium                    # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -54,8 +41,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 0
 
 # ---------- notes ----------
-pitfalls:
-  - "Uses df.dropna() → also drops the listing with a missing host_name (42 rows) → p1 fails."
-  - "Fills reviews_per_month with 0 instead of removing rows → c1, c2, p2 fail."
-  - "Uses number_of_reviews < 5 or similar → p1 fails."
 notes: ""

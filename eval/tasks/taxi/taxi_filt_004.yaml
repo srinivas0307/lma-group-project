@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Remove trips picked up before 1 January 2026.
-# Snapshot facts : 3 rows have a pickup on 2025-12-31; pickup times are text.   (profiled from data/yellow_tripdata_2026-01.csv; re-check when you write the task)
-# Watch out for  : Converting the pickup column to datetime while filtering changes a column that must be preserved.
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: taxi_filt_004
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: test                        # test | dev
 dataset: taxi
 data_file: data/yellow_tripdata_2026-01.csv
 transformation_type: filtering
 difficulty: hard                      # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -56,8 +43,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 0
 
 # ---------- notes ----------
-pitfalls:
-  - "Converts tpep_pickup_datetime to datetime in the output → p2 fails."
-  - "Filters on the dropoff time → c1 fails."
-  - "Keeps only trips on 1 January (string prefix) - same result here (not distinguishable on this file; passes)."
 notes: "The condition compares the ISO text lexicographically, which orders the same as time for this format."

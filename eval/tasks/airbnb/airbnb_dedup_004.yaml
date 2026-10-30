@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Keep one listing per host and room type, keeping the last one.
-# Snapshot facts : 132 rows removed on (host_id, room_type).   (profiled from data/airbnb_dev.csv; re-check when you write the task)
-# Watch out for  : keep='last' is easy to get wrong.
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: airbnb_dedup_004
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: test                        # test | dev
 dataset: airbnb
 data_file: data/airbnb_dev.csv
 transformation_type: deduplication
 difficulty: hard                      # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -47,8 +34,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 0
 
 # ---------- notes ----------
-pitfalls:
-  - "keep='first' → c1 fails (keep rule)."
-  - "Deduplicates on host_id only → c1 fails."
-  - "Deduplicates on room_type only → c1 fails (only 3 rows left)."
 notes: ""

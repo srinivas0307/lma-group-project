@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Keep only people whose native country is United-States.
-# Snapshot facts : 902 US, 80 other countries, 18 missing.   (profiled from data/adult_dev.csv; re-check when you write the task)
-# Watch out for  : Null rule: decide (and record) that missing countries are removed.
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: adult_filt_003
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: test                        # test | dev
 dataset: adult
 data_file: data/adult_dev.csv
 transformation_type: filtering
 difficulty: medium                    # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -55,8 +42,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 0
 
 # ---------- notes ----------
-pitfalls:
-  - "Removes only rows whose country is known and different (keeps the 18 missing) → c1 fails."
-  - "Uses a substring/case-insensitive match that also keeps other values → c1 fails."
-  - "Fills missing countries with United-States first, then filters → c1 fails and p2 fails."
 notes: ""

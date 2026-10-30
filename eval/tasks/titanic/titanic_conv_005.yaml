@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Make Embarked categorical; missing stays missing.
-# Snapshot facts : S/C/Q, 2 missing.   (profiled from data/Titanic-Dataset.csv; re-check when you write the task)
-# Watch out for  : Filling the 2 missing values first is wrong.
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: titanic_conv_005
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: test                        # test | dev
 dataset: titanic
 data_file: data/Titanic-Dataset.csv
 transformation_type: type_conversion
 difficulty: medium                    # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -51,7 +38,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 0
 
 # ---------- notes ----------
-pitfalls:
-  - "Fills missing with 'Unknown' first → p1, p2 fail."
-  - "astype(str) first, turning missing into the category 'nan' → p1, p2 fail."
 notes: ""

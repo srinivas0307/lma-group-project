@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Make workclass a categorical column, keeping missing values as missing.
-# Snapshot facts : 6 values + 62 nulls.   (profiled from data/adult_dev.csv; re-check when you write the task)
-# Watch out for  : fillna before converting would change null_count.
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: adult_conv_006
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: dev                         # test | dev
 dataset: adult
 data_file: data/adult_dev.csv
 transformation_type: type_conversion
 difficulty: medium                    # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -51,7 +38,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 0
 
 # ---------- notes ----------
-pitfalls:
-  - "Fills missing values (e.g. 'Unknown') before converting → p1, p2 fail."
-  - "astype(str) first: with pandas 2.3.3 missing values become the text 'nan' → p1, p2 fail."
 notes: ""

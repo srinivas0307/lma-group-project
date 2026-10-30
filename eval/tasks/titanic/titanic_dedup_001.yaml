@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Passengers sharing a ticket are duplicates; keep the first.
-# Snapshot facts : Ticket has 681 distinct values; 210 rows repeat an earlier ticket.   (profiled from data/Titanic-Dataset.csv; re-check when you write the task)
-# Watch out for  : Key is Ticket only.
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: titanic_dedup_001
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: test                        # test | dev
 dataset: titanic
 data_file: data/Titanic-Dataset.csv
 transformation_type: deduplication
 difficulty: medium                    # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -47,8 +34,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 0
 
 # ---------- notes ----------
-pitfalls:
-  - "keep='last' → c1 fails."
-  - "drop_duplicates() without subset (removes nothing) → c1, c2 fail."
-  - "keep=False drops every shared ticket → c1 fails."
 notes: ""

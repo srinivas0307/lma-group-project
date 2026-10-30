@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Add net_capital = capital-gain minus capital-loss.
-# Snapshot facts : No nulls.   (profiled from data/adult_dev.csv; re-check when you write the task)
-# Watch out for  : sub order (gain - loss, not loss - gain).
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: adult_col_001
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: test                        # test | dev
 dataset: adult
 data_file: data/adult_dev.csv
 transformation_type: column_transformation
 difficulty: easy                      # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -54,8 +41,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 0
 
 # ---------- notes ----------
-pitfalls:
-  - "Computes capital-loss minus capital-gain → c2 fails."
-  - "Overwrites capital-gain → c1, p1 fail."
-  - "Adds the two columns → c2 fails."
 notes: ""

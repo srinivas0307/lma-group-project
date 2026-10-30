@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Fill missing Embarked with the most common port.
-# Snapshot facts : Embarked is missing in 2 rows; the most common port is S (644 rows).   (profiled from data/Titanic-Dataset.csv; re-check when you write the task)
-# Watch out for  : Mode, not a hard-coded other port.
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: titanic_miss_002
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: test                        # test | dev
 dataset: titanic
 data_file: data/Titanic-Dataset.csv
 transformation_type: missing_values
 difficulty: medium                    # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -59,8 +46,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 2
 
 # ---------- notes ----------
-pitfalls:
-  - "Uses df['Embarked'].mode() without [0] inside fillna (a Series, aligned on index) → c1, c2 fail."
-  - "Fills with 'C' → c1 fails."
-  - "Drops the rows instead → p3 fails."
 notes: "The literal 'S' is data-dependent: it is the mode of this file."

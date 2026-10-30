@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Drop every record that has any missing value.
-# Snapshot facts : 78 rows have at least one null.   (profiled from data/adult_dev.csv; re-check when you write the task)
-# Watch out for  : Contrast task: here dropna() IS correct; contract must still preserve the other rows.
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: adult_miss_006
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: dev                         # test | dev
 dataset: adult
 data_file: data/adult_dev.csv
 transformation_type: missing_values
 difficulty: easy                      # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -62,7 +49,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 0
 
 # ---------- notes ----------
-pitfalls:
-  - "Drops only rows missing workclass → c1 fails (native-country nulls stay)."
-  - "Fills missing values instead of dropping → c1, c2, p2 fail."
 notes: "Data-dependent condition: lists the columns that have nulls in data/adult_dev.csv. Re-check if the data file changes."

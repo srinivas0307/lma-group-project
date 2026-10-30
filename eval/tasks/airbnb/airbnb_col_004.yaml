@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Add availability_ratio = availability_365 divided by 365.
-# Snapshot facts : availability_365 ranges 0..365.   (profiled from data/airbnb_dev.csv; re-check when you write the task)
-# Watch out for  : Integer division or rounding are silent errors.
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: airbnb_col_004
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: test                        # test | dev
 dataset: airbnb
 data_file: data/airbnb_dev.csv
 transformation_type: column_transformation
 difficulty: easy                      # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -55,8 +42,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 0
 
 # ---------- notes ----------
-pitfalls:
-  - "Uses integer division (//) → c2 fails."
-  - "Rounds the ratio → c2 fails."
-  - "Overwrites availability_365 → c1, p1 fail."
 notes: ""

@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Remove duplicate listings where the same host posted the same name twice; keep the first.
-# Snapshot facts : 20 duplicate rows on (host_id, name).   (profiled from data/airbnb_dev.csv; re-check when you write the task)
-# Watch out for  : Key is two columns; deduping on name alone gives the same count here, so the contract must name both keys.
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: airbnb_dedup_002
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: test                        # test | dev
 dataset: airbnb
 data_file: data/airbnb_dev.csv
 transformation_type: deduplication
 difficulty: medium                    # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -47,8 +34,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 0
 
 # ---------- notes ----------
-pitfalls:
-  - "Deduplicates on name only → passes on this file (same count) but would be wrong in general; the contract key records host_id + name."
-  - "Deduplicates on host_id only → c1 fails (far more rows removed)."
-  - "keep='last' → c1 fails."
 notes: ""

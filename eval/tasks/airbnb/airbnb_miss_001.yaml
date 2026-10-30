@@ -1,24 +1,11 @@
-# =====================================================================
-# TASK (draft, filled; pending team review). Rules: docs/eval_set_and_contract_guide.md (§5–§9, §12).
-#
-# Suggested idea : Fill missing reviews_per_month with 0.
-# Snapshot facts : 41 nulls in reviews_per_month.   (profiled from data/airbnb_dev.csv; re-check when you write the task)
-# Watch out for  : Must not fill other columns (last_review, host_name) or drop rows.
-#
-# You may replace the idea entirely; keep the id, dataset and type.
-# =====================================================================
-
 # ---------- identity ----------
 id: airbnb_miss_001
 version: 1
-status: draft                      # draft | reviewed | frozen
 split: test                        # test | dev
 dataset: airbnb
 data_file: data/airbnb_dev.csv
 transformation_type: missing_values
 difficulty: easy                      # suggested; easy | medium | hard
-annotator: kiro-draft
-reviewer: null
 
 # ---------- the user request ----------
 request: >
@@ -59,8 +46,4 @@ expected_effect:                   # fill in by running the reference (guide §1
   cells_changed: 41
 
 # ---------- notes ----------
-pitfalls:
-  - "df.fillna(0) on the whole frame → also fills last_review and host_name → p2 fails."
-  - "Drops the rows instead of filling → c1, p3 fail."
-  - "Fills with the mean → c1 fails."
 notes: ""
