@@ -5,10 +5,9 @@
   "stats": {
     "intent_prompted_7b_p1v2": {
       "alignment_index": 264,
-      "UNCERTAIN": 101,
-      "uncertain_unknown_column": 18,
-      "PASS": 146,
+      "PASS": 164,
       "alignment_None": 82,
+      "UNCERTAIN": 83,
       "uncertain_invalid_contract": 82,
       "execution": 34,
       "VIOLATION": 114,
@@ -28,10 +27,9 @@
     },
     "intent_prompted_7b_p1v2_preserve_only": {
       "alignment_index": 264,
-      "UNCERTAIN": 101,
-      "uncertain_unknown_column": 18,
-      "PASS": 229,
+      "PASS": 247,
       "alignment_None": 82,
+      "UNCERTAIN": 83,
       "uncertain_invalid_contract": 82,
       "execution": 34,
       "VIOLATION": 31,

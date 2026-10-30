@@ -142,3 +142,50 @@ rule, README §12). The final Baseline 3 version is chosen per model on the **de
 had been seen, and the gap was quantified on test (7B p1-v2: 57% invalid when the gold contract needs a function or
 operator the examples don't show, vs 14% otherwise). Remaining format reliability is addressed the same way for every parser (OI-9) and is the main motivation
 for fine-tuning.
+
+## Baseline 3, final (prompt p1-v3 + dev-only selection), 2026-10-30
+
+**Verifier fix first (applies to every system; found while analysing these results):** names in `except` of
+`columns_unchanged: "*"` were checked as column references, so a contract that excluded a column the transformation
+**adds** (e.g. `except: ["net_capital"]`) became UNCERTAIN (`unknown_column`). Per guide §5.5, `except` only removes
+names from the expansion, so a name that isn't in the input removes nothing. Fixed in `predicate_columns`; oracle and
+Baseline 2 verdicts are byte-identical after the fix (gold contracts never do this); every prompted system was rescored.
+
+All prompted parsers, test split (pool v2; contract metrics on the 100 test tasks):
+
+| System | Invalid | Change F1 | Preserve F1 | Recall | FRR | ESCALATE |
+|---|---|---|---|---|---|---|
+| intent_prompted_7b | 0.340 | 0.720 | 0.771 | 0.980 | 0.391 | 0.279 |
+| intent_prompted_7b_p1v2 | 0.330 | 0.709 | 0.773 | 0.939 | 0.305 | 0.223 |
+| intent_prompted_7b_p1v3 | 0.130 | 0.751 | 0.906 | 0.969 | 0.228 | 0.192 |
+| intent_prompted_3b | 0.440 | 0.403 | 0.660 | 0.949 | 0.569 | 0.316 |
+| intent_prompted_3b_p1v2 | 0.290 | 0.411 | 0.781 | 0.969 | 0.442 | 0.257 |
+| intent_prompted_3b_p1v3 | 0.220 | 0.525 | 0.831 | 0.969 | 0.360 | 0.204 |
+| intent_prompted_1_5b | 0.500 | 0.329 | 0.588 | 0.949 | 0.782 | 0.477 |
+| intent_prompted_1_5b_p1v2 | 0.440 | 0.367 | 0.658 | 0.980 | 0.731 | 0.402 |
+| intent_prompted_1_5b_p1v3 | 0.340 | 0.395 | 0.730 | 0.990 | 0.741 | 0.319 |
+
+**Selection on dev** (`results/parsers_v2/baseline3_selection.json`, lowest dev invalid rate, then dev F1):
+7B → **p1-v3**, 3B → **p1-v2**, 1.5B → **p1-v3**. The 3B choice follows the rule even though p1-v3 is better on test
+(dev invalid 0.35 vs 0.40); report both.
+
+**Main table (test):**
+
+| System | Recall | FRR | Silent error rate | ESCALATE |
+|---|---|---|---|---|
+| Baseline 1 | 0.000 | 0.000 | 0.332 | 0.000 |
+| Baseline 2 | 0.510 | 0.081 | 0.210 | 0.000 |
+| **Baseline 3 = intent_prompted_7b_p1v3** | **0.969** | **0.228** | 0.019 | 0.192 |
+| intent_oracle (upper bound) | 0.980 | 0.000 | 0.010 | 0.003 |
+
+Paired McNemar (test): Baseline 3 right on 61 candidates where Baseline 2 was wrong, the reverse on
+45 (p = 0.1448): **not significant**. Oracle vs Baseline 3: oracle better on 66 vs 1.
+
+**Findings**
+1. The reference card (p1-v3) halved the 7B's invalid outputs on test (33% → 13%) and raised preserve F1 0.77 → 0.91,
+   as predicted by the coverage analysis.
+2. Prompted intent verification catches almost every wrong candidate (recall 0.97 vs 0.51 for conventional checks),
+   but rejects ~23% of correct ones, mostly because of escalated invalid contracts and predicates the parser writes
+   wrongly. Net, it is not significantly better than Baseline 2. The gap to the oracle (FRR 0.23 → 0.00) is the room
+   the fine-tuned parser has to close (Gate 3).
+3. Bigger is better: at its selected prompt, 7B > 3B > 1.5B on invalid rate, F1 and FRR.

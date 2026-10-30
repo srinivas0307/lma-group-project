@@ -5,14 +5,14 @@
   "stats": {
     "intent_prompted_3b": {
       "alignment_index": 224,
-      "UNCERTAIN": 141,
-      "uncertain_unknown_column": 8,
+      "PASS": 100,
       "alignment_None": 123,
+      "UNCERTAIN": 136,
       "uncertain_invalid_contract": 123,
       "execution": 34,
       "VIOLATION": 125,
-      "PASS": 95,
       "alignment_content": 14,
+      "uncertain_unknown_column": 3,
       "uncertain_predicate_not_evaluable": 11
     },
     "intent_prompted_3b_change_only": {
@@ -29,13 +29,12 @@
     },
     "intent_prompted_3b_preserve_only": {
       "alignment_index": 224,
-      "UNCERTAIN": 128,
-      "uncertain_unknown_column": 5,
+      "PASS": 172,
       "alignment_None": 123,
+      "UNCERTAIN": 123,
       "uncertain_invalid_contract": 123,
       "execution": 34,
       "VIOLATION": 66,
-      "PASS": 167,
       "alignment_content": 14
     }
   }

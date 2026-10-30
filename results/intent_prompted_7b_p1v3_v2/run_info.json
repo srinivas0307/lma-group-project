@@ -5,11 +5,10 @@
   "stats": {
     "intent_prompted_7b_p1v3": {
       "alignment_index": 254,
-      "UNCERTAIN": 116,
-      "uncertain_unknown_column": 22,
+      "PASS": 163,
       "alignment_None": 94,
+      "UNCERTAIN": 95,
       "uncertain_invalid_contract": 94,
-      "PASS": 142,
       "VIOLATION": 103,
       "execution": 34,
       "alignment_content": 13,
@@ -28,11 +27,10 @@
     },
     "intent_prompted_7b_p1v3_preserve_only": {
       "alignment_index": 254,
-      "UNCERTAIN": 117,
-      "uncertain_unknown_column": 22,
+      "PASS": 239,
       "alignment_None": 94,
+      "UNCERTAIN": 95,
       "uncertain_invalid_contract": 94,
-      "PASS": 217,
       "execution": 34,
       "VIOLATION": 27,
       "alignment_content": 13,
