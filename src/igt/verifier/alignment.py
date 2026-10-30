@@ -66,8 +66,12 @@ def _index_trusted(before, after, key_cols) -> bool:
     if renumbered:
         # Same length: index 0..n-1 is the original one unless rows were reordered (tolerate damaged values).
         # Fewer rows: a reset after removing rows shifts every later row, so require every row to agree.
+        # Agreement uses ALL shared columns, not only the contract's unchanged ones: otherwise damage to exactly
+        # those columns (e.g. converting a column the contract says must keep its values) would make a correct
+        # index look untrustworthy and hide the damage behind content matching.
         need = AGREE_FRAC if len(after) == len(before) else 1.0
-        return _row_agreement(before, after, key_cols) >= need
+        shared = [c for c in before.columns if c in after.columns]
+        return _row_agreement(before, after, shared) >= need
     return True
 
 

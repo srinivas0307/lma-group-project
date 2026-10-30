@@ -1,0 +1,30 @@
+{
+  "dev": {
+    "generations": 60,
+    "status": {
+      "ok": 60
+    },
+    "correct": 50,
+    "runnable_wrong": 10,
+    "unique_runnable_wrong_by_type": {
+      "deduplication": 4,
+      "filtering": 1
+    }
+  },
+  "test": {
+    "generations": 300,
+    "status": {
+      "ok": 291,
+      "bad_return": 8,
+      "error": 1
+    },
+    "correct": 219,
+    "runnable_wrong": 72,
+    "unique_runnable_wrong_by_type": {
+      "column_transformation": 4,
+      "deduplication": 25,
+      "filtering": 11,
+      "type_conversion": 8
+    }
+  }
+}

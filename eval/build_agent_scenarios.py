@@ -1,6 +1,9 @@
 """Build the R / C / T agent scenarios from a frozen pool (README Phase 4 task 5; guide §11).
 
-    .venv/bin/python eval/build_agent_scenarios.py            # pool v2 -> eval/agent_scenarios/rct_v1.jsonl
+    # current version (used by the runner): pool v3, 1 wrong + 1 crashed candidate per task
+    .venv/bin/python eval/build_agent_scenarios.py --pool eval/pool_v3/pool_v3.jsonl --out eval/agent_scenarios/rct_v2.jsonl \
+        --r-per-task 1 --t-count 24
+    # earlier version (pool v2, adult/airbnb only, 3 per task): defaults below -> rct_v1.jsonl
 
     R  repairable: a wrong LLM candidate (wrong output, or crashed). Success = the agent ends with ACCEPT and the
        final output equals the reference output (judged by the evaluator, never by the verifier).

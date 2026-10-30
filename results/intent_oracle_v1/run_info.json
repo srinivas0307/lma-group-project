@@ -1,6 +1,7 @@
 {
   "pool": "eval/pool_v1/pool_v1.jsonl",
   "n_candidates": 161,
+  "contracts": "gold",
   "stats": {
     "intent_oracle": {
       "alignment_index": 143,

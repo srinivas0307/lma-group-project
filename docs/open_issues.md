@@ -86,6 +86,22 @@ Not urgent; apply whenever the Kaggle notebook is run again.
   decoding (README §5.1 originally planned it), or one automatic re-ask with the validation error (counted as a second
   parser call). Not acceptable: loosening the schema or repairing outputs by hand.
 
+## OI-10: Guide §5 differs from the code and from `docs/contract_schema.md`
+
+- **Status:** open, to be fixed later (noted 2026-10-30). Until then, `docs/contract_schema.md` (written from the
+  code) is the reference; the code itself is not changed.
+- `docs/eval_set_and_contract_guide.md` §5 says these things, which the code doesn't do:
+  - §5.2: floats use `atol` **and `rtol`** (default 0). Only `atol` exists (`src/igt/verifier/values.py`).
+  - §5.6: `cast` to datetime parses ISO `YYYY-MM-DD` by default. The code parses any ISO 8601 text (date, or date
+    and time) (`src/igt/verifier/functions.py`).
+  - §5.6: `map` leaves unlisted values unchanged. The code also looks a value up by its string form first.
+  - §5.5/§5.7: category order matters only if `ordered: true`. The code also compares order when the output
+    column itself is ordered (`src/igt/verifier/predicates.py`, `column_dtype`).
+  - §5.3: the canonical condition form is required in gold contracts. Matching canonicalises automatically
+    (`src/igt/contracts/normalize.py`), so it is only a style rule.
+- Fix: correct guide §5 to match the code, or replace it with a pointer to `docs/contract_schema.md`
+  (`docs/contract_schema.md` §12.2 lists the same differences).
+
 ## Log
 
 - 2026-10-29: pool v1 frozen at `eval/pool_v1/` from `notebooks/baseline1_outputs/` (360 generations → 161 unique candidates; all labels reproduced locally; checksums in `manifest.json`).
@@ -107,3 +123,6 @@ Not urgent; apply whenever the Kaggle notebook is run again.
 - 2026-10-30: agent infrastructure (Phases 3, 4, 9) built and tested with the scripted backend: `src/igt/llm/` (LLMClient, response cache keyed by model+messages+settings, ScriptedBackend, token budget; HFChatBackend for Kaggle), `src/igt/tools/` (registry with JSON argument schemas and structured errors; inspect_dataset, profile_column, diff_datasets, run_transformation via guard+sandbox, run_verifier; fault hooks error/timeout/malformed), `src/igt/pipeline/failure_report.py` (one format for safety, execution, intent and Baseline 2 failures), `src/igt/orchestrator/` (state machine that rejects illegal transitions, limits from README §4.8, memory with repeated-code detection), `src/igt/agents/repair_agent.py` (modes none / naive / feedback / full; ablations memory, coarse report, hidden contract, no escalate). 35 agent tests cover every path listed in README Phase 9 task 4. Not yet: agent scenarios (R/C/T from the pool, E/S), runner + agent metrics, real-model runs on Kaggle.
 - 2026-10-30: agent scenarios R/C/T (`eval/build_agent_scenarios.py` -> `eval/agent_scenarios/rct_v1.jsonl`: dev 20/10/5, test 68/47/20; no ground truth in the file), runner (`eval/runner_agent.py`: any mode/ablation, verifier oracle / parsed / conventional; the evaluator judges final outputs against the reference outside the run), metrics (`eval/agent_metrics.py`: repair success, escalation, regression, unnecessary actions, fault recovery, verifier gaming, tool validity, efficiency, safety, McNemar), Kaggle driver `notebooks/agent_eval_kaggle.ipynb` (dev prompt check first). Pipeline checked with a reference-copying policy (marked not-a-result). Still needed: E and S scenarios (hand-written, guide §11).
 - 2026-10-30: verifier fix: `except` names that aren't input columns no longer count as unknown columns (guide §5.5: except only removes names). Oracle and Baseline 2 verdicts unchanged; all prompted systems rescored. Final Baseline 3 (7B p1-v3): test recall 0.969, FRR 0.228, ESCALATE 0.192 vs Baseline 2 0.510 / 0.081 (McNemar p = 0.14). Recorded in results/STAGE1_RESULTS.md.
+- 2026-10-30: E (15) and S (12) agent scenarios drafted (`eval/agent_scenarios/{E,S}/`, annotator kiro-draft, need review): E = missing column / contradictory / no matching rows / impossible conversion, each with a contract no code can satisfy; S = file write/read/delete, network, shell, environment, contract covering only the safe part. Ambiguous requests ("clean up the prices") are left to Stage 2 (they need the parser in the loop). Runner generates E/S initial code at run time with the code-generator prompt; metrics add escalation P/R/F1 (E vs R) and S safe-outcome rate. Two fixes found while checking them: (1) a syntax error in proposed code is a failed run, not an unsafe attempt; (2) row alignment: a renumbered 0..n-1 index is now trusted using agreement over all shared columns, so in-place damage to exactly the preserved columns is a violation instead of a vacuous content match (oracle v1/v2 and all prompted-parser verdicts unchanged).
+- 2026-10-30: pool v3 built (pool v2 + taxi/titanic from both generators; 804 candidates, 214 runnable wrong on test; all v2 candidates kept). Baseline 2 (`configs/baseline2_v3.yaml`), oracle (`results/intent_oracle_v3/`) and all 9 parser runs (`eval/score_parsers.py --pool-version v3` -> `results/parsers_v3/`) re-scored. Pool v3 is the main Stage 1 pool. Baseline 3 vs Baseline 2 now significant (p = 0.003). OI-7 (extra columns) now costs 8 of 214 oracle detections; 4 more misses are an annotation gap (no dtype in taxi_miss_001/005 gold contracts).
+- 2026-10-30: agent scenarios rebuilt from pool v3 as `eval/agent_scenarios/rct_v2.jsonl` (1 wrong + 1 crashed candidate per task; dev R/C/T 14/20/6, test 83/95/24; test R balanced over adult 20, airbnb 20, taxi 20, titanic 23). Runner and agent notebook now default to rct_v2 + pool v3 (conventional verifier uses results/baseline2_v3 thresholds). rct_v1 (pool v2) kept, never run.

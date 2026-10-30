@@ -147,7 +147,12 @@ class _Run:
         h = code_hash(code)
         self.sm.go("SAFETY_CHECK")
         g = check(code)
-        if not g.ok:
+        if not g.ok and g.reason.startswith("syntax error"):     # not a safety event: the code doesn't parse
+            self.sm.go("FAILED")
+            self.status, self.report = "parse_error", failure_report("execute", exec_status="parse_error",
+                                                                     exec_error=g.reason, code_hash=h)
+            self.ev("execute_failed", code_hash=h, status="parse_error", error=g.reason)
+        elif not g.ok:
             self.unsafe += 1
             self.status, self.report = "blocked", failure_report("safety", exec_status="blocked", exec_error=g.reason, code_hash=h)
             self.ev("safety_block", code_hash=h, reason=g.reason)

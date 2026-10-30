@@ -2,6 +2,7 @@
 
     .venv/bin/python eval/score_parsers.py                       # all outputs/parse_*/ folders
     .venv/bin/python eval/score_parsers.py outputs/parse_qwen25-7b-instruct
+    .venv/bin/python eval/score_parsers.py --pool-version v3         # same parses, judged on pool v3
 
 Each parser folder needs parses.jsonl and system.txt (written by notebooks/baseline3_parse_kaggle.ipynb), e.g.
 `intent_prompted_7b`. Writes:
@@ -16,8 +17,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 PY = sys.executable
-BASE = [ROOT / "eval/pool_v2/verdicts_baseline1.jsonl", ROOT / "results/baseline2_v2/verdicts_baseline2.jsonl",
-        ROOT / "results/intent_oracle_v2/verdicts_intent_oracle.jsonl"]
+def base_verdicts(v):
+    return [ROOT / f"eval/pool_{v}/verdicts_baseline1.jsonl", ROOT / f"results/baseline2_{v}/verdicts_baseline2.jsonl",
+            ROOT / f"results/intent_oracle_{v}/verdicts_intent_oracle.jsonl"]
 ORDER = [f"intent_prompted_{m}{v}" for v in ("", "_p1v2", "_p1v3") for m in ("7b", "3b", "1_5b")] + \
     ["intent_ft_3b", "intent_ft_1_5b"]
 VERSION_SUFFIX = {"": "p1-v1", "_p1v2": "p1-v2", "_p1v3": "p1-v3"}
@@ -55,7 +57,13 @@ def run(*cmd):
 
 
 def main():
-    dirs = [Path(a).resolve() for a in sys.argv[1:]] or sorted((ROOT / "outputs").glob("parse_*"))
+    argv = sys.argv[1:]
+    pv = "v2"
+    if "--pool-version" in argv:
+        i = argv.index("--pool-version")
+        pv = argv[i + 1]
+        argv = argv[:i] + argv[i + 2:]
+    dirs = [Path(a).resolve() for a in argv] or sorted((ROOT / "outputs").glob("parse_*"))
     dirs = [d for d in dirs if (d / "parses.jsonl").exists()]
     if not dirs:
         sys.exit("no parser folders with parses.jsonl under outputs/ (unzip the Kaggle outputs to outputs/parse_<model>/)")
@@ -67,19 +75,20 @@ def main():
         system = st.read_text().strip()
         print(f"== {system}  ({d.name})")
         print(run("eval/contract_metrics.py", "--parses", d / "parses.jsonl"))
-        out = ROOT / "results" / f"{system}_v2"
-        run("eval/run_intent_oracle.py", "--parses", d / "parses.jsonl", "--system", system, "--out", out)
+        out = ROOT / "results" / f"{system}_{pv}"
+        run("eval/run_intent_oracle.py", "--parses", d / "parses.jsonl", "--system", system, "--out", out,
+            "--pool", ROOT / f"eval/pool_{pv}/pool_{pv}.jsonl")
         cm = json.loads((d / "contract_metrics.json").read_text())
         summary[system] = dict(folder=str(d), overall=cm["overall"], test=cm["by_split"].get("test"))
         systems.append(system)
     systems.sort(key=lambda s: ORDER.index(s) if s in ORDER else len(ORDER))
-    verdicts = BASE + [ROOT / "results" / f"{s}_v2" / f"verdicts_{s}.jsonl" for s in systems]
-    out = ROOT / "results" / "parsers_v2"
+    verdicts = base_verdicts(pv) + [ROOT / "results" / f"{s}_{pv}" / f"verdicts_{s}.jsonl" for s in systems]
+    out = ROOT / "results" / f"parsers_{pv}"
     out.mkdir(parents=True, exist_ok=True)
     (out / "contract_summary.json").write_text(json.dumps(summary, indent=2))
     selection = select_on_dev(summary)
     (out / "baseline3_selection.json").write_text(json.dumps(selection, indent=2))
-    table = run("eval/metrics.py", "--pool", "eval/pool_v2/pool_v2.jsonl", "--verdicts", *verdicts,
+    table = run("eval/metrics.py", "--pool", f"eval/pool_{pv}/pool_{pv}.jsonl", "--verdicts", *verdicts,
                 "--out", out / "metrics_stage1.json")
     keep = [l for l in table.splitlines() if l.startswith(("===", "system")) or " overall " in l or l.startswith("McNemar baseline2 vs")
             or ("McNemar intent_oracle vs" in l)]

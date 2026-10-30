@@ -11,7 +11,11 @@ results and, for intent systems, the read-only contract. The EVALUATOR part of t
 the agent's final output with the reference output; that label never goes back into the run.
 
 Verifier (`--verifier`): oracle (gold contract), parsed:<parses.jsonl> (a parser's contract; invalid -> UNCERTAIN),
-conventional (Baseline 2 tuned thresholds, results/baseline2_v2/thresholds.json; no contract shown).
+conventional (Baseline 2 tuned thresholds, results/baseline2_v3/thresholds.json; no contract shown).
+
+E (should escalate) and S (safety) scenarios come from eval/agent_scenarios/{E,S}/*.yaml. They have no pool candidate:
+the initial code is written at run time by the code-generator prompt (same model, same budget), and the verifier uses
+the scenario's own contract (oracle / parsed) or the conventional checks.
 Writes <out>/<system>/runs.jsonl (one line per scenario x seed) and run_info.json. Resumable.
 """
 import argparse
@@ -29,6 +33,8 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT))
 from eval.equivalence import outputs_equal  # noqa: E402
+from igt.agents.code_extract import extract_code  # noqa: E402
+from igt.agents.code_generator import build_messages as generator_messages  # noqa: E402
 from igt.agents.intent_parser import extract_contract, load_prompt_schema  # noqa: E402
 from igt.agents.repair_agent import AgentConfig, run_repair  # noqa: E402
 from igt.baselines.conventional_checks import judge, measure  # noqa: E402
@@ -58,11 +64,26 @@ class ReferencePolicy:
         self.refs, self.mode, self.model = refs, mode, "reference_policy"
 
     def backend_for(self, task_id):
+        if task_id.startswith(("E_", "S_")):          # generated initial code, then the "right" action: escalate
+            gen = "```python\ndef transform(df):\n    return df.copy()\n```"
+            act = gen if self.mode in ("naive", "feedback") else json.dumps({"action": "escalate", "reason": "cannot be done"})
+            return ScriptedBackend([gen] + [act] * 10, model=self.model)
         ref = self.refs[task_id]
         if self.mode in ("naive", "feedback"):
             return ScriptedBackend([f"```python\n{ref}```"] * 10, model=self.model)
         return ScriptedBackend([json.dumps({"action": "tool", "tool": "diff_datasets", "args": {}}),
                                 '{"action": "propose_fix"}\n```python\n' + ref + "```"] * 5, model=self.model)
+
+
+def load_es(root, dirs):
+    out = []
+    for d in dirs:
+        for f in sorted((root / "eval" / "agent_scenarios" / d).glob("*.yaml")):
+            sc = yaml.safe_load(f.read_text())
+            sc.update(task_id=sc["id"], candidate_id=None, initial_code=None, faults=[],
+                      transformation_type=sc.get("subtype", "-"))
+            out.append(sc)
+    return out
 
 
 def build_verifier(kind, tasks, data):
@@ -74,6 +95,8 @@ def build_verifier(kind, tasks, data):
         parsed = {r["task_id"]: extract_contract(r["raw_output"]) for r in load_jsonl(kind.split(":", 1)[1])}
 
         def f(tid):
+            if tid.startswith(("E_", "S_")):          # no parse for E/S: use the scenario contract
+                return (lambda b, a, c=tasks[tid]["gold_contract"]: verify(c, b, a)[0]), json.dumps(tasks[tid]["gold_contract"])
             ex = parsed.get(tid)
             if not ex or ex["status"] != "ok":
                 why = "no parse" if not ex else f"{ex['status']}: {ex['error']}"
@@ -81,7 +104,7 @@ def build_verifier(kind, tasks, data):
             return (lambda b, a, c=ex["contract"]: verify(c, b, a)[0]), json.dumps(ex["contract"])
         return f
     if kind == "conventional":
-        th = json.loads((ROOT / "results" / "baseline2_v2" / "thresholds.json").read_text())["tuned"]["thresholds"]
+        th = json.loads((ROOT / "results" / "baseline2_v3" / "thresholds.json").read_text())["tuned"]["thresholds"]
 
         def conv(b, a):
             v = judge(measure(b, a), th)
@@ -92,8 +115,8 @@ def build_verifier(kind, tasks, data):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--scenarios", type=Path, default=ROOT / "eval" / "agent_scenarios" / "rct_v1.jsonl")
-    ap.add_argument("--pool", type=Path, default=ROOT / "eval" / "pool_v2" / "pool_v2.jsonl")
+    ap.add_argument("--scenarios", type=Path, default=ROOT / "eval" / "agent_scenarios" / "rct_v2.jsonl")
+    ap.add_argument("--pool", type=Path, default=ROOT / "eval" / "pool_v3" / "pool_v3.jsonl")
     ap.add_argument("--system", required=True, help="e.g. agent_full, agent_naive, agent_full_no_memory")
     ap.add_argument("--mode", choices=["none", "naive", "feedback", "full"], required=True)
     ap.add_argument("--no-memory", action="store_true")
@@ -118,13 +141,17 @@ def main():
     ap.add_argument("--out", type=Path, required=True)
     args = ap.parse_args()
 
-    scen = [s for s in load_jsonl(args.scenarios) if s["split"] in args.splits and s["category"] in args.categories]
-    scen = scen[: args.limit]
+    scen = load_jsonl(args.scenarios) + load_es(ROOT, [c for c in ("E", "S") if c in args.categories])
+    scen = [s for s in scen if s["split"] in args.splits and s["category"] in args.categories][: args.limit]
     pool = {c["candidate_id"]: c for c in load_jsonl(args.pool)}
     tasks = {}
     for f in sorted((ROOT / "eval" / "tasks").glob("*/*.yaml")):
         t = yaml.safe_load(f.read_text())
         tasks[t["id"]] = t
+    for sc in scen:                                   # E/S: the scenario acts as its own task
+        if sc["category"] in ("E", "S"):
+            tasks[sc["id"]] = dict(id=sc["id"], request=sc["request"], data_file=sc["data_file"],
+                                   gold_contract=sc["contract"], reference_code=None)
     schema = load_prompt_schema(ROOT)
     data = {f: pd.read_csv(ROOT / f) for f in {tasks[s["task_id"]]["data_file"] for s in scen}}
     get_verifier = build_verifier(args.verifier, tasks, data)
@@ -133,7 +160,7 @@ def main():
 
     # ---- evaluator side: reference outputs (never passed to the agent) ----
     refs, ref_out = {}, {}
-    for tid in sorted({s["task_id"] for s in scen}):
+    for tid in sorted({s["task_id"] for s in scen if s["category"] not in ("E", "S")}):
         refs[tid] = tasks[tid]["reference_code"]
         r = safe_run(refs[tid], data[tasks[tid]["data_file"]], **limits.sandbox())
         if not r.ran_ok:
@@ -168,12 +195,19 @@ def main():
                               temperature=args.temperature)
             client = LLMClient(backend_for(s["task_id"]), cache_dir=args.cache_dir, token_budget=limits.token_budget)
             t0 = time.time()
-            res = run_repair(dict(request=" ".join(str(task["request"]).split())), s["initial_code"], before,
+            initial, generated = s["initial_code"], False
+            if initial is None:                           # E/S: the code generator writes the first attempt
+                gtask = dict(request=" ".join(str(task["request"]).split()), data_file=task["data_file"])
+                g = client.generate(generator_messages(gtask, schema), max_new_tokens=512, temperature=args.temperature,
+                                    seed=seed)
+                ex = extract_code(g.text)
+                initial, generated = (ex["code"] if ex["parse_ok"] else g.text), True
+            res = run_repair(dict(request=" ".join(str(task["request"]).split())), initial, before,
                              lambda a, b=before, f=vfn: f(b, a), client, cfg, contract_text=contract_text,
                              schema_text=schema_text(schema[task["data_file"]]))
             # ---- evaluator: judge the final output against the reference ----
             correct = None
-            if res.outcome == "ACCEPT":
+            if res.outcome == "ACCEPT" and s["task_id"] in ref_out:
                 correct = bool(outputs_equal(ref_out[s["task_id"]], res.final_output)[0])
             verified = [e for e in res.trace if e["event"] == "verified"]
             init_failed = set(verified[0]["failed"]) if verified and verified[0]["code_hash"] == res.trace[0]["code_hash"] else set()
@@ -181,7 +215,8 @@ def main():
             rec = dict(scenario_id=s["id"], category=s["category"], split=s["split"], task_id=s["task_id"],
                        transformation_type=s["transformation_type"], candidate_id=s["candidate_id"], seed=seed,
                        system=args.system, mode=args.mode, verifier=args.verifier, model=model_name,
-                       initial_correct=bool(pool[s["candidate_id"]]["is_correct"]),
+                       initial_correct=bool(pool[s["candidate_id"]]["is_correct"]) if s["candidate_id"] else None,
+                       initial_generated=generated, subtype=s.get("subtype"),
                        outcome=res.outcome, final_correct=correct, final_status=res.final_status,
                        attempts=res.attempts, tool_calls=res.tool_calls, llm_calls=res.llm_calls, tokens=res.tokens,
                        invalid_actions=res.invalid_actions, unsafe_attempts=res.unsafe_attempts,

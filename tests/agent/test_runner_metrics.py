@@ -9,7 +9,8 @@ import pytest
 from eval.agent_metrics import paired, summarize
 
 ROOT = Path(__file__).resolve().parents[2]
-SCEN = ROOT / "eval" / "agent_scenarios" / "rct_v1.jsonl"
+SCEN_POOLS = [(ROOT / "eval/agent_scenarios/rct_v1.jsonl", ROOT / "eval/pool_v2/pool_v2.jsonl"),
+              (ROOT / "eval/agent_scenarios/rct_v2.jsonl", ROOT / "eval/pool_v3/pool_v3.jsonl")]
 
 
 def run(r_cat, outcome, correct, **kw):
@@ -38,11 +39,12 @@ def test_metrics_on_known_trajectories():
     assert p["a vs b"]["only_first"] == 1 and p["a vs b"]["only_second"] == 0
 
 
-def test_scenarios_file_is_well_formed_and_leak_free():
-    if not SCEN.exists():
-        pytest.skip("scenarios not built")
-    S = [json.loads(l) for l in SCEN.read_text().splitlines()]
-    pool = {json.loads(l)["candidate_id"]: json.loads(l) for l in (ROOT / "eval/pool_v2/pool_v2.jsonl").read_text().splitlines()}
+@pytest.mark.parametrize("scen_path, pool_path", SCEN_POOLS, ids=["rct_v1", "rct_v2"])
+def test_scenarios_file_is_well_formed_and_leak_free(scen_path, pool_path):
+    if not scen_path.exists() or not pool_path.exists():
+        pytest.skip("scenarios or pool not built")
+    S = [json.loads(l) for l in scen_path.read_text().splitlines()]
+    pool = {json.loads(l)["candidate_id"]: json.loads(l) for l in pool_path.read_text().splitlines()}
     assert len({s["id"] for s in S}) == len(S)
     for s in S:
         c = pool[s["candidate_id"]]
@@ -68,3 +70,38 @@ def test_runner_end_to_end_with_reference_policy(tmp_path):
     assert info["valid_result"] is False                  # the reference policy is never a result
     p2 = subprocess.run(cmd, capture_output=True, text=True, cwd=ROOT)        # resumable: nothing re-run
     assert len((tmp_path / "smoke" / "runs.jsonl").read_text().splitlines()) == 4 and "1/4" not in p2.stdout
+
+
+def test_escalation_and_safety_metrics():
+    runs = [run("E", "ESCALATE", None, sid="e1"), run("E", "REJECT", None, sid="e2"), run("R", "ESCALATE", None, sid="r1"),
+            run("R", "ACCEPT", True, sid="r2"), run("S", "REJECT", None, sid="s1"), run("S", "ACCEPT", None, sid="s2", unsafe_attempts=1)]
+    m = summarize(runs)
+    assert m["E"]["escalation_recall"] == 0.5 and m["E"]["escalation_precision"] == 0.5 and m["E"]["escalation_f1"] == 0.5
+    assert m["S"]["safe_outcome"] == 0.5 and m["S"]["accepted_safe_part"] == 0.5 and m["S"]["unsafe_attempt_runs"] == 1
+
+
+def test_es_scenarios_are_well_formed():
+    """E contracts: valid shape and no do-nothing pass. S contracts: the safe part is satisfiable by safe code."""
+    import pandas as pd
+    import yaml
+    from igt.contracts import load_contract
+    from igt.verifier import verify
+    es = [yaml.safe_load(f.read_text()) for d in ("E", "S") for f in sorted((ROOT / "eval/agent_scenarios" / d).glob("*.yaml"))]
+    assert len([s for s in es if s["category"] == "E"]) >= 12 and len([s for s in es if s["category"] == "S"]) >= 10
+    assert len({s["id"] for s in es}) == len(es)
+    for s in es:
+        load_contract(s["contract"])
+        before = pd.read_csv(ROOT / s["data_file"])
+        v, _ = verify(s["contract"], before, before.copy())
+        assert v.status != "PASS", (s["id"], "a do-nothing output passes")
+        assert s["expected_outcome"] == ("ESCALATE" if s["category"] == "E" else "REJECT_OR_ESCALATE")
+
+
+def test_runner_handles_es_with_generated_initial_code(tmp_path):
+    cmd = [sys.executable, str(ROOT / "eval/runner_agent.py"), "--system", "smoke_es", "--mode", "full",
+           "--backend", "reference_policy", "--splits", "dev", "--categories", "E", "S", "--out", str(tmp_path)]
+    p = subprocess.run(cmd, capture_output=True, text=True, cwd=ROOT)
+    assert p.returncode == 0, p.stderr[-2000:]
+    runs = [json.loads(l) for l in (tmp_path / "smoke_es" / "runs.jsonl").read_text().splitlines()]
+    assert {r["category"] for r in runs} == {"E", "S"} and all(r["initial_generated"] for r in runs)
+    assert all(r["outcome"] in ("ESCALATE", "REJECT") for r in runs) and all(r["final_correct"] is None for r in runs)

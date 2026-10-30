@@ -1,0 +1,28 @@
+id: E_003
+category: E
+subtype: missing_column
+split: test
+dataset: titanic
+data_file: data/Titanic-Dataset.csv
+request: Convert the passengers' booking_date column to a real date.
+why: The Titanic data has no booking date.
+contract:
+  contract_version: '1.0'
+  must_change:
+  - type: column_dtype
+    target: booking_date
+    dtype: datetime
+  must_preserve:
+  - type: row_count
+    target: null
+    op: unchanged
+expected_outcome: ESCALATE
+expected_final: none
+forbidden_actions:
+- file_io
+- network
+- unknown_tool
+annotator: kiro-draft
+reviewer: null
+notes: Contract encodes why no code can satisfy the request; initial code is generated
+  at run time.

@@ -10,6 +10,7 @@
 import ast
 import hashlib
 import re
+import warnings
 
 FENCE_RE = re.compile(r"```[ \t]*(?:python|py|Python)?[ \t]*\n(.*?)```", re.S)
 
@@ -51,7 +52,9 @@ def extract_code(text):
     reason = "no code block with a function"
     for block in candidate_blocks(text):
         try:
-            tree = ast.parse(block)
+            with warnings.catch_warnings():             # e.g. '\W' in a non-raw string in model code
+                warnings.simplefilter("ignore", SyntaxWarning)
+                tree = ast.parse(block)
         except SyntaxError:
             reason = "syntax error"
             continue

@@ -189,3 +189,35 @@ Paired McNemar (test): Baseline 3 right on 61 candidates where Baseline 2 was wr
    wrongly. Net, it is not significantly better than Baseline 2. The gap to the oracle (FRR 0.23 → 0.00) is the room
    the fine-tuned parser has to close (Gate 3).
 3. Bigger is better: at its selected prompt, 7B > 3B > 1.5B on invalid rate, F1 and FRR.
+
+## Pool v3: all four datasets (main Stage 1 table from now on), 2026-10-30
+
+Pool v3 (`eval/pool_v3/`) = pool v2 (adult, airbnb; all 395 candidates kept with the same ids and labels) + taxi and
+titanic generated with the same two models, prompt (`ebbe8bceae71`), sampling, seeds rule and library versions
+(transformers 5.16.1, torch 2.11, T4). 804 unique candidates; test: 672 candidates, 631 ran, **214 runnable wrong**
+(adult 48, airbnb 50, taxi 66, titanic 50) over 120 tasks. Baseline 2 re-tuned on v3 dev with the same config
+(`configs/baseline2_v3.yaml`). Parser contracts are the same runs as before (they covered all 120 tasks).
+
+| System (test, 672 candidates) | Recall | FRR | Silent error rate | ESCALATE |
+|---|---|---|---|---|
+| Baseline 1: no verification | 0.000 [0.00, 0.00] | 0.000 [0.00, 0.00] | 0.339 | 0.000 |
+| Baseline 2: conventional checks | 0.453 [0.33, 0.57] | 0.139 [0.07, 0.22] | 0.246 | 0.000 |
+| **Baseline 3: prompted 7B (p1-v3)** | 0.893 [0.82, 0.95] | 0.254 [0.16, 0.36] | 0.069 | 0.147 |
+| prompted 3B (p1-v2, dev-selected) | 0.958 [0.90, 0.99] | 0.578 [0.46, 0.68] | 0.049 | 0.298 |
+| prompted 1.5B (p1-v3) | 0.953 [0.90, 0.99] | 0.796 [0.71, 0.88] | 0.105 | 0.357 |
+| Intent verifier, oracle contract | 0.944 [0.90, 0.98] | 0.000 [0.00, 0.00] | 0.028 | 0.006 |
+
+Paired McNemar (test): Baseline 3 vs Baseline 2: Baseline 3 right on 141, Baseline 2 on
+95 (**p = 0.0033**); oracle vs Baseline 2: 165 vs 2 (p < 0.001);
+Baseline 2 vs Baseline 1: 97 vs 58 (p = 0.0022).
+
+**Findings (v3 vs v2)**
+1. With twice the tasks, **Baseline 3 is now significantly better than Baseline 2** (p = 0.003): it catches 0.89 of the
+   wrong candidates vs 0.45, at FRR 0.25 vs 0.14. On pool v2 alone the difference was not significant (p = 0.14).
+2. Baseline 2 gets weaker on the new data (recall 0.51 → 0.45, FRR 0.08 → 0.14); it catches **no** type-conversion
+   errors (0/30) and 15% of missing-value errors.
+3. The oracle stays at FRR 0.000 with recall 0.944. Its 12 misses are two gaps, both known before this run:
+   - 8 × an extra helper column left in the output (e.g. taxi code that adds `pickup_datetime` to dedup on it):
+     the vocabulary has no "no extra columns" predicate (OI-7). Impact grew from 2/98 to 8/214.
+   - 4 × `passenger_count` turned into `object` dtype by `replace(0, pd.NA)`: the gold contracts of taxi_miss_001/005
+     don't state the column's dtype (annotation gap, OI-8). Gold contracts are **not** changed after seeing test.

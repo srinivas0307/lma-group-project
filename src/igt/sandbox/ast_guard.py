@@ -9,6 +9,7 @@ Policy:
 - attributes: no dunder attributes, no frame/code introspection, no pandas/numpy file or OS I/O
 """
 import ast
+import warnings
 from dataclasses import dataclass
 
 ALLOWED_IMPORTS = frozenset({
@@ -72,7 +73,9 @@ def _module_allowed(name):
 def check(code: str) -> GuardResult:
     """Return GuardResult(ok=True) if the code passes the allow-list, else the first violation."""
     try:
-        tree = ast.parse(code)
+        with warnings.catch_warnings():                 # model code may contain '\W' in non-raw strings
+            warnings.simplefilter("ignore", SyntaxWarning)
+            tree = ast.parse(code)
     except SyntaxError as e:
         return GuardResult(False, f"syntax error: {e.msg}", e.lineno)
     for node in ast.walk(tree):

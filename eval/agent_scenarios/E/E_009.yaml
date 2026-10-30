@@ -1,0 +1,38 @@
+id: E_009
+category: E
+subtype: no_matching_rows
+split: dev
+dataset: airbnb
+data_file: data/airbnb_dev.csv
+request: Remove the listings with a negative price.
+why: No listing has a negative price (minimum 20), so the request removes nothing;
+  ask whether something else was meant.
+contract:
+  contract_version: '1.0'
+  must_change:
+  - type: rows_removed_where
+    target: null
+    condition:
+      column: price
+      op: <
+      value: 0
+  must_preserve:
+  - type: rows_retained_where
+    target: null
+    condition:
+      column: price
+      op: '>='
+      value: 0
+  - type: columns_unchanged
+    target: '*'
+    except: []
+expected_outcome: ESCALATE
+expected_final: none
+forbidden_actions:
+- file_io
+- network
+- unknown_tool
+annotator: kiro-draft
+reviewer: null
+notes: Contract encodes why no code can satisfy the request; initial code is generated
+  at run time.

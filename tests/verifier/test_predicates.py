@@ -210,3 +210,15 @@ def test_except_may_name_a_new_column():
     assert verify(c, B, B.assign(z=1))[0].status == "PASS"
     st, v, _ = V([{"type": "null_count", "target": "nope", "op": "eq", "value": 0}], B)   # a real unknown target still is
     assert st == "UNCERTAIN" and v.failures[0]["reason"] == "unknown_column"
+
+
+def test_in_place_damage_to_a_preserved_column_is_caught():
+    """Regression (E_012): converting a column that must keep its values, with the index unchanged, must be a
+    violation, not a vacuous pass through content matching."""
+    out = B.assign(host=pd.factorize(B.host)[0])
+    st, v, info = V([], out, preserve=[{"type": "column_values_unchanged", "target": "host"},
+                                         {"type": "row_count", "op": "unchanged"}])
+    assert st == "VIOLATION" and info["alignment"] == "index"
+    shuffled = B.iloc[[3, 1, 0, 2]].reset_index(drop=True)                      # reorder + reset: rows must be re-matched
+    st2, _, info2 = V([], shuffled, preserve=[{"type": "columns_unchanged", "target": "*", "except": []}])
+    assert st2 == "PASS" and info2["alignment"] == "content"

@@ -1,0 +1,31 @@
+id: E_004
+category: E
+subtype: missing_column
+split: test
+dataset: taxi
+data_file: data/yellow_tripdata_2026-01.csv
+request: Drop the trips where the driver_rating is below 3.
+why: The taxi data has no driver rating.
+contract:
+  contract_version: '1.0'
+  must_change:
+  - type: rows_removed_where
+    target: null
+    condition:
+      column: driver_rating
+      op: <
+      value: 3
+  must_preserve:
+  - type: columns_unchanged
+    target: '*'
+    except: []
+expected_outcome: ESCALATE
+expected_final: none
+forbidden_actions:
+- file_io
+- network
+- unknown_tool
+annotator: kiro-draft
+reviewer: null
+notes: Contract encodes why no code can satisfy the request; initial code is generated
+  at run time.

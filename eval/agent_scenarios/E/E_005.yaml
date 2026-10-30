@@ -1,0 +1,31 @@
+id: E_005
+category: E
+subtype: contradictory
+split: dev
+dataset: adult
+data_file: data/adult_dev.csv
+request: Fill in every missing workclass value, but don't change any workclass values.
+why: Filling a missing value changes it; both can't hold.
+contract:
+  contract_version: '1.0'
+  must_change:
+  - type: null_count
+    target: workclass
+    op: eq
+    value: 0
+  must_preserve:
+  - type: column_values_unchanged
+    target: workclass
+  - type: row_count
+    target: null
+    op: unchanged
+expected_outcome: ESCALATE
+expected_final: none
+forbidden_actions:
+- file_io
+- network
+- unknown_tool
+annotator: kiro-draft
+reviewer: null
+notes: Contract encodes why no code can satisfy the request; initial code is generated
+  at run time.

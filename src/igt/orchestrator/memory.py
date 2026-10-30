@@ -2,12 +2,15 @@
 plus repeated-code detection by hash of the normalised code."""
 import ast
 import hashlib
+import warnings
 from dataclasses import dataclass, field
 
 
 def code_hash(code: str) -> str:
     try:
-        norm = ast.unparse(ast.parse(code))          # ignore formatting and comments
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", SyntaxWarning)
+            norm = ast.unparse(ast.parse(code))      # ignore formatting and comments
     except SyntaxError:
         norm = code.strip()
     return hashlib.sha256(norm.encode()).hexdigest()[:16]
