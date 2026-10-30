@@ -1,0 +1,74 @@
+{
+  "intent_prompted_1_5b": {
+    "selected": "intent_prompted_1_5b_p1v3",
+    "version": "p1-v3",
+    "candidates": [
+      {
+        "system": "intent_prompted_1_5b",
+        "version": "p1-v1",
+        "dev_invalid": 0.75,
+        "dev_mean_f1": 0.232
+      },
+      {
+        "system": "intent_prompted_1_5b_p1v2",
+        "version": "p1-v2",
+        "dev_invalid": 0.6,
+        "dev_mean_f1": 0.326
+      },
+      {
+        "system": "intent_prompted_1_5b_p1v3",
+        "version": "p1-v3",
+        "dev_invalid": 0.35,
+        "dev_mean_f1": 0.556
+      }
+    ]
+  },
+  "intent_prompted_3b": {
+    "selected": "intent_prompted_3b_p1v2",
+    "version": "p1-v2",
+    "candidates": [
+      {
+        "system": "intent_prompted_3b",
+        "version": "p1-v1",
+        "dev_invalid": 0.45,
+        "dev_mean_f1": 0.491
+      },
+      {
+        "system": "intent_prompted_3b_p1v2",
+        "version": "p1-v2",
+        "dev_invalid": 0.35,
+        "dev_mean_f1": 0.569
+      },
+      {
+        "system": "intent_prompted_3b_p1v3",
+        "version": "p1-v3",
+        "dev_invalid": 0.4,
+        "dev_mean_f1": 0.572
+      }
+    ]
+  },
+  "intent_prompted_7b": {
+    "selected": "intent_prompted_7b_p1v3",
+    "version": "p1-v3",
+    "candidates": [
+      {
+        "system": "intent_prompted_7b",
+        "version": "p1-v1",
+        "dev_invalid": 0.35,
+        "dev_mean_f1": 0.738
+      },
+      {
+        "system": "intent_prompted_7b_p1v2",
+        "version": "p1-v2",
+        "dev_invalid": 0.25,
+        "dev_mean_f1": 0.79
+      },
+      {
+        "system": "intent_prompted_7b_p1v3",
+        "version": "p1-v3",
+        "dev_invalid": 0.25,
+        "dev_mean_f1": 0.807
+      }
+    ]
+  }
+}

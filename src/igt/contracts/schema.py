@@ -246,7 +246,9 @@ def predicate_columns(p, before_columns) -> list[str]:
     if getattr(p, "where", None) is not None:
         cols += p.where.columns()
     if p.type in ("duplicate_count", "column_values_unchanged", "columns_unchanged"):
-        cols += expand_columns(p.target, p.except_, before_columns) + list(p.except_ or [])
+        # Names in `except` only remove columns from the expansion; a name that isn't in the input (e.g. a column the
+        # transformation adds) removes nothing, so it is not a reference to an unknown column.
+        cols += expand_columns(p.target, p.except_, before_columns)
     elif p.type in ("null_count", "column_dtype"):
         cols.append(p.target)
     elif p.type == "column_value_relation":

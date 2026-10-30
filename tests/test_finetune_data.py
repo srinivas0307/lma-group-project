@@ -78,8 +78,8 @@ def test_build_sft_uses_eval_prompt_format(toy, tmp_path):
     va = [json.loads(l) for l in (tmp_path / "sft_val.jsonl").read_text().splitlines()]
     assert len(tr) == 1 and len(va) == 1
     sys.path.insert(0, str(ROOT / "src"))
-    from igt.agents.intent_parser import SYSTEM_PROMPT, extract_contract
+    from igt.agents.intent_parser import FT_PROMPT_VERSION, PROMPTS, extract_contract
     m = tr[0]["messages"]
-    assert [x["role"] for x in m] == ["system", "user", "assistant"] and m[0]["content"] == SYSTEM_PROMPT
+    assert [x["role"] for x in m] == ["system", "user", "assistant"] and m[0]["content"] == PROMPTS[FT_PROMPT_VERSION]
     assert m[1]["content"].startswith("Dataset: 40 rows, 3 columns.") and m[1]["content"].endswith("4000 grams.")
     assert extract_contract(m[2]["content"])["status"] == "ok"

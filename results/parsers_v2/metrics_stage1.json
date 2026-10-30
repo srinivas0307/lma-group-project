@@ -3509,6 +3509,1164 @@
         }
       }
     },
+    "intent_prompted_7b_p1v3": {
+      "overall": {
+        "counts": {
+          "n": 72,
+          "runnable": 66,
+          "correct": 28,
+          "wrong_runnable": 38,
+          "wrong_all": 44,
+          "accepted": 8,
+          "escalated": 33,
+          "wrong_runnable_rejected": 38,
+          "wrong_all_rejected": 44,
+          "correct_rejected": 20,
+          "wrong_accepted": 0
+        },
+        "rates": {
+          "recall": 1.0,
+          "recall_all": 1.0,
+          "false_rejection": 0.714,
+          "silent_error_rate": 0.0,
+          "escalate_rate": 0.458
+        },
+        "wilson": {
+          "recall": [
+            0.908,
+            1.0
+          ],
+          "recall_all": [
+            0.92,
+            1.0
+          ],
+          "false_rejection": [
+            0.529,
+            0.847
+          ],
+          "silent_error_rate": [
+            0.0,
+            0.324
+          ],
+          "escalate_rate": [
+            0.348,
+            0.573
+          ]
+        },
+        "bootstrap": {
+          "recall": [
+            1.0,
+            1.0
+          ],
+          "recall_all": [
+            1.0,
+            1.0
+          ],
+          "false_rejection": [
+            0.393,
+            1.0
+          ],
+          "silent_error_rate": [
+            0.0,
+            0.0
+          ],
+          "escalate_rate": [
+            0.16,
+            0.765
+          ]
+        }
+      },
+      "by_type": {
+        "column_transformation": {
+          "counts": {
+            "n": 10,
+            "runnable": 10,
+            "correct": 9,
+            "wrong_runnable": 1,
+            "wrong_all": 1,
+            "accepted": 4,
+            "escalated": 6,
+            "wrong_runnable_rejected": 1,
+            "wrong_all_rejected": 1,
+            "correct_rejected": 5,
+            "wrong_accepted": 0
+          },
+          "rates": {
+            "recall": 1.0,
+            "recall_all": 1.0,
+            "false_rejection": 0.556,
+            "silent_error_rate": 0.0,
+            "escalate_rate": 0.6
+          },
+          "wilson": {
+            "recall": [
+              0.207,
+              1.0
+            ],
+            "recall_all": [
+              0.207,
+              1.0
+            ],
+            "false_rejection": [
+              0.267,
+              0.811
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.49
+            ],
+            "escalate_rate": [
+              0.313,
+              0.832
+            ]
+          },
+          "bootstrap": {
+            "false_rejection": [
+              0.0,
+              1.0
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.0
+            ],
+            "escalate_rate": [
+              0.0,
+              1.0
+            ],
+            "recall": [
+              1.0,
+              1.0
+            ],
+            "recall_all": [
+              1.0,
+              1.0
+            ]
+          }
+        },
+        "deduplication": {
+          "counts": {
+            "n": 23,
+            "runnable": 22,
+            "correct": 4,
+            "wrong_runnable": 18,
+            "wrong_all": 19,
+            "accepted": 1,
+            "escalated": 0,
+            "wrong_runnable_rejected": 18,
+            "wrong_all_rejected": 19,
+            "correct_rejected": 3,
+            "wrong_accepted": 0
+          },
+          "rates": {
+            "recall": 1.0,
+            "recall_all": 1.0,
+            "false_rejection": 0.75,
+            "silent_error_rate": 0.0,
+            "escalate_rate": 0.0
+          },
+          "wilson": {
+            "recall": [
+              0.824,
+              1.0
+            ],
+            "recall_all": [
+              0.832,
+              1.0
+            ],
+            "false_rejection": [
+              0.301,
+              0.954
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.793
+            ],
+            "escalate_rate": [
+              0.0,
+              0.143
+            ]
+          },
+          "bootstrap": {
+            "recall": [
+              1.0,
+              1.0
+            ],
+            "recall_all": [
+              1.0,
+              1.0
+            ],
+            "false_rejection": [
+              0.0,
+              1.0
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.0
+            ],
+            "escalate_rate": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "filtering": {
+          "counts": {
+            "n": 20,
+            "runnable": 17,
+            "correct": 3,
+            "wrong_runnable": 14,
+            "wrong_all": 17,
+            "accepted": 0,
+            "escalated": 17,
+            "wrong_runnable_rejected": 14,
+            "wrong_all_rejected": 17,
+            "correct_rejected": 3,
+            "wrong_accepted": 0
+          },
+          "rates": {
+            "recall": 1.0,
+            "recall_all": 1.0,
+            "false_rejection": 1.0,
+            "silent_error_rate": null,
+            "escalate_rate": 0.85
+          },
+          "wilson": {
+            "recall": [
+              0.785,
+              1.0
+            ],
+            "recall_all": [
+              0.816,
+              1.0
+            ],
+            "false_rejection": [
+              0.438,
+              1.0
+            ],
+            "silent_error_rate": null,
+            "escalate_rate": [
+              0.64,
+              0.948
+            ]
+          },
+          "bootstrap": {
+            "recall": [
+              1.0,
+              1.0
+            ],
+            "recall_all": [
+              1.0,
+              1.0
+            ],
+            "false_rejection": [
+              1.0,
+              1.0
+            ],
+            "escalate_rate": [
+              0.7,
+              1.0
+            ]
+          }
+        },
+        "missing_values": {
+          "counts": {
+            "n": 9,
+            "runnable": 9,
+            "correct": 6,
+            "wrong_runnable": 3,
+            "wrong_all": 3,
+            "accepted": 0,
+            "escalated": 9,
+            "wrong_runnable_rejected": 3,
+            "wrong_all_rejected": 3,
+            "correct_rejected": 6,
+            "wrong_accepted": 0
+          },
+          "rates": {
+            "recall": 1.0,
+            "recall_all": 1.0,
+            "false_rejection": 1.0,
+            "silent_error_rate": null,
+            "escalate_rate": 1.0
+          },
+          "wilson": {
+            "recall": [
+              0.438,
+              1.0
+            ],
+            "recall_all": [
+              0.438,
+              1.0
+            ],
+            "false_rejection": [
+              0.61,
+              1.0
+            ],
+            "silent_error_rate": null,
+            "escalate_rate": [
+              0.701,
+              1.0
+            ]
+          },
+          "bootstrap": {
+            "recall": [
+              1.0,
+              1.0
+            ],
+            "recall_all": [
+              1.0,
+              1.0
+            ],
+            "false_rejection": [
+              1.0,
+              1.0
+            ],
+            "escalate_rate": [
+              1.0,
+              1.0
+            ]
+          }
+        },
+        "type_conversion": {
+          "counts": {
+            "n": 10,
+            "runnable": 8,
+            "correct": 6,
+            "wrong_runnable": 2,
+            "wrong_all": 4,
+            "accepted": 3,
+            "escalated": 1,
+            "wrong_runnable_rejected": 2,
+            "wrong_all_rejected": 4,
+            "correct_rejected": 3,
+            "wrong_accepted": 0
+          },
+          "rates": {
+            "recall": 1.0,
+            "recall_all": 1.0,
+            "false_rejection": 0.5,
+            "silent_error_rate": 0.0,
+            "escalate_rate": 0.1
+          },
+          "wilson": {
+            "recall": [
+              0.342,
+              1.0
+            ],
+            "recall_all": [
+              0.51,
+              1.0
+            ],
+            "false_rejection": [
+              0.188,
+              0.812
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.562
+            ],
+            "escalate_rate": [
+              0.018,
+              0.404
+            ]
+          },
+          "bootstrap": {
+            "recall": [
+              1.0,
+              1.0
+            ],
+            "recall_all": [
+              1.0,
+              1.0
+            ],
+            "false_rejection": [
+              0.0,
+              1.0
+            ],
+            "escalate_rate": [
+              0.0,
+              0.25
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      }
+    },
+    "intent_prompted_3b_p1v3": {
+      "overall": {
+        "counts": {
+          "n": 72,
+          "runnable": 66,
+          "correct": 28,
+          "wrong_runnable": 38,
+          "wrong_all": 44,
+          "accepted": 9,
+          "escalated": 31,
+          "wrong_runnable_rejected": 38,
+          "wrong_all_rejected": 44,
+          "correct_rejected": 19,
+          "wrong_accepted": 0
+        },
+        "rates": {
+          "recall": 1.0,
+          "recall_all": 1.0,
+          "false_rejection": 0.679,
+          "silent_error_rate": 0.0,
+          "escalate_rate": 0.431
+        },
+        "wilson": {
+          "recall": [
+            0.908,
+            1.0
+          ],
+          "recall_all": [
+            0.92,
+            1.0
+          ],
+          "false_rejection": [
+            0.493,
+            0.821
+          ],
+          "silent_error_rate": [
+            0.0,
+            0.299
+          ],
+          "escalate_rate": [
+            0.323,
+            0.546
+          ]
+        },
+        "bootstrap": {
+          "recall": [
+            1.0,
+            1.0
+          ],
+          "recall_all": [
+            1.0,
+            1.0
+          ],
+          "false_rejection": [
+            0.345,
+            0.943
+          ],
+          "silent_error_rate": [
+            0.0,
+            0.0
+          ],
+          "escalate_rate": [
+            0.107,
+            0.747
+          ]
+        }
+      },
+      "by_type": {
+        "column_transformation": {
+          "counts": {
+            "n": 10,
+            "runnable": 10,
+            "correct": 9,
+            "wrong_runnable": 1,
+            "wrong_all": 1,
+            "accepted": 4,
+            "escalated": 0,
+            "wrong_runnable_rejected": 1,
+            "wrong_all_rejected": 1,
+            "correct_rejected": 5,
+            "wrong_accepted": 0
+          },
+          "rates": {
+            "recall": 1.0,
+            "recall_all": 1.0,
+            "false_rejection": 0.556,
+            "silent_error_rate": 0.0,
+            "escalate_rate": 0.0
+          },
+          "wilson": {
+            "recall": [
+              0.207,
+              1.0
+            ],
+            "recall_all": [
+              0.207,
+              1.0
+            ],
+            "false_rejection": [
+              0.267,
+              0.811
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.49
+            ],
+            "escalate_rate": [
+              0.0,
+              0.278
+            ]
+          },
+          "bootstrap": {
+            "false_rejection": [
+              0.0,
+              1.0
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.0
+            ],
+            "escalate_rate": [
+              0.0,
+              0.0
+            ],
+            "recall": [
+              1.0,
+              1.0
+            ],
+            "recall_all": [
+              1.0,
+              1.0
+            ]
+          }
+        },
+        "deduplication": {
+          "counts": {
+            "n": 23,
+            "runnable": 22,
+            "correct": 4,
+            "wrong_runnable": 18,
+            "wrong_all": 19,
+            "accepted": 0,
+            "escalated": 11,
+            "wrong_runnable_rejected": 18,
+            "wrong_all_rejected": 19,
+            "correct_rejected": 4,
+            "wrong_accepted": 0
+          },
+          "rates": {
+            "recall": 1.0,
+            "recall_all": 1.0,
+            "false_rejection": 1.0,
+            "silent_error_rate": null,
+            "escalate_rate": 0.478
+          },
+          "wilson": {
+            "recall": [
+              0.824,
+              1.0
+            ],
+            "recall_all": [
+              0.832,
+              1.0
+            ],
+            "false_rejection": [
+              0.51,
+              1.0
+            ],
+            "silent_error_rate": null,
+            "escalate_rate": [
+              0.292,
+              0.67
+            ]
+          },
+          "bootstrap": {
+            "recall": [
+              1.0,
+              1.0
+            ],
+            "recall_all": [
+              1.0,
+              1.0
+            ],
+            "false_rejection": [
+              1.0,
+              1.0
+            ],
+            "escalate_rate": [
+              0.0,
+              0.917
+            ]
+          }
+        },
+        "filtering": {
+          "counts": {
+            "n": 20,
+            "runnable": 17,
+            "correct": 3,
+            "wrong_runnable": 14,
+            "wrong_all": 17,
+            "accepted": 2,
+            "escalated": 10,
+            "wrong_runnable_rejected": 14,
+            "wrong_all_rejected": 17,
+            "correct_rejected": 1,
+            "wrong_accepted": 0
+          },
+          "rates": {
+            "recall": 1.0,
+            "recall_all": 1.0,
+            "false_rejection": 0.333,
+            "silent_error_rate": 0.0,
+            "escalate_rate": 0.5
+          },
+          "wilson": {
+            "recall": [
+              0.785,
+              1.0
+            ],
+            "recall_all": [
+              0.816,
+              1.0
+            ],
+            "false_rejection": [
+              0.061,
+              0.792
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.658
+            ],
+            "escalate_rate": [
+              0.299,
+              0.701
+            ]
+          },
+          "bootstrap": {
+            "recall": [
+              1.0,
+              1.0
+            ],
+            "recall_all": [
+              1.0,
+              1.0
+            ],
+            "false_rejection": [
+              0.0,
+              1.0
+            ],
+            "escalate_rate": [
+              0.0,
+              1.0
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "missing_values": {
+          "counts": {
+            "n": 9,
+            "runnable": 9,
+            "correct": 6,
+            "wrong_runnable": 3,
+            "wrong_all": 3,
+            "accepted": 0,
+            "escalated": 9,
+            "wrong_runnable_rejected": 3,
+            "wrong_all_rejected": 3,
+            "correct_rejected": 6,
+            "wrong_accepted": 0
+          },
+          "rates": {
+            "recall": 1.0,
+            "recall_all": 1.0,
+            "false_rejection": 1.0,
+            "silent_error_rate": null,
+            "escalate_rate": 1.0
+          },
+          "wilson": {
+            "recall": [
+              0.438,
+              1.0
+            ],
+            "recall_all": [
+              0.438,
+              1.0
+            ],
+            "false_rejection": [
+              0.61,
+              1.0
+            ],
+            "silent_error_rate": null,
+            "escalate_rate": [
+              0.701,
+              1.0
+            ]
+          },
+          "bootstrap": {
+            "recall": [
+              1.0,
+              1.0
+            ],
+            "recall_all": [
+              1.0,
+              1.0
+            ],
+            "false_rejection": [
+              1.0,
+              1.0
+            ],
+            "escalate_rate": [
+              1.0,
+              1.0
+            ]
+          }
+        },
+        "type_conversion": {
+          "counts": {
+            "n": 10,
+            "runnable": 8,
+            "correct": 6,
+            "wrong_runnable": 2,
+            "wrong_all": 4,
+            "accepted": 3,
+            "escalated": 1,
+            "wrong_runnable_rejected": 2,
+            "wrong_all_rejected": 4,
+            "correct_rejected": 3,
+            "wrong_accepted": 0
+          },
+          "rates": {
+            "recall": 1.0,
+            "recall_all": 1.0,
+            "false_rejection": 0.5,
+            "silent_error_rate": 0.0,
+            "escalate_rate": 0.1
+          },
+          "wilson": {
+            "recall": [
+              0.342,
+              1.0
+            ],
+            "recall_all": [
+              0.51,
+              1.0
+            ],
+            "false_rejection": [
+              0.188,
+              0.812
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.562
+            ],
+            "escalate_rate": [
+              0.018,
+              0.404
+            ]
+          },
+          "bootstrap": {
+            "recall": [
+              1.0,
+              1.0
+            ],
+            "recall_all": [
+              1.0,
+              1.0
+            ],
+            "false_rejection": [
+              0.0,
+              1.0
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.0
+            ],
+            "escalate_rate": [
+              0.0,
+              0.25
+            ]
+          }
+        }
+      }
+    },
+    "intent_prompted_1_5b_p1v3": {
+      "overall": {
+        "counts": {
+          "n": 72,
+          "runnable": 66,
+          "correct": 28,
+          "wrong_runnable": 38,
+          "wrong_all": 44,
+          "accepted": 13,
+          "escalated": 37,
+          "wrong_runnable_rejected": 32,
+          "wrong_all_rejected": 38,
+          "correct_rejected": 21,
+          "wrong_accepted": 6
+        },
+        "rates": {
+          "recall": 0.842,
+          "recall_all": 0.864,
+          "false_rejection": 0.75,
+          "silent_error_rate": 0.462,
+          "escalate_rate": 0.514
+        },
+        "wilson": {
+          "recall": [
+            0.696,
+            0.926
+          ],
+          "recall_all": [
+            0.733,
+            0.936
+          ],
+          "false_rejection": [
+            0.566,
+            0.873
+          ],
+          "silent_error_rate": [
+            0.232,
+            0.709
+          ],
+          "escalate_rate": [
+            0.401,
+            0.626
+          ]
+        },
+        "bootstrap": {
+          "recall": [
+            0.45,
+            1.0
+          ],
+          "recall_all": [
+            0.61,
+            1.0
+          ],
+          "false_rejection": [
+            0.423,
+            1.0
+          ],
+          "silent_error_rate": [
+            0.0,
+            1.0
+          ],
+          "escalate_rate": [
+            0.2,
+            0.794
+          ]
+        }
+      },
+      "by_type": {
+        "column_transformation": {
+          "counts": {
+            "n": 10,
+            "runnable": 10,
+            "correct": 9,
+            "wrong_runnable": 1,
+            "wrong_all": 1,
+            "accepted": 5,
+            "escalated": 5,
+            "wrong_runnable_rejected": 0,
+            "wrong_all_rejected": 0,
+            "correct_rejected": 5,
+            "wrong_accepted": 1
+          },
+          "rates": {
+            "recall": 0.0,
+            "recall_all": 0.0,
+            "false_rejection": 0.556,
+            "silent_error_rate": 0.2,
+            "escalate_rate": 0.5
+          },
+          "wilson": {
+            "recall": [
+              0.0,
+              0.793
+            ],
+            "recall_all": [
+              0.0,
+              0.793
+            ],
+            "false_rejection": [
+              0.267,
+              0.811
+            ],
+            "silent_error_rate": [
+              0.036,
+              0.624
+            ],
+            "escalate_rate": [
+              0.237,
+              0.763
+            ]
+          },
+          "bootstrap": {
+            "false_rejection": [
+              0.0,
+              1.0
+            ],
+            "silent_error_rate": [
+              0.0,
+              1.0
+            ],
+            "escalate_rate": [
+              0.0,
+              0.833
+            ],
+            "recall": [
+              0.0,
+              0.0
+            ],
+            "recall_all": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "deduplication": {
+          "counts": {
+            "n": 23,
+            "runnable": 22,
+            "correct": 4,
+            "wrong_runnable": 18,
+            "wrong_all": 19,
+            "accepted": 0,
+            "escalated": 11,
+            "wrong_runnable_rejected": 18,
+            "wrong_all_rejected": 19,
+            "correct_rejected": 4,
+            "wrong_accepted": 0
+          },
+          "rates": {
+            "recall": 1.0,
+            "recall_all": 1.0,
+            "false_rejection": 1.0,
+            "silent_error_rate": null,
+            "escalate_rate": 0.478
+          },
+          "wilson": {
+            "recall": [
+              0.824,
+              1.0
+            ],
+            "recall_all": [
+              0.832,
+              1.0
+            ],
+            "false_rejection": [
+              0.51,
+              1.0
+            ],
+            "silent_error_rate": null,
+            "escalate_rate": [
+              0.292,
+              0.67
+            ]
+          },
+          "bootstrap": {
+            "recall": [
+              1.0,
+              1.0
+            ],
+            "recall_all": [
+              1.0,
+              1.0
+            ],
+            "false_rejection": [
+              1.0,
+              1.0
+            ],
+            "escalate_rate": [
+              0.0,
+              0.917
+            ]
+          }
+        },
+        "filtering": {
+          "counts": {
+            "n": 20,
+            "runnable": 17,
+            "correct": 3,
+            "wrong_runnable": 14,
+            "wrong_all": 17,
+            "accepted": 5,
+            "escalated": 10,
+            "wrong_runnable_rejected": 9,
+            "wrong_all_rejected": 12,
+            "correct_rejected": 3,
+            "wrong_accepted": 5
+          },
+          "rates": {
+            "recall": 0.643,
+            "recall_all": 0.706,
+            "false_rejection": 1.0,
+            "silent_error_rate": 1.0,
+            "escalate_rate": 0.5
+          },
+          "wilson": {
+            "recall": [
+              0.388,
+              0.837
+            ],
+            "recall_all": [
+              0.469,
+              0.867
+            ],
+            "false_rejection": [
+              0.438,
+              1.0
+            ],
+            "silent_error_rate": [
+              0.566,
+              1.0
+            ],
+            "escalate_rate": [
+              0.299,
+              0.701
+            ]
+          },
+          "bootstrap": {
+            "recall": [
+              0.0,
+              1.0
+            ],
+            "recall_all": [
+              0.375,
+              1.0
+            ],
+            "false_rejection": [
+              1.0,
+              1.0
+            ],
+            "escalate_rate": [
+              0.0,
+              1.0
+            ],
+            "silent_error_rate": [
+              1.0,
+              1.0
+            ]
+          }
+        },
+        "missing_values": {
+          "counts": {
+            "n": 9,
+            "runnable": 9,
+            "correct": 6,
+            "wrong_runnable": 3,
+            "wrong_all": 3,
+            "accepted": 3,
+            "escalated": 6,
+            "wrong_runnable_rejected": 3,
+            "wrong_all_rejected": 3,
+            "correct_rejected": 3,
+            "wrong_accepted": 0
+          },
+          "rates": {
+            "recall": 1.0,
+            "recall_all": 1.0,
+            "false_rejection": 0.5,
+            "silent_error_rate": 0.0,
+            "escalate_rate": 0.667
+          },
+          "wilson": {
+            "recall": [
+              0.438,
+              1.0
+            ],
+            "recall_all": [
+              0.438,
+              1.0
+            ],
+            "false_rejection": [
+              0.188,
+              0.812
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.562
+            ],
+            "escalate_rate": [
+              0.354,
+              0.879
+            ]
+          },
+          "bootstrap": {
+            "recall": [
+              1.0,
+              1.0
+            ],
+            "recall_all": [
+              1.0,
+              1.0
+            ],
+            "false_rejection": [
+              0.0,
+              1.0
+            ],
+            "escalate_rate": [
+              0.0,
+              1.0
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "type_conversion": {
+          "counts": {
+            "n": 10,
+            "runnable": 8,
+            "correct": 6,
+            "wrong_runnable": 2,
+            "wrong_all": 4,
+            "accepted": 0,
+            "escalated": 5,
+            "wrong_runnable_rejected": 2,
+            "wrong_all_rejected": 4,
+            "correct_rejected": 6,
+            "wrong_accepted": 0
+          },
+          "rates": {
+            "recall": 1.0,
+            "recall_all": 1.0,
+            "false_rejection": 1.0,
+            "silent_error_rate": null,
+            "escalate_rate": 0.5
+          },
+          "wilson": {
+            "recall": [
+              0.342,
+              1.0
+            ],
+            "recall_all": [
+              0.51,
+              1.0
+            ],
+            "false_rejection": [
+              0.61,
+              1.0
+            ],
+            "silent_error_rate": null,
+            "escalate_rate": [
+              0.237,
+              0.763
+            ]
+          },
+          "bootstrap": {
+            "recall": [
+              1.0,
+              1.0
+            ],
+            "recall_all": [
+              1.0,
+              1.0
+            ],
+            "false_rejection": [
+              1.0,
+              1.0
+            ],
+            "escalate_rate": [
+              0.25,
+              0.667
+            ]
+          }
+        }
+      }
+    },
     "paired": {
       "baseline1 vs baseline2": {
         "only_a_right": 1,
@@ -3550,6 +4708,21 @@
         "only_b_right": 32,
         "p_value": 0.169
       },
+      "baseline1 vs intent_prompted_7b_p1v3": {
+        "only_a_right": 20,
+        "only_b_right": 38,
+        "p_value": 0.0247
+      },
+      "baseline1 vs intent_prompted_3b_p1v3": {
+        "only_a_right": 19,
+        "only_b_right": 38,
+        "p_value": 0.0163
+      },
+      "baseline1 vs intent_prompted_1_5b_p1v3": {
+        "only_a_right": 21,
+        "only_b_right": 32,
+        "p_value": 0.169
+      },
       "baseline2 vs intent_oracle": {
         "only_a_right": 0,
         "only_b_right": 14,
@@ -3585,6 +4758,21 @@
         "only_b_right": 13,
         "p_value": 0.0533
       },
+      "baseline2 vs intent_prompted_7b_p1v3": {
+        "only_a_right": 20,
+        "only_b_right": 14,
+        "p_value": 0.3915
+      },
+      "baseline2 vs intent_prompted_3b_p1v3": {
+        "only_a_right": 18,
+        "only_b_right": 13,
+        "p_value": 0.4731
+      },
+      "baseline2 vs intent_prompted_1_5b_p1v3": {
+        "only_a_right": 25,
+        "only_b_right": 12,
+        "p_value": 0.047
+      },
       "intent_oracle vs intent_prompted_7b": {
         "only_a_right": 20,
         "only_b_right": 0,
@@ -3615,6 +4803,21 @@
         "only_b_right": 0,
         "p_value": 0.0
       },
+      "intent_oracle vs intent_prompted_7b_p1v3": {
+        "only_a_right": 20,
+        "only_b_right": 0,
+        "p_value": 0.0
+      },
+      "intent_oracle vs intent_prompted_3b_p1v3": {
+        "only_a_right": 19,
+        "only_b_right": 0,
+        "p_value": 0.0
+      },
+      "intent_oracle vs intent_prompted_1_5b_p1v3": {
+        "only_a_right": 27,
+        "only_b_right": 0,
+        "p_value": 0.0
+      },
       "intent_prompted_7b vs intent_prompted_3b": {
         "only_a_right": 2,
         "only_b_right": 2,
@@ -3640,6 +4843,21 @@
         "only_b_right": 0,
         "p_value": 0.0156
       },
+      "intent_prompted_7b vs intent_prompted_7b_p1v3": {
+        "only_a_right": 0,
+        "only_b_right": 0,
+        "p_value": 1.0
+      },
+      "intent_prompted_7b vs intent_prompted_3b_p1v3": {
+        "only_a_right": 4,
+        "only_b_right": 5,
+        "p_value": 1.0
+      },
+      "intent_prompted_7b vs intent_prompted_1_5b_p1v3": {
+        "only_a_right": 10,
+        "only_b_right": 3,
+        "p_value": 0.0923
+      },
       "intent_prompted_3b vs intent_prompted_1_5b": {
         "only_a_right": 6,
         "only_b_right": 0,
@@ -3660,6 +4878,21 @@
         "only_b_right": 0,
         "p_value": 0.0156
       },
+      "intent_prompted_3b vs intent_prompted_7b_p1v3": {
+        "only_a_right": 2,
+        "only_b_right": 2,
+        "p_value": 1.0
+      },
+      "intent_prompted_3b vs intent_prompted_3b_p1v3": {
+        "only_a_right": 3,
+        "only_b_right": 4,
+        "p_value": 1.0
+      },
+      "intent_prompted_3b vs intent_prompted_1_5b_p1v3": {
+        "only_a_right": 11,
+        "only_b_right": 4,
+        "p_value": 0.1185
+      },
       "intent_prompted_1_5b vs intent_prompted_7b_p1v2": {
         "only_a_right": 7,
         "only_b_right": 12,
@@ -3675,6 +4908,21 @@
         "only_b_right": 4,
         "p_value": 1.0
       },
+      "intent_prompted_1_5b vs intent_prompted_7b_p1v3": {
+        "only_a_right": 0,
+        "only_b_right": 6,
+        "p_value": 0.0312
+      },
+      "intent_prompted_1_5b vs intent_prompted_3b_p1v3": {
+        "only_a_right": 3,
+        "only_b_right": 10,
+        "p_value": 0.0923
+      },
+      "intent_prompted_1_5b vs intent_prompted_1_5b_p1v3": {
+        "only_a_right": 9,
+        "only_b_right": 8,
+        "p_value": 1.0
+      },
       "intent_prompted_7b_p1v2 vs intent_prompted_3b_p1v2": {
         "only_a_right": 8,
         "only_b_right": 12,
@@ -3685,10 +4933,70 @@
         "only_b_right": 7,
         "p_value": 0.2632
       },
+      "intent_prompted_7b_p1v2 vs intent_prompted_7b_p1v3": {
+        "only_a_right": 6,
+        "only_b_right": 7,
+        "p_value": 1.0
+      },
+      "intent_prompted_7b_p1v2 vs intent_prompted_3b_p1v3": {
+        "only_a_right": 10,
+        "only_b_right": 12,
+        "p_value": 0.8318
+      },
+      "intent_prompted_7b_p1v2 vs intent_prompted_1_5b_p1v3": {
+        "only_a_right": 16,
+        "only_b_right": 10,
+        "p_value": 0.3269
+      },
       "intent_prompted_3b_p1v2 vs intent_prompted_1_5b_p1v2": {
         "only_a_right": 10,
         "only_b_right": 0,
         "p_value": 0.002
+      },
+      "intent_prompted_3b_p1v2 vs intent_prompted_7b_p1v3": {
+        "only_a_right": 5,
+        "only_b_right": 2,
+        "p_value": 0.4531
+      },
+      "intent_prompted_3b_p1v2 vs intent_prompted_3b_p1v3": {
+        "only_a_right": 3,
+        "only_b_right": 1,
+        "p_value": 0.625
+      },
+      "intent_prompted_3b_p1v2 vs intent_prompted_1_5b_p1v3": {
+        "only_a_right": 14,
+        "only_b_right": 4,
+        "p_value": 0.0309
+      },
+      "intent_prompted_1_5b_p1v2 vs intent_prompted_7b_p1v3": {
+        "only_a_right": 0,
+        "only_b_right": 7,
+        "p_value": 0.0156
+      },
+      "intent_prompted_1_5b_p1v2 vs intent_prompted_3b_p1v3": {
+        "only_a_right": 3,
+        "only_b_right": 11,
+        "p_value": 0.0574
+      },
+      "intent_prompted_1_5b_p1v2 vs intent_prompted_1_5b_p1v3": {
+        "only_a_right": 4,
+        "only_b_right": 4,
+        "p_value": 1.0
+      },
+      "intent_prompted_7b_p1v3 vs intent_prompted_3b_p1v3": {
+        "only_a_right": 4,
+        "only_b_right": 5,
+        "p_value": 1.0
+      },
+      "intent_prompted_7b_p1v3 vs intent_prompted_1_5b_p1v3": {
+        "only_a_right": 10,
+        "only_b_right": 3,
+        "p_value": 0.0923
+      },
+      "intent_prompted_3b_p1v3 vs intent_prompted_1_5b_p1v3": {
+        "only_a_right": 11,
+        "only_b_right": 3,
+        "p_value": 0.0574
       }
     }
   },
@@ -7272,6 +8580,1199 @@
         }
       }
     },
+    "intent_prompted_7b_p1v3": {
+      "overall": {
+        "counts": {
+          "n": 323,
+          "runnable": 295,
+          "correct": 197,
+          "wrong_runnable": 98,
+          "wrong_all": 126,
+          "accepted": 134,
+          "escalated": 83,
+          "wrong_runnable_rejected": 96,
+          "wrong_all_rejected": 124,
+          "correct_rejected": 65,
+          "wrong_accepted": 2
+        },
+        "rates": {
+          "recall": 0.98,
+          "recall_all": 0.984,
+          "false_rejection": 0.33,
+          "silent_error_rate": 0.015,
+          "escalate_rate": 0.257
+        },
+        "wilson": {
+          "recall": [
+            0.929,
+            0.994
+          ],
+          "recall_all": [
+            0.944,
+            0.996
+          ],
+          "false_rejection": [
+            0.268,
+            0.398
+          ],
+          "silent_error_rate": [
+            0.004,
+            0.053
+          ],
+          "escalate_rate": [
+            0.212,
+            0.307
+          ]
+        },
+        "bootstrap": {
+          "recall": [
+            0.943,
+            1.0
+          ],
+          "recall_all": [
+            0.955,
+            1.0
+          ],
+          "false_rejection": [
+            0.19,
+            0.476
+          ],
+          "silent_error_rate": [
+            0.0,
+            0.038
+          ],
+          "escalate_rate": [
+            0.136,
+            0.385
+          ]
+        }
+      },
+      "by_type": {
+        "column_transformation": {
+          "counts": {
+            "n": 48,
+            "runnable": 47,
+            "correct": 40,
+            "wrong_runnable": 7,
+            "wrong_all": 8,
+            "accepted": 10,
+            "escalated": 28,
+            "wrong_runnable_rejected": 7,
+            "wrong_all_rejected": 8,
+            "correct_rejected": 30,
+            "wrong_accepted": 0
+          },
+          "rates": {
+            "recall": 1.0,
+            "recall_all": 1.0,
+            "false_rejection": 0.75,
+            "silent_error_rate": 0.0,
+            "escalate_rate": 0.583
+          },
+          "wilson": {
+            "recall": [
+              0.646,
+              1.0
+            ],
+            "recall_all": [
+              0.676,
+              1.0
+            ],
+            "false_rejection": [
+              0.598,
+              0.858
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.278
+            ],
+            "escalate_rate": [
+              0.443,
+              0.712
+            ]
+          },
+          "bootstrap": {
+            "recall": [
+              1.0,
+              1.0
+            ],
+            "recall_all": [
+              1.0,
+              1.0
+            ],
+            "false_rejection": [
+              0.441,
+              1.0
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.0
+            ],
+            "escalate_rate": [
+              0.255,
+              0.873
+            ]
+          }
+        },
+        "deduplication": {
+          "counts": {
+            "n": 95,
+            "runnable": 78,
+            "correct": 25,
+            "wrong_runnable": 53,
+            "wrong_all": 70,
+            "accepted": 24,
+            "escalated": 16,
+            "wrong_runnable_rejected": 53,
+            "wrong_all_rejected": 70,
+            "correct_rejected": 1,
+            "wrong_accepted": 0
+          },
+          "rates": {
+            "recall": 1.0,
+            "recall_all": 1.0,
+            "false_rejection": 0.04,
+            "silent_error_rate": 0.0,
+            "escalate_rate": 0.168
+          },
+          "wilson": {
+            "recall": [
+              0.932,
+              1.0
+            ],
+            "recall_all": [
+              0.948,
+              1.0
+            ],
+            "false_rejection": [
+              0.007,
+              0.195
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.138
+            ],
+            "escalate_rate": [
+              0.106,
+              0.256
+            ]
+          },
+          "bootstrap": {
+            "recall": [
+              1.0,
+              1.0
+            ],
+            "recall_all": [
+              1.0,
+              1.0
+            ],
+            "false_rejection": [
+              0.0,
+              0.167
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.0
+            ],
+            "escalate_rate": [
+              0.0,
+              0.416
+            ]
+          }
+        },
+        "filtering": {
+          "counts": {
+            "n": 73,
+            "runnable": 71,
+            "correct": 51,
+            "wrong_runnable": 20,
+            "wrong_all": 22,
+            "accepted": 40,
+            "escalated": 19,
+            "wrong_runnable_rejected": 19,
+            "wrong_all_rejected": 21,
+            "correct_rejected": 12,
+            "wrong_accepted": 1
+          },
+          "rates": {
+            "recall": 0.95,
+            "recall_all": 0.955,
+            "false_rejection": 0.235,
+            "silent_error_rate": 0.025,
+            "escalate_rate": 0.26
+          },
+          "wilson": {
+            "recall": [
+              0.764,
+              0.991
+            ],
+            "recall_all": [
+              0.782,
+              0.992
+            ],
+            "false_rejection": [
+              0.14,
+              0.368
+            ],
+            "silent_error_rate": [
+              0.004,
+              0.129
+            ],
+            "escalate_rate": [
+              0.173,
+              0.371
+            ]
+          },
+          "bootstrap": {
+            "recall": [
+              0.556,
+              1.0
+            ],
+            "recall_all": [
+              0.556,
+              1.0
+            ],
+            "false_rejection": [
+              0.0,
+              0.542
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.108
+            ],
+            "escalate_rate": [
+              0.0,
+              0.54
+            ]
+          }
+        },
+        "missing_values": {
+          "counts": {
+            "n": 56,
+            "runnable": 56,
+            "correct": 52,
+            "wrong_runnable": 4,
+            "wrong_all": 4,
+            "accepted": 40,
+            "escalated": 8,
+            "wrong_runnable_rejected": 3,
+            "wrong_all_rejected": 3,
+            "correct_rejected": 13,
+            "wrong_accepted": 1
+          },
+          "rates": {
+            "recall": 0.75,
+            "recall_all": 0.75,
+            "false_rejection": 0.25,
+            "silent_error_rate": 0.025,
+            "escalate_rate": 0.143
+          },
+          "wilson": {
+            "recall": [
+              0.301,
+              0.954
+            ],
+            "recall_all": [
+              0.301,
+              0.954
+            ],
+            "false_rejection": [
+              0.152,
+              0.382
+            ],
+            "silent_error_rate": [
+              0.004,
+              0.129
+            ],
+            "escalate_rate": [
+              0.074,
+              0.257
+            ]
+          },
+          "bootstrap": {
+            "recall": [
+              0.5,
+              1.0
+            ],
+            "recall_all": [
+              0.5,
+              1.0
+            ],
+            "false_rejection": [
+              0.0,
+              0.559
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.067
+            ],
+            "escalate_rate": [
+              0.0,
+              0.429
+            ]
+          }
+        },
+        "type_conversion": {
+          "counts": {
+            "n": 51,
+            "runnable": 43,
+            "correct": 29,
+            "wrong_runnable": 14,
+            "wrong_all": 22,
+            "accepted": 20,
+            "escalated": 12,
+            "wrong_runnable_rejected": 14,
+            "wrong_all_rejected": 22,
+            "correct_rejected": 9,
+            "wrong_accepted": 0
+          },
+          "rates": {
+            "recall": 1.0,
+            "recall_all": 1.0,
+            "false_rejection": 0.31,
+            "silent_error_rate": 0.0,
+            "escalate_rate": 0.235
+          },
+          "wilson": {
+            "recall": [
+              0.785,
+              1.0
+            ],
+            "recall_all": [
+              0.851,
+              1.0
+            ],
+            "false_rejection": [
+              0.173,
+              0.492
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.161
+            ],
+            "escalate_rate": [
+              0.14,
+              0.368
+            ]
+          },
+          "bootstrap": {
+            "recall": [
+              1.0,
+              1.0
+            ],
+            "recall_all": [
+              1.0,
+              1.0
+            ],
+            "false_rejection": [
+              0.0,
+              0.649
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.0
+            ],
+            "escalate_rate": [
+              0.0,
+              0.56
+            ]
+          }
+        }
+      }
+    },
+    "intent_prompted_3b_p1v3": {
+      "overall": {
+        "counts": {
+          "n": 323,
+          "runnable": 295,
+          "correct": 197,
+          "wrong_runnable": 98,
+          "wrong_all": 126,
+          "accepted": 125,
+          "escalated": 70,
+          "wrong_runnable_rejected": 95,
+          "wrong_all_rejected": 123,
+          "correct_rejected": 75,
+          "wrong_accepted": 3
+        },
+        "rates": {
+          "recall": 0.969,
+          "recall_all": 0.976,
+          "false_rejection": 0.381,
+          "silent_error_rate": 0.024,
+          "escalate_rate": 0.217
+        },
+        "wilson": {
+          "recall": [
+            0.914,
+            0.99
+          ],
+          "recall_all": [
+            0.932,
+            0.992
+          ],
+          "false_rejection": [
+            0.316,
+            0.45
+          ],
+          "silent_error_rate": [
+            0.008,
+            0.068
+          ],
+          "escalate_rate": [
+            0.175,
+            0.265
+          ]
+        },
+        "bootstrap": {
+          "recall": [
+            0.927,
+            1.0
+          ],
+          "recall_all": [
+            0.943,
+            1.0
+          ],
+          "false_rejection": [
+            0.227,
+            0.531
+          ],
+          "silent_error_rate": [
+            0.0,
+            0.055
+          ],
+          "escalate_rate": [
+            0.112,
+            0.34
+          ]
+        }
+      },
+      "by_type": {
+        "column_transformation": {
+          "counts": {
+            "n": 48,
+            "runnable": 47,
+            "correct": 40,
+            "wrong_runnable": 7,
+            "wrong_all": 8,
+            "accepted": 34,
+            "escalated": 8,
+            "wrong_runnable_rejected": 6,
+            "wrong_all_rejected": 7,
+            "correct_rejected": 7,
+            "wrong_accepted": 1
+          },
+          "rates": {
+            "recall": 0.857,
+            "recall_all": 0.875,
+            "false_rejection": 0.175,
+            "silent_error_rate": 0.029,
+            "escalate_rate": 0.167
+          },
+          "wilson": {
+            "recall": [
+              0.487,
+              0.974
+            ],
+            "recall_all": [
+              0.529,
+              0.978
+            ],
+            "false_rejection": [
+              0.087,
+              0.32
+            ],
+            "silent_error_rate": [
+              0.005,
+              0.149
+            ],
+            "escalate_rate": [
+              0.087,
+              0.296
+            ]
+          },
+          "bootstrap": {
+            "recall": [
+              0.333,
+              1.0
+            ],
+            "recall_all": [
+              0.429,
+              1.0
+            ],
+            "false_rejection": [
+              0.0,
+              0.421
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.1
+            ],
+            "escalate_rate": [
+              0.0,
+              0.39
+            ]
+          }
+        },
+        "deduplication": {
+          "counts": {
+            "n": 95,
+            "runnable": 78,
+            "correct": 25,
+            "wrong_runnable": 53,
+            "wrong_all": 70,
+            "accepted": 14,
+            "escalated": 9,
+            "wrong_runnable_rejected": 53,
+            "wrong_all_rejected": 70,
+            "correct_rejected": 11,
+            "wrong_accepted": 0
+          },
+          "rates": {
+            "recall": 1.0,
+            "recall_all": 1.0,
+            "false_rejection": 0.44,
+            "silent_error_rate": 0.0,
+            "escalate_rate": 0.095
+          },
+          "wilson": {
+            "recall": [
+              0.932,
+              1.0
+            ],
+            "recall_all": [
+              0.948,
+              1.0
+            ],
+            "false_rejection": [
+              0.267,
+              0.629
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.215
+            ],
+            "escalate_rate": [
+              0.051,
+              0.17
+            ]
+          },
+          "bootstrap": {
+            "recall": [
+              1.0,
+              1.0
+            ],
+            "recall_all": [
+              1.0,
+              1.0
+            ],
+            "false_rejection": [
+              0.0,
+              0.8
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.0
+            ],
+            "escalate_rate": [
+              0.0,
+              0.297
+            ]
+          }
+        },
+        "filtering": {
+          "counts": {
+            "n": 73,
+            "runnable": 71,
+            "correct": 51,
+            "wrong_runnable": 20,
+            "wrong_all": 22,
+            "accepted": 42,
+            "escalated": 16,
+            "wrong_runnable_rejected": 18,
+            "wrong_all_rejected": 20,
+            "correct_rejected": 11,
+            "wrong_accepted": 2
+          },
+          "rates": {
+            "recall": 0.9,
+            "recall_all": 0.909,
+            "false_rejection": 0.216,
+            "silent_error_rate": 0.048,
+            "escalate_rate": 0.219
+          },
+          "wilson": {
+            "recall": [
+              0.699,
+              0.972
+            ],
+            "recall_all": [
+              0.722,
+              0.975
+            ],
+            "false_rejection": [
+              0.125,
+              0.346
+            ],
+            "silent_error_rate": [
+              0.013,
+              0.158
+            ],
+            "escalate_rate": [
+              0.14,
+              0.327
+            ]
+          },
+          "bootstrap": {
+            "recall": [
+              0.556,
+              1.0
+            ],
+            "recall_all": [
+              0.556,
+              1.0
+            ],
+            "false_rejection": [
+              0.0,
+              0.529
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.143
+            ],
+            "escalate_rate": [
+              0.0,
+              0.493
+            ]
+          }
+        },
+        "missing_values": {
+          "counts": {
+            "n": 56,
+            "runnable": 56,
+            "correct": 52,
+            "wrong_runnable": 4,
+            "wrong_all": 4,
+            "accepted": 11,
+            "escalated": 28,
+            "wrong_runnable_rejected": 4,
+            "wrong_all_rejected": 4,
+            "correct_rejected": 41,
+            "wrong_accepted": 0
+          },
+          "rates": {
+            "recall": 1.0,
+            "recall_all": 1.0,
+            "false_rejection": 0.788,
+            "silent_error_rate": 0.0,
+            "escalate_rate": 0.5
+          },
+          "wilson": {
+            "recall": [
+              0.51,
+              1.0
+            ],
+            "recall_all": [
+              0.51,
+              1.0
+            ],
+            "false_rejection": [
+              0.66,
+              0.878
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.259
+            ],
+            "escalate_rate": [
+              0.373,
+              0.627
+            ]
+          },
+          "bootstrap": {
+            "recall": [
+              1.0,
+              1.0
+            ],
+            "recall_all": [
+              1.0,
+              1.0
+            ],
+            "false_rejection": [
+              0.49,
+              1.0
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.0
+            ],
+            "escalate_rate": [
+              0.138,
+              0.814
+            ]
+          }
+        },
+        "type_conversion": {
+          "counts": {
+            "n": 51,
+            "runnable": 43,
+            "correct": 29,
+            "wrong_runnable": 14,
+            "wrong_all": 22,
+            "accepted": 24,
+            "escalated": 9,
+            "wrong_runnable_rejected": 14,
+            "wrong_all_rejected": 22,
+            "correct_rejected": 5,
+            "wrong_accepted": 0
+          },
+          "rates": {
+            "recall": 1.0,
+            "recall_all": 1.0,
+            "false_rejection": 0.172,
+            "silent_error_rate": 0.0,
+            "escalate_rate": 0.176
+          },
+          "wilson": {
+            "recall": [
+              0.785,
+              1.0
+            ],
+            "recall_all": [
+              0.851,
+              1.0
+            ],
+            "false_rejection": [
+              0.076,
+              0.345
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.138
+            ],
+            "escalate_rate": [
+              0.096,
+              0.303
+            ]
+          },
+          "bootstrap": {
+            "recall": [
+              1.0,
+              1.0
+            ],
+            "recall_all": [
+              1.0,
+              1.0
+            ],
+            "false_rejection": [
+              0.0,
+              0.484
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.0
+            ],
+            "escalate_rate": [
+              0.0,
+              0.393
+            ]
+          }
+        }
+      }
+    },
+    "intent_prompted_1_5b_p1v3": {
+      "overall": {
+        "counts": {
+          "n": 323,
+          "runnable": 295,
+          "correct": 197,
+          "wrong_runnable": 98,
+          "wrong_all": 126,
+          "accepted": 52,
+          "escalated": 103,
+          "wrong_runnable_rejected": 97,
+          "wrong_all_rejected": 125,
+          "correct_rejected": 146,
+          "wrong_accepted": 1
+        },
+        "rates": {
+          "recall": 0.99,
+          "recall_all": 0.992,
+          "false_rejection": 0.741,
+          "silent_error_rate": 0.019,
+          "escalate_rate": 0.319
+        },
+        "wilson": {
+          "recall": [
+            0.944,
+            0.998
+          ],
+          "recall_all": [
+            0.956,
+            0.999
+          ],
+          "false_rejection": [
+            0.676,
+            0.797
+          ],
+          "silent_error_rate": [
+            0.003,
+            0.101
+          ],
+          "escalate_rate": [
+            0.27,
+            0.372
+          ]
+        },
+        "bootstrap": {
+          "recall": [
+            0.962,
+            1.0
+          ],
+          "recall_all": [
+            0.971,
+            1.0
+          ],
+          "false_rejection": [
+            0.6,
+            0.863
+          ],
+          "silent_error_rate": [
+            0.0,
+            0.077
+          ],
+          "escalate_rate": [
+            0.191,
+            0.455
+          ]
+        }
+      },
+      "by_type": {
+        "column_transformation": {
+          "counts": {
+            "n": 48,
+            "runnable": 47,
+            "correct": 40,
+            "wrong_runnable": 7,
+            "wrong_all": 8,
+            "accepted": 13,
+            "escalated": 20,
+            "wrong_runnable_rejected": 7,
+            "wrong_all_rejected": 8,
+            "correct_rejected": 27,
+            "wrong_accepted": 0
+          },
+          "rates": {
+            "recall": 1.0,
+            "recall_all": 1.0,
+            "false_rejection": 0.675,
+            "silent_error_rate": 0.0,
+            "escalate_rate": 0.417
+          },
+          "wilson": {
+            "recall": [
+              0.646,
+              1.0
+            ],
+            "recall_all": [
+              0.676,
+              1.0
+            ],
+            "false_rejection": [
+              0.52,
+              0.799
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.228
+            ],
+            "escalate_rate": [
+              0.288,
+              0.557
+            ]
+          },
+          "bootstrap": {
+            "recall": [
+              1.0,
+              1.0
+            ],
+            "recall_all": [
+              1.0,
+              1.0
+            ],
+            "false_rejection": [
+              0.375,
+              1.0
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.0
+            ],
+            "escalate_rate": [
+              0.093,
+              0.744
+            ]
+          }
+        },
+        "deduplication": {
+          "counts": {
+            "n": 95,
+            "runnable": 78,
+            "correct": 25,
+            "wrong_runnable": 53,
+            "wrong_all": 70,
+            "accepted": 4,
+            "escalated": 19,
+            "wrong_runnable_rejected": 52,
+            "wrong_all_rejected": 69,
+            "correct_rejected": 22,
+            "wrong_accepted": 1
+          },
+          "rates": {
+            "recall": 0.981,
+            "recall_all": 0.986,
+            "false_rejection": 0.88,
+            "silent_error_rate": 0.25,
+            "escalate_rate": 0.2
+          },
+          "wilson": {
+            "recall": [
+              0.901,
+              0.997
+            ],
+            "recall_all": [
+              0.923,
+              0.997
+            ],
+            "false_rejection": [
+              0.7,
+              0.958
+            ],
+            "silent_error_rate": [
+              0.046,
+              0.699
+            ],
+            "escalate_rate": [
+              0.132,
+              0.291
+            ]
+          },
+          "bootstrap": {
+            "recall": [
+              0.917,
+              1.0
+            ],
+            "recall_all": [
+              0.943,
+              1.0
+            ],
+            "false_rejection": [
+              0.571,
+              1.0
+            ],
+            "silent_error_rate": [
+              0.0,
+              1.0
+            ],
+            "escalate_rate": [
+              0.0,
+              0.48
+            ]
+          }
+        },
+        "filtering": {
+          "counts": {
+            "n": 73,
+            "runnable": 71,
+            "correct": 51,
+            "wrong_runnable": 20,
+            "wrong_all": 22,
+            "accepted": 11,
+            "escalated": 32,
+            "wrong_runnable_rejected": 20,
+            "wrong_all_rejected": 22,
+            "correct_rejected": 40,
+            "wrong_accepted": 0
+          },
+          "rates": {
+            "recall": 1.0,
+            "recall_all": 1.0,
+            "false_rejection": 0.784,
+            "silent_error_rate": 0.0,
+            "escalate_rate": 0.438
+          },
+          "wilson": {
+            "recall": [
+              0.839,
+              1.0
+            ],
+            "recall_all": [
+              0.851,
+              1.0
+            ],
+            "false_rejection": [
+              0.654,
+              0.875
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.259
+            ],
+            "escalate_rate": [
+              0.33,
+              0.552
+            ]
+          },
+          "bootstrap": {
+            "recall": [
+              1.0,
+              1.0
+            ],
+            "recall_all": [
+              1.0,
+              1.0
+            ],
+            "false_rejection": [
+              0.5,
+              1.0
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.0
+            ],
+            "escalate_rate": [
+              0.113,
+              0.725
+            ]
+          }
+        },
+        "missing_values": {
+          "counts": {
+            "n": 56,
+            "runnable": 56,
+            "correct": 52,
+            "wrong_runnable": 4,
+            "wrong_all": 4,
+            "accepted": 0,
+            "escalated": 31,
+            "wrong_runnable_rejected": 4,
+            "wrong_all_rejected": 4,
+            "correct_rejected": 52,
+            "wrong_accepted": 0
+          },
+          "rates": {
+            "recall": 1.0,
+            "recall_all": 1.0,
+            "false_rejection": 1.0,
+            "silent_error_rate": null,
+            "escalate_rate": 0.554
+          },
+          "wilson": {
+            "recall": [
+              0.51,
+              1.0
+            ],
+            "recall_all": [
+              0.51,
+              1.0
+            ],
+            "false_rejection": [
+              0.931,
+              1.0
+            ],
+            "silent_error_rate": null,
+            "escalate_rate": [
+              0.424,
+              0.676
+            ]
+          },
+          "bootstrap": {
+            "recall": [
+              1.0,
+              1.0
+            ],
+            "recall_all": [
+              1.0,
+              1.0
+            ],
+            "false_rejection": [
+              1.0,
+              1.0
+            ],
+            "escalate_rate": [
+              0.227,
+              0.896
+            ]
+          }
+        },
+        "type_conversion": {
+          "counts": {
+            "n": 51,
+            "runnable": 43,
+            "correct": 29,
+            "wrong_runnable": 14,
+            "wrong_all": 22,
+            "accepted": 24,
+            "escalated": 1,
+            "wrong_runnable_rejected": 14,
+            "wrong_all_rejected": 22,
+            "correct_rejected": 5,
+            "wrong_accepted": 0
+          },
+          "rates": {
+            "recall": 1.0,
+            "recall_all": 1.0,
+            "false_rejection": 0.172,
+            "silent_error_rate": 0.0,
+            "escalate_rate": 0.02
+          },
+          "wilson": {
+            "recall": [
+              0.785,
+              1.0
+            ],
+            "recall_all": [
+              0.851,
+              1.0
+            ],
+            "false_rejection": [
+              0.076,
+              0.345
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.138
+            ],
+            "escalate_rate": [
+              0.003,
+              0.103
+            ]
+          },
+          "bootstrap": {
+            "recall": [
+              1.0,
+              1.0
+            ],
+            "recall_all": [
+              1.0,
+              1.0
+            ],
+            "false_rejection": [
+              0.0,
+              0.484
+            ],
+            "silent_error_rate": [
+              0.0,
+              0.0
+            ],
+            "escalate_rate": [
+              0.0,
+              0.06
+            ]
+          }
+        }
+      }
+    },
     "paired": {
       "baseline1 vs baseline2": {
         "only_a_right": 16,
@@ -7313,6 +9814,21 @@
         "only_b_right": 96,
         "p_value": 0.0023
       },
+      "baseline1 vs intent_prompted_7b_p1v3": {
+        "only_a_right": 65,
+        "only_b_right": 96,
+        "p_value": 0.0178
+      },
+      "baseline1 vs intent_prompted_3b_p1v3": {
+        "only_a_right": 75,
+        "only_b_right": 95,
+        "p_value": 0.1448
+      },
+      "baseline1 vs intent_prompted_1_5b_p1v3": {
+        "only_a_right": 146,
+        "only_b_right": 97,
+        "p_value": 0.002
+      },
       "baseline2 vs intent_oracle": {
         "only_a_right": 0,
         "only_b_right": 62,
@@ -7348,6 +9864,21 @@
         "only_b_right": 46,
         "p_value": 0.0
       },
+      "baseline2 vs intent_prompted_7b_p1v3": {
+        "only_a_right": 65,
+        "only_b_right": 62,
+        "p_value": 0.8592
+      },
+      "baseline2 vs intent_prompted_3b_p1v3": {
+        "only_a_right": 72,
+        "only_b_right": 58,
+        "p_value": 0.2541
+      },
+      "baseline2 vs intent_prompted_1_5b_p1v3": {
+        "only_a_right": 130,
+        "only_b_right": 47,
+        "p_value": 0.0
+      },
       "intent_oracle vs intent_prompted_7b": {
         "only_a_right": 94,
         "only_b_right": 2,
@@ -7378,6 +9909,21 @@
         "only_b_right": 1,
         "p_value": 0.0
       },
+      "intent_oracle vs intent_prompted_7b_p1v3": {
+        "only_a_right": 66,
+        "only_b_right": 1,
+        "p_value": 0.0
+      },
+      "intent_oracle vs intent_prompted_3b_p1v3": {
+        "only_a_right": 77,
+        "only_b_right": 1,
+        "p_value": 0.0
+      },
+      "intent_oracle vs intent_prompted_1_5b_p1v3": {
+        "only_a_right": 147,
+        "only_b_right": 2,
+        "p_value": 0.0
+      },
       "intent_prompted_7b vs intent_prompted_3b": {
         "only_a_right": 51,
         "only_b_right": 23,
@@ -7403,6 +9949,21 @@
         "only_b_right": 25,
         "p_value": 0.0
       },
+      "intent_prompted_7b vs intent_prompted_7b_p1v3": {
+        "only_a_right": 9,
+        "only_b_right": 36,
+        "p_value": 0.0001
+      },
+      "intent_prompted_7b vs intent_prompted_3b_p1v3": {
+        "only_a_right": 44,
+        "only_b_right": 60,
+        "p_value": 0.141
+      },
+      "intent_prompted_7b vs intent_prompted_1_5b_p1v3": {
+        "only_a_right": 79,
+        "only_b_right": 26,
+        "p_value": 0.0
+      },
       "intent_prompted_3b vs intent_prompted_1_5b": {
         "only_a_right": 43,
         "only_b_right": 6,
@@ -7423,6 +9984,21 @@
         "only_b_right": 25,
         "p_value": 0.0071
       },
+      "intent_prompted_3b vs intent_prompted_7b_p1v3": {
+        "only_a_right": 18,
+        "only_b_right": 73,
+        "p_value": 0.0
+      },
+      "intent_prompted_3b vs intent_prompted_3b_p1v3": {
+        "only_a_right": 6,
+        "only_b_right": 50,
+        "p_value": 0.0
+      },
+      "intent_prompted_3b vs intent_prompted_1_5b_p1v3": {
+        "only_a_right": 59,
+        "only_b_right": 34,
+        "p_value": 0.0124
+      },
       "intent_prompted_1_5b vs intent_prompted_7b_p1v2": {
         "only_a_right": 8,
         "only_b_right": 85,
@@ -7438,6 +10014,21 @@
         "only_b_right": 25,
         "p_value": 0.047
       },
+      "intent_prompted_1_5b vs intent_prompted_7b_p1v3": {
+        "only_a_right": 9,
+        "only_b_right": 101,
+        "p_value": 0.0
+      },
+      "intent_prompted_1_5b vs intent_prompted_3b_p1v3": {
+        "only_a_right": 4,
+        "only_b_right": 85,
+        "p_value": 0.0
+      },
+      "intent_prompted_1_5b vs intent_prompted_1_5b_p1v3": {
+        "only_a_right": 24,
+        "only_b_right": 36,
+        "p_value": 0.155
+      },
       "intent_prompted_7b_p1v2 vs intent_prompted_3b_p1v2": {
         "only_a_right": 49,
         "only_b_right": 32,
@@ -7448,9 +10039,69 @@
         "only_b_right": 20,
         "p_value": 0.0
       },
+      "intent_prompted_7b_p1v2 vs intent_prompted_7b_p1v3": {
+        "only_a_right": 21,
+        "only_b_right": 36,
+        "p_value": 0.0627
+      },
+      "intent_prompted_7b_p1v2 vs intent_prompted_3b_p1v3": {
+        "only_a_right": 45,
+        "only_b_right": 49,
+        "p_value": 0.7572
+      },
+      "intent_prompted_7b_p1v2 vs intent_prompted_1_5b_p1v3": {
+        "only_a_right": 96,
+        "only_b_right": 31,
+        "p_value": 0.0
+      },
       "intent_prompted_3b_p1v2 vs intent_prompted_1_5b_p1v2": {
         "only_a_right": 52,
         "only_b_right": 5,
+        "p_value": 0.0
+      },
+      "intent_prompted_3b_p1v2 vs intent_prompted_7b_p1v3": {
+        "only_a_right": 24,
+        "only_b_right": 56,
+        "p_value": 0.0005
+      },
+      "intent_prompted_3b_p1v2 vs intent_prompted_3b_p1v3": {
+        "only_a_right": 12,
+        "only_b_right": 33,
+        "p_value": 0.0025
+      },
+      "intent_prompted_3b_p1v2 vs intent_prompted_1_5b_p1v3": {
+        "only_a_right": 71,
+        "only_b_right": 23,
+        "p_value": 0.0
+      },
+      "intent_prompted_1_5b_p1v2 vs intent_prompted_7b_p1v3": {
+        "only_a_right": 15,
+        "only_b_right": 94,
+        "p_value": 0.0
+      },
+      "intent_prompted_1_5b_p1v2 vs intent_prompted_3b_p1v3": {
+        "only_a_right": 5,
+        "only_b_right": 73,
+        "p_value": 0.0
+      },
+      "intent_prompted_1_5b_p1v2 vs intent_prompted_1_5b_p1v3": {
+        "only_a_right": 24,
+        "only_b_right": 23,
+        "p_value": 1.0
+      },
+      "intent_prompted_7b_p1v3 vs intent_prompted_3b_p1v3": {
+        "only_a_right": 46,
+        "only_b_right": 35,
+        "p_value": 0.2664
+      },
+      "intent_prompted_7b_p1v3 vs intent_prompted_1_5b_p1v3": {
+        "only_a_right": 91,
+        "only_b_right": 11,
+        "p_value": 0.0
+      },
+      "intent_prompted_3b_p1v3 vs intent_prompted_1_5b_p1v3": {
+        "only_a_right": 75,
+        "only_b_right": 6,
         "p_value": 0.0
       }
     }

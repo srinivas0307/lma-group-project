@@ -13,7 +13,7 @@
       "execution": 34,
       "alignment_content": 7,
       "uncertain_predicate_not_evaluable": 30,
-      "uncertain_unknown_column": 11
+      "uncertain_unknown_column": 6
     },
     "intent_prompted_1_5b_change_only": {
       "alignment_None": 201,
@@ -28,14 +28,14 @@
     },
     "intent_prompted_1_5b_preserve_only": {
       "alignment_None": 201,
-      "UNCERTAIN": 212,
+      "UNCERTAIN": 207,
       "uncertain_invalid_contract": 201,
       "alignment_index": 153,
-      "PASS": 121,
+      "PASS": 126,
       "execution": 34,
       "VIOLATION": 28,
       "alignment_content": 7,
-      "uncertain_unknown_column": 11
+      "uncertain_unknown_column": 6
     }
   }
 }

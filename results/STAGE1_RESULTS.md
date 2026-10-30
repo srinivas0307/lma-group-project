@@ -135,6 +135,10 @@ Baseline 2 vs 7B p1-v2: 73 vs 55, p = 0.13 (no longer significantly worse, not b
 **Findings:** format rules cut invalid outputs (most for 3B: 44% → 29%) and false rejections, but 29–44% of contracts
 are still invalid. The remaining errors are the same kinds (condition ops outside the vocabulary, merged arguments,
 pandas dtype names, `keep` with the wrong op): small prompted models don't follow a strict schema reliably.
-**Decision:** no more prompt editing (more rounds would mean tuning on what we've seen). p1-v2 is the Baseline 3
-prompt. Remaining format reliability is addressed the same way for every parser (OI-9) and is the main motivation
+**Update 2026-10-30:** a coverage gap was found by inspecting the prompt: the few-shot examples demonstrate only 1 of 14
+functions and 4 of 10 condition operators. Prompt p1-v3 adds a reference card covering the whole vocabulary (design
+rule, README §12). The final Baseline 3 version is chosen per model on the **dev** split only
+(`results/parsers_v2/baseline3_selection.json`); all three versions are reported. Caveat: p1-v1 and p1-v2 test results
+had been seen, and the gap was quantified on test (7B p1-v2: 57% invalid when the gold contract needs a function or
+operator the examples don't show, vs 14% otherwise). Remaining format reliability is addressed the same way for every parser (OI-9) and is the main motivation
 for fine-tuning.

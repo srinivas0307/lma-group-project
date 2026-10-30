@@ -89,6 +89,51 @@
       }
     }
   },
+  "intent_prompted_1_5b_p1v3": {
+    "folder": "/home/srinivas-billuri/4-1/LMA/intent-parser/outputs/parse_qwen25-15b-instruct_p1-v3",
+    "overall": {
+      "n_tasks": 120,
+      "invalid_rate": 0.342,
+      "exact_match": 0.092,
+      "must_change": {
+        "precision": 0.534,
+        "recall": 0.323,
+        "f1": 0.403,
+        "tp": 93,
+        "fp": 81,
+        "fn": 195
+      },
+      "must_preserve": {
+        "precision": 0.962,
+        "recall": 0.577,
+        "f1": 0.721,
+        "tp": 1149,
+        "fp": 45,
+        "fn": 843
+      }
+    },
+    "test": {
+      "n_tasks": 100,
+      "invalid_rate": 0.34,
+      "exact_match": 0.08,
+      "must_change": {
+        "precision": 0.503,
+        "recall": 0.325,
+        "f1": 0.395,
+        "tp": 75,
+        "fp": 74,
+        "fn": 156
+      },
+      "must_preserve": {
+        "precision": 0.963,
+        "recall": 0.588,
+        "f1": 0.73,
+        "tp": 979,
+        "fp": 38,
+        "fn": 685
+      }
+    }
+  },
   "intent_prompted_3b": {
     "folder": "/home/srinivas-billuri/4-1/LMA/intent-parser/outputs/parse_qwen25-3b-instruct_p1-v1",
     "overall": {
@@ -179,6 +224,51 @@
       }
     }
   },
+  "intent_prompted_3b_p1v3": {
+    "folder": "/home/srinivas-billuri/4-1/LMA/intent-parser/outputs/parse_qwen25-3b-instruct_p1-v3",
+    "overall": {
+      "n_tasks": 120,
+      "invalid_rate": 0.25,
+      "exact_match": 0.117,
+      "must_change": {
+        "precision": 0.566,
+        "recall": 0.462,
+        "f1": 0.509,
+        "tp": 133,
+        "fp": 102,
+        "fn": 155
+      },
+      "must_preserve": {
+        "precision": 0.969,
+        "recall": 0.701,
+        "f1": 0.814,
+        "tp": 1397,
+        "fp": 45,
+        "fn": 595
+      }
+    },
+    "test": {
+      "n_tasks": 100,
+      "invalid_rate": 0.22,
+      "exact_match": 0.11,
+      "must_change": {
+        "precision": 0.556,
+        "recall": 0.498,
+        "f1": 0.525,
+        "tp": 115,
+        "fp": 92,
+        "fn": 116
+      },
+      "must_preserve": {
+        "precision": 0.972,
+        "recall": 0.725,
+        "f1": 0.831,
+        "tp": 1207,
+        "fp": 35,
+        "fn": 457
+      }
+    }
+  },
   "intent_prompted_7b": {
     "folder": "/home/srinivas-billuri/4-1/LMA/intent-parser/outputs/parse_qwen25-7b-instruct_p1-v1",
     "overall": {
@@ -266,6 +356,51 @@
         "tp": 1062,
         "fp": 21,
         "fn": 602
+      }
+    }
+  },
+  "intent_prompted_7b_p1v3": {
+    "folder": "/home/srinivas-billuri/4-1/LMA/intent-parser/outputs/parse_qwen25-7b-instruct_p1-v3",
+    "overall": {
+      "n_tasks": 120,
+      "invalid_rate": 0.15,
+      "exact_match": 0.258,
+      "must_change": {
+        "precision": 0.888,
+        "recall": 0.66,
+        "f1": 0.757,
+        "tp": 190,
+        "fp": 24,
+        "fn": 98
+      },
+      "must_preserve": {
+        "precision": 0.981,
+        "recall": 0.821,
+        "f1": 0.894,
+        "tp": 1636,
+        "fp": 31,
+        "fn": 356
+      }
+    },
+    "test": {
+      "n_tasks": 100,
+      "invalid_rate": 0.13,
+      "exact_match": 0.27,
+      "must_change": {
+        "precision": 0.874,
+        "recall": 0.658,
+        "f1": 0.751,
+        "tp": 152,
+        "fp": 22,
+        "fn": 79
+      },
+      "must_preserve": {
+        "precision": 0.984,
+        "recall": 0.84,
+        "f1": 0.906,
+        "tp": 1397,
+        "fp": 23,
+        "fn": 267
       }
     }
   }

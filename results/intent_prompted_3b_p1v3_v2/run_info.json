@@ -1,0 +1,42 @@
+{
+  "pool": "/home/srinivas-billuri/4-1/LMA/intent-parser/eval/pool_v2/pool_v2.jsonl",
+  "n_candidates": 395,
+  "contracts": "/home/srinivas-billuri/4-1/LMA/intent-parser/outputs/parse_qwen25-3b-instruct_p1-v3/parses.jsonl",
+  "stats": {
+    "intent_prompted_3b_p1v3": {
+      "alignment_index": 257,
+      "PASS": 134,
+      "UNCERTAIN": 101,
+      "uncertain_unknown_column": 9,
+      "alignment_None": 90,
+      "uncertain_invalid_contract": 90,
+      "execution": 34,
+      "VIOLATION": 126,
+      "uncertain_predicate_not_evaluable": 4,
+      "alignment_content": 14
+    },
+    "intent_prompted_3b_p1v3_change_only": {
+      "alignment_index": 257,
+      "PASS": 154,
+      "alignment_None": 90,
+      "UNCERTAIN": 98,
+      "uncertain_invalid_contract": 90,
+      "execution": 34,
+      "VIOLATION": 109,
+      "uncertain_predicate_not_evaluable": 4,
+      "alignment_content": 14,
+      "uncertain_unknown_column": 5
+    },
+    "intent_prompted_3b_p1v3_preserve_only": {
+      "alignment_index": 257,
+      "PASS": 203,
+      "UNCERTAIN": 94,
+      "uncertain_unknown_column": 4,
+      "alignment_None": 90,
+      "uncertain_invalid_contract": 90,
+      "execution": 34,
+      "VIOLATION": 64,
+      "alignment_content": 14
+    }
+  }
+}

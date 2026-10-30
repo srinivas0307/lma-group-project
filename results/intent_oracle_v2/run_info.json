@@ -1,6 +1,7 @@
 {
   "pool": "/home/srinivas-billuri/4-1/LMA/intent-parser/eval/pool_v2/pool_v2.jsonl",
   "n_candidates": 395,
+  "contracts": "gold",
   "stats": {
     "intent_oracle": {
       "alignment_index": 345,

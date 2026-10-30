@@ -23,7 +23,7 @@ Request: Drop the penguins that weigh under 3500 g.      ```
 ```
 
 You only write the **request**, the **contract** and a **reference solution** per example.
-`finetune/data_gen/build_sft.py` produces the exact chat format above.
+`finetune/data_gen/build_sft.py` produces the exact chat format above (system prompt version p1-v2, recorded in the adapter).
 
 ## 2. Hard rules (the evaluation is invalid if these are broken)
 
@@ -165,7 +165,7 @@ If more than ~5% are wrong, fix the templates and regenerate. Save the review as
 ## 9. Done when
 
 - [ ] 6–10 training datasets saved with profiles, licences and checksums; validation datasets chosen
-- [ ] 30+ patterns covering all 11 predicates and all five types
+- [ ] 30+ patterns covering all 11 predicates, all 14 relation functions, all condition operators (incl. `in`, `not_in`, `any`, `not`) and all five types
 - [ ] ≥ 3,000 examples pass `check_examples.py`; balance targets met (report)
 - [ ] 0 leakage drops left unexplained; no evaluation dataset used
 - [ ] 100-example hand review done, ≤ 5% wrong

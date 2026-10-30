@@ -201,3 +201,12 @@ def test_directions_filter():
     assert verify(c, B, damaged)[0].status == "VIOLATION"
     assert verify(c, B, damaged, ("must_change",))[0].status == "PASS"
     assert verify(c, B, damaged, ("must_preserve",))[0].status == "VIOLATION"
+
+
+def test_except_may_name_a_new_column():
+    """`except` only removes names from the "*" expansion; naming a column the transformation adds is harmless."""
+    c = {"must_change": [{"type": "columns_added", "target": ["z"]}],
+         "must_preserve": [{"type": "columns_unchanged", "target": "*", "except": ["z"]}]}
+    assert verify(c, B, B.assign(z=1))[0].status == "PASS"
+    st, v, _ = V([{"type": "null_count", "target": "nope", "op": "eq", "value": 0}], B)   # a real unknown target still is
+    assert st == "UNCERTAIN" and v.failures[0]["reason"] == "unknown_column"
