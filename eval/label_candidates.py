@@ -1,6 +1,6 @@
 """Label raw generations (CPU, pinned pandas): extract code, AST guard, sandbox run, compare with the reference.
 
-    .venv/bin/python eval/label_candidates.py --gen outputs/gen_qwen15b
+    .venv/bin/python eval/label_candidates.py --gen kaggle_outputs/generation/1_5b_adult_airbnb
 
 Reads  <gen>/generations.jsonl (from eval/generate.py or the Baseline 1 notebook)
 Writes <gen>/candidates.jsonl  (same fields as the Baseline 1 notebook) and <gen>/label_summary.json

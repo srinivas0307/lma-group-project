@@ -1,1 +1,0 @@
-{"task_id": "airbnb_miss_005", "data_file": "data/airbnb_dev.csv", "code": "def transform(df):\n    df['reviews_per_month'].fillna(0, inplace=True)\n    return df", "func_name": "transform"}

@@ -2,7 +2,7 @@
 
 The generator sees only the request and the dataset schema (README G3): no contract, no row-id hints.
 This module has no pandas/torch imports so it can run inside the Kaggle GPU kernel unchanged.
-The dataset schema comes from the frozen file eval/prompts/schema_b1-v1.json, so prompts are
+The dataset schema comes from the frozen file benchmark/prompts/schema_b1-v1.json, so prompts are
 byte-identical across runs and machines.
 """
 import hashlib
@@ -36,13 +36,13 @@ SEED_OFFSET = 1000          # sample seed = base seed + SEED_OFFSET + task index
 
 
 def load_prompt_schema(root):
-    return json.loads((Path(root) / "eval" / "prompts" / f"schema_{PROMPT_VERSION}.json").read_text())["datasets"]
+    return json.loads((Path(root) / "benchmark" / "prompts" / f"schema_{PROMPT_VERSION}.json").read_text())["datasets"]
 
 
 def load_tasks(root):
     """Tasks in the canonical order (sorted file paths). The order defines the per-task seed."""
     tasks = []
-    for f in sorted(Path(root).glob("eval/tasks/*/*.yaml")):
+    for f in sorted(Path(root).glob("benchmark/tasks/*/*.yaml")):
         t = yaml.safe_load(f.read_text())
         tasks.append(dict(id=t["id"], split=t["split"], dataset=t["dataset"],
                           transformation_type=t["transformation_type"], difficulty=t.get("difficulty"),

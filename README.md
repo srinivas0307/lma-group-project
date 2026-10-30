@@ -527,9 +527,9 @@ Dependency versions will be pinned in `requirements.txt` in Phase 0.
 - **Owner / effort:** B, ~2 weeks (A helps with annotation and agreement).
 - **Depends on:** Phase 0; the final validation step needs Phase 1.
 - **Components:**
-  - `eval/tasks/*.yaml`: id, dataset, transformation type, request text, assumptions, reference code, gold contract, expected effect, pitfalls, dev/test split flag.
+  - `benchmark/tasks/*.yaml`: id, dataset, transformation type, request text, assumptions, reference code, gold contract, expected effect, pitfalls, dev/test split flag.
   - `eval/equivalence.py`: `outputs_equal(ref, cand)`: compares by content, ignoring row order and index (rows sorted by all columns), same column set, values equal with float tolerance, same dtype family.
-  - `eval/agent_scenarios/{E,S}/*.yaml`: scenarios that need only a request (should-escalate, safety).
+  - `benchmark/agent_scenarios/{E,S}/*.yaml`: scenarios that need only a request (should-escalate, safety).
   - Authoring guide: `docs/eval_set_and_contract_guide.md`.
 - **Tasks:**
   1. Write ~70 tasks: 5 transformation types × 3 datasets, ~4–5 each. Mark ~15% as the dev split (used only to tune thresholds and prompts).
@@ -551,7 +551,7 @@ Dependency versions will be pinned in `requirements.txt` in Phase 0.
   - `tools/registry.py`: `Tool(name, description, args_schema, handler)`; `call(ToolCall) -> ToolResult`; argument validation; allow-list; structured errors.
   - `tools/data_tools.py`: `inspect_dataset`, `profile_column`, `diff_datasets`, `run_transformation` (always via guard + sandbox, on a copy), `run_verifier`.
   - `tools/faults.py`: **fault-injection hooks** for agent evaluation (force an error, a timeout, or a malformed result on the n-th call of a given tool).
-  - `eval/redteam/`: ~15–20 unsafe code samples (file I/O, network, shell, `eval`, memory bomb, infinite loop).
+  - `benchmark/redteam/`: ~15–20 unsafe code samples (file I/O, network, shell, `eval`, memory bomb, infinite loop).
 - **Tasks:**
   1. AST guard and its tests.
   2. Executor with limits; network cut (`unshare -n` or Docker `--network none`).
@@ -572,7 +572,7 @@ Dependency versions will be pinned in `requirements.txt` in Phase 0.
   - `llm/cache.py`: cache by (model, prompt, seed) so reruns are cheap and reproducible.
   - `llm/prompts/`: versioned templates.
   - `agents/code_generator.py`.
-  - `eval/build_pool.py` → `eval/pool_v1.jsonl` of (task, candidate id, generator model, seed, code, is_correct, run status).
+  - `eval/build_pool.py` → `archive/pools/pool_v1.jsonl` of (task, candidate id, generator model, seed, code, is_correct, run status).
 - **Tasks:**
   1. Client, backends, cache.
   2. Generator prompt (define `transform(df)`; sees **only the request and schema**); tune on dev tasks only.
@@ -742,52 +742,55 @@ Dependency versions will be pinned in `requirements.txt` in Phase 0.
 
 ## 7. Repository structure
 
-Proposed only — nothing has been created yet.
+Restructured 2026-10-30 (`tools/restructure.py`; every path is defined once in `src/igt/paths.py`).
 
 ```
 intent-parser/
-├── README.md                 # setup, how to reproduce every table
-├── requirements.txt          # pinned versions
-├── pyproject.toml
-├── configs/                  # one YAML per experiment (models, seeds, systems, paths)
+├── README.md, pyproject.toml, requirements.txt
+├── docs/                     design docs: verdict_format, contract_schema, open_issues, guides
+│   └── course/               handout.txt, proposal.txt, proposal and handout PDFs
 ├── data/
-│   ├── raw/                  # downloaded datasets (gitignored) + checksums
-│   └── processed/            # fixed snapshots (e.g. parquet) of the data files
-├── src/igt/                  # "intent-gated transformation" package
-│   ├── types.py              # shared data classes (Phase 0)
-│   ├── contracts/            # schema.py, normalize.py, validator.py, filter.py
-│   ├── verifier/             # alignment.py, diff.py, intent_verifier.py, slot.py, predicates/
-│   ├── baselines/            # conventional_checks.py, direct.py
-│   ├── sandbox/              # ast_guard.py, executor.py
-│   ├── tools/                # registry.py, data_tools.py, faults.py
-│   ├── llm/                  # client.py, cache.py, backends/ (hf, vllm, scripted), prompts/
-│   ├── agents/               # intent_parser.py, code_generator.py, repair_agent.py
-│   ├── orchestrator/         # state_machine.py, memory.py, limits.py
-│   ├── pipeline/             # run_task.py, failure_report.py
-│   └── tracing/              # logger.py (JSONL)
-├── finetune/                 # data_gen/, train_qlora.py, configs/, adapters/ (gitignored)
-├── eval/
-│   ├── tasks/                # task YAMLs + gold contracts + reference code
-│   ├── agent_scenarios/      # agent scenario suite (R / C / E / T / S)
-│   ├── redteam/              # unsafe samples
-│   ├── trajectory_labels/    # human step-labels for agent trajectories
-│   ├── equivalence.py, build_pool.py
-│   ├── runner_stage1.py, runner_stage2.py, runner_agent.py
-│   └── metrics.py, contract_metrics.py, agent_metrics.py, stats.py
-├── scripts/                  # download_data.py, reproduce_all.sh
-├── results/                  # traces/, tables/, figures/ (traces gitignored)
-├── tests/                    # mirrors src/ layout
-├── notebooks/                # analysis only, no core logic
-├── docs/                     # predicates.md, annotation_guide.md, architecture.md
-└── report/                   # write-up sources
+│   ├── *.csv                 the 4 evaluation datasets (adult, airbnb, taxi, titanic); task files refer to data/<file>
+│   └── finetune/             datasets for the fine-tuning examples (never evaluation data)
+├── benchmark/                FROZEN inputs, not edited after freezing
+│   ├── tasks/                120 task YAMLs (request, gold contract, reference code), 30 per dataset
+│   ├── prompts/              schema_b1-v1.json: the dataset schema shown in every prompt
+│   ├── pool/                 candidate pool v4 (all 4 datasets): pool_v4.jsonl, manifest.json, outputs/*.pkl
+│   ├── agent_scenarios/      rct_v3.jsonl (R/C/T, from pool v4), E/ (should escalate), S/ (safety)
+│   ├── redteam/              unsafe code samples for the sandbox tests
+│   └── annotation/           error-kind labels
+├── kaggle_outputs/           what came back from Kaggle (+ local labels), input to the scripts
+│   ├── generation/           3b_all_tasks, 1_5b_all_tasks: one Baseline 1 run per model over all 120 tasks (pool v4 sources)
+│   └── parsing/              7b / 3b / 1_5b × p1-v1, p1-v2, p1-v3 (parses.jsonl, system.txt)
+├── results/
+│   ├── STAGE1_RESULTS.md     all Stage 1 tables
+│   ├── stage1/
+│   │   ├── baseline1/        no verification: verdicts, per-dataset accuracy
+│   │   ├── baseline2/        conventional checks: thresholds, verdicts (lenient = main, strict, default)
+│   │   ├── baseline3/        prompted 7B, p1-v3: contract metrics, verdicts (+ change-only / preserve-only)
+│   │   ├── oracle/           gold contracts (+ ablations)
+│   │   ├── size_ablation/    prompted 3B (p1-v2), prompted 1.5B (p1-v3)
+│   │   ├── other_prompts/    the 6 prompted parser runs not selected on dev
+│   │   ├── finetuned/        intent_ft_* (after Gate 3)
+│   │   └── summary/          metrics_stage1.json (all systems), contract_summary.json, baseline3_selection.json
+│   └── stage2_agent/         one folder per agent system (unzip agent_<system>_<stage>.zip here)
+├── notebooks/
+│   ├── kaggle/               notebooks to run on Kaggle: gate1_generate, baseline3_parse, finetune_qlora, agent_eval
+│   └── executed/             executed copies downloaded from Kaggle (for the record)
+├── eval/                     scripts only (build_pool, baseline2, run_intent_oracle, score_parsers, metrics, runner_agent, …)
+├── src/igt/                  library: contracts, verifier, sandbox, agents, llm, tools, orchestrator, paths.py
+├── finetune/                 training script, configs, data_gen/ (SFT data goes in finetune/data/)
+├── configs/                  baseline2_v4.yaml
+├── tests/
+├── tools/                    restructure.py (one-time move into this layout)
+└── archive/                  superseded, kept unchanged: pools v1-v3, their results, their generation runs, old configs, rct_v1/v2,
+                              agent_v1 (invalid dev run), the first Baseline 1 notebook
 ```
 
-Why it's laid out this way:
-
-- Parsers, LLM backends, verifiers, and tools sit behind small interfaces. A new parser or predicate is one new class or file; the orchestrator doesn't change.
-- Evaluation data, code, and results are kept separate. Every table can be regenerated from a config file.
-
----
+**Pools.** v1 = 3B on adult/airbnb; v2 = v1 + 1.5B on adult/airbnb; v3 = v2 + both models on taxi/titanic (each
+contains the previous one with the same ids and labels). **v4 (current)** = one all-task Baseline 1 run per model;
+it equals v3 except for 2 of 1440 generations (batched greedy decoding), see `results/STAGE1_RESULTS.md`. v1-v3 and
+their results are in `archive/` because earlier report sections quote them.
 
 ## 8. MVP and priorities
 

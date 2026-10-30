@@ -13,7 +13,7 @@ bootstrap (resamples tasks, which is the honest one because candidates of a task
 Paired comparison of two systems: exact McNemar test on per-candidate "decision was right".
 
 Usage:
-    python eval/metrics.py --verdicts results/baseline2/verdicts_baseline2.jsonl eval/pool_v1/verdicts_baseline1.jsonl
+    python eval/metrics.py --verdicts results/stage1/baseline1/verdicts_baseline1.jsonl results/stage1/baseline2/verdicts_baseline2.jsonl
 """
 import argparse, json, math, random, sys
 from collections import Counter, defaultdict
@@ -198,7 +198,7 @@ def print_table(report):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--pool", type=Path, default=ROOT / "eval" / "pool_v1" / "pool_v1.jsonl")
+    ap.add_argument("--pool", type=Path, default=ROOT / "benchmark" / "pool" / "pool_v4.jsonl")
     ap.add_argument("--verdicts", type=Path, nargs="+", required=True)
     ap.add_argument("--out", type=Path, help="write the full report as JSON")
     ap.add_argument("--n-boot", type=int, default=2000)

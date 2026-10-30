@@ -52,7 +52,7 @@ def ngrams(text, n=NGRAM):
 
 
 def load_eval(root):
-    tasks = [yaml.safe_load(f.read_text()) for f in sorted((root / "eval" / "tasks").glob("*/*.yaml"))]
+    tasks = [yaml.safe_load(f.read_text()) for f in sorted((root / "benchmark" / "tasks").glob("*/*.yaml"))]
     requests = [" ".join(str(t["request"]).split()) for t in tasks]
     files = {t["data_file"] for t in tasks}
     colsets = {frozenset(pd.read_csv(root / f, nrows=1).columns) for f in files}

@@ -89,7 +89,7 @@ def test_restricted_unpickler_rejects_code(tmp_path):
 
 
 def test_references_run_with_expected_row_counts():
-    tasks = [yaml.safe_load(f.read_text()) for f in sorted((ROOT / "eval" / "tasks").glob("*/*.yaml"))]
+    tasks = [yaml.safe_load(f.read_text()) for f in sorted((ROOT / "benchmark" / "tasks").glob("*/*.yaml"))]
     data = {}
     for t in tasks[::6]:                 # one task per (dataset, type): keeps the test fast
         df = data.setdefault(t["data_file"], pd.read_csv(ROOT / t["data_file"]))

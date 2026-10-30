@@ -1,1 +1,0 @@
-{"task_id": "airbnb_conv_004", "data_file": "data/airbnb_dev.csv", "code": "def transform(df):\n    df['neighbourhood_group'] = df['neighbourhood_group'].astype('category')\n    return df", "func_name": "transform"}

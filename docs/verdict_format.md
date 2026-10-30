@@ -90,7 +90,7 @@ Examples:
 ## 4. Rules
 
 1. One line for **every** candidate in the pool, each exactly once. `metrics.py` stops on missing, duplicate or unknown ids.
-2. The verifier only sees the input data, the candidate's output (`eval/pool_v2/outputs/<candidate_id>.pkl`)
+2. The verifier only sees the input data, the candidate's output (`archive/pools/pool_v2/outputs/<candidate_id>.pkl`)
    and the contract. Never the reference code, the reference output or `is_correct`.
 3. Candidates with `ran_ok = false` get `VIOLATION` with an `execution` failure. Candidates that ran never have one.
 4. Report **all** failed predicates, not just the first.
@@ -138,9 +138,9 @@ record = verdict_record("intent_oracle", "intent", candidate, Verdict.combine(fa
 
 Then compare all systems on the same pool:
 ```
-.venv/bin/python eval/metrics.py --pool eval/pool_v2/pool_v2.jsonl \
-    --verdicts eval/pool_v2/verdicts_baseline1.jsonl results/baseline2_v2/verdicts_baseline2.jsonl \
-               results/intent_oracle_v2/verdicts_intent_oracle.jsonl
+.venv/bin/python eval/metrics.py --pool archive/pools/pool_v2/pool_v2.jsonl \
+    --verdicts archive/pools/pool_v2/verdicts_baseline1.jsonl archive/results/baseline2_v2/verdicts_baseline2.jsonl \
+               archive/results/intent_oracle_v2/verdicts_intent_oracle.jsonl
 ```
 
 ## 7. Decisions (2026-10-29)

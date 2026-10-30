@@ -1,1 +1,0 @@
-{"task_id": "adult_dedup_003", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    unique_fnlwgt = df['fnlwgt'].drop_duplicates().reset_index(drop=True)\n    df = df.loc[df['fnlwgt'].map(unique_fnlwgt)]\n    return df", "func_name": "transform"}

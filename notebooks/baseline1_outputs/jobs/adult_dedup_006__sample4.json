@@ -1,1 +1,0 @@
-{"task_id": "adult_dedup_006", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    df_copy = df.copy()\n    unique_rows = [row for i, row in enumerate(df_copy.values) if len(set(row[1:]) & set(df_copy.values[:i])) == 9]\n    return pd.DataFrame(unique_rows, columns=df.columns)", "func_name": "transform"}

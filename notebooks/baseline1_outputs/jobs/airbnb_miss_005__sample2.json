@@ -1,1 +1,0 @@
-{"task_id": "airbnb_miss_005", "data_file": "data/airbnb_dev.csv", "code": "def transform(df):\n    df.loc[df['number_of_reviews'] == 0, 'reviews_per_month'] = 0\n    return df", "func_name": "transform"}

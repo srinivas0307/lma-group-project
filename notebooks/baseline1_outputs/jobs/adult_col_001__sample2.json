@@ -1,1 +1,0 @@
-{"task_id": "adult_col_001", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    df['net_capital'] = df['capital-gain'] - df['capital-loss']\n    return df", "func_name": "transform"}

@@ -8,7 +8,7 @@ import yaml
 from igt.sandbox import check, run, safe_run
 
 ROOT = Path(__file__).resolve().parents[2]
-SAMPLES = yaml.safe_load((ROOT / "eval" / "redteam" / "samples.yaml").read_text())["samples"]
+SAMPLES = yaml.safe_load((ROOT / "benchmark" / "redteam" / "samples.yaml").read_text())["samples"]
 DF = pd.DataFrame({"a": range(5)})
 LIMITS = dict(timeout_s=10, cpu_s=5, mem_gb=1)
 

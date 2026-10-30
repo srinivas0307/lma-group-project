@@ -1,1 +1,0 @@
-{"task_id": "airbnb_dedup_004", "data_file": "data/airbnb_dev.csv", "code": "def transform(df):\n    df['last_row'] = df.groupby('host_name')['host_name'].transform('count').eq(df.groupby('host_name')['host_name'].transform('count').max())\n    return df[df['last_row']]", "func_name": "transform"}

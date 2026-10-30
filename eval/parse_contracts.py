@@ -31,7 +31,7 @@ from igt.agents.intent_parser import (PARSER_PROMPT_VERSION, PROMPTS, build_mess
 
 def load_tasks_with_contracts(root):
     out = []
-    for f in sorted(Path(root).glob("eval/tasks/*/*.yaml")):
+    for f in sorted(Path(root).glob("benchmark/tasks/*/*.yaml")):
         t = yaml.safe_load(f.read_text())
         out.append(dict(id=t["id"], split=t["split"], dataset=t["dataset"], transformation_type=t["transformation_type"],
                         request=" ".join(str(t["request"]).split()), data_file=t["data_file"],

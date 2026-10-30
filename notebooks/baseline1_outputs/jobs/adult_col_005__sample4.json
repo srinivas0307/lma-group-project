@@ -1,1 +1,0 @@
-{"task_id": "adult_col_005", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    df['is_married'] = df['marital-status'].apply(lambda x: 'Married' if x in ['Married-civ-spouse', 'Married-spouse-absent', 'Married-AF-spouse'] else 'Not married')\n    return df", "func_name": "transform"}

@@ -1,1 +1,0 @@
-{"task_id": "adult_conv_001", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    df['income'] = df['income'].map({'<=50K': 0, '>50K': 1})\n    return df", "func_name": "transform"}

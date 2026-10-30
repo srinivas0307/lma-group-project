@@ -30,8 +30,8 @@ You only write the **request**, the **contract** and a **reference solution** pe
 | Rule | Why | Checked by |
 |---|---|---|
 | **No evaluation datasets.** Never use Adult, Airbnb, NYC Taxi or Titanic, or another copy of them. | Otherwise the parser memorises the test schemas (README G11). | `check_examples.py` (path and column set) |
-| **No evaluation requests.** Don't open `eval/tasks/` while writing templates, and never copy or adapt a request from there. | Same phrasings in training and test inflate the result. | `check_examples.py` (5-gram overlap, similarity) |
-| **No gold contracts as training labels.** Don't copy contracts from `eval/tasks/`. | Same reason. | Review |
+| **No evaluation requests.** Don't open `benchmark/tasks/` while writing templates, and never copy or adapt a request from there. | Same phrasings in training and test inflate the result. | `check_examples.py` (5-gram overlap, similarity) |
+| **No gold contracts as training labels.** Don't copy contracts from `benchmark/tasks/`. | Same reason. | Review |
 | **Vocabulary v1.0 only.** The 11 predicates and fields in `docs/eval_set_and_contract_guide.md` §5. No new predicates or functions. | The verifier and every parser use one vocabulary. | `check_examples.py` (pydantic) |
 | **Every contract follows the annotation rules** in the guide §6 (default preservation, null rule, non-vacuity, minimal-but-complete). | The parser must learn the same conventions as the gold contracts. | `check_examples.py` (reference passes, no-op fails) + review |
 

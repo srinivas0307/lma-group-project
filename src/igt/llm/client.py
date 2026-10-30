@@ -1,6 +1,6 @@
 """One interface for every LLM call (README Phase 4): LLMClient + backends + cache.
 
-    client = LLMClient(backend, cache_dir="outputs/llm_cache", token_budget=20_000)
+    client = LLMClient(backend, cache_dir="/tmp/llm_cache", token_budget=20_000)
     r = client.generate(messages, max_new_tokens=512, seed=1)      # -> LLMResponse
     r.text, r.prompt_tokens, r.output_tokens, r.cached
 

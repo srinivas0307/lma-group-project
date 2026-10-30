@@ -1,1 +1,0 @@
-{"task_id": "airbnb_miss_005", "data_file": "data/airbnb_dev.csv", "code": "def transform(df):\n    df['reviews_per_month'] = df.apply(lambda row: 0 if pd.isna(row['last_review']) else row['reviews_per_month'], axis=1)\n    return df", "func_name": "transform"}

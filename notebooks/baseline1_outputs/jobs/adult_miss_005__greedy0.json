@@ -1,1 +1,0 @@
-{"task_id": "adult_miss_005", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    df.loc[df['workclass'].isna() & df['occupation'].isna(), ['workclass', 'occupation']] = 'Not-working'\n    return df", "func_name": "transform"}

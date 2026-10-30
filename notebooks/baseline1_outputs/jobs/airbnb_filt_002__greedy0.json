@@ -1,1 +1,0 @@
-{"task_id": "airbnb_filt_002", "data_file": "data/airbnb_dev.csv", "code": "def transform(df):\n    df = df[(df['neighbourhood_group'] == 'Brooklyn') | (df['neighbourhood_group'] == 'Manhattan')]\n    return df", "func_name": "transform"}

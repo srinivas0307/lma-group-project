@@ -2,7 +2,7 @@
 
 Used to label every runnable wrong candidate in the pool (README Phase 5, task 3). Each candidate gets one
 **primary** kind (the mistake that best explains why the output is wrong) and optionally one **secondary** kind.
-Labels: `eval/annotation/error_kinds_pool_v1.csv` (draft by Kiro, to be reviewed by a person).
+Labels: `benchmark/annotation/error_kinds_pool_v1.csv` (draft by Kiro, to be reviewed by a person).
 
 | Kind | Meaning | Example from pool v1 |
 |---|---|---|

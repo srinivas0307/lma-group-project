@@ -1,1 +1,0 @@
-{"task_id": "adult_filt_006", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    df_filtered = df[(df['hours-per-week'] >= 20) & (df['workclass'] != 'Private')]\n    return df_filtered.dropna(subset=['hours-per-week', 'workclass'])", "func_name": "transform"}

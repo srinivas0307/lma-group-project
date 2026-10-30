@@ -35,9 +35,9 @@ This guide is self-contained: you can build the whole evaluation set by followin
 |---|---|---|
 | Contract specification (§5 of this file) | `docs/eval_set_and_contract_guide.md` | Pydantic schema and verifier (Phase 1), parser prompts and fine-tuning data (Phases 6–7) |
 | Dataset profiles | `data/profiles/{dataset}.md` | You, when writing tasks; everyone, when debugging |
-| ~70 transformation tasks, each with request, reference code, and gold contract | `eval/tasks/{dataset}/{task_id}.yaml` | Candidate pool (Phase 4), Stage 1 (Phase 5), contract metrics (Phase 6), Stage 2 (Phase 11) |
-| ~30 request-based agent scenarios (should-escalate, safety) | `eval/agent_scenarios/{E,S}/{scenario_id}.yaml` | Agent evaluation (Phase 10) |
-| Annotation log and agreement numbers | `eval/annotation/agreement.md` | Write-up, TA |
+| ~70 transformation tasks, each with request, reference code, and gold contract | `benchmark/tasks/{dataset}/{task_id}.yaml` | Candidate pool (Phase 4), Stage 1 (Phase 5), contract metrics (Phase 6), Stage 2 (Phase 11) |
+| ~30 request-based agent scenarios (should-escalate, safety) | `benchmark/agent_scenarios/{E,S}/{scenario_id}.yaml` | Agent evaluation (Phase 10) |
+| Annotation log and agreement numbers | `benchmark/annotation/agreement.md` | Write-up, TA |
 | Changelog of the contract vocabulary | §5.9 of this file | Everyone |
 
 **Out of scope for you right now:** the Python verifier, the pool builder, LLM prompts, and any wrong/alternative versions of the code. Write the specification so precisely that whoever implements the verifier never has to guess.
@@ -90,8 +90,8 @@ About **1.5–2 weeks** of focused work. Steps 1–3 are sequential; Steps 4–6
 | 2 | Review the contract spec (§5) against the profiles; decide the proposed extensions (D5 in README) | Vocabulary v0.3 | 0.5 day |
 | 3 | **Pilot:** write 10 tasks (2 per transformation type); a teammate reviews them; fix the spec and this guide | 10 reviewed tasks, **vocabulary v1.0 frozen** | 2 days |
 | 4 | Write the remaining ~60 tasks in batches of ~10, one dataset at a time | Tasks with request, reference code, gold contract | 4–5 days |
-| 5 | Write E and S agent scenarios (§11) | `eval/agent_scenarios/{E,S}/` | 1 day |
-| 6 | Second annotation on ~20% of tasks and scenarios, agreement, fixes (§12) | `eval/annotation/agreement.md` | 1.5 days |
+| 5 | Write E and S agent scenarios (§11) | `benchmark/agent_scenarios/{E,S}/` | 1 day |
+| 6 | Second annotation on ~20% of tasks and scenarios, agreement, fixes (§12) | `benchmark/annotation/agreement.md` | 1.5 days |
 | 7 | Freeze checklist (§13), tag version `evalset-v1` | Frozen evaluation set | 0.5 day |
 
 **Why a pilot first:** the contract vocabulary is the one thing that's expensive to change later, because every gold contract depends on it. Ten tasks covering all five types will reveal missing predicates or ambiguous rules before you've annotated 70.
@@ -124,7 +124,7 @@ Rules:
 > - **Neither file has exact duplicate rows**, so every dedup task needs a key subset.
 > - **airbnb:** `price` ranges 20–3000 (no zeros), so the §7 / §10.1 "price of 0" example would remove nothing on this file.
 > - **Pinned versions: pandas 2.3.3, numpy 2.1.3** (`requirements.txt`). Use them everywhere (local, Kaggle) for validation, labelling and verification. With pandas 2.x, text columns load with dtype `object`; treat it as the `string` family (§5.7). `astype(str)` turns missing values into the text `"nan"`, and `pd.to_datetime` gives `datetime64[ns]`.
-> - Per-task facts are in the header comment of each template in `eval/tasks/`, and `eval/tasks/INDEX.md` lists all 60.
+> - Per-task facts are in the header comment of each template in `benchmark/tasks/`, and `benchmark/tasks/INDEX.md` lists all 60.
 
 These are from memory of the public datasets. **Check every number when you profile**; they decide which tasks are possible.
 
@@ -363,7 +363,7 @@ Fill this in during Step 3 so all tasks are consistent.
 
 ## 7. Task file template
 
-One YAML file per task: `eval/tasks/{dataset}/{task_id}.yaml`.
+One YAML file per task: `benchmark/tasks/{dataset}/{task_id}.yaml`.
 
 **Task id format:** `{dataset}_{type}_{nnn}`, where `type` is one of `filt`, `dedup`, `miss`, `conv`, `col`. Examples: `airbnb_filt_001`, `adult_dedup_002`.
 
@@ -651,7 +651,7 @@ Agent scenarios test the repair agent (TA feedback). There are five categories, 
 | C: already correct | Agent doesn't touch correct code | Phase 4, from correct candidates in the pool |
 | T: tool fault | Agent recovers from tool errors | Phase 4, R scenarios + injected faults |
 
-One file per scenario: `eval/agent_scenarios/{category}/{category}_{nnn}.yaml`.
+One file per scenario: `benchmark/agent_scenarios/{category}/{category}_{nnn}.yaml`.
 
 ```yaml
 id: E_001
@@ -709,7 +709,7 @@ When Phase 1 delivers the verifier, a validation script will automatically check
 2. The second annotator sees **only** `request`, `dataset`, and the profile, and writes their own gold contract (and expected outcome for scenarios) without looking at yours.
 3. Compare after normalisation (§5.8).
 
-### 12.3 Agreement measures (record in `eval/annotation/agreement.md`)
+### 12.3 Agreement measures (record in `benchmark/annotation/agreement.md`)
 
 | What | Measure | Target |
 |---|---|---|

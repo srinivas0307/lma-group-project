@@ -1,1 +1,0 @@
-{"task_id": "adult_dedup_002", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    df_sorted = df.sort_values(by='fnlwgt', ascending=False).drop_duplicates(subset=df.columns.difference(['fnlwgt']), keep='last')\n    return df_sorted", "func_name": "transform"}

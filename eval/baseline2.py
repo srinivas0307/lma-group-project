@@ -1,8 +1,8 @@
 """Run Baseline 2 (conventional checks) over the frozen pool: measure, tune on dev, judge everything.
 
-    .venv/bin/python eval/baseline2.py                     # uses configs/baseline2.yaml
+    .venv/bin/python eval/baseline2.py                     # uses configs/baseline2_v4.yaml
 
-Outputs in results/baseline2/:
+Outputs in results/stage1/baseline2/ (out_dir in the config):
     measurements.jsonl          raw check measurements per runnable candidate
     thresholds.json             tuned thresholds + the tuning trace (dev only)
     verdicts_baseline2.jsonl    tuned verdicts, same format as Baseline 1 (this is "Baseline 2")
@@ -34,7 +34,7 @@ def write_jsonl(p, rows):
 
 def task_data_files(root):
     out = {}
-    for f in sorted((root / "eval" / "tasks").glob("*/*.yaml")):
+    for f in sorted((root / "benchmark" / "tasks").glob("*/*.yaml")):
         t = yaml.safe_load(f.read_text())
         out[t["id"]] = t["data_file"]
     return out
@@ -113,7 +113,7 @@ def tune(cands, m, grid, cap, max_passes, tie_break="strict"):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--config", type=Path, default=ROOT / "configs" / "baseline2.yaml")
+    ap.add_argument("--config", type=Path, default=ROOT / "configs" / "baseline2_v4.yaml")
     args = ap.parse_args()
     if pd.__version__ != PINNED["pandas"]:
         sys.exit(f"pandas {PINNED['pandas']} required (pickled outputs), got {pd.__version__}. Use .venv/bin/python.")

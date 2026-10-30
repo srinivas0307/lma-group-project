@@ -1,17 +1,19 @@
 """Build a frozen candidate pool from one or more labelled generation folders (CPU only).
 
-    # pool v1 (already frozen): Baseline 1 Kaggle outputs
-    .venv/bin/python eval/build_pool.py --sources notebooks/baseline1_outputs --version v1
-    # pool v2: v1 sources first (so v1 candidate ids stay the same), then the new generator
-    .venv/bin/python eval/build_pool.py --sources notebooks/baseline1_outputs outputs/gen_qwen15b --version v2
+    # pool v4 (frozen, the main pool): the two all-task Baseline 1 runs, 3B first
+    .venv/bin/python eval/build_pool.py --version v4 --sources kaggle_outputs/generation/3b_all_tasks \
+        kaggle_outputs/generation/1_5b_all_tasks
+    # pools v1-v3 (archive/pools/) were built from archive/generation/: v3 = 3b_adult_airbnb, 1_5b_adult_airbnb,
+    # 3b_taxi_titanic, 1_5b_taxi_titanic (v1 = the first source, v2 = the first two)
 
 Each source folder needs candidates.jsonl (from the Baseline 1 notebook or eval/label_candidates.py).
 
-Outputs (in eval/pool_<version>/):
+Outputs (pool v4: benchmark/pool/; any other version: --out):
     pool_<version>.jsonl        one row per unique (task, normalized code); what every system judges
     outputs/<candidate_id>.pkl  the candidate's output DataFrame (candidates that ran)
-    verdicts_baseline1.jsonl    Baseline 1 verdicts (verifier "none")
     manifest.json               counts, sources, settings and sha256 of every file
+    verdicts_baseline1.jsonl    Baseline 1 verdicts (verifier "none"): results/stage1/baseline1/ for pool v4,
+                                otherwise next to the pool
 
 Every candidate is re-executed with the project sandbox (igt.sandbox.safe_run) and re-labelled with
 eval.equivalence.outputs_equal. Any label that differs from the source label stops the build.
@@ -31,6 +33,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT))
 from eval.equivalence import outputs_equal  # noqa: E402
+from igt.paths import rel  # noqa: E402
 from igt.agents.code_generator import load_tasks  # noqa: E402
 from igt.sandbox import safe_run  # noqa: E402
 
@@ -130,7 +133,7 @@ def main():
     ap.add_argument("--b1", type=Path, help="(old name) single source folder")
     ap.add_argument("--version", default="v1")
     ap.add_argument("--root", type=Path, default=ROOT)
-    ap.add_argument("--out", type=Path, help="default: eval/pool_<version>")
+    ap.add_argument("--out", type=Path, help="pool folder (default benchmark/pool for v4; required otherwise)")
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--timeout", type=float, default=60)
     ap.add_argument("--cpu", type=int, default=30)
@@ -140,7 +143,10 @@ def main():
     sources = [p.resolve() for p in (args.sources or ([args.b1] if args.b1 else []))]
     if not sources:
         sys.exit("give --sources")
-    out = (args.out or ROOT / "eval" / f"pool_{args.version}").resolve()
+    if not args.out and args.version != "v4":
+        sys.exit("give --out for a pool version other than v4 (benchmark/pool holds pool v4)")
+    out = (args.out or ROOT / "benchmark" / "pool").resolve()
+    b1_dir = ROOT / "results" / "stage1" / "baseline1" if out == (ROOT / "benchmark" / "pool").resolve() else out
     pool_file = out / f"pool_{args.version}.jsonl"
     if pd.__version__ != PINNED["pandas"]:
         sys.exit(f"pandas {PINNED['pandas']} required, got {pd.__version__}. Use .venv/bin/python.")
@@ -189,7 +195,8 @@ def main():
     inconsistent = [c["candidate_id"] for c in pool if not c["consistent_within_group"]]
 
     write_jsonl(pool_file, pool)
-    write_jsonl(out / "verdicts_baseline1.jsonl", [verdict_b1(c) for c in pool])
+    b1_dir.mkdir(parents=True, exist_ok=True)
+    write_jsonl(b1_dir / "verdicts_baseline1.jsonl", [verdict_b1(c) for c in pool])
 
     summary = {}
     for split in sorted({c["split"] for c in pool}):
@@ -207,7 +214,7 @@ def main():
     envs = []
     for s in sources:
         e = s / "env.json"
-        envs.append(dict(path=str(s), env=json.loads(e.read_text()) if e.exists() else None,
+        envs.append(dict(path=rel(s), env=json.loads(e.read_text()) if e.exists() else None,
                          sha256_candidates_jsonl=sha256_file(s / "candidates.jsonl")))
     manifest = dict(
         pool_version=args.version, sources=envs, local_versions=dict(pandas=pd.__version__),

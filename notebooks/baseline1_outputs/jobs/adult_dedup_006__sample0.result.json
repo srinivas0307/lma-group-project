@@ -1,1 +1,0 @@
-{"status": "ok", "ran_ok": true, "correct": false, "rows_before": 1000, "runtime_s": 0.008, "reason": "dtype family differs in income (int vs string)", "rows_after": 989, "cols_added": [], "cols_removed": [], "index_kept": true}

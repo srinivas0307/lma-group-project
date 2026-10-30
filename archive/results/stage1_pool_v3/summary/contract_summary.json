@@ -1,0 +1,425 @@
+{
+  "intent_prompted_1_5b": {
+    "folder": "kaggle_outputs/parsing/1_5b_p1-v1",
+    "results": "results/stage1/other_prompts/intent_prompted_1_5b",
+    "contract_metrics": "results/stage1/other_prompts/intent_prompted_1_5b/contract_metrics.json",
+    "overall": {
+      "n_tasks": 120,
+      "invalid_rate": 0.542,
+      "exact_match": 0.042,
+      "must_change": {
+        "precision": 0.406,
+        "recall": 0.226,
+        "f1": 0.29,
+        "tp": 65,
+        "fp": 95,
+        "fn": 223
+      },
+      "must_preserve": {
+        "precision": 0.978,
+        "recall": 0.387,
+        "f1": 0.555,
+        "tp": 771,
+        "fp": 17,
+        "fn": 1221
+      }
+    },
+    "test": {
+      "n_tasks": 100,
+      "invalid_rate": 0.5,
+      "exact_match": 0.05,
+      "must_change": {
+        "precision": 0.436,
+        "recall": 0.264,
+        "f1": 0.329,
+        "tp": 61,
+        "fp": 79,
+        "fn": 170
+      },
+      "must_preserve": {
+        "precision": 0.98,
+        "recall": 0.419,
+        "f1": 0.588,
+        "tp": 698,
+        "fp": 14,
+        "fn": 966
+      }
+    }
+  },
+  "intent_prompted_1_5b_p1v2": {
+    "folder": "kaggle_outputs/parsing/1_5b_p1-v2",
+    "results": "results/stage1/other_prompts/intent_prompted_1_5b_p1v2",
+    "contract_metrics": "results/stage1/other_prompts/intent_prompted_1_5b_p1v2/contract_metrics.json",
+    "overall": {
+      "n_tasks": 120,
+      "invalid_rate": 0.467,
+      "exact_match": 0.067,
+      "must_change": {
+        "precision": 0.439,
+        "recall": 0.274,
+        "f1": 0.338,
+        "tp": 79,
+        "fp": 101,
+        "fn": 209
+      },
+      "must_preserve": {
+        "precision": 0.981,
+        "recall": 0.462,
+        "f1": 0.628,
+        "tp": 920,
+        "fp": 18,
+        "fn": 1072
+      }
+    },
+    "test": {
+      "n_tasks": 100,
+      "invalid_rate": 0.44,
+      "exact_match": 0.07,
+      "must_change": {
+        "precision": 0.455,
+        "recall": 0.307,
+        "f1": 0.367,
+        "tp": 71,
+        "fp": 85,
+        "fn": 160
+      },
+      "must_preserve": {
+        "precision": 0.982,
+        "recall": 0.495,
+        "f1": 0.658,
+        "tp": 823,
+        "fp": 15,
+        "fn": 841
+      }
+    }
+  },
+  "intent_prompted_1_5b_p1v3": {
+    "folder": "kaggle_outputs/parsing/1_5b_p1-v3",
+    "results": "results/stage1/size_ablation/intent_prompted_1_5b_p1v3",
+    "contract_metrics": "results/stage1/size_ablation/intent_prompted_1_5b_p1v3/contract_metrics.json",
+    "overall": {
+      "n_tasks": 120,
+      "invalid_rate": 0.342,
+      "exact_match": 0.092,
+      "must_change": {
+        "precision": 0.534,
+        "recall": 0.323,
+        "f1": 0.403,
+        "tp": 93,
+        "fp": 81,
+        "fn": 195
+      },
+      "must_preserve": {
+        "precision": 0.962,
+        "recall": 0.577,
+        "f1": 0.721,
+        "tp": 1149,
+        "fp": 45,
+        "fn": 843
+      }
+    },
+    "test": {
+      "n_tasks": 100,
+      "invalid_rate": 0.34,
+      "exact_match": 0.08,
+      "must_change": {
+        "precision": 0.503,
+        "recall": 0.325,
+        "f1": 0.395,
+        "tp": 75,
+        "fp": 74,
+        "fn": 156
+      },
+      "must_preserve": {
+        "precision": 0.963,
+        "recall": 0.588,
+        "f1": 0.73,
+        "tp": 979,
+        "fp": 38,
+        "fn": 685
+      }
+    }
+  },
+  "intent_prompted_3b": {
+    "folder": "kaggle_outputs/parsing/3b_p1-v1",
+    "results": "results/stage1/other_prompts/intent_prompted_3b",
+    "contract_metrics": "results/stage1/other_prompts/intent_prompted_3b/contract_metrics.json",
+    "overall": {
+      "n_tasks": 120,
+      "invalid_rate": 0.442,
+      "exact_match": 0.067,
+      "must_change": {
+        "precision": 0.417,
+        "recall": 0.365,
+        "f1": 0.389,
+        "tp": 105,
+        "fp": 147,
+        "fn": 183
+      },
+      "must_preserve": {
+        "precision": 0.968,
+        "recall": 0.499,
+        "f1": 0.659,
+        "tp": 995,
+        "fp": 33,
+        "fn": 997
+      }
+    },
+    "test": {
+      "n_tasks": 100,
+      "invalid_rate": 0.44,
+      "exact_match": 0.06,
+      "must_change": {
+        "precision": 0.422,
+        "recall": 0.385,
+        "f1": 0.403,
+        "tp": 89,
+        "fp": 122,
+        "fn": 142
+      },
+      "must_preserve": {
+        "precision": 0.97,
+        "recall": 0.5,
+        "f1": 0.66,
+        "tp": 832,
+        "fp": 26,
+        "fn": 832
+      }
+    }
+  },
+  "intent_prompted_3b_p1v2": {
+    "folder": "kaggle_outputs/parsing/3b_p1-v2",
+    "results": "results/stage1/size_ablation/intent_prompted_3b_p1v2",
+    "contract_metrics": "results/stage1/size_ablation/intent_prompted_3b_p1v2/contract_metrics.json",
+    "overall": {
+      "n_tasks": 120,
+      "invalid_rate": 0.3,
+      "exact_match": 0.067,
+      "must_change": {
+        "precision": 0.403,
+        "recall": 0.41,
+        "f1": 0.406,
+        "tp": 118,
+        "fp": 175,
+        "fn": 170
+      },
+      "must_preserve": {
+        "precision": 0.978,
+        "recall": 0.644,
+        "f1": 0.777,
+        "tp": 1283,
+        "fp": 29,
+        "fn": 709
+      }
+    },
+    "test": {
+      "n_tasks": 100,
+      "invalid_rate": 0.29,
+      "exact_match": 0.06,
+      "must_change": {
+        "precision": 0.391,
+        "recall": 0.433,
+        "f1": 0.411,
+        "tp": 100,
+        "fp": 156,
+        "fn": 131
+      },
+      "must_preserve": {
+        "precision": 0.979,
+        "recall": 0.65,
+        "f1": 0.781,
+        "tp": 1081,
+        "fp": 23,
+        "fn": 583
+      }
+    }
+  },
+  "intent_prompted_3b_p1v3": {
+    "folder": "kaggle_outputs/parsing/3b_p1-v3",
+    "results": "results/stage1/other_prompts/intent_prompted_3b_p1v3",
+    "contract_metrics": "results/stage1/other_prompts/intent_prompted_3b_p1v3/contract_metrics.json",
+    "overall": {
+      "n_tasks": 120,
+      "invalid_rate": 0.25,
+      "exact_match": 0.117,
+      "must_change": {
+        "precision": 0.566,
+        "recall": 0.462,
+        "f1": 0.509,
+        "tp": 133,
+        "fp": 102,
+        "fn": 155
+      },
+      "must_preserve": {
+        "precision": 0.969,
+        "recall": 0.701,
+        "f1": 0.814,
+        "tp": 1397,
+        "fp": 45,
+        "fn": 595
+      }
+    },
+    "test": {
+      "n_tasks": 100,
+      "invalid_rate": 0.22,
+      "exact_match": 0.11,
+      "must_change": {
+        "precision": 0.556,
+        "recall": 0.498,
+        "f1": 0.525,
+        "tp": 115,
+        "fp": 92,
+        "fn": 116
+      },
+      "must_preserve": {
+        "precision": 0.972,
+        "recall": 0.725,
+        "f1": 0.831,
+        "tp": 1207,
+        "fp": 35,
+        "fn": 457
+      }
+    }
+  },
+  "intent_prompted_7b": {
+    "folder": "kaggle_outputs/parsing/7b_p1-v1",
+    "results": "results/stage1/other_prompts/intent_prompted_7b",
+    "contract_metrics": "results/stage1/other_prompts/intent_prompted_7b/contract_metrics.json",
+    "overall": {
+      "n_tasks": 120,
+      "invalid_rate": 0.342,
+      "exact_match": 0.167,
+      "must_change": {
+        "precision": 0.923,
+        "recall": 0.587,
+        "f1": 0.718,
+        "tp": 169,
+        "fp": 14,
+        "fn": 119
+      },
+      "must_preserve": {
+        "precision": 0.985,
+        "recall": 0.632,
+        "f1": 0.77,
+        "tp": 1259,
+        "fp": 19,
+        "fn": 733
+      }
+    },
+    "test": {
+      "n_tasks": 100,
+      "invalid_rate": 0.34,
+      "exact_match": 0.17,
+      "must_change": {
+        "precision": 0.925,
+        "recall": 0.589,
+        "f1": 0.72,
+        "tp": 136,
+        "fp": 11,
+        "fn": 95
+      },
+      "must_preserve": {
+        "precision": 0.988,
+        "recall": 0.632,
+        "f1": 0.771,
+        "tp": 1052,
+        "fp": 13,
+        "fn": 612
+      }
+    }
+  },
+  "intent_prompted_7b_p1v2": {
+    "folder": "kaggle_outputs/parsing/7b_p1-v2",
+    "results": "results/stage1/other_prompts/intent_prompted_7b_p1v2",
+    "contract_metrics": "results/stage1/other_prompts/intent_prompted_7b_p1v2/contract_metrics.json",
+    "overall": {
+      "n_tasks": 120,
+      "invalid_rate": 0.317,
+      "exact_match": 0.142,
+      "must_change": {
+        "precision": 0.924,
+        "recall": 0.59,
+        "f1": 0.72,
+        "tp": 170,
+        "fp": 14,
+        "fn": 118
+      },
+      "must_preserve": {
+        "precision": 0.978,
+        "recall": 0.65,
+        "f1": 0.781,
+        "tp": 1294,
+        "fp": 29,
+        "fn": 698
+      }
+    },
+    "test": {
+      "n_tasks": 100,
+      "invalid_rate": 0.33,
+      "exact_match": 0.14,
+      "must_change": {
+        "precision": 0.924,
+        "recall": 0.576,
+        "f1": 0.709,
+        "tp": 133,
+        "fp": 11,
+        "fn": 98
+      },
+      "must_preserve": {
+        "precision": 0.981,
+        "recall": 0.638,
+        "f1": 0.773,
+        "tp": 1062,
+        "fp": 21,
+        "fn": 602
+      }
+    }
+  },
+  "intent_prompted_7b_p1v3": {
+    "folder": "kaggle_outputs/parsing/7b_p1-v3",
+    "results": "results/stage1/baseline3",
+    "contract_metrics": "results/stage1/baseline3/contract_metrics.json",
+    "overall": {
+      "n_tasks": 120,
+      "invalid_rate": 0.15,
+      "exact_match": 0.258,
+      "must_change": {
+        "precision": 0.888,
+        "recall": 0.66,
+        "f1": 0.757,
+        "tp": 190,
+        "fp": 24,
+        "fn": 98
+      },
+      "must_preserve": {
+        "precision": 0.981,
+        "recall": 0.821,
+        "f1": 0.894,
+        "tp": 1636,
+        "fp": 31,
+        "fn": 356
+      }
+    },
+    "test": {
+      "n_tasks": 100,
+      "invalid_rate": 0.13,
+      "exact_match": 0.27,
+      "must_change": {
+        "precision": 0.874,
+        "recall": 0.658,
+        "f1": 0.751,
+        "tp": 152,
+        "fp": 22,
+        "fn": 79
+      },
+      "must_preserve": {
+        "precision": 0.984,
+        "recall": 0.84,
+        "f1": 0.906,
+        "tp": 1397,
+        "fp": 23,
+        "fn": 267
+      }
+    }
+  }
+}

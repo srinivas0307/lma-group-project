@@ -1,0 +1,42 @@
+{
+  "pool": "benchmark/pool/pool_v4.jsonl",
+  "n_candidates": 803,
+  "contracts": "kaggle_outputs/parsing/1_5b_p1-v2/parses.jsonl",
+  "stats": {
+    "intent_prompted_1_5b_p1v2": {
+      "alignment_None": 377,
+      "UNCERTAIN": 402,
+      "uncertain_invalid_contract": 377,
+      "alignment_index": 363,
+      "VIOLATION": 189,
+      "PASS": 165,
+      "execution": 47,
+      "alignment_content": 16,
+      "uncertain_predicate_not_evaluable": 30,
+      "uncertain_unknown_column": 9
+    },
+    "intent_prompted_1_5b_p1v2_change_only": {
+      "alignment_None": 377,
+      "UNCERTAIN": 408,
+      "uncertain_invalid_contract": 377,
+      "alignment_index": 363,
+      "VIOLATION": 141,
+      "PASS": 207,
+      "execution": 47,
+      "alignment_content": 16,
+      "uncertain_predicate_not_evaluable": 30,
+      "uncertain_unknown_column": 6
+    },
+    "intent_prompted_1_5b_p1v2_preserve_only": {
+      "alignment_None": 377,
+      "UNCERTAIN": 380,
+      "uncertain_invalid_contract": 377,
+      "alignment_index": 363,
+      "PASS": 317,
+      "execution": 47,
+      "VIOLATION": 59,
+      "alignment_content": 16,
+      "uncertain_unknown_column": 3
+    }
+  }
+}

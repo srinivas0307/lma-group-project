@@ -87,10 +87,13 @@ def test_metrics_on_toy_pool_hand_checked(tmp_path):
 
 
 def test_existing_verdict_files_are_valid():
-    for pool, files in [("eval/pool_v2/pool_v2.jsonl", ["eval/pool_v2/verdicts_baseline1.jsonl",
-                                                         "results/baseline2_v2/verdicts_baseline2.jsonl"])]:
+    for pool, files in [("benchmark/pool/pool_v4.jsonl", [
+            "results/stage1/baseline1/verdicts_baseline1.jsonl", "results/stage1/baseline2/verdicts_baseline2.jsonl",
+            "results/stage1/oracle/verdicts_intent_oracle.jsonl", "results/stage1/baseline3/verdicts_intent_prompted_7b_p1v3.jsonl"]),
+                        ("archive/pools/pool_v2/pool_v2.jsonl", ["archive/pools/pool_v2/verdicts_baseline1.jsonl",
+                                                                 "archive/results/baseline2_v2/verdicts_baseline2.jsonl"])]:
         if not (ROOT / pool).exists():
-            pytest.skip("pool v2 not present")
+            pytest.skip(f"{pool} not present")
         P = {c["candidate_id"]: c for c in map(json.loads, (ROOT / pool).read_text().splitlines())}
         for f in files:
             metrics.load_verdicts(ROOT / f, P)          # raises SystemExit on any format problem

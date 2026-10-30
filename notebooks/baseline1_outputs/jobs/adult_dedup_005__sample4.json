@@ -1,1 +1,0 @@
-{"task_id": "adult_dedup_005", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    df_transformed = df.drop_duplicates(subset=['age', 'education', 'marital-status', 'occupation', 'relationship', 'race', 'sex'], keep='first')\n    return df_transformed", "func_name": "transform"}

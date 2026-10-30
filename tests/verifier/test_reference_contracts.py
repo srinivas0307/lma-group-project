@@ -14,7 +14,7 @@ from igt.sandbox import safe_run
 from igt.verifier import verify
 
 ROOT = Path(__file__).resolve().parents[2]
-TASKS = [yaml.safe_load(f.read_text()) for f in sorted((ROOT / "eval" / "tasks").glob("*/*.yaml"))]
+TASKS = [yaml.safe_load(f.read_text()) for f in sorted((ROOT / "benchmark" / "tasks").glob("*/*.yaml"))]
 DATA = {f: pd.read_csv(ROOT / f) for f in {t["data_file"] for t in TASKS}}
 
 

@@ -1,1 +1,0 @@
-{"task_id": "adult_filt_006", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    mask = (df['hours-per-week'] >= 20) & (df['workclass'] != 'Private')\n    return df[mask]", "func_name": "transform"}

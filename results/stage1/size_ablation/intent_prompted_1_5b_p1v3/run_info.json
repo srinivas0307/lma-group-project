@@ -1,0 +1,45 @@
+{
+  "pool": "benchmark/pool/pool_v4.jsonl",
+  "n_candidates": 803,
+  "contracts": "kaggle_outputs/parsing/1_5b_p1-v3/parses.jsonl",
+  "stats": {
+    "intent_prompted_1_5b_p1v3": {
+      "alignment_index": 443,
+      "PASS": 124,
+      "UNCERTAIN": 292,
+      "uncertain_predicate_not_evaluable": 46,
+      "alignment_None": 276,
+      "uncertain_invalid_contract": 276,
+      "VIOLATION": 340,
+      "execution": 47,
+      "alignment_content": 37,
+      "uncertain_unknown_column": 16,
+      "uncertain_rows_unmatched": 3
+    },
+    "intent_prompted_1_5b_p1v3_change_only": {
+      "alignment_index": 443,
+      "PASS": 220,
+      "UNCERTAIN": 317,
+      "uncertain_predicate_not_evaluable": 41,
+      "alignment_None": 276,
+      "uncertain_invalid_contract": 276,
+      "VIOLATION": 219,
+      "execution": 47,
+      "alignment_content": 37,
+      "uncertain_unknown_column": 16,
+      "uncertain_rows_unmatched": 1
+    },
+    "intent_prompted_1_5b_p1v3_preserve_only": {
+      "alignment_index": 443,
+      "PASS": 238,
+      "alignment_None": 276,
+      "UNCERTAIN": 281,
+      "uncertain_invalid_contract": 276,
+      "execution": 47,
+      "uncertain_predicate_not_evaluable": 5,
+      "VIOLATION": 237,
+      "alignment_content": 37,
+      "uncertain_rows_unmatched": 2
+    }
+  }
+}

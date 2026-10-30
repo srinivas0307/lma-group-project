@@ -1,1 +1,0 @@
-{"task_id": "adult_miss_001", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    df.workclass.fillna('Unknown', inplace=True)\n    return df", "func_name": "transform"}

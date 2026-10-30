@@ -1,1 +1,0 @@
-{"status": "error", "ran_ok": false, "correct": false, "rows_before": 1000, "error": "AttributeError: 'DataFrame' object has no attribute 'education_num'"}

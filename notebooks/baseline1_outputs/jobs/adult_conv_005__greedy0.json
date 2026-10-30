@@ -1,1 +1,0 @@
-{"task_id": "adult_conv_005", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    df['sex'] = df['sex'].astype('category')\n    return df", "func_name": "transform"}

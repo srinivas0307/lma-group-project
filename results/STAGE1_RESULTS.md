@@ -1,18 +1,82 @@
-# Stage 1 results: verification only, oracle (gold) contracts (MVP-1, README Phase 5)
+# Stage 1 results
 
-Pool v2 (`eval/pool_v2/`): 395 unique LLM candidates (Qwen2.5-3B + Qwen2.5-1.5B, prompt `b1-v1`), labelled
+**Read this first.** The main Stage 1 table is the **pool v4** section right below. Everything after it is history
+(pool v2: adult + airbnb only; pool v3: four datasets from four partial generation runs); those files are kept
+unchanged in `archive/`.
+
+Where the current (pool v4) files are:
+
+| System | Folder |
+|---|---|
+| Baseline 1 (no verification) | `results/stage1/baseline1/` |
+| Baseline 2 (conventional checks, lenient tie-break) | `results/stage1/baseline2/` |
+| Baseline 3 (prompted 7B, p1-v3) | `results/stage1/baseline3/` |
+| Oracle (gold contracts) | `results/stage1/oracle/` |
+| Size ablation (prompted 3B p1-v2, 1.5B p1-v3) | `results/stage1/size_ablation/` |
+| Parser runs not selected on dev | `results/stage1/other_prompts/` |
+| All systems side by side, prompt selection | `results/stage1/summary/` |
+
+Regenerate pool v4 (CPU, about 20 min):
+```
+.venv/bin/python eval/build_pool.py --version v4 --sources kaggle_outputs/generation/3b_all_tasks kaggle_outputs/generation/1_5b_all_tasks  # refuses if it exists
+.venv/bin/python eval/baseline1_by_dataset.py
+.venv/bin/python eval/baseline2.py                  # configs/baseline2_v4.yaml
+.venv/bin/python eval/run_intent_oracle.py          # gold contracts -> results/stage1/oracle
+.venv/bin/python eval/score_parsers.py              # every kaggle_outputs/parsing/* run + results/stage1/summary/
+```
+
+## Pool v4: the main Stage 1 table (2026-10-30)
+
+Pool v4 (`benchmark/pool/`) is built from **one all-task Baseline 1 run per generator**: 3B
+(`kaggle_outputs/generation/3b_all_tasks/`, notebook `notebooks/executed/baseline-1_all-tasks_ran-notebook.ipynb`) and
+1.5B (`kaggle_outputs/generation/1_5b_all_tasks/`, notebook `notebooks/executed/baseline-1_1.5B_all-tasks_ran-notebook.ipynb`).
+Same prompt (`ebbe8bceae71`), seeds, sampling and pinned pandas as pool v3; the prompt schema is identical to the frozen one.
+Reason for the switch: one Baseline 1 run per model over all 120 tasks, instead of four partial runs.
+
+**Difference from pool v3** (archived in `archive/pools/pool_v3/`, its results in `archive/results/stage1_pool_v3/`):
+1438 of 1440 generations are identical. Two greedy outputs differ because greedy decoding runs in batches of 8 and
+the batches were made up differently (padding and fp16 arithmetic): `taxi_conv_005` (3B; pool v3 had a wrong
+version, v4 has a correct one equal to an existing sample) and `titanic_conv_001` (1.5B; only the docstring
+differs, correct in both). Result: 803 candidates (v3: 804), test runnable wrong 213 (v3: 214). 798 candidates keep
+the same id, code and label; the rest are the renumbered `taxi_conv_005` candidates and the `titanic_conv_001` one.
+Baseline 2 re-tuned on v4 dev gives the same thresholds (the changes are in test). Parser contracts are per task,
+so the 9 parser runs were re-scored without any new GPU run.
+
+| System (test, 671 candidates) | Recall | FRR | Silent error rate | ESCALATE |
+|---|---|---|---|---|
+| Baseline 1: no verification | 0.000 [0.00, 0.00] | 0.000 [0.00, 0.00] | 0.338 | 0.000 |
+| Baseline 2: conventional checks | 0.455 [0.33, 0.58] | 0.139 [0.07, 0.22] | 0.244 | 0.000 |
+| **Baseline 3: prompted 7B (p1-v3)** | 0.892 [0.82, 0.95] | 0.254 [0.16, 0.36] | 0.069 | 0.148 |
+| prompted 3B (p1-v2, dev-selected) | 0.958 [0.90, 0.99] | 0.578 [0.46, 0.68] | 0.049 | 0.297 |
+| prompted 1.5B (p1-v3) | 0.953 [0.90, 0.99] | 0.796 [0.71, 0.88] | 0.105 | 0.356 |
+| Intent verifier, oracle contract | 0.944 [0.90, 0.98] | 0.000 [0.00, 0.00] | 0.028 | 0.006 |
+
+Brackets: 95% task-level bootstrap intervals. Paired McNemar (test): Baseline 3 vs Baseline 2: Baseline 3 right on
+140 candidates where Baseline 2 was wrong, the reverse on 95 (**p = 0.004**); oracle vs Baseline 2: 164 vs 2
+(p < 0.001). All rates moved by at most 0.002 from pool v3, so the findings in the pool v3 history section
+(Baseline 2 weak on type conversion, the oracle's 12 misses: 8 extra columns OI-7, 4 taxi dtype annotation gaps) hold.
+
+Baseline 1 by dataset (`eval/baseline1_by_dataset.py` -> `results/stage1/baseline1/by_dataset.json`), test greedy
+accuracy: 3B adult 20/25, airbnb 21/25, taxi 18/25, titanic 18/25 (77/100); 1.5B 20, 17, 20, 19 (76/100). These
+equal the two notebooks' own `test.greedy` numbers.
+
+---
+
+# History: pool v2, oracle (gold) contracts (MVP-1, README Phase 5)
+
+Pool v2 (`archive/pools/pool_v2/`): 395 unique LLM candidates (Qwen2.5-3B + Qwen2.5-1.5B, prompt `b1-v1`), labelled
 correct/wrong by content comparison with the reference output. All systems judge the **same** candidates.
 
-Regenerate:
+Regenerated at the time with (paths updated to the archive):
 ```
-.venv/bin/python eval/baseline2.py --config configs/baseline2_v2.yaml
-.venv/bin/python eval/run_intent_oracle.py
-.venv/bin/python eval/metrics.py --pool eval/pool_v2/pool_v2.jsonl \
-  --verdicts eval/pool_v2/verdicts_baseline1.jsonl results/baseline2_v2/verdicts_baseline2.jsonl \
-             results/intent_oracle_v2/verdicts_intent_oracle.jsonl \
-             results/intent_oracle_v2/verdicts_intent_oracle_change_only.jsonl \
-             results/intent_oracle_v2/verdicts_intent_oracle_preserve_only.jsonl \
-  --out results/intent_oracle_v2/metrics_stage1.json
+.venv/bin/python eval/baseline2.py --config archive/configs/baseline2_v2.yaml
+.venv/bin/python eval/run_intent_oracle.py --pool archive/pools/pool_v2/pool_v2.jsonl --out archive/results/intent_oracle_v2
+.venv/bin/python eval/metrics.py --pool archive/pools/pool_v2/pool_v2.jsonl \
+  --verdicts archive/pools/pool_v2/verdicts_baseline1.jsonl archive/results/baseline2_v2/verdicts_baseline2.jsonl \
+             archive/results/intent_oracle_v2/verdicts_intent_oracle.jsonl \
+             archive/results/intent_oracle_v2/verdicts_intent_oracle_change_only.jsonl \
+             archive/results/intent_oracle_v2/verdicts_intent_oracle_preserve_only.jsonl \
+  --out archive/results/intent_oracle_v2/metrics_stage1.json
 ```
 
 ## Main table (test split: 323 candidates, 295 ran, 98 of those wrong, 197 correct)
@@ -138,7 +202,7 @@ pandas dtype names, `keep` with the wrong op): small prompted models don't follo
 **Update 2026-10-30:** a coverage gap was found by inspecting the prompt: the few-shot examples demonstrate only 1 of 14
 functions and 4 of 10 condition operators. Prompt p1-v3 adds a reference card covering the whole vocabulary (design
 rule, README §12). The final Baseline 3 version is chosen per model on the **dev** split only
-(`results/parsers_v2/baseline3_selection.json`); all three versions are reported. Caveat: p1-v1 and p1-v2 test results
+(`archive/results/parsers_v2/baseline3_selection.json`); all three versions are reported. Caveat: p1-v1 and p1-v2 test results
 had been seen, and the gap was quantified on test (7B p1-v2: 57% invalid when the gold contract needs a function or
 operator the examples don't show, vs 14% otherwise). Remaining format reliability is addressed the same way for every parser (OI-9) and is the main motivation
 for fine-tuning.
@@ -165,7 +229,7 @@ All prompted parsers, test split (pool v2; contract metrics on the 100 test task
 | intent_prompted_1_5b_p1v2 | 0.440 | 0.367 | 0.658 | 0.980 | 0.731 | 0.402 |
 | intent_prompted_1_5b_p1v3 | 0.340 | 0.395 | 0.730 | 0.990 | 0.741 | 0.319 |
 
-**Selection on dev** (`results/parsers_v2/baseline3_selection.json`, lowest dev invalid rate, then dev F1):
+**Selection on dev** (`archive/results/parsers_v2/baseline3_selection.json`, lowest dev invalid rate, then dev F1):
 7B → **p1-v3**, 3B → **p1-v2**, 1.5B → **p1-v3**. The 3B choice follows the rule even though p1-v3 is better on test
 (dev invalid 0.35 vs 0.40); report both.
 
@@ -190,9 +254,9 @@ Paired McNemar (test): Baseline 3 right on 61 candidates where Baseline 2 was wr
    the fine-tuned parser has to close (Gate 3).
 3. Bigger is better: at its selected prompt, 7B > 3B > 1.5B on invalid rate, F1 and FRR.
 
-## Pool v3: all four datasets (main Stage 1 table from now on), 2026-10-30
+## History: pool v3, all four datasets (superseded by pool v4; files in `archive/pools/pool_v3/`, `archive/results/stage1_pool_v3/`)
 
-Pool v3 (`eval/pool_v3/`) = pool v2 (adult, airbnb; all 395 candidates kept with the same ids and labels) + taxi and
+Pool v3 (`benchmark/pool/`) = pool v2 (adult, airbnb; all 395 candidates kept with the same ids and labels) + taxi and
 titanic generated with the same two models, prompt (`ebbe8bceae71`), sampling, seeds rule and library versions
 (transformers 5.16.1, torch 2.11, T4). 804 unique candidates; test: 672 candidates, 631 ran, **214 runnable wrong**
 (adult 48, airbnb 50, taxi 66, titanic 50) over 120 tasks. Baseline 2 re-tuned on v3 dev with the same config
@@ -227,7 +291,7 @@ Baseline 2 vs Baseline 1: 97 vs 58 (p = 0.0022).
 Baseline 1 has no verifier, so it needs no separate run: its result is the generator output itself. These numbers
 come from the generations already made on Kaggle for pool v3 (both generators, all four datasets, prompt
 `ebbe8bceae71`), each labelled with its pool candidate's correctness. Regenerate:
-`.venv/bin/python eval/baseline1_by_dataset.py` (-> `results/baseline1_v3/by_dataset.json`).
+`.venv/bin/python eval/baseline1_by_dataset.py` (-> `results/stage1/baseline1/by_dataset.json`).
 
 Test split, 25 tasks per dataset. Greedy = one temperature-0 output per task; samples = all 6 outputs per task
 (greedy + 5 at T = 0.7). Silent error rate = wrong among the unique pool candidates that ran (the Baseline 1 row above).
@@ -240,7 +304,16 @@ Test split, 25 tasks per dataset. Greedy = one temperature-0 output per task; sa
 | Qwen2.5-1.5B sample accuracy | 0.733 | 0.693 | 0.720 | 0.693 | 426/600 (0.710) |
 | Silent error rate (unique candidates) | 48/154 (0.312) | 50/141 (0.355) | 66/176 (0.375) | 50/160 (0.312) | 214/631 (0.339) |
 
-The first Baseline 1 notebook (`notebooks/new-baseline-1_complete.ipynb`, 3B, adult + airbnb only) reported test
-greedy accuracy 0.82; the same subset here is 41/50 = 0.82, so the local re-labelling agrees with it. Quote the
-four-dataset numbers above from now on. Even greedy decoding of the stronger generator gets about 1 task in 4
+**Baseline 1 notebook rerun on all four datasets (2026-10-30).** The Baseline 1 notebook was rerun in one go for 3B
+on all 120 tasks (`notebooks/executed/baseline-1_all-tasks_ran-notebook.ipynb`, outputs in
+`kaggle_outputs/generation/3b_all_tasks_rerun/`; the first adult + airbnb-only run is in `archive/notebooks/`). Same
+prompt (`ebbe8bceae71`), seeds, sampling and pinned pandas; the prompt schema is identical to the frozen one.
+**719 of 720 generations are identical** (same text, same label) to the 3B generations in pool v3. The one difference
+is `taxi_conv_005` greedy: the rerun's code adds `.astype({'store_and_fwd_flag': bool})` and is correct; the pool's
+version is wrong (object dtype). Cause: greedy outputs are generated in batches of 8, and the rerun batches all 120
+tasks while the pool run batched taxi + titanic only, so the padding and fp16 arithmetic differ for that batch.
+Its test greedy accuracy is therefore 77/100 (taxi 18/25) against 76/100 (taxi 17/25) in the table above.
+Pool v3 is **not** changed: Baselines 2, 3 and the oracle judged the pool's candidates, and swapping one test
+candidate after seeing the result would be selection on test. Report the table above (from the pool) as Baseline 1,
+and the rerun as a reproducibility check (1/720 generations differ, from batched fp16 greedy decoding). Even greedy decoding of the stronger generator gets about 1 task in 4
 wrong, and roughly a third of the distinct programs that run are silently wrong.

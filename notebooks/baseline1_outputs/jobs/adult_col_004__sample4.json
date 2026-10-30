@@ -1,1 +1,0 @@
-{"task_id": "adult_col_004", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    df['occupation'] = df['occupation'].str.lower()\n    return df", "func_name": "transform"}

@@ -1,6 +1,6 @@
 """Agent metrics (README Phase 10) from runner outputs.
 
-    .venv/bin/python eval/agent_metrics.py results/agent_v2 dev      # every <system>/runs.jsonl below it
+    .venv/bin/python eval/agent_metrics.py results/stage2_agent dev  # every <system>/runs.jsonl below it
 
 Per system (test split by default), from runs.jsonl:
   Outcome    R: repair success = ACCEPT and the final output equals the reference (evaluator); ESCALATE / REJECT rates;
@@ -104,7 +104,7 @@ def paired(systems):
 
 
 def main():
-    root = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "results" / "agent_v2"
+    root = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "results" / "stage2_agent"
     split = sys.argv[2] if len(sys.argv) > 2 else "test"
     systems, invalid = {}, []
     for p in sorted(root.glob("*/runs.jsonl")):

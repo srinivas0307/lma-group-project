@@ -1,0 +1,789 @@
+{
+  "dev": {
+    "greedy": {
+      "n": 20,
+      "parse_error": 0,
+      "blocked": 0,
+      "crashed": 0,
+      "ran_ok": 20,
+      "correct": 16,
+      "accuracy": 0.8,
+      "accuracy_ci": [
+        0.584,
+        0.919
+      ],
+      "silent_errors": 4,
+      "silent_error_rate": 0.2,
+      "silent_error_rate_ci": [
+        0.081,
+        0.416
+      ]
+    },
+    "greedy_by_type": {
+      "column_transformation": {
+        "n": 4,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 4,
+        "correct": 4,
+        "accuracy": 1.0,
+        "accuracy_ci": [
+          0.51,
+          1.0
+        ],
+        "silent_errors": 0,
+        "silent_error_rate": 0.0,
+        "silent_error_rate_ci": [
+          0.0,
+          0.49
+        ]
+      },
+      "deduplication": {
+        "n": 4,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 4,
+        "correct": 3,
+        "accuracy": 0.75,
+        "accuracy_ci": [
+          0.301,
+          0.954
+        ],
+        "silent_errors": 1,
+        "silent_error_rate": 0.25,
+        "silent_error_rate_ci": [
+          0.046,
+          0.699
+        ]
+      },
+      "filtering": {
+        "n": 4,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 4,
+        "correct": 2,
+        "accuracy": 0.5,
+        "accuracy_ci": [
+          0.15,
+          0.85
+        ],
+        "silent_errors": 2,
+        "silent_error_rate": 0.5,
+        "silent_error_rate_ci": [
+          0.15,
+          0.85
+        ]
+      },
+      "missing_values": {
+        "n": 4,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 4,
+        "correct": 3,
+        "accuracy": 0.75,
+        "accuracy_ci": [
+          0.301,
+          0.954
+        ],
+        "silent_errors": 1,
+        "silent_error_rate": 0.25,
+        "silent_error_rate_ci": [
+          0.046,
+          0.699
+        ]
+      },
+      "type_conversion": {
+        "n": 4,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 4,
+        "correct": 4,
+        "accuracy": 1.0,
+        "accuracy_ci": [
+          0.51,
+          1.0
+        ],
+        "silent_errors": 0,
+        "silent_error_rate": 0.0,
+        "silent_error_rate_ci": [
+          0.0,
+          0.49
+        ]
+      }
+    },
+    "greedy_by_dataset": {
+      "adult": {
+        "n": 5,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 5,
+        "correct": 4,
+        "accuracy": 0.8,
+        "accuracy_ci": [
+          0.376,
+          0.964
+        ],
+        "silent_errors": 1,
+        "silent_error_rate": 0.2,
+        "silent_error_rate_ci": [
+          0.036,
+          0.624
+        ]
+      },
+      "airbnb": {
+        "n": 5,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 5,
+        "correct": 4,
+        "accuracy": 0.8,
+        "accuracy_ci": [
+          0.376,
+          0.964
+        ],
+        "silent_errors": 1,
+        "silent_error_rate": 0.2,
+        "silent_error_rate_ci": [
+          0.036,
+          0.624
+        ]
+      },
+      "taxi": {
+        "n": 5,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 5,
+        "correct": 4,
+        "accuracy": 0.8,
+        "accuracy_ci": [
+          0.376,
+          0.964
+        ],
+        "silent_errors": 1,
+        "silent_error_rate": 0.2,
+        "silent_error_rate_ci": [
+          0.036,
+          0.624
+        ]
+      },
+      "titanic": {
+        "n": 5,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 5,
+        "correct": 4,
+        "accuracy": 0.8,
+        "accuracy_ci": [
+          0.376,
+          0.964
+        ],
+        "silent_errors": 1,
+        "silent_error_rate": 0.2,
+        "silent_error_rate_ci": [
+          0.036,
+          0.624
+        ]
+      }
+    },
+    "sampled_only": {
+      "n": 100,
+      "parse_error": 0,
+      "blocked": 2,
+      "crashed": 0,
+      "ran_ok": 98,
+      "correct": 59,
+      "accuracy": 0.59,
+      "accuracy_ci": [
+        0.492,
+        0.681
+      ],
+      "silent_errors": 39,
+      "silent_error_rate": 0.398,
+      "silent_error_rate_ci": [
+        0.307,
+        0.497
+      ]
+    },
+    "all_samples": {
+      "n": 120,
+      "parse_error": 0,
+      "blocked": 2,
+      "crashed": 0,
+      "ran_ok": 118,
+      "correct": 75,
+      "accuracy": 0.625,
+      "accuracy_ci": [
+        0.536,
+        0.706
+      ],
+      "silent_errors": 43,
+      "silent_error_rate": 0.364,
+      "silent_error_rate_ci": [
+        0.283,
+        0.454
+      ]
+    },
+    "all_by_type": {
+      "column_transformation": {
+        "n": 24,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 24,
+        "correct": 23,
+        "accuracy": 0.958,
+        "accuracy_ci": [
+          0.798,
+          0.993
+        ],
+        "silent_errors": 1,
+        "silent_error_rate": 0.042,
+        "silent_error_rate_ci": [
+          0.007,
+          0.202
+        ]
+      },
+      "deduplication": {
+        "n": 24,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 24,
+        "correct": 8,
+        "accuracy": 0.333,
+        "accuracy_ci": [
+          0.18,
+          0.533
+        ],
+        "silent_errors": 16,
+        "silent_error_rate": 0.667,
+        "silent_error_rate_ci": [
+          0.467,
+          0.82
+        ]
+      },
+      "filtering": {
+        "n": 24,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 24,
+        "correct": 9,
+        "accuracy": 0.375,
+        "accuracy_ci": [
+          0.212,
+          0.573
+        ],
+        "silent_errors": 15,
+        "silent_error_rate": 0.625,
+        "silent_error_rate_ci": [
+          0.427,
+          0.788
+        ]
+      },
+      "missing_values": {
+        "n": 24,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 24,
+        "correct": 13,
+        "accuracy": 0.542,
+        "accuracy_ci": [
+          0.351,
+          0.721
+        ],
+        "silent_errors": 11,
+        "silent_error_rate": 0.458,
+        "silent_error_rate_ci": [
+          0.279,
+          0.649
+        ]
+      },
+      "type_conversion": {
+        "n": 24,
+        "parse_error": 0,
+        "blocked": 2,
+        "crashed": 0,
+        "ran_ok": 22,
+        "correct": 22,
+        "accuracy": 0.917,
+        "accuracy_ci": [
+          0.742,
+          0.977
+        ],
+        "silent_errors": 0,
+        "silent_error_rate": 0.0,
+        "silent_error_rate_ci": [
+          0.0,
+          0.149
+        ]
+      }
+    },
+    "pool_unique_runnable": 73,
+    "pool_unique_wrong_by_type": {
+      "column_transformation": 1,
+      "deduplication": 16,
+      "filtering": 11,
+      "missing_values": 9
+    },
+    "wrong_reasons": {
+      "row count differs (0 vs 987)": 5,
+      "dtype family differs in host_name (object vs string)": 5,
+      "row count differs (174 vs 849)": 4,
+      "row count differs (947 vs 969)": 3,
+      "row count differs (945 vs 950)": 3,
+      "values differ": 2,
+      "row count differs (993 vs 989)": 2,
+      "columns differ (extra=['duration_seconds'], missing=[])": 2,
+      "columns differ (extra=[], missing=['Age', 'Cabin', 'Embarked', 'Name', 'Parch', 'PassengerId', 'Pclass', 'Sex', 'SibSp'])": 2,
+      "row count differs (1000 vs 989)": 1,
+      "columns differ (extra=['education-num'], missing=['education_years'])": 1,
+      "row count differs (922 vs 989)": 1,
+      "row count differs (843 vs 950)": 1,
+      "dtype family differs in last_review (datetime vs string)": 1,
+      "row count differs (163 vs 987)": 1,
+      "row count differs (280 vs 969)": 1,
+      "row count differs (997 vs 908)": 1,
+      "row count differs (85 vs 908)": 1,
+      "row count differs (993 vs 1000)": 1,
+      "columns differ (extra=['dropoff_hour', 'dropoff_minute', 'dropoff_second', 'pickup_hour', 'pickup_minute', 'pickup_second'], missing=['tpep_dropoff_datetime', 'tpep_pickup_datetime'])": 1,
+      "columns differ (extra=[], missing=['tpep_pickup_datetime'])": 1,
+      "row count differs (681 vs 682)": 1,
+      "columns differ (extra=['Age_x', 'Age_y', 'Embarked_x', 'Embarked_y', 'Fare_x', 'Fare_y', 'Name_x', 'Name_y', 'Parch_x', 'Parch_y', 'PassengerId_x', 'PassengerId_y', 'Pclass_x', 'Pclass_y', 'Sex_x', 'Sex_y', 'SibSp_x', 'SibSp_y', 'Survived_x', 'Survived_y'], missing=['Age', 'Embarked', 'Fare', 'Name', 'Parch', 'PassengerId', 'Pclass', 'Sex', 'SibSp', 'Survived'])": 1,
+      "row count differs (717 vs 849)": 1
+    },
+    "renamed_function": 0,
+    "truncated": 0,
+    "index_not_kept": 8
+  },
+  "test": {
+    "greedy": {
+      "n": 100,
+      "parse_error": 0,
+      "blocked": 0,
+      "crashed": 1,
+      "ran_ok": 99,
+      "correct": 76,
+      "accuracy": 0.76,
+      "accuracy_ci": [
+        0.668,
+        0.833
+      ],
+      "silent_errors": 23,
+      "silent_error_rate": 0.232,
+      "silent_error_rate_ci": [
+        0.16,
+        0.325
+      ]
+    },
+    "greedy_by_type": {
+      "column_transformation": {
+        "n": 20,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 20,
+        "correct": 16,
+        "accuracy": 0.8,
+        "accuracy_ci": [
+          0.584,
+          0.919
+        ],
+        "silent_errors": 4,
+        "silent_error_rate": 0.2,
+        "silent_error_rate_ci": [
+          0.081,
+          0.416
+        ]
+      },
+      "deduplication": {
+        "n": 20,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 20,
+        "correct": 14,
+        "accuracy": 0.7,
+        "accuracy_ci": [
+          0.481,
+          0.855
+        ],
+        "silent_errors": 6,
+        "silent_error_rate": 0.3,
+        "silent_error_rate_ci": [
+          0.145,
+          0.519
+        ]
+      },
+      "filtering": {
+        "n": 20,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 20,
+        "correct": 14,
+        "accuracy": 0.7,
+        "accuracy_ci": [
+          0.481,
+          0.855
+        ],
+        "silent_errors": 6,
+        "silent_error_rate": 0.3,
+        "silent_error_rate_ci": [
+          0.145,
+          0.519
+        ]
+      },
+      "missing_values": {
+        "n": 20,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 20,
+        "correct": 15,
+        "accuracy": 0.75,
+        "accuracy_ci": [
+          0.531,
+          0.888
+        ],
+        "silent_errors": 5,
+        "silent_error_rate": 0.25,
+        "silent_error_rate_ci": [
+          0.112,
+          0.469
+        ]
+      },
+      "type_conversion": {
+        "n": 20,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 1,
+        "ran_ok": 19,
+        "correct": 17,
+        "accuracy": 0.85,
+        "accuracy_ci": [
+          0.64,
+          0.948
+        ],
+        "silent_errors": 2,
+        "silent_error_rate": 0.105,
+        "silent_error_rate_ci": [
+          0.029,
+          0.314
+        ]
+      }
+    },
+    "greedy_by_dataset": {
+      "adult": {
+        "n": 25,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 25,
+        "correct": 20,
+        "accuracy": 0.8,
+        "accuracy_ci": [
+          0.609,
+          0.911
+        ],
+        "silent_errors": 5,
+        "silent_error_rate": 0.2,
+        "silent_error_rate_ci": [
+          0.089,
+          0.391
+        ]
+      },
+      "airbnb": {
+        "n": 25,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 1,
+        "ran_ok": 24,
+        "correct": 17,
+        "accuracy": 0.68,
+        "accuracy_ci": [
+          0.484,
+          0.828
+        ],
+        "silent_errors": 7,
+        "silent_error_rate": 0.292,
+        "silent_error_rate_ci": [
+          0.149,
+          0.492
+        ]
+      },
+      "taxi": {
+        "n": 25,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 25,
+        "correct": 20,
+        "accuracy": 0.8,
+        "accuracy_ci": [
+          0.609,
+          0.911
+        ],
+        "silent_errors": 5,
+        "silent_error_rate": 0.2,
+        "silent_error_rate_ci": [
+          0.089,
+          0.391
+        ]
+      },
+      "titanic": {
+        "n": 25,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 25,
+        "correct": 19,
+        "accuracy": 0.76,
+        "accuracy_ci": [
+          0.566,
+          0.885
+        ],
+        "silent_errors": 6,
+        "silent_error_rate": 0.24,
+        "silent_error_rate_ci": [
+          0.115,
+          0.434
+        ]
+      }
+    },
+    "sampled_only": {
+      "n": 500,
+      "parse_error": 1,
+      "blocked": 6,
+      "crashed": 17,
+      "ran_ok": 476,
+      "correct": 350,
+      "accuracy": 0.7,
+      "accuracy_ci": [
+        0.658,
+        0.739
+      ],
+      "silent_errors": 126,
+      "silent_error_rate": 0.265,
+      "silent_error_rate_ci": [
+        0.227,
+        0.306
+      ]
+    },
+    "all_samples": {
+      "n": 600,
+      "parse_error": 1,
+      "blocked": 6,
+      "crashed": 18,
+      "ran_ok": 575,
+      "correct": 426,
+      "accuracy": 0.71,
+      "accuracy_ci": [
+        0.672,
+        0.745
+      ],
+      "silent_errors": 149,
+      "silent_error_rate": 0.259,
+      "silent_error_rate_ci": [
+        0.225,
+        0.296
+      ]
+    },
+    "all_by_type": {
+      "column_transformation": {
+        "n": 120,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 1,
+        "ran_ok": 119,
+        "correct": 95,
+        "accuracy": 0.792,
+        "accuracy_ci": [
+          0.711,
+          0.855
+        ],
+        "silent_errors": 24,
+        "silent_error_rate": 0.202,
+        "silent_error_rate_ci": [
+          0.139,
+          0.283
+        ]
+      },
+      "deduplication": {
+        "n": 120,
+        "parse_error": 0,
+        "blocked": 2,
+        "crashed": 10,
+        "ran_ok": 108,
+        "correct": 60,
+        "accuracy": 0.5,
+        "accuracy_ci": [
+          0.412,
+          0.588
+        ],
+        "silent_errors": 48,
+        "silent_error_rate": 0.444,
+        "silent_error_rate_ci": [
+          0.354,
+          0.538
+        ]
+      },
+      "filtering": {
+        "n": 120,
+        "parse_error": 0,
+        "blocked": 1,
+        "crashed": 0,
+        "ran_ok": 119,
+        "correct": 82,
+        "accuracy": 0.683,
+        "accuracy_ci": [
+          0.596,
+          0.76
+        ],
+        "silent_errors": 37,
+        "silent_error_rate": 0.311,
+        "silent_error_rate_ci": [
+          0.235,
+          0.399
+        ]
+      },
+      "missing_values": {
+        "n": 120,
+        "parse_error": 1,
+        "blocked": 1,
+        "crashed": 1,
+        "ran_ok": 117,
+        "correct": 94,
+        "accuracy": 0.783,
+        "accuracy_ci": [
+          0.701,
+          0.848
+        ],
+        "silent_errors": 23,
+        "silent_error_rate": 0.197,
+        "silent_error_rate_ci": [
+          0.135,
+          0.278
+        ]
+      },
+      "type_conversion": {
+        "n": 120,
+        "parse_error": 0,
+        "blocked": 2,
+        "crashed": 6,
+        "ran_ok": 112,
+        "correct": 95,
+        "accuracy": 0.792,
+        "accuracy_ci": [
+          0.711,
+          0.855
+        ],
+        "silent_errors": 17,
+        "silent_error_rate": 0.152,
+        "silent_error_rate_ci": [
+          0.097,
+          0.23
+        ]
+      }
+    },
+    "pool_unique_runnable": 385,
+    "pool_unique_wrong_by_type": {
+      "column_transformation": 20,
+      "deduplication": 48,
+      "filtering": 30,
+      "missing_values": 20,
+      "type_conversion": 16
+    },
+    "wrong_reasons": {
+      "values differ": 31,
+      "dtype family differs in tpep_pickup_datetime (datetime vs string)": 11,
+      "row count differs (1000 vs 993)": 7,
+      "category order differs in education": 5,
+      "row count differs (347 vs 544)": 5,
+      "dtype family differs in passenger_count (object vs float)": 5,
+      "category order differs in Pclass": 4,
+      "row count differs (601 vs 778)": 4,
+      "row count differs (204 vs 889)": 3,
+      "row count differs (959 vs 1000)": 3,
+      "row count differs (829 vs 868)": 2,
+      "row count differs (808 vs 843)": 2,
+      "row count differs (922 vs 993)": 2,
+      "row count differs (967 vs 1000)": 2,
+      "columns differ (extra=[], missing=['VendorID', 'tpep_dropoff_datetime', 'tpep_pickup_datetime'])": 2,
+      "row count differs (1000 vs 857)": 1,
+      "columns differ (extra=[], missing=['education'])": 1,
+      "row count differs (10 vs 804)": 1,
+      "columns differ (extra=['listing_counts'], missing=[])": 1,
+      "row count differs (839 vs 986)": 1,
+      "row count differs (801 vs 946)": 1,
+      "row count differs (1000 vs 929)": 1,
+      "row count differs (998 vs 991)": 1,
+      "row count differs (1000 vs 991)": 1,
+      "row count differs (9 vs 991)": 1,
+      "columns differ (extra=['income_num'], missing=[])": 1,
+      "row count differs (13 vs 993)": 1,
+      "columns differ (extra=['0'], missing=[])": 1,
+      "row count differs (909 vs 986)": 1,
+      "row count differs (713 vs 986)": 1,
+      "columns differ (extra=['is_not_working'], missing=[])": 1,
+      "dtype family differs in minimum_stay_cost (float vs int)": 1,
+      "columns differ (extra=['listing_name'], missing=[])": 1,
+      "category order differs in room_type": 1,
+      "row count differs (7 vs 980)": 1,
+      "columns differ (extra=['0', 'index'], missing=['availability_365', 'calculated_host_listings_count', 'host_id', 'host_name', 'id', 'last_review', 'latitude', 'longitude', 'minimum_nights', 'name', 'neighbourhood', 'neighbourhood_group', 'number_of_reviews', 'price', 'reviews_per_month', 'room_type'])": 1,
+      "row count differs (20 vs 980)": 1,
+      "row count differs (973 vs 980)": 1,
+      "columns differ (extra=['unique'], missing=[])": 1,
+      "row count differs (959 vs 843)": 1,
+      "row count differs (661 vs 843)": 1,
+      "row count differs (829 vs 986)": 1,
+      "row count differs (203 vs 986)": 1,
+      "row count differs (595 vs 986)": 1,
+      "row count differs (992 vs 868)": 1,
+      "columns differ (extra=['reviews_last_year'], missing=['last_review'])": 1,
+      "row count differs (842 vs 843)": 1,
+      "row count differs (951 vs 857)": 1,
+      "row count differs (657 vs 804)": 1,
+      "row count differs (0 vs 927)": 1,
+      "columns differ (extra=['review_period_months'], missing=[])": 1,
+      "columns differ (extra=['day', 'month', 'year'], missing=[])": 1,
+      "dtype family differs in fare_per_mile (object vs float)": 1,
+      "columns differ (extra=['pickup_datetime'], missing=[])": 1,
+      "dtype family differs in tpep_dropoff_datetime (datetime vs string)": 1,
+      "row count differs (7 vs 993)": 1,
+      "row count differs (986 vs 993)": 1,
+      "row count differs (1000 vs 986)": 1,
+      "row count differs (272 vs 967)": 1,
+      "dtype family differs in last_review (datetime vs string)": 1,
+      "columns differ (extra=['count'], missing=[])": 1,
+      "row count differs (988 vs 986)": 1,
+      "row count differs (0 vs 950)": 1,
+      "row count differs (3 vs 997)": 1,
+      "row count differs (774 vs 950)": 1,
+      "dtype family differs in RatecodeID (object vs float)": 1,
+      "dtype family differs in Pclass (int vs category)": 1,
+      "row count differs (226 vs 950)": 1,
+      "dtype family differs in Embarked (string vs category)": 1,
+      "dtype family differs in Embarked (float vs category)": 1,
+      "row count differs (891 vs 6)": 1,
+      "row count differs (344 vs 681)": 1,
+      "columns differ (extra=[], missing=['Age', 'Cabin', 'Embarked', 'Fare', 'Name', 'Parch', 'PassengerId', 'SibSp', 'Survived', 'Ticket'])": 1,
+      "row count differs (681 vs 710)": 1,
+      "columns differ (extra=[], missing=['PassengerId'])": 1,
+      "row count differs (79 vs 537)": 1
+    },
+    "renamed_function": 0,
+    "truncated": 0,
+    "index_not_kept": 18
+  }
+}

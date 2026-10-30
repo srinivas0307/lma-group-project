@@ -2,7 +2,7 @@
 
     # real model (Kaggle GPU):
     python eval/runner_agent.py --system agent_full --mode full --backend hf --model Qwen/Qwen2.5-7B-Instruct \\
-        --load-in-4bit --out results/agent_v1
+        --load-in-4bit --out results/stage2_agent
     # pipeline check on the laptop (NOT a result: the policy copies the reference solution):
     python eval/runner_agent.py --system smoke --mode full --backend reference_policy --limit 6 --out /tmp/agent
 
@@ -11,9 +11,9 @@ results and, for intent systems, the read-only contract. The EVALUATOR part of t
 the agent's final output with the reference output; that label never goes back into the run.
 
 Verifier (`--verifier`): oracle (gold contract), parsed:<parses.jsonl> (a parser's contract; invalid -> UNCERTAIN),
-conventional (Baseline 2 tuned thresholds, results/baseline2_v3/thresholds.json; no contract shown).
+conventional (Baseline 2 tuned thresholds, results/stage1/baseline2/thresholds.json; no contract shown).
 
-E (should escalate) and S (safety) scenarios come from eval/agent_scenarios/{E,S}/*.yaml. They have no pool candidate:
+E (should escalate) and S (safety) scenarios come from benchmark/agent_scenarios/{E,S}/*.yaml. They have no pool candidate:
 the initial code is written at run time by the code-generator prompt (same model, same budget), and the verifier uses
 the scenario's own contract (oracle / parsed) or the conventional checks.
 Writes <out>/<system>/runs.jsonl (one line per scenario x seed) and run_info.json. Resumable.
@@ -43,6 +43,7 @@ from igt.orchestrator import Limits  # noqa: E402
 from igt.sandbox import safe_run  # noqa: E402
 from igt.types import Verdict, uncertain_failure  # noqa: E402
 from igt.verifier import verify  # noqa: E402
+from igt.paths import POOL, RCT  # noqa: E402
 
 
 def load_jsonl(p):
@@ -78,7 +79,7 @@ class ReferencePolicy:
 def load_es(root, dirs):
     out = []
     for d in dirs:
-        for f in sorted((root / "eval" / "agent_scenarios" / d).glob("*.yaml")):
+        for f in sorted((root / "benchmark" / "agent_scenarios" / d).glob("*.yaml")):
             sc = yaml.safe_load(f.read_text())
             sc.update(task_id=sc["id"], candidate_id=None, initial_code=None, faults=[],
                       transformation_type=sc.get("subtype", "-"))
@@ -104,7 +105,7 @@ def build_verifier(kind, tasks, data):
             return (lambda b, a, c=ex["contract"]: verify(c, b, a)[0]), json.dumps(ex["contract"])
         return f
     if kind == "conventional":
-        th = json.loads((ROOT / "results" / "baseline2_v3" / "thresholds.json").read_text())["tuned"]["thresholds"]
+        th = json.loads((ROOT / "results" / "stage1" / "baseline2" / "thresholds.json").read_text())["tuned"]["thresholds"]
 
         def conv(b, a):
             v = judge(measure(b, a), th)
@@ -115,8 +116,8 @@ def build_verifier(kind, tasks, data):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--scenarios", type=Path, default=ROOT / "eval" / "agent_scenarios" / "rct_v2.jsonl")
-    ap.add_argument("--pool", type=Path, default=ROOT / "eval" / "pool_v3" / "pool_v3.jsonl")
+    ap.add_argument("--scenarios", type=Path, default=RCT)
+    ap.add_argument("--pool", type=Path, default=POOL)
     ap.add_argument("--system", required=True, help="e.g. agent_full, agent_naive, agent_full_no_memory")
     ap.add_argument("--mode", choices=["none", "naive", "feedback", "full"], required=True)
     ap.add_argument("--no-memory", action="store_true")
@@ -145,7 +146,7 @@ def main():
     scen = [s for s in scen if s["split"] in args.splits and s["category"] in args.categories][: args.limit]
     pool = {c["candidate_id"]: c for c in load_jsonl(args.pool)}
     tasks = {}
-    for f in sorted((ROOT / "eval" / "tasks").glob("*/*.yaml")):
+    for f in sorted((ROOT / "benchmark" / "tasks").glob("*/*.yaml")):
         t = yaml.safe_load(f.read_text())
         tasks[t["id"]] = t
     for sc in scen:                                   # E/S: the scenario acts as its own task

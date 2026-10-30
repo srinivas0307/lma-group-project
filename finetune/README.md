@@ -2,18 +2,19 @@
 
 ```
 data (friend)                         training (Kaggle GPU)                    scoring (laptop)
-finetune/datasets/*.csv               notebooks/finetune_qlora_kaggle.ipynb    eval/score_parsers.py
+finetune/datasets/*.csv               notebooks/kaggle/finetune_qlora_kaggle.ipynb    eval/score_parsers.py
 finetune/data_gen/patterns + script     finetune/train_qlora.py  -> adapter      contract metrics + verdicts
 check_examples.py -> checked.jsonl      eval/parse_contracts.py --adapter        + Stage 1 table
 build_sft.py -> sft_train/val.jsonl       -> parse_ft_<model>/ (system.txt)
 ```
 
 1. **Data:** follow `docs/finetune_data_guide.md`. Result: `finetune/data/sft_train.jsonl`, `sft_val.jsonl`.
-2. **Smoke run on Kaggle:** `notebooks/finetune_qlora_kaggle.ipynb` with `SMOKE = True` (50 steps per model).
+2. **Smoke run on Kaggle:** `notebooks/kaggle/finetune_qlora_kaggle.ipynb` with `SMOKE = True` (50 steps per model).
    Check that memory fits and the loss falls (`ft_<model>_smoke.zip` → `train_log.jsonl`, `run_info.json`).
 3. **Full run:** `SMOKE = False`. Trains 1.5B and 3B, then parses all evaluation tasks with each adapter
-   (zero-shot, the format it was trained on). Download `parse_ft_qwen25_1_5b.zip` and `parse_ft_qwen25_3b.zip`
-   into `outputs/`, keep the `ft_*.zip` (adapters) as artifacts.
+   (zero-shot, the format it was trained on). Unzip `parse_ft_qwen25_1_5b.zip` and `parse_ft_qwen25_3b.zip`
+   to `kaggle_outputs/parsing/ft_1_5b/` and `kaggle_outputs/parsing/ft_3b/`; keep the `ft_*.zip` (adapters) as artifacts.
+   Results land in `results/stage1/finetuned/intent_ft_*/`.
 4. **Score:** `.venv/bin/python eval/score_parsers.py` → `intent_ft_1_5b`, `intent_ft_3b` next to the prompted
    parsers. **Gate 3:** does a fine-tuned parser match or beat `intent_prompted_7b` on contract F1?
 

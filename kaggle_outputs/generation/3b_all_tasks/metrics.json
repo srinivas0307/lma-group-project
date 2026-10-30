@@ -1,0 +1,743 @@
+{
+  "dev": {
+    "greedy": {
+      "n": 20,
+      "parse_error": 0,
+      "blocked": 0,
+      "crashed": 0,
+      "ran_ok": 20,
+      "correct": 16,
+      "accuracy": 0.8,
+      "accuracy_ci": [
+        0.584,
+        0.919
+      ],
+      "silent_errors": 4,
+      "silent_error_rate": 0.2,
+      "silent_error_rate_ci": [
+        0.081,
+        0.416
+      ]
+    },
+    "greedy_by_type": {
+      "column_transformation": {
+        "n": 4,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 4,
+        "correct": 4,
+        "accuracy": 1.0,
+        "accuracy_ci": [
+          0.51,
+          1.0
+        ],
+        "silent_errors": 0,
+        "silent_error_rate": 0.0,
+        "silent_error_rate_ci": [
+          0.0,
+          0.49
+        ]
+      },
+      "deduplication": {
+        "n": 4,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 4,
+        "correct": 2,
+        "accuracy": 0.5,
+        "accuracy_ci": [
+          0.15,
+          0.85
+        ],
+        "silent_errors": 2,
+        "silent_error_rate": 0.5,
+        "silent_error_rate_ci": [
+          0.15,
+          0.85
+        ]
+      },
+      "filtering": {
+        "n": 4,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 4,
+        "correct": 2,
+        "accuracy": 0.5,
+        "accuracy_ci": [
+          0.15,
+          0.85
+        ],
+        "silent_errors": 2,
+        "silent_error_rate": 0.5,
+        "silent_error_rate_ci": [
+          0.15,
+          0.85
+        ]
+      },
+      "missing_values": {
+        "n": 4,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 4,
+        "correct": 4,
+        "accuracy": 1.0,
+        "accuracy_ci": [
+          0.51,
+          1.0
+        ],
+        "silent_errors": 0,
+        "silent_error_rate": 0.0,
+        "silent_error_rate_ci": [
+          0.0,
+          0.49
+        ]
+      },
+      "type_conversion": {
+        "n": 4,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 4,
+        "correct": 4,
+        "accuracy": 1.0,
+        "accuracy_ci": [
+          0.51,
+          1.0
+        ],
+        "silent_errors": 0,
+        "silent_error_rate": 0.0,
+        "silent_error_rate_ci": [
+          0.0,
+          0.49
+        ]
+      }
+    },
+    "greedy_by_dataset": {
+      "adult": {
+        "n": 5,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 5,
+        "correct": 5,
+        "accuracy": 1.0,
+        "accuracy_ci": [
+          0.566,
+          1.0
+        ],
+        "silent_errors": 0,
+        "silent_error_rate": 0.0,
+        "silent_error_rate_ci": [
+          -0.0,
+          0.434
+        ]
+      },
+      "airbnb": {
+        "n": 5,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 5,
+        "correct": 3,
+        "accuracy": 0.6,
+        "accuracy_ci": [
+          0.231,
+          0.882
+        ],
+        "silent_errors": 2,
+        "silent_error_rate": 0.4,
+        "silent_error_rate_ci": [
+          0.118,
+          0.769
+        ]
+      },
+      "taxi": {
+        "n": 5,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 5,
+        "correct": 4,
+        "accuracy": 0.8,
+        "accuracy_ci": [
+          0.376,
+          0.964
+        ],
+        "silent_errors": 1,
+        "silent_error_rate": 0.2,
+        "silent_error_rate_ci": [
+          0.036,
+          0.624
+        ]
+      },
+      "titanic": {
+        "n": 5,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 5,
+        "correct": 4,
+        "accuracy": 0.8,
+        "accuracy_ci": [
+          0.376,
+          0.964
+        ],
+        "silent_errors": 1,
+        "silent_error_rate": 0.2,
+        "silent_error_rate_ci": [
+          0.036,
+          0.624
+        ]
+      }
+    },
+    "sampled_only": {
+      "n": 100,
+      "parse_error": 0,
+      "blocked": 0,
+      "crashed": 4,
+      "ran_ok": 96,
+      "correct": 72,
+      "accuracy": 0.72,
+      "accuracy_ci": [
+        0.625,
+        0.799
+      ],
+      "silent_errors": 24,
+      "silent_error_rate": 0.25,
+      "silent_error_rate_ci": [
+        0.174,
+        0.345
+      ]
+    },
+    "all_samples": {
+      "n": 120,
+      "parse_error": 0,
+      "blocked": 0,
+      "crashed": 4,
+      "ran_ok": 116,
+      "correct": 88,
+      "accuracy": 0.733,
+      "accuracy_ci": [
+        0.648,
+        0.804
+      ],
+      "silent_errors": 28,
+      "silent_error_rate": 0.241,
+      "silent_error_rate_ci": [
+        0.173,
+        0.327
+      ]
+    },
+    "all_by_type": {
+      "column_transformation": {
+        "n": 24,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 24,
+        "correct": 24,
+        "accuracy": 1.0,
+        "accuracy_ci": [
+          0.862,
+          1.0
+        ],
+        "silent_errors": 0,
+        "silent_error_rate": 0.0,
+        "silent_error_rate_ci": [
+          0.0,
+          0.138
+        ]
+      },
+      "deduplication": {
+        "n": 24,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 1,
+        "ran_ok": 23,
+        "correct": 7,
+        "accuracy": 0.292,
+        "accuracy_ci": [
+          0.149,
+          0.492
+        ],
+        "silent_errors": 16,
+        "silent_error_rate": 0.696,
+        "silent_error_rate_ci": [
+          0.491,
+          0.844
+        ]
+      },
+      "filtering": {
+        "n": 24,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 3,
+        "ran_ok": 21,
+        "correct": 11,
+        "accuracy": 0.458,
+        "accuracy_ci": [
+          0.279,
+          0.649
+        ],
+        "silent_errors": 10,
+        "silent_error_rate": 0.476,
+        "silent_error_rate_ci": [
+          0.283,
+          0.676
+        ]
+      },
+      "missing_values": {
+        "n": 24,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 24,
+        "correct": 24,
+        "accuracy": 1.0,
+        "accuracy_ci": [
+          0.862,
+          1.0
+        ],
+        "silent_errors": 0,
+        "silent_error_rate": 0.0,
+        "silent_error_rate_ci": [
+          0.0,
+          0.138
+        ]
+      },
+      "type_conversion": {
+        "n": 24,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 24,
+        "correct": 22,
+        "accuracy": 0.917,
+        "accuracy_ci": [
+          0.742,
+          0.977
+        ],
+        "silent_errors": 2,
+        "silent_error_rate": 0.083,
+        "silent_error_rate_ci": [
+          0.023,
+          0.258
+        ]
+      }
+    },
+    "pool_unique_runnable": 54,
+    "pool_unique_wrong_by_type": {
+      "deduplication": 12,
+      "filtering": 8,
+      "type_conversion": 2
+    },
+    "wrong_reasons": {
+      "dtype family differs in tpep_pickup_datetime (datetime vs string)": 6,
+      "row count differs (945 vs 950)": 3,
+      "row count differs (66 vs 849)": 3,
+      "row count differs (279 vs 987)": 2,
+      "values differ": 2,
+      "dtype family differs in income (int vs string)": 1,
+      "row count differs (993 vs 989)": 1,
+      "row count differs (1000 vs 989)": 1,
+      "row count differs (230 vs 969)": 1,
+      "row count differs (280 vs 969)": 1,
+      "columns differ (extra=['listing_id'], missing=['id'])": 1,
+      "row count differs (906 vs 950)": 1,
+      "columns differ (extra=['is_first_instance'], missing=[])": 1,
+      "row count differs (282 vs 987)": 1,
+      "row count differs (441 vs 987)": 1,
+      "row count differs (162 vs 987)": 1,
+      "row count differs (681 vs 682)": 1
+    },
+    "renamed_function": 0,
+    "truncated": 0,
+    "index_not_kept": 0
+  },
+  "test": {
+    "greedy": {
+      "n": 100,
+      "parse_error": 0,
+      "blocked": 0,
+      "crashed": 3,
+      "ran_ok": 97,
+      "correct": 77,
+      "accuracy": 0.77,
+      "accuracy_ci": [
+        0.678,
+        0.842
+      ],
+      "silent_errors": 20,
+      "silent_error_rate": 0.206,
+      "silent_error_rate_ci": [
+        0.138,
+        0.297
+      ]
+    },
+    "greedy_by_type": {
+      "column_transformation": {
+        "n": 20,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 20,
+        "correct": 18,
+        "accuracy": 0.9,
+        "accuracy_ci": [
+          0.699,
+          0.972
+        ],
+        "silent_errors": 2,
+        "silent_error_rate": 0.1,
+        "silent_error_rate_ci": [
+          0.028,
+          0.301
+        ]
+      },
+      "deduplication": {
+        "n": 20,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 2,
+        "ran_ok": 18,
+        "correct": 8,
+        "accuracy": 0.4,
+        "accuracy_ci": [
+          0.219,
+          0.613
+        ],
+        "silent_errors": 10,
+        "silent_error_rate": 0.556,
+        "silent_error_rate_ci": [
+          0.337,
+          0.754
+        ]
+      },
+      "filtering": {
+        "n": 20,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 20,
+        "correct": 17,
+        "accuracy": 0.85,
+        "accuracy_ci": [
+          0.64,
+          0.948
+        ],
+        "silent_errors": 3,
+        "silent_error_rate": 0.15,
+        "silent_error_rate_ci": [
+          0.052,
+          0.36
+        ]
+      },
+      "missing_values": {
+        "n": 20,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 1,
+        "ran_ok": 19,
+        "correct": 19,
+        "accuracy": 0.95,
+        "accuracy_ci": [
+          0.764,
+          0.991
+        ],
+        "silent_errors": 0,
+        "silent_error_rate": 0.0,
+        "silent_error_rate_ci": [
+          0.0,
+          0.168
+        ]
+      },
+      "type_conversion": {
+        "n": 20,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 20,
+        "correct": 15,
+        "accuracy": 0.75,
+        "accuracy_ci": [
+          0.531,
+          0.888
+        ],
+        "silent_errors": 5,
+        "silent_error_rate": 0.25,
+        "silent_error_rate_ci": [
+          0.112,
+          0.469
+        ]
+      }
+    },
+    "greedy_by_dataset": {
+      "adult": {
+        "n": 25,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 1,
+        "ran_ok": 24,
+        "correct": 20,
+        "accuracy": 0.8,
+        "accuracy_ci": [
+          0.609,
+          0.911
+        ],
+        "silent_errors": 4,
+        "silent_error_rate": 0.167,
+        "silent_error_rate_ci": [
+          0.067,
+          0.359
+        ]
+      },
+      "airbnb": {
+        "n": 25,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 1,
+        "ran_ok": 24,
+        "correct": 21,
+        "accuracy": 0.84,
+        "accuracy_ci": [
+          0.653,
+          0.936
+        ],
+        "silent_errors": 3,
+        "silent_error_rate": 0.125,
+        "silent_error_rate_ci": [
+          0.043,
+          0.31
+        ]
+      },
+      "taxi": {
+        "n": 25,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 25,
+        "correct": 18,
+        "accuracy": 0.72,
+        "accuracy_ci": [
+          0.524,
+          0.857
+        ],
+        "silent_errors": 7,
+        "silent_error_rate": 0.28,
+        "silent_error_rate_ci": [
+          0.143,
+          0.476
+        ]
+      },
+      "titanic": {
+        "n": 25,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 1,
+        "ran_ok": 24,
+        "correct": 18,
+        "accuracy": 0.72,
+        "accuracy_ci": [
+          0.524,
+          0.857
+        ],
+        "silent_errors": 6,
+        "silent_error_rate": 0.25,
+        "silent_error_rate_ci": [
+          0.12,
+          0.449
+        ]
+      }
+    },
+    "sampled_only": {
+      "n": 500,
+      "parse_error": 0,
+      "blocked": 0,
+      "crashed": 22,
+      "ran_ok": 478,
+      "correct": 387,
+      "accuracy": 0.774,
+      "accuracy_ci": [
+        0.735,
+        0.808
+      ],
+      "silent_errors": 91,
+      "silent_error_rate": 0.19,
+      "silent_error_rate_ci": [
+        0.158,
+        0.228
+      ]
+    },
+    "all_samples": {
+      "n": 600,
+      "parse_error": 0,
+      "blocked": 0,
+      "crashed": 25,
+      "ran_ok": 575,
+      "correct": 464,
+      "accuracy": 0.773,
+      "accuracy_ci": [
+        0.738,
+        0.805
+      ],
+      "silent_errors": 111,
+      "silent_error_rate": 0.193,
+      "silent_error_rate_ci": [
+        0.163,
+        0.227
+      ]
+    },
+    "all_by_type": {
+      "column_transformation": {
+        "n": 120,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 0,
+        "ran_ok": 120,
+        "correct": 109,
+        "accuracy": 0.908,
+        "accuracy_ci": [
+          0.843,
+          0.948
+        ],
+        "silent_errors": 11,
+        "silent_error_rate": 0.092,
+        "silent_error_rate_ci": [
+          0.052,
+          0.157
+        ]
+      },
+      "deduplication": {
+        "n": 120,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 13,
+        "ran_ok": 107,
+        "correct": 51,
+        "accuracy": 0.425,
+        "accuracy_ci": [
+          0.34,
+          0.514
+        ],
+        "silent_errors": 56,
+        "silent_error_rate": 0.523,
+        "silent_error_rate_ci": [
+          0.43,
+          0.616
+        ]
+      },
+      "filtering": {
+        "n": 120,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 2,
+        "ran_ok": 118,
+        "correct": 101,
+        "accuracy": 0.842,
+        "accuracy_ci": [
+          0.766,
+          0.896
+        ],
+        "silent_errors": 17,
+        "silent_error_rate": 0.144,
+        "silent_error_rate_ci": [
+          0.092,
+          0.219
+        ]
+      },
+      "missing_values": {
+        "n": 120,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 7,
+        "ran_ok": 113,
+        "correct": 113,
+        "accuracy": 0.942,
+        "accuracy_ci": [
+          0.884,
+          0.971
+        ],
+        "silent_errors": 0,
+        "silent_error_rate": 0.0,
+        "silent_error_rate_ci": [
+          0.0,
+          0.033
+        ]
+      },
+      "type_conversion": {
+        "n": 120,
+        "parse_error": 0,
+        "blocked": 0,
+        "crashed": 3,
+        "ran_ok": 117,
+        "correct": 90,
+        "accuracy": 0.75,
+        "accuracy_ci": [
+          0.666,
+          0.819
+        ],
+        "silent_errors": 27,
+        "silent_error_rate": 0.231,
+        "silent_error_rate_ci": [
+          0.164,
+          0.315
+        ]
+      }
+    },
+    "pool_unique_runnable": 247,
+    "pool_unique_wrong_by_type": {
+      "column_transformation": 4,
+      "deduplication": 47,
+      "filtering": 15,
+      "type_conversion": 13
+    },
+    "wrong_reasons": {
+      "values differ": 33,
+      "dtype family differs in tpep_pickup_datetime (datetime vs string)": 8,
+      "dtype family differs in tpep_dropoff_datetime (datetime vs string)": 6,
+      "category order differs in Pclass": 6,
+      "dtype family differs in Sex (int vs category)": 6,
+      "columns differ (extra=['dropoff_datetime', 'pickup_datetime'], missing=[])": 5,
+      "row count differs (661 vs 843)": 4,
+      "row count differs (774 vs 950)": 4,
+      "dtype family differs in income (int vs category)": 3,
+      "category order differs in education": 3,
+      "row count differs (989 vs 986)": 2,
+      "columns differ (extra=['payment_type_name'], missing=['payment_type'])": 2,
+      "columns differ (extra=['first_occurrence'], missing=[])": 2,
+      "columns differ (extra=['last_row'], missing=[])": 2,
+      "row count differs (999 vs 868)": 1,
+      "row count differs (143 vs 710)": 1,
+      "columns differ (extra=['income_num'], missing=['income'])": 1,
+      "row count differs (0 vs 993)": 1,
+      "row count differs (1993 vs 993)": 1,
+      "row count differs (884 vs 991)": 1,
+      "row count differs (965 vs 991)": 1,
+      "columns differ (extra=['dropoff_datetime', 'pickup_datetime'], missing=['Airport_fee', 'RatecodeID', 'VendorID', 'cbd_congestion_fee', 'congestion_surcharge', 'extra', 'fare_amount', 'improvement_surcharge', 'mta_tax', 'passenger_count', 'payment_type', 'store_and_fwd_flag', 'tip_amount', 'tolls_amount', 'total_amount', 'tpep_dropoff_datetime', 'tpep_pickup_datetime', 'trip_distance'])": 1,
+      "row count differs (998 vs 997)": 1,
+      "dtype family differs in calculated_host_listings_count (float vs int)": 1,
+      "row count differs (1000 vs 986)": 1,
+      "row count differs (661 vs 868)": 1,
+      "columns differ (extra=['name_host_unique'], missing=[])": 1,
+      "row count differs (132 vs 868)": 1,
+      "columns differ (extra=['keep'], missing=[])": 1,
+      "row count differs (660 vs 857)": 1,
+      "row count differs (843 vs 857)": 1,
+      "columns differ (extra=[], missing=['tpep_dropoff_datetime', 'tpep_pickup_datetime'])": 1,
+      "row count differs (1000 vs 993)": 1,
+      "columns differ (extra=['pickup_datetime'], missing=[])": 1,
+      "columns differ (extra=[], missing=['payment_type'])": 1,
+      "row count differs (176 vs 950)": 1,
+      "columns differ (extra=['id'], missing=['PassengerId'])": 1,
+      "row count differs (679 vs 681)": 1,
+      "row count differs (640 vs 683)": 1
+    },
+    "renamed_function": 0,
+    "truncated": 0,
+    "index_not_kept": 26
+  }
+}

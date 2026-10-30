@@ -1,1 +1,0 @@
-{"task_id": "airbnb_dedup_003", "data_file": "data/airbnb_dev.csv", "code": "def transform(df):\n    df.drop_duplicates(subset='host_name', keep='first', inplace=True)\n    return df", "func_name": "transform"}

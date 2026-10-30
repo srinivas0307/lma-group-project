@@ -1,1 +1,0 @@
-{"status": "ok", "ran_ok": true, "correct": true, "rows_before": 1000, "runtime_s": 0.002, "reason": "equal", "rows_after": 1000, "cols_added": ["monthly_reviews"], "cols_removed": ["reviews_per_month"], "index_kept": true}

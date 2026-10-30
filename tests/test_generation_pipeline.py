@@ -11,7 +11,8 @@ from igt.agents.code_extract import extract_code
 from igt.agents.code_generator import PROMPT_HASH, build_messages, load_prompt_schema, load_tasks
 
 ROOT = Path(__file__).resolve().parents[1]
-B1 = ROOT / "notebooks" / "baseline1_outputs"
+B1S = [ROOT / "kaggle_outputs" / "generation" / d for d in ("3b_all_tasks", "1_5b_all_tasks")]
+B1 = B1S[0]
 
 
 def test_prompt_hash_matches_kaggle_run():
@@ -44,9 +45,9 @@ def test_task_order_keeps_original_seeds():
 
 
 def test_extraction_reproduces_kaggle_code_hashes():
-    if not (B1 / "candidates.jsonl").exists():
+    if not all((d / "candidates.jsonl").exists() for d in B1S):
         pytest.skip("Baseline 1 outputs not present")
-    rows = [json.loads(l) for l in (B1 / "candidates.jsonl").read_text().splitlines()]
+    rows = [json.loads(l) for d in B1S for l in (d / "candidates.jsonl").read_text().splitlines()]
     for r in rows:
         ex = extract_code(r["raw_output"])
         assert ex["parse_ok"] == r["parse_ok"]

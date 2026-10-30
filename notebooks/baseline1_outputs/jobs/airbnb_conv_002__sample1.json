@@ -1,1 +1,0 @@
-{"task_id": "airbnb_conv_002", "data_file": "data/airbnb_dev.csv", "code": "def transform(df):\n    return df.assign(price=df.price.astype(float))", "func_name": "transform"}

@@ -50,7 +50,7 @@ def test_reports_line_number():
 
 def test_all_pool_v1_candidates_still_pass():
     """Regression: the packaged guard must not block any candidate the Kaggle guard allowed (pool v1 had 0 blocked)."""
-    pool = ROOT / "eval" / "pool_v1" / "pool_v1.jsonl"
+    pool = ROOT / "archive" / "pools" / "pool_v1" / "pool_v1.jsonl"
     if not pool.exists():
         pytest.skip("pool v1 not present")
     codes = [json.loads(l)["code"] for l in pool.read_text().splitlines() if l.strip()]
@@ -59,6 +59,6 @@ def test_all_pool_v1_candidates_still_pass():
 
 
 def test_all_reference_solutions_pass():
-    refs = [yaml.safe_load(f.read_text())["reference_code"] for f in sorted((ROOT / "eval" / "tasks").glob("*/*.yaml"))]
+    refs = [yaml.safe_load(f.read_text())["reference_code"] for f in sorted((ROOT / "benchmark" / "tasks").glob("*/*.yaml"))]
     assert refs
     assert all(check(r).ok for r in refs), [check(r).reason for r in refs if not check(r).ok]

@@ -1,10 +1,9 @@
 """Stage 1 intent verification: run the intent verifier on every pool candidate.
 
-    .venv/bin/python eval/run_intent_oracle.py                         # oracle (gold) contracts, pool v2
-    .venv/bin/python eval/run_intent_oracle.py --pool eval/pool_v1/pool_v1.jsonl --out results/intent_oracle_v1
+    .venv/bin/python eval/run_intent_oracle.py                         # oracle (gold) contracts, pool v4 -> results/stage1/oracle
     # Baseline 3 / fine-tuned parsers: contracts from a parser run (eval/parse_contracts.py)
-    .venv/bin/python eval/run_intent_oracle.py --parses outputs/parse_qwen7b/parses.jsonl \
-        --system intent_prompted_7b --out results/intent_prompted_7b_v2
+    .venv/bin/python eval/run_intent_oracle.py --parses kaggle_outputs/parsing/7b_p1-v3/parses.jsonl \
+        --system intent_prompted_7b_p1v3 --out results/stage1/baseline3      # (eval/score_parsers.py does this for all runs)
 
 With --parses, an output that isn't a valid contract (no JSON, broken JSON, outside vocabulary v1.0) gives
 UNCERTAIN / invalid_contract (ESCALATE) for every candidate of that task. The parser runs once per task and its
@@ -31,6 +30,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
+from igt.paths import rel  # noqa: E402
 from igt.agents.intent_parser import extract_contract  # noqa: E402
 from igt.types import Verdict, execution_failure, uncertain_failure, verdict_record  # noqa: E402
 from igt.verifier import verify  # noqa: E402
@@ -46,7 +46,7 @@ def load_jsonl(p):
 def gold_contracts(root):
     """task id -> (data_file, gold_contract). Only these two fields are read from the task files."""
     out = {}
-    for f in sorted((root / "eval" / "tasks").glob("*/*.yaml")):
+    for f in sorted((root / "benchmark" / "tasks").glob("*/*.yaml")):
         t = yaml.safe_load(f.read_text())
         out[t["id"]] = (t["data_file"], t["gold_contract"])
     return out
@@ -54,8 +54,8 @@ def gold_contracts(root):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--pool", type=Path, default=ROOT / "eval" / "pool_v2" / "pool_v2.jsonl")
-    ap.add_argument("--out", type=Path, default=ROOT / "results" / "intent_oracle_v2")
+    ap.add_argument("--pool", type=Path, default=ROOT / "benchmark" / "pool" / "pool_v4.jsonl")
+    ap.add_argument("--out", type=Path, default=ROOT / "results" / "stage1" / "oracle")
     ap.add_argument("--parses", type=Path, help="parser output (parses.jsonl); default: gold contracts")
     ap.add_argument("--system", default=None, help="system name (default intent_oracle, or required with --parses)")
     args = ap.parse_args()
@@ -110,8 +110,8 @@ def main():
         with open(args.out / f"verdicts_{s}.jsonl", "w") as fh:
             for r in rows:
                 fh.write(json.dumps(r, sort_keys=True, default=str) + "\n")
-    (args.out / "run_info.json").write_text(json.dumps(dict(pool=str(args.pool), n_candidates=len(pool),
-                                                            contracts=str(args.parses) if args.parses else "gold",
+    (args.out / "run_info.json").write_text(json.dumps(dict(pool=rel(args.pool), n_candidates=len(pool),
+                                                            contracts=rel(args.parses) if args.parses else "gold",
                                                             stats={s: dict(v) for s, v in stats.items()}), indent=2))
     for s in SYSTEMS:
         print(s, dict(stats[s]))

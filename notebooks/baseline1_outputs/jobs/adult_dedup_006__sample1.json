@@ -1,1 +1,0 @@
-{"task_id": "adult_dedup_006", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    df_copy = df.copy()\n    df_copy.drop_duplicates(subset=df.columns.difference(['fnlwgt', 'income']), keep='first', inplace=True)\n    return df_copy", "func_name": "transform"}

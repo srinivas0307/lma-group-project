@@ -24,7 +24,7 @@ from igt.agents.intent_parser import FT_PROMPT_VERSION, PROMPTS, _user, contract
 
 
 def schema_entry(df):
-    """Same procedure as the frozen evaluation schema (eval/prompts/schema_b1-v1.json)."""
+    """Same procedure as the frozen evaluation schema (benchmark/prompts/schema_b1-v1.json)."""
     return dict(n_rows=len(df), columns=[dict(name=str(c), dtype=str(df[c].dtype), nulls=int(df[c].isna().sum()))
                                          for c in df.columns], head_csv=df.head(5).to_csv(index=False))
 

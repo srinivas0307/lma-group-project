@@ -1,7 +1,7 @@
 # Brief: build the intent verifier and produce the `intent_oracle` results (Phase 1 + MVP-1)
 
 > **Status (2026-10-29): implemented** — `src/igt/contracts/`, `src/igt/verifier/`, `eval/run_intent_oracle.py`,
-> tests in `tests/verifier/`. Results in `results/intent_oracle_v2/`. The steps below describe what was built
+> tests in `tests/verifier/`. Results in `archive/results/intent_oracle_v2/`. The steps below describe what was built
 > and are the reference for reviewing or changing it.
 
 ## In one sentence
@@ -13,10 +13,10 @@ UNCERTAIN, then run it on every candidate in pool v2 and write `verdicts_intent_
 
 | Thing | Where | Notes |
 |---|---|---|
-| Gold contracts, 60 tasks | `eval/tasks/*/*.yaml`, field `gold_contract` | The **input** to your code. Still `status: draft`. |
+| Gold contracts, 60 tasks | `benchmark/tasks/*/*.yaml`, field `gold_contract` | The **input** to your code. Still `status: draft`. |
 | Contract specification | `docs/eval_set_and_contract_guide.md` **§5** | Exact meaning of every predicate, condition, function and dtype family. **Your code implements §5.** |
-| Candidate pool | `eval/pool_v2/pool_v2.jsonl` (395 candidates) | One row per candidate: `candidate_id`, `task_id`, `split`, `ran_ok`, `output_file`, ... |
-| Candidate outputs | `eval/pool_v2/outputs/<candidate_id>.pkl` | The DataFrame each candidate produced (only those that ran). Load with `pickle`. |
+| Candidate pool | `archive/pools/pool_v2/pool_v2.jsonl` (395 candidates) | One row per candidate: `candidate_id`, `task_id`, `split`, `ran_ok`, `output_file`, ... |
+| Candidate outputs | `archive/pools/pool_v2/outputs/<candidate_id>.pkl` | The DataFrame each candidate produced (only those that ran). Load with `pickle`. |
 | Input data | `data/adult_dev.csv`, `data/airbnb_dev.csv` | Load with `pd.read_csv`; the default index 0..n-1 is the row id. |
 | Verdict format + helpers | `docs/verdict_format.md`, `src/igt/types.py` | `Verdict.combine`, `predicate_failure`, `uncertain_failure`, `execution_failure`, `verdict_record`. |
 | Metrics | `eval/metrics.py` | Validates your file and builds the comparison table. |
@@ -97,11 +97,11 @@ def verify(contract, before, after) -> Verdict:
 Add an option to use only `must_change` or only `must_preserve` (needed for the ablations).
 
 ### Step 6. Runner (`eval/run_intent_oracle.py`)
-For each candidate in `eval/pool_v2/pool_v2.jsonl`:
+For each candidate in `archive/pools/pool_v2/pool_v2.jsonl`:
 - `ran_ok == false` → `Verdict.combine([execution_failure(c["status"], c["error"])])`
 - else load the input CSV and `outputs/<candidate_id>.pkl`, read the task's `gold_contract`, call `verify`.
 - Write `verdict_record("intent_oracle", "intent", c, verdict)` lines to
-  `results/intent_oracle_v2/verdicts_intent_oracle.jsonl`.
+  `archive/results/intent_oracle_v2/verdicts_intent_oracle.jsonl`.
 
 **Never** read `reference_code`, the reference output or `is_correct` inside the verifier or runner.
 
@@ -120,9 +120,9 @@ For each candidate in `eval/pool_v2/pool_v2.jsonl`:
 ```
 .venv/bin/python -m pytest -q                          # all tests pass, including the 60 reference checks
 .venv/bin/python eval/run_intent_oracle.py             # writes the verdicts file
-.venv/bin/python eval/metrics.py --pool eval/pool_v2/pool_v2.jsonl \
-   --verdicts eval/pool_v2/verdicts_baseline1.jsonl results/baseline2_v2/verdicts_baseline2.jsonl \
-              results/intent_oracle_v2/verdicts_intent_oracle.jsonl
+.venv/bin/python eval/metrics.py --pool archive/pools/pool_v2/pool_v2.jsonl \
+   --verdicts archive/pools/pool_v2/verdicts_baseline1.jsonl archive/results/baseline2_v2/verdicts_baseline2.jsonl \
+              archive/results/intent_oracle_v2/verdicts_intent_oracle.jsonl
 ```
 The last command prints the main table (README Gate 2): does `intent_oracle` catch more wrong candidates
 than `baseline2` (test recall 0.510) at a similar false-rejection rate (0.081)?

@@ -1,16 +1,15 @@
 """Build the R / C / T agent scenarios from a frozen pool (README Phase 4 task 5; guide §11).
 
-    # current version (used by the runner): pool v3, 1 wrong + 1 crashed candidate per task
-    .venv/bin/python eval/build_agent_scenarios.py --pool eval/pool_v3/pool_v3.jsonl --out eval/agent_scenarios/rct_v2.jsonl \
-        --r-per-task 1 --t-count 24
-    # earlier version (pool v2, adult/airbnb only, 3 per task): defaults below -> rct_v1.jsonl
+    # current version rct_v3 (used by the runner; the defaults): pool v4, 1 wrong + 1 crashed candidate per task
+    .venv/bin/python eval/build_agent_scenarios.py --out /tmp/rct_check.jsonl     # rebuild elsewhere to compare
+    # earlier versions: rct_v2 (pool v3, same settings) and rct_v1 (pool v2, 3 per task), in archive/agent_scenarios/
 
     R  repairable: a wrong LLM candidate (wrong output, or crashed). Success = the agent ends with ACCEPT and the
        final output equals the reference output (judged by the evaluator, never by the verifier).
     C  already correct: a correct candidate. Success = ACCEPT with no repair; any LLM/tool call is unnecessary.
     T  tool fault: an R scenario plus one injected tool fault. Success as for R; also measures recovery.
 
-Sampling (deterministic, seed 0), per split: R = up to 3 runnable-wrong candidates per task + up to 1 crashed one;
+Sampling (deterministic, seed 0), per split: R = up to --r-per-task (default 1) runnable-wrong candidates per task + up to 1 crashed one;
 C = 1 correct candidate per task; T = a stratified sample of R with a fault on the first use of a tool, cycling
 through (tool, kind) pairs. Scenario files hold candidate ids and code only; reference code and labels stay in the
 pool and are read only by the evaluator.
@@ -39,12 +38,15 @@ def scenario(sid, cat, c, expected, faults=()):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--pool", type=Path, default=ROOT / "eval" / "pool_v2" / "pool_v2.jsonl")
-    ap.add_argument("--out", type=Path, default=ROOT / "eval" / "agent_scenarios" / "rct_v1.jsonl")
-    ap.add_argument("--r-per-task", type=int, default=3)
-    ap.add_argument("--t-count", type=int, default=20, help="T scenarios on test (dev gets a quarter)")
+    ap.add_argument("--pool", type=Path, default=ROOT / "benchmark" / "pool" / "pool_v4.jsonl")
+    ap.add_argument("--out", type=Path, default=ROOT / "benchmark" / "agent_scenarios" / "rct_v3.jsonl")
+    ap.add_argument("--r-per-task", type=int, default=1)
+    ap.add_argument("--t-count", type=int, default=24, help="T scenarios on test (dev gets a quarter)")
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--force", action="store_true", help="overwrite an existing scenario file")
     args = ap.parse_args()
+    if args.out.exists() and not args.force:
+        raise SystemExit(f"{args.out} exists; scenario files are frozen once used. Use --force only if you mean it.")
     rng = random.Random(args.seed)
     pool = [c for c in load_jsonl(args.pool) if c["parse_ok"]]
     out = []

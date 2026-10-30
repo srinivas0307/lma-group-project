@@ -1,1 +1,0 @@
-{"task_id": "adult_conv_003", "data_file": "data/adult_dev.csv", "code": "def transform(df):\n    cat_names = ['education']\n    cat_orders = {name: list(df[name].unique()) for name in cat_names}\n    for name in cat_names:\n        df[name] = pd.Categorical(df[name], categories=cat_orders[name], ordered=True)\n    return df", "func_name": "transform"}
