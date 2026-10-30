@@ -1,183 +1,58 @@
 {
   "summary": {
-    "n_input": 3215,
-    "n_kept": 3188,
+    "n_input": 3948,
+    "n_kept": 3946,
     "by_status": {
-      "ok": 3188,
-      "leakage": 27
+      "ok": 3946,
+      "leakage": 2
     },
     "kept_by_type": {
-      "filtering": 1192,
-      "deduplication": 222,
-      "missing_values": 195,
-      "type_conversion": 189,
-      "column_transformation": 1390
+      "column_transformation": 1100,
+      "type_conversion": 487,
+      "deduplication": 425,
+      "filtering": 1100,
+      "missing_values": 834
     },
     "kept_by_dataset": {
-      "air_quality": 357,
-      "avocado": 368,
-      "bank": 467,
-      "diamonds": 506,
-      "imdb": 359,
-      "student": 429,
-      "superstore": 384,
-      "walmart": 318
+      "air_quality": 453,
+      "avocado": 448,
+      "bank": 587,
+      "diamonds": 555,
+      "imdb": 435,
+      "student": 616,
+      "superstore": 469,
+      "walmart": 383
     },
     "kept_by_predicate": {
-      "rows_removed_where": 1245,
-      "row_count": 3188,
-      "rows_retained_where": 1245,
-      "columns_unchanged": 3188,
-      "duplicate_count": 222,
-      "column_value_relation": 1467,
-      "null_count": 147,
-      "column_values_unchanged": 253,
-      "column_dtype": 207,
-      "columns_added": 694,
-      "columns_removed": 305
+      "columns_added": 562,
+      "columns_removed": 238,
+      "column_value_relation": 1691,
+      "columns_unchanged": 3946,
+      "row_count": 3946,
+      "column_dtype": 551,
+      "column_values_unchanged": 851,
+      "duplicate_count": 425,
+      "rows_removed_where": 1402,
+      "rows_retained_where": 1402,
+      "null_count": 560
     },
     "kept_by_style": {
-      "indirect": 809,
-      "casual": 781,
-      "domain": 841,
-      "plain": 757
+      "domain": 946,
+      "plain": 1048,
+      "indirect": 975,
+      "casual": 977
     }
   },
   "dropped": [
     {
-      "id": "air_quality_dedup_0004",
+      "id": "bank_dedup_0139",
       "status": "leakage",
-      "reason": "shares 1 word 5-grams with evaluation requests, e.g. 'more than once keep the'"
+      "reason": "shares 1 word 5-grams with evaluation requests, e.g. 'remove duplicates based on age'"
     },
     {
-      "id": "air_quality_miss_0011",
+      "id": "walmart_dedup_0302",
       "status": "leakage",
-      "reason": "shares 2 word 5-grams with evaluation requests, e.g. 'with the median of that'"
-    },
-    {
-      "id": "air_quality_conv_0006",
-      "status": "leakage",
-      "reason": "character similarity 0.75 with an evaluation request"
-    },
-    {
-      "id": "air_quality_col_0077",
-      "status": "leakage",
-      "reason": "character similarity 0.83 with an evaluation request"
-    },
-    {
-      "id": "air_quality_col_0082",
-      "status": "leakage",
-      "reason": "character similarity 0.78 with an evaluation request"
-    },
-    {
-      "id": "avocado_miss_0011",
-      "status": "leakage",
-      "reason": "shares 2 word 5-grams with evaluation requests, e.g. 'with the median of that'"
-    },
-    {
-      "id": "avocado_col_0078",
-      "status": "leakage",
-      "reason": "character similarity 0.82 with an evaluation request"
-    },
-    {
-      "id": "bank_dedup_0001",
-      "status": "leakage",
-      "reason": "shares 1 word 5-grams with evaluation requests, e.g. 'more than once keep the'"
-    },
-    {
-      "id": "bank_miss_0008",
-      "status": "leakage",
-      "reason": "character similarity 0.88 with an evaluation request"
-    },
-    {
-      "id": "bank_miss_0014",
-      "status": "leakage",
-      "reason": "character similarity 0.78 with an evaluation request"
-    },
-    {
-      "id": "bank_miss_0016",
-      "status": "leakage",
-      "reason": "character similarity 0.81 with an evaluation request"
-    },
-    {
-      "id": "bank_miss_0018",
-      "status": "leakage",
-      "reason": "shares 2 word 5-grams with evaluation requests, e.g. 'with the median of that'"
-    },
-    {
-      "id": "bank_conv_0017",
-      "status": "leakage",
-      "reason": "character similarity 0.76 with an evaluation request"
-    },
-    {
-      "id": "diamonds_dedup_0002",
-      "status": "leakage",
-      "reason": "shares 2 word 5-grams with evaluation requests, e.g. 'than once keep the first'"
-    },
-    {
-      "id": "diamonds_miss_0008",
-      "status": "leakage",
-      "reason": "shares 2 word 5-grams with evaluation requests, e.g. 'with the median of that'"
-    },
-    {
-      "id": "diamonds_conv_0013",
-      "status": "leakage",
-      "reason": "character similarity 0.87 with an evaluation request"
-    },
-    {
-      "id": "diamonds_col_0077",
-      "status": "leakage",
-      "reason": "character similarity 0.83 with an evaluation request"
-    },
-    {
-      "id": "diamonds_col_0082",
-      "status": "leakage",
-      "reason": "character similarity 0.83 with an evaluation request"
-    },
-    {
-      "id": "imdb_miss_0025",
-      "status": "leakage",
-      "reason": "character similarity 0.79 with an evaluation request"
-    },
-    {
-      "id": "student_miss_0008",
-      "status": "leakage",
-      "reason": "character similarity 0.80 with an evaluation request"
-    },
-    {
-      "id": "student_conv_0002",
-      "status": "leakage",
-      "reason": "character similarity 0.76 with an evaluation request"
-    },
-    {
-      "id": "student_conv_0030",
-      "status": "leakage",
-      "reason": "character similarity 0.76 with an evaluation request"
-    },
-    {
-      "id": "superstore_miss_0012",
-      "status": "leakage",
-      "reason": "shares 2 word 5-grams with evaluation requests, e.g. 'with the median of that'"
-    },
-    {
-      "id": "walmart_col_0061",
-      "status": "leakage",
-      "reason": "character similarity 0.82 with an evaluation request"
-    },
-    {
-      "id": "walmart_col_0067",
-      "status": "leakage",
-      "reason": "character similarity 0.75 with an evaluation request"
-    },
-    {
-      "id": "walmart_col_0069",
-      "status": "leakage",
-      "reason": "character similarity 0.88 with an evaluation request"
-    },
-    {
-      "id": "walmart_col_0071",
-      "status": "leakage",
-      "reason": "character similarity 0.83 with an evaluation request"
+      "reason": "shares 1 word 5-grams with evaluation requests, e.g. 'price keep the first one'"
     }
   ]
 }

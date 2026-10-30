@@ -1094,7 +1094,7 @@ def main():
                         sigs.add(sig)
                         insts.append(inst)
             for inst in insts:
-                n_styles = 4 if small else args.styles
+                n_styles = 4 if small or len(insts) < 4 else args.styles
                 for style in random.sample(list(inst["requests"]), min(n_styles, len(inst["requests"]))):
                     req = " ".join(inst["requests"][style].split())
                     req = req[0].upper() + req[1:] if style != "casual" else req

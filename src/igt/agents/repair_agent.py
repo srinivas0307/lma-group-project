@@ -32,8 +32,10 @@ from igt.tools import FaultInjector, ToolCall, ToolContext, build_registry
 
 MODES = ("none", "naive", "feedback", "full")
 
-AGENT_PROMPT_VERSION = "a1-v3"   # a1-v1: dev run 1, almost no JSON action; a1-v2: dev run 2, R success 5/14,
-                                 # 11 replies used the tool name as "action", 3 wrong accepts, 1 fabricated column
+AGENT_PROMPT_VERSION = "a1-v4"   # a1-v1: dev run 1, almost no JSON action; a1-v2: dev run 2, R success 5/14,
+                                 # 11 replies used the tool name as "action", 3 wrong accepts, 1 fabricated column;
+                                 # a1-v3: dev run 3, R success 7/14; 2 replies were {"action": "run_verifier"} with no args.
+                                 # a1-v4 changes only the parser (same prompt text as a1-v3).
 
 FULL_SYSTEM = """You repair pandas code. A function transform(df) was written for the user's request, but checking its output found problems. Find the cause and propose fixed code, or escalate to a human if the request can't be done safely or correctly.
 
@@ -140,7 +142,7 @@ def _implicit_fix(text):
     return None
 
 
-def parse_action(text):
+def parse_action(text, tool_names=()):
     """-> (action dict, None) or (None, error message).
     The JSON action is searched outside ```python blocks, so dict literals in the code are not mistaken for it."""
     raw = _first_json_object(_strip_code_blocks(text))
@@ -157,10 +159,10 @@ def parse_action(text):
             return a, None
         return None, f"the action is not valid JSON ({e})"
     if isinstance(a, dict) and isinstance(a.get("action"), str) and a["action"] not in ("tool", "propose_fix", "escalate") \
-            and isinstance(a.get("args"), dict) and "tool" not in a:
+            and "tool" not in a and (isinstance(a.get("args"), dict) or (a["action"] in tool_names and "args" not in a)):
         # {"action": "<tool name>", "args": {...}}: the tool name was put in "action" (11 of 98 replies in dev run 2).
         # Read it as that tool call; an unknown name still reaches the registry and is counted as an unknown tool.
-        a = dict(action="tool", tool=a["action"], args=a["args"], normalized=True)
+        a = dict(action="tool", tool=a["action"], args=a.get("args", {}), normalized=True)
     if not isinstance(a, dict) or a.get("action") not in ("tool", "propose_fix", "escalate"):
         imp = _implicit_fix(text)
         if imp:
@@ -197,6 +199,7 @@ class _Run:
         self.ctx = ToolContext(before=before, verify_fn=verify_fn, sandbox_limits=self.L.sandbox())
         reg = build_registry(self.ctx)
         self.reg = FaultInjector(reg, cfg.faults) if cfg.faults else reg
+        self.tool_names = tuple(sp["name"] for sp in reg.specs())
         self.n_fix = self.tool_calls = self.invalid = self.unsafe = self.unknown = self.implicit = self.normalized = 0
         self.initial_blocked = False
         self.code, self.output, self.status, self.report = initial_code, None, None, None
@@ -337,7 +340,7 @@ class _Run:
         observations, calls, invalid_here = [], [], 0
         while True:
             text = self.llm(self.full_messages(observations))
-            a, err = parse_action(text)
+            a, err = parse_action(text, tool_names=self.tool_names)
             if a is None or (a["action"] == "escalate" and not self.cfg.allow_escalate):
                 err = err or "escalate is not available; propose_fix instead"
                 self.invalid += 1

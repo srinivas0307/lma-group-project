@@ -1,14 +1,23 @@
 # Fine-tuning the intent parser (Phase 7)
 
 ```
-data (friend)                         training (Kaggle GPU)                    scoring (laptop)
-finetune/datasets/*.csv               notebooks/kaggle/finetune_qlora_kaggle.ipynb    eval/score_parsers.py
-finetune/data_gen/patterns + script     finetune/train_qlora.py  -> adapter      contract metrics + verdicts
-check_examples.py -> checked.jsonl      eval/parse_contracts.py --adapter        + Stage 1 table
+data (laptop)                           training (Kaggle GPU)                           scoring (laptop)
+prepare_datasets.py -> datasets/*.csv   notebooks/kaggle/finetune_qlora_kaggle.ipynb    eval/score_parsers.py
+generate_examples.py -> raw/*.jsonl     finetune/train_qlora.py  -> adapter             contract metrics + verdicts
+check_examples.py -> checked.jsonl      eval/parse_contracts.py --adapter               + Stage 1 table
 build_sft.py -> sft_train/val.jsonl       -> parse_ft_<model>/ (system.txt)
+review_sample.py -> review.csv (hand review)
 ```
 
-1. **Data:** follow `docs/finetune_data_guide.md`. Result: `finetune/data/sft_train.jsonl`, `sft_val.jsonl`.
+1. **Data** (`docs/finetune_data_guide.md`; all CPU, about 20 minutes):
+   ```
+   .venv/bin/python finetune/data_gen/prepare_datasets.py     # 8 snapshots from data/finetune/ -> finetune/datasets/ (+ README with sha256)
+   .venv/bin/python finetune/data_gen/generate_examples.py    # 40 patterns -> finetune/data/raw/generated.jsonl
+   .venv/bin/python finetune/data_gen/check_examples.py finetune/data/raw/generated.jsonl --out finetune/data/checked.jsonl --workers 10
+   .venv/bin/python finetune/data_gen/build_sft.py finetune/data/checked.jsonl --val-datasets student
+   .venv/bin/python finetune/data_gen/review_sample.py        # 100 examples to hand-check -> finetune/data/review.csv
+   ```
+   Result: `finetune/data/sft_train.jsonl`, `sft_val.jsonl`. The `student` dataset is validation only.
 2. **Smoke run on Kaggle:** `notebooks/kaggle/finetune_qlora_kaggle.ipynb` with `SMOKE = True` (50 steps per model).
    Check that memory fits and the loss falls (`ft_<model>_smoke.zip` → `train_log.jsonl`, `run_info.json`).
 3. **Full run:** `SMOKE = False`. Trains 1.5B and 3B, then parses all evaluation tasks with each adapter

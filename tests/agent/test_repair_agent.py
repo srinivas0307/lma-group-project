@@ -269,3 +269,11 @@ def test_prompt_has_the_new_rules_in_both_variants():
 def test_no_escalate_prompt_never_mentions_escalating():
     from igt.agents.repair_agent import FULL_SYSTEM_NO_ESCALATE
     assert "escalat" not in FULL_SYSTEM_NO_ESCALATE.lower()
+
+
+def test_known_tool_name_as_action_without_args():
+    a, err = parse_action('{"action": "run_verifier"}', tool_names=("run_verifier", "diff_datasets"))
+    assert err is None and a["tool"] == "run_verifier" and a["args"] == {}
+    assert parse_action('{"action": "run_verifier"}')[0] is None                 # unknown names without args stay invalid
+    res, _ = run(BAD, ['{"action": "diff_datasets"}', fix(GOOD)])
+    assert res.outcome == "ACCEPT" and res.invalid_actions == 0 and res.normalized_actions == 1

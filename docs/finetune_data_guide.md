@@ -175,10 +175,11 @@ If more than ~5% are wrong, fix the templates and regenerate. Save the review as
 
 ```
 finetune/
-├── datasets/            <name>.csv + README.md (sources, licences, sha256)        <- friend
+├── datasets/            <name>.csv + README.md (sources, licences, sha256)        <- prepare_datasets.py (done)
 ├── data_gen/
-│   ├── patterns/        one YAML per pattern (request templates, contract, code)  <- friend
-│   ├── generate_examples.py                                                       <- friend
+│   ├── prepare_datasets.py  snapshots + documented injected dirt (§3)             <- done
+│   ├── generate_examples.py 40 patterns as Python functions (§4-5)                <- done
+│   ├── review_sample.py     100-example review sheet (§8)                         <- done
 │   ├── check_examples.py   automatic checks (§6)                                  <- ready
 │   └── build_sft.py        chat-format training files (§7)                        <- ready
 └── data/                raw/*.jsonl, checked.jsonl (+report), sft_train/val.jsonl, review.csv

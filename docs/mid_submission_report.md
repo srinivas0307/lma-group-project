@@ -46,10 +46,18 @@ After the code runs, a **deterministic verifier** (no LLM) compares the data bef
 
 **Hypothesis.** Intent-based verification accepts fewer incorrect transformations while keeping the false-rejection rate low.
 
+**Secondary questions.**
+
+1. Does a fine-tuned parser write better contracts than a prompted general model?
+2. Does repair improve final accuracy?
+3. Does giving the contract to the code generator help?
+
+This report answers the main question for Stage 1. The secondary questions are answered by the planned work in §8.
+
 **Two evaluation stages (proposal p.7–8).**
 
-- **Stage 1, verification only** (this report): every system judges the *same frozen pool* of LLM-generated programs and says accept or reject. No repair.
-- **Stage 2, repair** (future work): verification failures trigger a bounded, tool-using repair agent.
+- **Stage 1, checking only** (this report): every system judges the *same frozen pool* of LLM-generated programs and says accept or reject. No repair.
+- **Stage 2, end to end with repair** (future work, §8.2): each system starts from the request, writes code, checks it and repairs it if needed. The final output is judged against the reference.
 
 **Headline Stage 1 result (test split, 671 candidates, pool v4).**
 
@@ -692,7 +700,7 @@ The two generators have almost the same greedy accuracy (77 vs 76 of 100 test ta
 | 9 | **Non-determinism in greedy decoding** | Batched fp16 greedy decoding changed 2 of 1,440 generations between runs | Frozen pools; later systems reuse saved generations instead of regenerating; one clean all-task run per model (pool v4) | ✅ Resolved |
 | 10 | **Sandbox isolation on our machines** | `unshare -rn` (network namespace) is not allowed on the dev laptop; the filesystem is not isolated | Fallback: socket API replaced in the child process; the AST guard blocks file, network and shell access first; 27 red-team samples all blocked or contained | 🔄 Acceptable for Stage 1 (model-generated, non-adversarial code). Docker with `--network none` would close the gap (OI-6) |
 | 11 | **Limited GPU** | Only Kaggle T4 (16 GB) available | 4-bit 7B model, small batches, all GPU work in notebooks with saved outputs; scoring runs on CPU from saved files | ✅ Working |
-| 12 | **First agent dev run failed** (Stage 2 preparation) | 0 of 14 repairable dev scenarios fixed; the action parser mistook dict literals in code for JSON actions and rejected code-only replies | Parser fixes and agent prompt a1-v2; all model replies now saved. The a1-v1 numbers are not used as results | 🔄 Ongoing; rerun pending |
+| 12 | **First agent dev run failed** (Stage 2 preparation) | 0 of 14 repairable dev scenarios fixed; the action parser mistook dict literals in code for JSON actions and rejected code-only replies | Parser fixes and agent prompt a1-v2; all model replies now saved. The a1-v1 numbers are not used as results | 🔄 Fixed in a1-v2; Kaggle dev check is next |
 
 ---
 
@@ -717,32 +725,90 @@ The two generators have almost the same greedy accuracy (77 vs 76 of 100 test ta
 
 ### 8.2 Additional baselines and systems
 
-| System | Stage | What it adds | Status |
+The remaining work is organised around the two stages. Each secondary question from §0 maps to one comparison.
+
+#### Stage 1: checking only (remaining system)
+
+Every system judges the same frozen code (pool v4, the code Baseline 1 generated), so the comparison is fair.
+
+| System | Checker | Parser | Status |
 |---|---|---|---|
-| **Proposed: fine-tuned Qwen2.5-1.5B and 3B parsers** + intent verifier | 1 | Main comparison against Baseline 3 (Gate 3: match or beat prompted 7B on contract F1) | 🔄 Pipeline ready, waiting for data |
-| Baseline 2 + repair, Baseline 3 + repair, Proposed + repair, Oracle + repair | 2 | Final transformation accuracy, repair success, attempts; Baseline 1 stays the no-repair reference | 📋 Planned |
-| Agent baselines: no repair; **naive retry** (only told "verification failed"); **feedback retry** (full failure report, no tools); **full agent** (failure report + tools + memory + escalation) | 2 | Separates the value of the failure report, of tool use, and of the agent's decisions (TA feedback on agent evaluation) | 🔄 Code built and tested with a scripted LLM; real-model runs pending |
-| LLM-as-verifier (an LLM judges before/after directly) | 1 | A non-contract LLM baseline; would need validation against human labels | 📋 Optional (P2) |
-| DS-1000 pandas subset (20–30 problems) | 1 | External validity, reported separately | 📋 Optional (P2) |
+| Baseline 1 | none | — | ✅ |
+| Baseline 2 | conventional checks | — | ✅ recall 0.46, false rejections 0.14 |
+| Baseline 3 | intent contract | prompted 7B | ✅ recall 0.89, false rejections 0.25 |
+| **Proposed** | intent contract | **fine-tuned 1.5B / 3B** | ⏳ needs training data (§8.1) |
+| Oracle ablation | intent contract | gold contract | ✅ recall 0.94, false rejections 0.00 |
+| Size ablation | intent contract | prompted 3B / 1.5B | ✅ |
+| Direction ablation | must-change only / must-preserve only | gold and prompted 7B | ✅ |
+
+The Proposed row answers secondary question 1 (fine-tuned vs prompted parser). Gate 3: the fine-tuned parser should match or beat the prompted 7B on contract F1.
+
+Stage 1 metrics stay the same: silent error rate, recall and false-rejection rate with confidence intervals and McNemar tests; contract precision, recall and F1, reported separately for must-change and must-preserve.
+
+#### Stage 2: end to end, with repair
+
+📋 **Planned.** Each system starts from a request, writes code, checks it, and repairs it if needed. The final output is judged against the reference output by the offline evaluator.
+
+| System | Code generator sees | Checker | Repair |
+|---|---|---|---|
+| Baseline 1 | request + schema | none | none |
+| Baseline 2 + repair | request + schema | conventional | repair loop |
+| Baseline 3 + repair | request + schema | intent (prompted 7B) | repair agent |
+| **Proposed** | request + schema + **contract** | intent (fine-tuned) | repair agent |
+| Ablation: no contract to generator | request + schema | intent (fine-tuned) | repair agent |
+| Ablation: gold contract | request + schema + gold contract | intent (gold) | repair agent |
+
+**What changed from the Stage 1 design.** In Stage 1 the generator sees only the request and schema, so that verification gains cannot be confused with generation gains. In the Proposed Stage 2 system, the code generator also receives the contract. The "no contract to generator" ablation keeps everything else fixed, so the effect of this one change can be measured separately (secondary question 3).
+
+**Comparisons.**
+
+| Comparison | What it measures |
+|---|---|
+| Proposed vs Baseline 3 + repair | The effect of the whole proposed pipeline (fine-tuned parser + contract given to the generator) |
+| Proposed vs no-contract ablation | The effect of giving the contract to the code generator |
+| Proposed vs gold-contract ablation | How much parser errors cost end to end |
+| Each "+ repair" system vs its Stage 1 result | Whether repair improves final accuracy (secondary question 2) |
+
+**Stage 2 metrics.**
+
+- Final accuracy (judged against the reference, not by the checker), repair success, average attempts, unnecessary retries.
+- Tool-call validity.
+- Safety: 0 unsafe actions (unsafe-attempt, blocked and unauthorized tool-call counts are reported).
+
+**Agent scenarios.** These test the repair agent's behaviour on its own, separately from the end-to-end table:
+
+| Scenario set | Tests whether the agent… | Source |
+|---|---|---|
+| R (repairable) | fixes known-wrong code | wrong candidates from pool v4 (`rct_v3.jsonl`) |
+| C (already correct) | leaves correct code alone | correct candidates from pool v4 |
+| T (tool fault) | recovers from injected tool errors and timeouts | R scenarios + fault hooks |
+| E (should escalate, 15) | escalates impossible requests (missing column, contradictions, no matching rows) | hand-written drafts |
+| S (safety, 12) | refuses unsafe requests (file, network, shell, environment access) | hand-written drafts |
+
+**Status.** The repair agent, tool registry (inspect, profile, diff, run, verify), orchestrator, limits (at most 3 attempts, escalation) and scenario runner are built and tested with a scripted LLM. The first real-model dev run (agent prompt a1-v1) was invalid because of an action-parser bug (§7, challenge 12). That bug is fixed in a1-v2, and the **Kaggle dev check is next**. One piece is not in the code yet: a code-generator prompt that includes the contract for the *first* generation. Today the generator prompt (`b1-v1`) never shows the contract, and only the repair agent sees it. This prompt variant has to be written before the Proposed and gold-contract Stage 2 runs.
+
+**Optional (P2, outside the core plan):** an LLM-as-verifier baseline, which would need validation against human labels, and a DS-1000 pandas subset (20–30 problems) for external validity.
 
 ### 8.3 Additional ablations
 
-| Ablation | Question | Status |
-|---|---|---|
-| Fine-tuned vs prompted at the **same size** (1.5B, 3B) | Is the gain from fine-tuning or from size? (the size ablation in §6.2 is the prompted half) | 📋 After fine-tuning |
-| Change-only / preserve-only with fine-tuned contracts | Does the bidirectional result hold for the proposed parser? | 📋 |
-| Predicted vs oracle contract gap for every parser | How much error comes from misunderstanding intent? | ✅ for prompted parsers; 📋 for fine-tuned |
-| 3 seeds for LLM components; confidence intervals and McNemar for every comparison | Stability of results | 🔄 Intervals and McNemar done; extra seeds planned |
-| Decoding variant for **all** parsers at once: constrained JSON decoding, or one re-ask with the validation error | Can format errors be removed without fine-tuning? | 📋 Option (OI-9) |
-| Vocabulary v1.1 (forbid extra columns, type new columns) as a versioned re-run | Cost of the known vocabulary gap | 📋 Only after main results |
-| Agent ablations: no memory; coarse failure report (pass/fail only); contract hidden from the agent; no escalate action; repair without tools | Which agent parts matter? | 🔄 Implemented as modes; not run |
-| Fine-tuning data ablations (size of training set; with/without paraphrases) | Data needs of the parser | 📋 If time allows |
+| Ablation | Stage | Question | Status |
+|---|---|---|---|
+| No contract to the generator | 2 | Does giving the contract to the code generator help? | 📋 Planned (generator prompt variant still to write) |
+| Gold contract (generator and checker) | 2 | How much do parser errors cost end to end? | 📋 Planned |
+| Fine-tuned vs prompted at the **same size** (1.5B, 3B) | 1 | Is the gain from fine-tuning or from size? (§6.2 is the prompted half) | 📋 After fine-tuning |
+| Change-only / preserve-only with fine-tuned contracts | 1 | Does the bidirectional result hold for the proposed parser? | 📋 |
+| Predicted vs gold contract gap for every parser | 1 | How much error comes from misunderstanding intent? | ✅ for prompted parsers; 📋 for fine-tuned |
+| 3 seeds for LLM components | 1, 2 | Stability of results | 🔄 Intervals and McNemar done; extra seeds planned |
+| Decoding variant for **all** parsers at once: constrained JSON decoding, or one re-ask with the validation error | 1 | Can format errors be removed without fine-tuning? | 📋 Option (OI-9) |
+| Vocabulary v1.1 (forbid extra columns, type new columns) as a versioned re-run | 1 | Cost of the known vocabulary gap | 📋 Only after main results |
+| Agent-level ablations: no memory; coarse failure report (pass/fail only); contract hidden from the agent; no escalate action; naive retry; feedback retry without tools | 2 | Which agent parts matter? | 🔄 Implemented as agent modes; not run |
+| Fine-tuning data ablations (training-set size; with/without paraphrases) | 1 | Data needs of the parser | 📋 If time allows |
 
 Other planned work: second annotation of ~20% of gold contracts and agent scenarios with an agreement study; human review of error-kind labels and E/S scenarios; red-team set through every Stage 2 system; qualitative case studies and failure taxonomy.
 
 ### 8.4 Final architecture (proposed)
 
-The final system adds the fine-tuned parser and the repair agent to the Stage 1 pipeline. Components marked ✅ exist today; 🔄 exist and are tested but have not produced results; 📋 are planned.
+The final system adds three things to the Stage 1 pipeline: the fine-tuned parser, the contract as an input to the code generator, and the repair agent. Components marked ✅ exist today; 🔄 exist and are tested but have not produced results; 📋 are planned.
 
 ```mermaid
 flowchart TD
@@ -758,8 +824,9 @@ flowchart TD
     CV -->|invalid| ESC
     CV -->|valid| C[(Intent contract ✅<br/>read-only)]
 
-    U --> G[Code generator ✅<br/>fixed LLM, sees request + schema]
+    U --> G[Code generator<br/>Qwen2.5-3B / 1.5B ✅<br/>contract-aware prompt 📋]
     SCH --> G
+    C -->|contract given to generator<br/>removed in the no-contract ablation| G
 
     G --> SC{AST safety guard ✅}
     SC -->|allowed| SB[Sandbox executor ✅<br/>separate process, limits]
@@ -787,13 +854,13 @@ flowchart TD
 
 1. **Prepare:** load the data (index = row id), freeze the before snapshot, extract the schema.
 2. **Parse:** the fine-tuned parser writes the contract; invalid → ESCALATE; valid → frozen (read-only).
-3. **Generate:** the code generator writes `transform(df)` from the request and schema only.
+3. **Generate:** the code generator writes `transform(df)` from the request, the schema **and the contract**. In the no-contract ablation it sees only the request and schema, as in Stage 1.
 4. **Safety check and execute** in the sandbox. Blocked code, crashes and timeouts become failure reports.
 5. **Verify** against the contract: PASS → ACCEPT; UNCERTAIN → ESCALATE; VIOLATION → failure report.
 6. **Repair:** the agent reads the failure report and its history, may call allow-listed tools, then proposes new code (back to step 4) or escalates. Limits: 3 repair attempts, 8 tool calls per attempt, a fixed token budget, and repeated-code detection.
 7. **Finish:** the outcome and a full JSONL trace are written. The evaluator scores them offline against the reference; ground truth never reaches the runtime.
 
-**Rules that protect the results:** the contract and the before snapshot are read-only, so the agent cannot "fix" a violation by weakening the checks; every code execution, including agent tool calls, goes through the safety guard; the verifier is deterministic and uses no LLM; generator, decoding and budgets are the same for every system.
+**Rules that protect the results:** the contract and the before snapshot are read-only, so the agent cannot "fix" a violation by weakening the checks; every code execution, including agent tool calls, goes through the safety guard; the verifier is deterministic and uses no LLM; the generator model, decoding settings and budgets are the same for every system, and the only difference in generator input is whether a contract is included (see the Stage 2 table).
 
 ---
 
@@ -810,8 +877,9 @@ flowchart TD
 | Oracle-contract run | ✅ | recall 0.944, FRR 0.000 |
 | Baseline 3 (prompted 7B, p1-v3) | ✅ | recall 0.892, FRR 0.254; significantly better than Baseline 2 (p = 0.004) |
 | Ablations: direction, parser size, prompt version, Baseline 2 sensitivity, dataset growth | ✅ | §6 |
-| Fine-tuning data and QLoRA parsers | 🔄 tooling ready, data not generated | `finetune/`, `docs/finetune_data_guide.md` |
-| Repair agent, tools, orchestrator, agent scenarios | 🔄 built and tested with a scripted LLM; first real dev run invalid, rerun pending | `src/igt/agents/`, `src/igt/tools/`, `src/igt/orchestrator/` |
-| Stage 2 end-to-end, agent evaluation, DS-1000, write-up | 📋 | — |
+| Proposed Stage 1 system (fine-tuned parsers) | ⏳ needs training data; training pipeline ready | `finetune/`, `docs/finetune_data_guide.md` |
+| Repair agent, tools, orchestrator, agent scenarios (R/C/T/E/S) | 🔄 built and tested with a scripted LLM; Kaggle dev check next | `src/igt/agents/`, `src/igt/tools/`, `src/igt/orchestrator/`, `benchmark/agent_scenarios/` |
+| Contract-aware code-generator prompt | 📋 not written yet | — |
+| Stage 2 end-to-end runs and ablations (no contract to generator, gold contract), write-up | 📋 | — |
 
-**Main conclusion so far.** A bidirectional intent contract lets a deterministic verifier catch silent errors that request-blind data-quality checks miss, especially in deduplication and type conversion. With gold contracts the gain is large and comes with no false rejections. With a prompted 7B parser the gain is still significant, but invalid and incomplete contracts cause many false rejections. The quality of the parser is now the bottleneck, which is what the fine-tuning phase targets.
+**Main conclusion so far.** A bidirectional intent contract lets a deterministic verifier catch silent errors that request-blind data-quality checks miss, especially in deduplication and type conversion. With gold contracts the gain is large and comes with no false rejections. With a prompted 7B parser the gain is still significant, but invalid and incomplete contracts cause many false rejections. Parser quality is now the bottleneck, which the fine-tuning phase targets. Stage 2 will then test whether repair, and giving the contract to the code generator, improve the final output.
