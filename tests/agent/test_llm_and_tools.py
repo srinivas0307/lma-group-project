@@ -137,3 +137,14 @@ def test_failure_report_formats():
     s = failure_report("safety", exec_status="blocked", exec_error="import os")
     assert "safety checker" in s["text"] and s["failures"][0]["kind"] == "execution"
     assert "failed to run (timeout)" in failure_report("execute", exec_status="timeout", exec_error="30s")["text"]
+
+
+def test_wildcard_fault_hits_the_first_call_of_any_tool():
+    import pandas as pd
+    from igt.tools import FaultInjector, ToolCall, ToolContext, build_registry
+    ctx = ToolContext(before=pd.DataFrame({"a": [1, 2]}), verify_fn=lambda df: None, sandbox_limits={})
+    inj = FaultInjector(build_registry(ctx), [{"tool": "*", "on_call": 1, "kind": "error"}])
+    r1 = inj.call(ToolCall("inspect_dataset", {}))
+    r2 = inj.call(ToolCall("inspect_dataset", {}))
+    assert not r1.ok and r1.error["type"] == "injected_fault" and r2.ok
+    assert inj.fired == [dict(tool="inspect_dataset", on_call=1, kind="error", rule_tool="*")]

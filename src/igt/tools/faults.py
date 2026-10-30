@@ -2,7 +2,8 @@
 
     reg = FaultInjector(build_registry(ctx), [{"tool": "profile_column", "on_call": 1, "kind": "error"}])
 
-Each rule fires exactly on the n-th call (1-based) of that tool:
+Each rule fires exactly on the n-th call (1-based) of that tool; tool "*" means the n-th tool call of any tool
+(so the fault hits whatever tool the agent uses first, instead of a tool it may never call):
     error      -> ToolResult(ok=False, error.type = "injected_fault")
     timeout    -> ToolResult(ok=False, error.type = "timeout")
     malformed  -> ToolResult(ok=True) whose output is garbled (agent should notice and retry or move on)
@@ -40,11 +41,14 @@ class FaultInjector:
 
     def call(self, call: ToolCall) -> ToolResult:
         self.counts[call.name] += 1
-        n = self.counts[call.name]
-        rule = next((r for r in self.rules if r["tool"] == call.name and int(r["on_call"]) == n), None)
+        self.counts["*"] += 1
+        n, n_any = self.counts[call.name], self.counts["*"]
+        rule = next((r for r in self.rules if (r["tool"] == call.name and int(r["on_call"]) == n)
+                     or (r["tool"] == "*" and int(r["on_call"]) == n_any)), None)
         if rule is None:
             return self.registry.call(call)
-        self.fired.append(dict(tool=call.name, on_call=n, kind=rule["kind"]))
+        self.fired.append(dict(tool=call.name, on_call=n, kind=rule["kind"]) if rule["tool"] != "*" else
+                          dict(tool=call.name, on_call=n_any, kind=rule["kind"], rule_tool="*"))
         if rule["kind"] == "error":
             res = ToolResult(call.name, False, error=dict(type="injected_fault", message="internal tool error, try again"))
         elif rule["kind"] == "timeout":

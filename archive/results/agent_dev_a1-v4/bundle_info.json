@@ -1,0 +1,14 @@
+{
+  "stage": "dev",
+  "commit": "1e1309e85e22657adbae747f10fe0a48b0e9327c",
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "load_in_4bit": true,
+  "verifier": "oracle",
+  "systems": [
+    "agent_full"
+  ],
+  "created": "2026-10-30T20:15:55",
+  "runs": {
+    "agent_full": 46
+  }
+}

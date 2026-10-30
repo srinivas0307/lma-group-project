@@ -1,0 +1,420 @@
+id,type,pattern,style,request,contract,reference_code,verdict,note
+student_col_0104,column_transformation,map_values,casual,recode father's job: 'at_home' -> 'AT_HOME',"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_value_relation"", ""target"": ""Fjob"", ""fn"": ""map"", ""args"": [{""col"": ""Fjob""}, {""lit"": {""at_home"": ""AT_HOME""}}]}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""Fjob""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""Fjob""] = out[""Fjob""].replace({'at_home': 'AT_HOME'})
+    return out
+",,
+superstore_col_0022,column_transformation,new_column_two_columns,casual,new col postal_code_x_sales = Postal Code * Sales,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""columns_added"", ""target"": [""postal_code_x_sales""]}, {""type"": ""column_value_relation"", ""target"": ""postal_code_x_sales"", ""fn"": ""mul"", ""args"": [{""col"": ""Postal Code""}, {""col"": ""Sales""}]}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""postal_code_x_sales""] = out[""Postal Code""] * out[""Sales""]
+    return out
+",,
+air_quality_col_0109,column_transformation,clip_column,domain,Bound PM2.5 between 28 and 190; out-of-range values take the nearest bound.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_value_relation"", ""target"": ""PM2_5"", ""fn"": ""clip"", ""args"": [{""col"": ""PM2_5""}, {""lit"": 28}, {""lit"": 190}]}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""PM2_5""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""PM2_5""] = out[""PM2_5""].clip(lower=28, upper=190)
+    return out
+",,
+diamonds_col_0118,column_transformation,change_case,indirect,Every clarity entry should be lower case.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_value_relation"", ""target"": ""clarity"", ""fn"": ""lower"", ""args"": [{""col"": ""clarity""}]}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""clarity""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""clarity""] = out[""clarity""].str.lower()
+    return out
+",,
+walmart_col_0080,column_transformation,clip_column,casual,"squash store into [5, 43]","{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_value_relation"", ""target"": ""Store"", ""fn"": ""clip"", ""args"": [{""col"": ""Store""}, {""lit"": 5}, {""lit"": 43}]}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""Store""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""Store""] = out[""Store""].clip(lower=5, upper=43)
+    return out
+",,
+walmart_col_0013,column_transformation,rename_column,domain,"For consistency, the temperature column should be named temperature.","{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""columns_added"", ""target"": [""temperature""]}, {""type"": ""columns_removed"", ""target"": [""Temperature""]}, {""type"": ""column_value_relation"", ""target"": ""temperature"", ""fn"": ""identity"", ""args"": [{""col"": ""Temperature""}]}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""Temperature""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    return df.rename(columns={""Temperature"": ""temperature""})
+",,
+student_col_0162,column_transformation,copy_column,casual,duplicate G2 into a new column called g2_orig,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""columns_added"", ""target"": [""g2_orig""]}, {""type"": ""column_value_relation"", ""target"": ""g2_orig"", ""fn"": ""identity"", ""args"": [{""col"": ""G2""}]}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""g2_orig""] = out[""G2""]
+    return out
+",,
+imdb_col_0049,column_transformation,scale_by_constant,plain,Add a column meta_score_x1_1 equal to `Meta_score` multiplied by 1.1.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""columns_added"", ""target"": [""meta_score_x1_1""]}, {""type"": ""column_value_relation"", ""target"": ""meta_score_x1_1"", ""fn"": ""mul"", ""args"": [{""col"": ""Meta_score""}, {""lit"": 1.1}]}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""meta_score_x1_1""] = out[""Meta_score""] * 1.1
+    return out
+",,
+superstore_col_0173,column_transformation,copy_column,plain,Add a column category_raw that is a copy of category.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""columns_added"", ""target"": [""category_raw""]}, {""type"": ""column_value_relation"", ""target"": ""category_raw"", ""fn"": ""identity"", ""args"": [{""col"": ""Category""}]}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""category_raw""] = out[""Category""]
+    return out
+",,
+student_col_0030,column_transformation,new_column_two_columns,indirect,"I'd like an extra column, goout_x_failures, computed as going-out score multiplied by failures.","{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""columns_added"", ""target"": [""goout_x_failures""]}, {""type"": ""column_value_relation"", ""target"": ""goout_x_failures"", ""fn"": ""mul"", ""args"": [{""col"": ""goout""}, {""col"": ""failures""}]}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""goout_x_failures""] = out[""goout""] * out[""failures""]
+    return out
+",,
+diamonds_col_0009,column_transformation,rename_column,casual,call the clarity column col_clarity instead,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""columns_added"", ""target"": [""col_clarity""]}, {""type"": ""columns_removed"", ""target"": [""clarity""]}, {""type"": ""column_value_relation"", ""target"": ""col_clarity"", ""fn"": ""identity"", ""args"": [{""col"": ""clarity""}]}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""clarity""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    return df.rename(columns={""clarity"": ""col_clarity""})
+",,
+walmart_col_0064,column_transformation,scale_by_constant,plain,Replace weekly sales by its value divided by 1000.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_value_relation"", ""target"": ""Weekly_Sales"", ""fn"": ""div"", ""args"": [{""col"": ""Weekly_Sales""}, {""lit"": 1000}]}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""Weekly_Sales""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""Weekly_Sales""] = out[""Weekly_Sales""] / 1000
+    return out
+",,
+bank_col_0001,column_transformation,rename_column,domain,"For consistency, the subscription outcome column should be named y_value.","{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""columns_added"", ""target"": [""y_value""]}, {""type"": ""columns_removed"", ""target"": [""y""]}, {""type"": ""column_value_relation"", ""target"": ""y_value"", ""fn"": ""identity"", ""args"": [{""col"": ""y""}]}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""y""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    return df.rename(columns={""y"": ""y_value""})
+",,
+diamonds_col_0179,column_transformation,copy_column,domain,"Before we edit width in mm, keep its current values in a new column y_orig.","{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""columns_added"", ""target"": [""y_orig""]}, {""type"": ""column_value_relation"", ""target"": ""y_orig"", ""fn"": ""identity"", ""args"": [{""col"": ""y""}]}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""y_orig""] = out[""y""]
+    return out
+",,
+bank_col_0002,column_transformation,rename_column,casual,call the y column y_value instead,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""columns_added"", ""target"": [""y_value""]}, {""type"": ""columns_removed"", ""target"": [""y""]}, {""type"": ""column_value_relation"", ""target"": ""y_value"", ""fn"": ""identity"", ""args"": [{""col"": ""y""}]}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""y""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    return df.rename(columns={""y"": ""y_value""})
+",,
+avocado_col_0079,column_transformation,round_column,indirect,Keep AveragePrice but with values rounded to 1 decimal place.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_value_relation"", ""target"": ""AveragePrice"", ""fn"": ""round"", ""args"": [{""col"": ""AveragePrice""}, {""lit"": 1}]}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""AveragePrice""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""AveragePrice""] = out[""AveragePrice""].round(1)
+    return out
+",,
+diamonds_col_0098,column_transformation,clip_column,domain,Limit depth in mm to a maximum of 4.4.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_value_relation"", ""target"": ""z"", ""fn"": ""clip"", ""args"": [{""col"": ""z""}, {""lit"": null}, {""lit"": 4.4}]}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""z""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""z""] = out[""z""].clip(lower=None, upper=4.4)
+    return out
+",,
+walmart_col_0133,column_transformation,copy_column,plain,Add a column date_raw that is a copy of `Date`.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""columns_added"", ""target"": [""date_raw""]}, {""type"": ""column_value_relation"", ""target"": ""date_raw"", ""fn"": ""identity"", ""args"": [{""col"": ""Date""}]}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""date_raw""] = out[""Date""]
+    return out
+",,
+bank_col_0019,column_transformation,rename_column,casual,call the marital column marital_raw instead,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""columns_added"", ""target"": [""marital_raw""]}, {""type"": ""columns_removed"", ""target"": [""marital""]}, {""type"": ""column_value_relation"", ""target"": ""marital_raw"", ""fn"": ""identity"", ""args"": [{""col"": ""marital""}]}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""marital""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    return df.rename(columns={""marital"": ""marital_raw""})
+",,
+imdb_col_0069,column_transformation,clip_column,indirect,No IMDb rating value may exceed 8.2; set bigger ones to 8.2.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_value_relation"", ""target"": ""IMDB_Rating"", ""fn"": ""clip"", ""args"": [{""col"": ""IMDB_Rating""}, {""lit"": null}, {""lit"": 8.2}]}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""IMDB_Rating""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""IMDB_Rating""] = out[""IMDB_Rating""].clip(lower=None, upper=8.2)
+    return out
+",,
+air_quality_dedup_0520,deduplication,dedup_all_but,casual,dedupe ignoring HealthImpactScore (keep the first one),"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""duplicate_count"", ""target"": ""*"", ""op"": ""eq"", ""value"": 0, ""except"": [""HealthImpactScore""], ""keep"": ""first""}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    return df.drop_duplicates(subset=[c for c in df.columns if c not in ['HealthImpactScore']], keep=""first"").copy()
+",,
+superstore_dedup_0526,deduplication,dedup_all_but,domain,Two orders count as the same if they only differ in Segment and postal code. Remove the repeats (one copy is enough).,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""duplicate_count"", ""target"": ""*"", ""op"": ""eq"", ""value"": 0, ""except"": [""Segment"", ""Postal Code""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    return df.drop_duplicates(subset=[c for c in df.columns if c not in ['Segment', 'Postal Code']], keep=""first"").copy()
+",,
+air_quality_dedup_0416,deduplication,dedup_all_but,casual,dedupe ignoring PM10,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""duplicate_count"", ""target"": ""*"", ""op"": ""eq"", ""value"": 0, ""except"": [""PM10""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    return df.drop_duplicates(subset=[c for c in df.columns if c not in ['PM10']], keep=""first"").copy()
+",,
+superstore_dedup_0330,deduplication,dedup_on_key,plain,Remove duplicates based on customer name and category and Sales.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""duplicate_count"", ""target"": [""Customer Name"", ""Category"", ""Sales""], ""op"": ""eq"", ""value"": 0}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    return df.drop_duplicates(subset=['Customer Name', 'Category', 'Sales'], keep=""first"").copy()
+",,
+diamonds_dedup_0010,deduplication,dedup_full_rows,plain,Remove diamonds that are exact duplicates of another row (keep whichever comes last).,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""duplicate_count"", ""target"": ""*"", ""op"": ""eq"", ""value"": 0, ""except"": [], ""keep"": ""last""}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    return df.drop_duplicates(keep=""last"").copy()
+",,
+imdb_dedup_0184,deduplication,dedup_on_key,domain,Rows with the same runtime and director and number of votes are the same record; leave only one per combination (keep whichever comes last).,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""duplicate_count"", ""target"": [""Runtime"", ""Director"", ""No_of_Votes""], ""op"": ""eq"", ""value"": 0, ""keep"": ""last""}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    return df.drop_duplicates(subset=['Runtime', 'Director', 'No_of_Votes'], keep=""last"").copy()
+",,
+student_dedup_0065,deduplication,dedup_all_but,domain,Two students count as the same if they only differ in `famrel`. Remove the repeats (one copy is enough).,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""duplicate_count"", ""target"": ""*"", ""op"": ""eq"", ""value"": 0, ""except"": [""famrel""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    return df.drop_duplicates(subset=[c for c in df.columns if c not in ['famrel']], keep=""first"").copy()
+",,
+air_quality_dedup_0524,deduplication,dedup_all_but,casual,dedupe ignoring PM10 and humidity (keep the first one),"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""duplicate_count"", ""target"": ""*"", ""op"": ""eq"", ""value"": 0, ""except"": [""PM10"", ""Humidity""], ""keep"": ""first""}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    return df.drop_duplicates(subset=[c for c in df.columns if c not in ['PM10', 'Humidity']], keep=""first"").copy()
+",,
+diamonds_dedup_0118,deduplication,dedup_on_key,indirect,Each combination of carat and table and `x` should appear only once (keep one of each).,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""duplicate_count"", ""target"": [""carat"", ""table"", ""x""], ""op"": ""eq"", ""value"": 0}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    return df.drop_duplicates(subset=['carat', 'table', 'x'], keep=""first"").copy()
+",,
+diamonds_dedup_0503,deduplication,dedup_all_but,plain,Remove rows that are duplicates in all columns other than cut and `price` (keep whichever comes first).,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""duplicate_count"", ""target"": ""*"", ""op"": ""eq"", ""value"": 0, ""except"": [""cut"", ""price""], ""keep"": ""first""}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    return df.drop_duplicates(subset=[c for c in df.columns if c not in ['cut', 'price']], keep=""first"").copy()
+",,
+bank_dedup_0486,deduplication,dedup_all_but,domain,Two clients count as the same if they only differ in contact day. Remove the repeats (keep the first one).,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""duplicate_count"", ""target"": ""*"", ""op"": ""eq"", ""value"": 0, ""except"": [""day""], ""keep"": ""first""}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    return df.drop_duplicates(subset=[c for c in df.columns if c not in ['day']], keep=""first"").copy()
+",,
+superstore_dedup_0007,deduplication,dedup_full_rows,plain,Remove orders that are exact duplicates of another row.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""duplicate_count"", ""target"": ""*"", ""op"": ""eq"", ""value"": 0, ""except"": []}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    return df.drop_duplicates(keep=""first"").copy()
+",,
+superstore_dedup_0134,deduplication,dedup_on_key,domain,Rows with the same order date and postal code and sub category are the same record; leave only one per combination (one copy is enough).,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""duplicate_count"", ""target"": [""Order Date"", ""Postal Code"", ""Sub-Category""], ""op"": ""eq"", ""value"": 0}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    return df.drop_duplicates(subset=['Order Date', 'Postal Code', 'Sub-Category'], keep=""first"").copy()
+",,
+avocado_dedup_0492,deduplication,dedup_all_but,casual,dedupe ignoring small bags (keep one of each),"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""duplicate_count"", ""target"": ""*"", ""op"": ""eq"", ""value"": 0, ""except"": [""Small Bags""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    return df.drop_duplicates(subset=[c for c in df.columns if c not in ['Small Bags']], keep=""first"").copy()
+",,
+student_dedup_0009,deduplication,dedup_full_rows,plain,Remove students that are exact duplicates of another row (keep the first one).,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""duplicate_count"", ""target"": ""*"", ""op"": ""eq"", ""value"": 0, ""except"": [], ""keep"": ""first""}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    return df.drop_duplicates(keep=""first"").copy()
+",,
+imdb_dedup_0219,deduplication,dedup_on_key,domain,Rows with the same title are the same record; leave only one per combination (keep whichever comes last).,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""duplicate_count"", ""target"": [""Series_Title""], ""op"": ""eq"", ""value"": 0, ""keep"": ""last""}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    return df.drop_duplicates(subset=['Series_Title'], keep=""last"").copy()
+",,
+imdb_dedup_0006,deduplication,dedup_full_rows,indirect,Every one of the movies should be listed only once (keep whichever comes first).,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""duplicate_count"", ""target"": ""*"", ""op"": ""eq"", ""value"": 0, ""except"": [], ""keep"": ""first""}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    return df.drop_duplicates(keep=""first"").copy()
+",,
+imdb_dedup_0430,deduplication,dedup_all_but,domain,Two movies count as the same if they only differ in certificate. Remove the repeats (keep the latest row).,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""duplicate_count"", ""target"": ""*"", ""op"": ""eq"", ""value"": 0, ""except"": [""Certificate""], ""keep"": ""last""}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    return df.drop_duplicates(subset=[c for c in df.columns if c not in ['Certificate']], keep=""last"").copy()
+",,
+bank_dedup_0162,deduplication,dedup_on_key,plain,Remove duplicates based on job and default and account balance (keep one of each).,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""duplicate_count"", ""target"": [""job"", ""default"", ""balance""], ""op"": ""eq"", ""value"": 0}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    return df.drop_duplicates(subset=['job', 'default', 'balance'], keep=""first"").copy()
+",,
+air_quality_dedup_0390,deduplication,dedup_all_but,domain,Two readings count as the same if they only differ in PM10. Remove the repeats (keep the first one).,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""duplicate_count"", ""target"": ""*"", ""op"": ""eq"", ""value"": 0, ""except"": [""PM10""], ""keep"": ""first""}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    return df.drop_duplicates(subset=[c for c in df.columns if c not in ['PM10']], keep=""first"").copy()
+",,
+air_quality_filt_0030,filtering,filter_remove_high,indirect,Keep just the readings whose PM2.5 is below 170.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""column"": ""PM2_5"", ""op"": "">="", ""value"": 170}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""column"": ""PM2_5"", ""op"": ""<"", ""value"": 170}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[(out[""PM2_5""] < 170)].copy()
+",,
+avocado_filt_0076,filtering,filter_and,casual,drop conventional price records that have total bags under 52000,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""all"": [{""column"": ""Total Bags"", ""op"": ""<"", ""value"": 52000}, {""column"": ""type"", ""op"": ""=="", ""value"": ""conventional""}]}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""not"": {""all"": [{""column"": ""Total Bags"", ""op"": ""<"", ""value"": 52000}, {""column"": ""type"", ""op"": ""=="", ""value"": ""conventional""}]}}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[~((out[""type""] == ""conventional"") & (out[""Total Bags""] < 52000))].copy()
+",,
+student_filt_0118,filtering,filter_with_nulls,plain,"Remove rows where number of absences is below 2, and also rows where it is missing.","{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""any"": [{""column"": ""absences"", ""op"": ""<"", ""value"": 2}, {""column"": ""absences"", ""op"": ""is_null""}]}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""column"": ""absences"", ""op"": "">="", ""value"": 2}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[out[""absences""] >= 2].copy()
+",,
+air_quality_filt_0003,filtering,filter_remove_low,casual,ditch the readings where respiratory cases is lower than 7 pls,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""column"": ""RespiratoryCases"", ""op"": ""<"", ""value"": 7}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""column"": ""RespiratoryCases"", ""op"": "">="", ""value"": 7}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[(out[""RespiratoryCases""] >= 7)].copy()
+",,
+walmart_filt_0033,filtering,filter_remove_high,indirect,Keep just the store weeks whose temperature is 76 or less.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""column"": ""Temperature"", ""op"": "">"", ""value"": 76}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""column"": ""Temperature"", ""op"": ""<="", ""value"": 76}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[(out[""Temperature""] <= 76)].copy()
+",,
+imdb_filt_0086,filtering,filter_with_nulls,plain,Remove rows where Meta_score is below 68; keep the rows where it is missing.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""column"": ""Meta_score"", ""op"": ""<"", ""value"": 68}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""any"": [{""column"": ""Meta_score"", ""op"": "">="", ""value"": 68}, {""column"": ""Meta_score"", ""op"": ""is_null""}]}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[~(out[""Meta_score""] < 68)].copy()
+",,
+diamonds_filt_0130,filtering,filter_keep_categories,casual,"i only care about the 'I1', 'VS1', 'VS2' and 'VVS2' diamonds, drop the rest","{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""column"": ""clarity"", ""op"": ""not_in"", ""value"": [""I1"", ""VS1"", ""VS2"", ""VVS2""]}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""column"": ""clarity"", ""op"": ""in"", ""value"": [""I1"", ""VS1"", ""VS2"", ""VVS2""]}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[out[""clarity""].isin(['I1', 'VS1', 'VS2', 'VVS2'])].copy()
+",,
+imdb_filt_0069,filtering,filter_or,indirect,Keep a row only if number of votes <= 550000 and IMDb rating >= 7.7.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""any"": [{""column"": ""IMDB_Rating"", ""op"": ""<"", ""value"": 7.7}, {""column"": ""No_of_Votes"", ""op"": "">"", ""value"": 550000}]}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""all"": [{""column"": ""IMDB_Rating"", ""op"": "">="", ""value"": 7.7}, {""column"": ""No_of_Votes"", ""op"": ""<="", ""value"": 550000}]}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[(out[""No_of_Votes""] <= 550000) & (out[""IMDB_Rating""] >= 7.7)].copy()
+",,
+avocado_filt_0011,filtering,filter_remove_low,casual,ditch the price records where average price is 1.1 or less pls,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""column"": ""AveragePrice"", ""op"": ""<="", ""value"": 1.1}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""column"": ""AveragePrice"", ""op"": "">"", ""value"": 1.1}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[(out[""AveragePrice""] > 1.1)].copy()
+",,
+diamonds_filt_0015,filtering,filter_remove_low,domain,Drop the diamonds whose length in mm is less than 4.7.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""column"": ""x"", ""op"": ""<"", ""value"": 4.7}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""column"": ""x"", ""op"": "">="", ""value"": 4.7}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[(out[""x""] >= 4.7)].copy()
+",,
+diamonds_filt_0080,filtering,filter_remove_category,indirect,Keep everything except the rows whose cut is 'Premium'.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""column"": ""cut"", ""op"": ""=="", ""value"": ""Premium""}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""column"": ""cut"", ""op"": ""!="", ""value"": ""Premium""}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[out[""cut""] != ""Premium""].copy()
+",,
+diamonds_filt_0117,filtering,filter_remove_categories,domain,"Exclude diamonds whose clarity is one of IF, 'VS1'.","{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""column"": ""clarity"", ""op"": ""in"", ""value"": [""IF"", ""VS1""]}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""column"": ""clarity"", ""op"": ""not_in"", ""value"": [""IF"", ""VS1""]}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[~out[""clarity""].isin(['IF', 'VS1'])].copy()
+",,
+bank_filt_0056,filtering,filter_remove_category,domain,Take out every client with subscription outcome equal to 'yes'.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""column"": ""y"", ""op"": ""=="", ""value"": ""yes""}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""column"": ""y"", ""op"": ""!="", ""value"": ""yes""}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[out[""y""] != ""yes""].copy()
+",,
+superstore_filt_0063,filtering,filter_and,plain,Remove rows where Region is West and sales is below 17.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""all"": [{""column"": ""Region"", ""op"": ""=="", ""value"": ""West""}, {""column"": ""Sales"", ""op"": ""<"", ""value"": 17}]}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""not"": {""all"": [{""column"": ""Region"", ""op"": ""=="", ""value"": ""West""}, {""column"": ""Sales"", ""op"": ""<"", ""value"": 17}]}}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[~((out[""Region""] == ""West"") & (out[""Sales""] < 17))].copy()
+",,
+avocado_filt_0070,filtering,filter_remove_category,casual,drop all the 'conventional' ones (avocado type),"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""column"": ""type"", ""op"": ""=="", ""value"": ""conventional""}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""column"": ""type"", ""op"": ""!="", ""value"": ""conventional""}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[out[""type""] != ""conventional""].copy()
+",,
+avocado_filt_0048,filtering,filter_keep_range,plain,Keep only rows where Small Bags is between 460 and 660000 (both ends included).,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""any"": [{""column"": ""Small Bags"", ""op"": ""<"", ""value"": 460}, {""column"": ""Small Bags"", ""op"": "">"", ""value"": 660000}]}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""all"": [{""column"": ""Small Bags"", ""op"": ""<="", ""value"": 660000}, {""column"": ""Small Bags"", ""op"": "">="", ""value"": 460}]}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[out[""Small Bags""].between(460, 660000)].copy()
+",,
+imdb_filt_0058,filtering,filter_or,casual,"drop movies with number of votes over 720000, and also the ones with IMDb rating under 7.7","{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""any"": [{""column"": ""IMDB_Rating"", ""op"": ""<"", ""value"": 7.7}, {""column"": ""No_of_Votes"", ""op"": "">"", ""value"": 720000}]}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""all"": [{""column"": ""IMDB_Rating"", ""op"": "">="", ""value"": 7.7}, {""column"": ""No_of_Votes"", ""op"": ""<="", ""value"": 720000}]}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[(out[""No_of_Votes""] <= 720000) & (out[""IMDB_Rating""] >= 7.7)].copy()
+",,
+walmart_filt_0064,filtering,filter_keep_range,domain,"Restrict the store weeks to a weekly sales in the range 480000–1600000, inclusive.","{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""any"": [{""column"": ""Weekly_Sales"", ""op"": ""<"", ""value"": 480000}, {""column"": ""Weekly_Sales"", ""op"": "">"", ""value"": 1600000}]}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""all"": [{""column"": ""Weekly_Sales"", ""op"": ""<="", ""value"": 1600000}, {""column"": ""Weekly_Sales"", ""op"": "">="", ""value"": 480000}]}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[out[""Weekly_Sales""].between(480000, 1600000)].copy()
+",,
+walmart_filt_0025,filtering,filter_remove_low,indirect,I just need the store weeks where `Temperature` is more than 41.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""column"": ""Temperature"", ""op"": ""<="", ""value"": 41}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""column"": ""Temperature"", ""op"": "">"", ""value"": 41}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[(out[""Temperature""] > 41)].copy()
+",,
+avocado_filt_0109,filtering,filter_or,plain,Remove rows where total volume is above 1200000 or `4225` is below 3100.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""any"": [{""column"": ""4225"", ""op"": ""<"", ""value"": 3100}, {""column"": ""Total Volume"", ""op"": "">"", ""value"": 1200000}]}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""all"": [{""column"": ""4225"", ""op"": "">="", ""value"": 3100}, {""column"": ""Total Volume"", ""op"": ""<="", ""value"": 1200000}]}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[(out[""Total Volume""] <= 1200000) & (out[""4225""] >= 3100)].copy()
+",,
+bank_miss_0130,missing_values,sentinel_to_missing,casual,"unknown in contact type is really just 'no data', turn those into NaN","{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_value_relation"", ""target"": ""contact"", ""where"": {""column"": ""contact"", ""op"": ""=="", ""value"": ""unknown""}, ""fn"": ""null""}, {""type"": ""null_count"", ""target"": ""contact"", ""op"": ""increased""}], ""must_preserve"": [{""type"": ""column_values_unchanged"", ""target"": ""contact"", ""where"": {""column"": ""contact"", ""op"": ""!="", ""value"": ""unknown""}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""contact""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""contact""] = out[""contact""].replace(""unknown"", np.nan)
+    return out
+",,
+imdb_miss_0196,missing_values,drop_missing_any,plain,Remove rows missing genre or `Gross`.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""any"": [{""column"": ""Genre"", ""op"": ""is_null""}, {""column"": ""Gross"", ""op"": ""is_null""}]}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""all"": [{""column"": ""Genre"", ""op"": ""not_null""}, {""column"": ""Gross"", ""op"": ""not_null""}]}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[out[['Genre', 'Gross']].notna().all(axis=1)].copy()
+",,
+bank_miss_0117,missing_values,fill_median,indirect,Replace each blank call duration by the column's median value.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_value_relation"", ""target"": ""duration"", ""where"": {""column"": ""duration"", ""op"": ""is_null""}, ""fn"": ""const"", ""args"": [{""lit"": 182.5}]}, {""type"": ""null_count"", ""target"": ""duration"", ""op"": ""eq"", ""value"": 0}], ""must_preserve"": [{""type"": ""column_values_unchanged"", ""target"": ""duration"", ""where"": {""column"": ""duration"", ""op"": ""not_null""}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""duration""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""duration""] = out[""duration""].fillna(out[""duration""].median())
+    return out
+",,
+superstore_miss_0113,missing_values,drop_missing_column,domain,Discard orders whose city is unknown.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""column"": ""City"", ""op"": ""is_null""}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""column"": ""City"", ""op"": ""not_null""}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[out[""City""].notna()].copy()
+",,
+air_quality_miss_0198,missing_values,drop_missing_any,casual,"drop readings with a gap in `Humidity`, PM10, sulphur dioxide or `WindSpeed`","{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""any"": [{""column"": ""Humidity"", ""op"": ""is_null""}, {""column"": ""PM10"", ""op"": ""is_null""}, {""column"": ""SO2"", ""op"": ""is_null""}, {""column"": ""WindSpeed"", ""op"": ""is_null""}]}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""all"": [{""column"": ""Humidity"", ""op"": ""not_null""}, {""column"": ""PM10"", ""op"": ""not_null""}, {""column"": ""SO2"", ""op"": ""not_null""}, {""column"": ""WindSpeed"", ""op"": ""not_null""}]}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[out[['Humidity', 'PM10', 'SO2', 'WindSpeed']].notna().all(axis=1)].copy()
+",,
+imdb_miss_0181,missing_values,drop_missing_any,domain,"Discard movies where any of genre, Metascore is missing.","{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""any"": [{""column"": ""Genre"", ""op"": ""is_null""}, {""column"": ""Meta_score"", ""op"": ""is_null""}]}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""all"": [{""column"": ""Genre"", ""op"": ""not_null""}, {""column"": ""Meta_score"", ""op"": ""not_null""}]}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[out[['Genre', 'Meta_score']].notna().all(axis=1)].copy()
+",,
+bank_miss_0180,missing_values,drop_missing_any,casual,drop clients with a gap in `job` or `marital`,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""any"": [{""column"": ""job"", ""op"": ""is_null""}, {""column"": ""marital"", ""op"": ""is_null""}]}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""all"": [{""column"": ""job"", ""op"": ""not_null""}, {""column"": ""marital"", ""op"": ""not_null""}]}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[out[['job', 'marital']].notna().all(axis=1)].copy()
+",,
+imdb_miss_0172,missing_values,drop_missing_any,domain,"Discard movies where any of certificate, director, genre, Metascore is missing.","{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""any"": [{""column"": ""Certificate"", ""op"": ""is_null""}, {""column"": ""Director"", ""op"": ""is_null""}, {""column"": ""Genre"", ""op"": ""is_null""}, {""column"": ""Meta_score"", ""op"": ""is_null""}]}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""all"": [{""column"": ""Certificate"", ""op"": ""not_null""}, {""column"": ""Director"", ""op"": ""not_null""}, {""column"": ""Genre"", ""op"": ""not_null""}, {""column"": ""Meta_score"", ""op"": ""not_null""}]}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[out[['Certificate', 'Director', 'Genre', 'Meta_score']].notna().all(axis=1)].copy()
+",,
+avocado_miss_0130,missing_values,drop_missing_any,domain,Only complete price records should remain: no empty fields anywhere.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""any"": [{""column"": ""Large Bags"", ""op"": ""is_null""}, {""column"": ""Total Bags"", ""op"": ""is_null""}, {""column"": ""XLarge Bags"", ""op"": ""is_null""}, {""column"": ""region"", ""op"": ""is_null""}]}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""all"": [{""column"": ""Large Bags"", ""op"": ""not_null""}, {""column"": ""Total Bags"", ""op"": ""not_null""}, {""column"": ""XLarge Bags"", ""op"": ""not_null""}, {""column"": ""region"", ""op"": ""not_null""}]}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[out.notna().all(axis=1)].copy()
+",,
+walmart_miss_0090,missing_values,drop_missing_any,plain,Remove rows missing `Fuel_Price` or Unemployment.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""any"": [{""column"": ""Fuel_Price"", ""op"": ""is_null""}, {""column"": ""Unemployment"", ""op"": ""is_null""}]}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""all"": [{""column"": ""Fuel_Price"", ""op"": ""not_null""}, {""column"": ""Unemployment"", ""op"": ""not_null""}]}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[out[['Fuel_Price', 'Unemployment']].notna().all(axis=1)].copy()
+",,
+student_miss_0059,missing_values,fill_constant_text,domain,"Where the mother's job wasn't recorded, write '?' instead.","{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_value_relation"", ""target"": ""Mjob"", ""where"": {""column"": ""Mjob"", ""op"": ""is_null""}, ""fn"": ""const"", ""args"": [{""lit"": ""?""}]}, {""type"": ""null_count"", ""target"": ""Mjob"", ""op"": ""eq"", ""value"": 0}], ""must_preserve"": [{""type"": ""column_values_unchanged"", ""target"": ""Mjob"", ""where"": {""column"": ""Mjob"", ""op"": ""not_null""}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""Mjob""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""Mjob""] = out[""Mjob""].fillna(""?"")
+    return out
+",,
+student_miss_0038,missing_values,fill_constant_text,plain,Put 'Other' wherever `guardian` is empty.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_value_relation"", ""target"": ""guardian"", ""where"": {""column"": ""guardian"", ""op"": ""is_null""}, ""fn"": ""const"", ""args"": [{""lit"": ""Other""}]}, {""type"": ""null_count"", ""target"": ""guardian"", ""op"": ""eq"", ""value"": 0}], ""must_preserve"": [{""type"": ""column_values_unchanged"", ""target"": ""guardian"", ""where"": {""column"": ""guardian"", ""op"": ""not_null""}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""guardian""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""guardian""] = out[""guardian""].fillna(""Other"")
+    return out
+",,
+bank_miss_0113,missing_values,fill_median,domain,Use the median account balance for clients where it is missing.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_value_relation"", ""target"": ""balance"", ""where"": {""column"": ""balance"", ""op"": ""is_null""}, ""fn"": ""const"", ""args"": [{""lit"": 417.5}]}, {""type"": ""null_count"", ""target"": ""balance"", ""op"": ""eq"", ""value"": 0}], ""must_preserve"": [{""type"": ""column_values_unchanged"", ""target"": ""balance"", ""where"": {""column"": ""balance"", ""op"": ""not_null""}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""balance""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""balance""] = out[""balance""].fillna(out[""balance""].median())
+    return out
+",,
+imdb_miss_0012,missing_values,fill_constant_number,indirect,There should be no missing Metascore afterwards: use 10 for the gaps.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_value_relation"", ""target"": ""Meta_score"", ""where"": {""column"": ""Meta_score"", ""op"": ""is_null""}, ""fn"": ""const"", ""args"": [{""lit"": 10}]}, {""type"": ""null_count"", ""target"": ""Meta_score"", ""op"": ""eq"", ""value"": 0}], ""must_preserve"": [{""type"": ""column_values_unchanged"", ""target"": ""Meta_score"", ""where"": {""column"": ""Meta_score"", ""op"": ""not_null""}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""Meta_score""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""Meta_score""] = out[""Meta_score""].fillna(10)
+    return out
+",,
+air_quality_miss_0143,missing_values,drop_missing_any,casual,"drop readings with a gap in nitrogen dioxide, `PM10`, sulphur dioxide or wind speed","{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""any"": [{""column"": ""NO2"", ""op"": ""is_null""}, {""column"": ""PM10"", ""op"": ""is_null""}, {""column"": ""SO2"", ""op"": ""is_null""}, {""column"": ""WindSpeed"", ""op"": ""is_null""}]}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""all"": [{""column"": ""NO2"", ""op"": ""not_null""}, {""column"": ""PM10"", ""op"": ""not_null""}, {""column"": ""SO2"", ""op"": ""not_null""}, {""column"": ""WindSpeed"", ""op"": ""not_null""}]}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[out[['NO2', 'PM10', 'SO2', 'WindSpeed']].notna().all(axis=1)].copy()
+",,
+student_miss_0051,missing_values,fill_constant_text,domain,"Where the mother's job wasn't recorded, write 'Not available' instead.","{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_value_relation"", ""target"": ""Mjob"", ""where"": {""column"": ""Mjob"", ""op"": ""is_null""}, ""fn"": ""const"", ""args"": [{""lit"": ""Not available""}]}, {""type"": ""null_count"", ""target"": ""Mjob"", ""op"": ""eq"", ""value"": 0}], ""must_preserve"": [{""type"": ""column_values_unchanged"", ""target"": ""Mjob"", ""where"": {""column"": ""Mjob"", ""op"": ""not_null""}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""Mjob""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""Mjob""] = out[""Mjob""].fillna(""Not available"")
+    return out
+",,
+walmart_miss_0088,missing_values,drop_missing_any,plain,Remove rows missing consumer price index or unemployment rate.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""any"": [{""column"": ""CPI"", ""op"": ""is_null""}, {""column"": ""Unemployment"", ""op"": ""is_null""}]}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""all"": [{""column"": ""CPI"", ""op"": ""not_null""}, {""column"": ""Unemployment"", ""op"": ""not_null""}]}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[out[['CPI', 'Unemployment']].notna().all(axis=1)].copy()
+",,
+diamonds_miss_0084,missing_values,fill_constant_text,plain,Put 'not given' wherever `color` is empty.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_value_relation"", ""target"": ""color"", ""where"": {""column"": ""color"", ""op"": ""is_null""}, ""fn"": ""const"", ""args"": [{""lit"": ""not given""}]}, {""type"": ""null_count"", ""target"": ""color"", ""op"": ""eq"", ""value"": 0}], ""must_preserve"": [{""type"": ""column_values_unchanged"", ""target"": ""color"", ""where"": {""column"": ""color"", ""op"": ""not_null""}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""color""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""color""] = out[""color""].fillna(""not given"")
+    return out
+",,
+bank_miss_0155,missing_values,drop_missing_column,indirect,Keep only rows where `duration` has a value.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""rows_removed_where"", ""target"": null, ""condition"": {""column"": ""duration"", ""op"": ""is_null""}}, {""type"": ""row_count"", ""target"": null, ""op"": ""decreased""}], ""must_preserve"": [{""type"": ""rows_retained_where"", ""target"": null, ""condition"": {""column"": ""duration"", ""op"": ""not_null""}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": []}]}","def transform(df):
+    out = df.copy()
+    return out[out[""duration""].notna()].copy()
+",,
+student_miss_0017,missing_values,fill_constant_number,plain,Fill the missing values in number of absences with -1.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_value_relation"", ""target"": ""absences"", ""where"": {""column"": ""absences"", ""op"": ""is_null""}, ""fn"": ""const"", ""args"": [{""lit"": -1}]}, {""type"": ""null_count"", ""target"": ""absences"", ""op"": ""eq"", ""value"": 0}], ""must_preserve"": [{""type"": ""column_values_unchanged"", ""target"": ""absences"", ""where"": {""column"": ""absences"", ""op"": ""not_null""}}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""absences""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""absences""] = out[""absences""].fillna(-1)
+    return out
+",,
+bank_conv_0068,type_conversion,int_to_float,indirect,Contact day and number of contacts in this campaign should have a floating-point dtype.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_dtype"", ""target"": ""day"", ""dtype"": ""float""}, {""type"": ""column_dtype"", ""target"": ""campaign"", ""dtype"": ""float""}], ""must_preserve"": [{""type"": ""column_values_unchanged"", ""target"": [""day"", ""campaign""]}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""day"", ""campaign""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[['day', 'campaign']] = out[['day', 'campaign']].astype(float)
+    return out
+",,
+bank_conv_0093,type_conversion,number_to_text,plain,Convert contact day to text.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_dtype"", ""target"": ""day"", ""dtype"": ""string""}], ""must_preserve"": [{""type"": ""column_value_relation"", ""target"": ""day"", ""fn"": ""cast"", ""args"": [{""col"": ""day""}, {""lit"": ""string""}]}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""day""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""day""] = out[""day""].astype(str)
+    return out
+",,
+bank_conv_0039,type_conversion,to_category,indirect,Change the type of job to category without changing any value. Missing values should stay missing.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_dtype"", ""target"": ""job"", ""dtype"": ""category""}], ""must_preserve"": [{""type"": ""column_values_unchanged"", ""target"": ""job""}, {""type"": ""null_count"", ""target"": ""job"", ""op"": ""unchanged""}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""job""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""job""] = out[""job""].astype('category')
+    return out
+",,
+bank_conv_0041,type_conversion,int_to_float,plain,Convert days since last contact to float.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_dtype"", ""target"": ""pdays"", ""dtype"": ""float""}], ""must_preserve"": [{""type"": ""column_values_unchanged"", ""target"": ""pdays""}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""pdays""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""pdays""] = out[""pdays""].astype(float)
+    return out
+",,
+student_conv_0205,type_conversion,yes_no_to_bool,indirect,Replace the yes/no strings in `higher` with real booleans.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_dtype"", ""target"": ""higher"", ""dtype"": ""bool""}, {""type"": ""column_value_relation"", ""target"": ""higher"", ""fn"": ""map"", ""args"": [{""col"": ""higher""}, {""lit"": {""no"": false, ""yes"": true}}]}], ""must_preserve"": [{""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""higher""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""higher""] = out[""higher""].map({'yes': True, 'no': False})
+    return out
+",,
+bank_conv_0040,type_conversion,to_category,plain,Change the dtype of job to category. Missing values should stay missing.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_dtype"", ""target"": ""job"", ""dtype"": ""category""}], ""must_preserve"": [{""type"": ""column_values_unchanged"", ""target"": ""job""}, {""type"": ""null_count"", ""target"": ""job"", ""op"": ""unchanged""}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""job""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""job""] = out[""job""].astype('category')
+    return out
+",,
+air_quality_conv_0017,type_conversion,int_to_float,casual,cast RespiratoryCases to floats,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_dtype"", ""target"": ""RespiratoryCases"", ""dtype"": ""float""}], ""must_preserve"": [{""type"": ""column_values_unchanged"", ""target"": ""RespiratoryCases""}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""RespiratoryCases""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""RespiratoryCases""] = out[""RespiratoryCases""].astype(float)
+    return out
+",,
+student_conv_0098,type_conversion,int_to_float,plain,Convert studytime to float.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_dtype"", ""target"": ""studytime"", ""dtype"": ""float""}], ""must_preserve"": [{""type"": ""column_values_unchanged"", ""target"": ""studytime""}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""studytime""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""studytime""] = out[""studytime""].astype(float)
+    return out
+",,
+student_conv_0121,type_conversion,int_to_float,indirect,Medu and freetime should have a floating-point dtype.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_dtype"", ""target"": ""Medu"", ""dtype"": ""float""}, {""type"": ""column_dtype"", ""target"": ""freetime"", ""dtype"": ""float""}], ""must_preserve"": [{""type"": ""column_values_unchanged"", ""target"": [""Medu"", ""freetime""]}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""Medu"", ""freetime""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[['Medu', 'freetime']] = out[['Medu', 'freetime']].astype(float)
+    return out
+",,
+bank_conv_0078,type_conversion,int_to_float,domain,Age and number of earlier contacts: switch the dtype from int to float.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_dtype"", ""target"": ""age"", ""dtype"": ""float""}, {""type"": ""column_dtype"", ""target"": ""previous"", ""dtype"": ""float""}], ""must_preserve"": [{""type"": ""column_values_unchanged"", ""target"": [""age"", ""previous""]}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""age"", ""previous""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[['age', 'previous']] = out[['age', 'previous']].astype(float)
+    return out
+",,
+student_conv_0028,type_conversion,to_category,indirect,Change the type of `school` to category without changing any value.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_dtype"", ""target"": ""school"", ""dtype"": ""category""}], ""must_preserve"": [{""type"": ""column_values_unchanged"", ""target"": ""school""}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""school""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""school""] = out[""school""].astype('category')
+    return out
+",,
+air_quality_conv_0036,type_conversion,number_to_text,domain,"Respiratory cases is a label, not a quantity; store it as strings.","{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_dtype"", ""target"": ""RespiratoryCases"", ""dtype"": ""string""}], ""must_preserve"": [{""type"": ""column_value_relation"", ""target"": ""RespiratoryCases"", ""fn"": ""cast"", ""args"": [{""col"": ""RespiratoryCases""}, {""lit"": ""string""}]}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""RespiratoryCases""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""RespiratoryCases""] = out[""RespiratoryCases""].astype(str)
+    return out
+",,
+avocado_conv_0006,type_conversion,text_to_datetime,domain,Parse the date column as dates (year-month-day format).,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_dtype"", ""target"": ""Date"", ""dtype"": ""datetime""}], ""must_preserve"": [{""type"": ""column_value_relation"", ""target"": ""Date"", ""fn"": ""cast"", ""args"": [{""col"": ""Date""}, {""lit"": ""datetime""}]}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""Date""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""Date""] = pd.to_datetime(out[""Date""])
+    return out
+",,
+student_conv_0132,type_conversion,int_to_float,plain,Convert Fedu and health to float.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_dtype"", ""target"": ""Fedu"", ""dtype"": ""float""}, {""type"": ""column_dtype"", ""target"": ""health"", ""dtype"": ""float""}], ""must_preserve"": [{""type"": ""column_values_unchanged"", ""target"": [""Fedu"", ""health""]}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""Fedu"", ""health""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[['Fedu', 'health']] = out[['Fedu', 'health']].astype(float)
+    return out
+",,
+student_conv_0172,type_conversion,number_to_text,domain,"Health is a label, not a quantity; store it as strings.","{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_dtype"", ""target"": ""health"", ""dtype"": ""string""}], ""must_preserve"": [{""type"": ""column_value_relation"", ""target"": ""health"", ""fn"": ""cast"", ""args"": [{""col"": ""health""}, {""lit"": ""string""}]}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""health""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""health""] = out[""health""].astype(str)
+    return out
+",,
+bank_conv_0011,type_conversion,to_category,casual,make education a category dtype,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_dtype"", ""target"": ""education"", ""dtype"": ""category""}], ""must_preserve"": [{""type"": ""column_values_unchanged"", ""target"": ""education""}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""education""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""education""] = out[""education""].astype('category')
+    return out
+",,
+superstore_conv_0013,type_conversion,to_category,casual,make ship mode a category dtype,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_dtype"", ""target"": ""Ship Mode"", ""dtype"": ""category""}], ""must_preserve"": [{""type"": ""column_values_unchanged"", ""target"": ""Ship Mode""}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""Ship Mode""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""Ship Mode""] = out[""Ship Mode""].astype('category')
+    return out
+",,
+bank_conv_0021,type_conversion,to_category,domain,Month only takes a few values; store it as a pandas category.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_dtype"", ""target"": ""month"", ""dtype"": ""category""}], ""must_preserve"": [{""type"": ""column_values_unchanged"", ""target"": ""month""}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""month""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""month""] = out[""month""].astype('category')
+    return out
+",,
+walmart_conv_0009,type_conversion,int_to_float,casual,cast holiday flag to floats,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_dtype"", ""target"": ""Holiday_Flag"", ""dtype"": ""float""}], ""must_preserve"": [{""type"": ""column_values_unchanged"", ""target"": ""Holiday_Flag""}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""Holiday_Flag""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""Holiday_Flag""] = out[""Holiday_Flag""].astype(float)
+    return out
+",,
+air_quality_conv_0020,type_conversion,int_to_float,indirect,RespiratoryCases should have a floating-point dtype.,"{""contract_version"": ""1.0"", ""must_change"": [{""type"": ""column_dtype"", ""target"": ""RespiratoryCases"", ""dtype"": ""float""}], ""must_preserve"": [{""type"": ""column_values_unchanged"", ""target"": ""RespiratoryCases""}, {""type"": ""columns_unchanged"", ""target"": ""*"", ""except"": [""RespiratoryCases""]}, {""type"": ""row_count"", ""target"": null, ""op"": ""unchanged""}]}","def transform(df):
+    out = df.copy()
+    out[""RespiratoryCases""] = out[""RespiratoryCases""].astype(float)
+    return out
+",,

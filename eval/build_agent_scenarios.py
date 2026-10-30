@@ -1,6 +1,7 @@
 """Build the R / C / T agent scenarios from a frozen pool (README Phase 4 task 5; guide §11).
 
-    # current version rct_v3 (used by the runner; the defaults): pool v4, 1 wrong + 1 crashed candidate per task
+    # current version rct_v4 (used by the runner; the defaults): pool v4, 1 wrong + 1 crashed candidate per task,
+    # T faults on the agent's first tool call (rct_v3: same scenarios, faults on a named tool)
     .venv/bin/python eval/build_agent_scenarios.py --out /tmp/rct_check.jsonl     # rebuild elsewhere to compare
     # earlier versions: rct_v2 (pool v3, same settings) and rct_v1 (pool v2, 3 per task), in archive/agent_scenarios/
 
@@ -23,6 +24,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 FAULTS = [("diff_datasets", "error"), ("run_verifier", "timeout"), ("profile_column", "malformed"),
           ("inspect_dataset", "error"), ("run_transformation", "timeout"), ("diff_datasets", "malformed")]
+# rct_v4: the fault hits the agent's first tool call, whatever the tool ("*"). With a named tool (rct_v1-v3) the
+# fault fired in only 1 of 6 dev T scenarios (agent dev run 4), because the agent mostly used other tools.
+FAULTS_ANY = [("*", "error"), ("*", "timeout"), ("*", "malformed")]
 
 
 def load_jsonl(p):
@@ -39,10 +43,12 @@ def scenario(sid, cat, c, expected, faults=()):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--pool", type=Path, default=ROOT / "benchmark" / "pool" / "pool_v4.jsonl")
-    ap.add_argument("--out", type=Path, default=ROOT / "benchmark" / "agent_scenarios" / "rct_v3.jsonl")
+    ap.add_argument("--out", type=Path, default=ROOT / "benchmark" / "agent_scenarios" / "rct_v4.jsonl")
     ap.add_argument("--r-per-task", type=int, default=1)
     ap.add_argument("--t-count", type=int, default=24, help="T scenarios on test (dev gets a quarter)")
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--fault-target", choices=["any", "named"], default="any",
+                    help='any: fault on the first tool call of any tool (rct_v4); named: a fixed tool (rct_v1-v3)')
     ap.add_argument("--force", action="store_true", help="overwrite an existing scenario file")
     args = ap.parse_args()
     if args.out.exists() and not args.force:
@@ -77,7 +83,8 @@ def main():
                 if by_type[t] and len(picks) < n_t:
                     picks.append(by_type[t].pop(rng.randrange(len(by_type[t]))))
         for i, c in enumerate(picks, 1):
-            out.append(scenario(f"T_{split}_{i:03d}", "T", c, "ACCEPT_CORRECT", [FAULTS[(i - 1) % len(FAULTS)]]))
+            faults = FAULTS_ANY if args.fault_target == "any" else FAULTS
+            out.append(scenario(f"T_{split}_{i:03d}", "T", c, "ACCEPT_CORRECT", [faults[(i - 1) % len(faults)]]))
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text("".join(json.dumps(s) + "\n" for s in out))
     from collections import Counter

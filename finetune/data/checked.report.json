@@ -1,58 +1,63 @@
 {
   "summary": {
-    "n_input": 3948,
-    "n_kept": 3946,
+    "n_input": 3938,
+    "n_kept": 3935,
     "by_status": {
-      "ok": 3946,
-      "leakage": 2
+      "ok": 3935,
+      "leakage": 3
     },
     "kept_by_type": {
       "column_transformation": 1100,
-      "type_conversion": 487,
-      "deduplication": 425,
+      "type_conversion": 488,
+      "deduplication": 423,
       "filtering": 1100,
-      "missing_values": 834
+      "missing_values": 824
     },
     "kept_by_dataset": {
-      "air_quality": 453,
-      "avocado": 448,
-      "bank": 587,
-      "diamonds": 555,
-      "imdb": 435,
-      "student": 616,
-      "superstore": 469,
-      "walmart": 383
+      "air_quality": 472,
+      "avocado": 451,
+      "bank": 597,
+      "diamonds": 549,
+      "imdb": 418,
+      "student": 618,
+      "superstore": 462,
+      "walmart": 368
     },
     "kept_by_predicate": {
-      "columns_added": 562,
-      "columns_removed": 238,
-      "column_value_relation": 1691,
-      "columns_unchanged": 3946,
-      "row_count": 3946,
-      "column_dtype": 551,
-      "column_values_unchanged": 851,
-      "duplicate_count": 425,
-      "rows_removed_where": 1402,
-      "rows_retained_where": 1402,
-      "null_count": 560
+      "columns_added": 551,
+      "columns_removed": 250,
+      "column_value_relation": 1679,
+      "columns_unchanged": 3935,
+      "row_count": 3935,
+      "column_dtype": 556,
+      "column_values_unchanged": 847,
+      "duplicate_count": 423,
+      "rows_removed_where": 1397,
+      "rows_retained_where": 1397,
+      "null_count": 555
     },
     "kept_by_style": {
-      "domain": 946,
-      "plain": 1048,
-      "indirect": 975,
-      "casual": 977
+      "domain": 1014,
+      "casual": 994,
+      "plain": 992,
+      "indirect": 935
     }
   },
   "dropped": [
     {
-      "id": "bank_dedup_0139",
+      "id": "bank_dedup_0174",
       "status": "leakage",
       "reason": "shares 1 word 5-grams with evaluation requests, e.g. 'remove duplicates based on age'"
     },
     {
-      "id": "walmart_dedup_0302",
+      "id": "diamonds_dedup_0443",
       "status": "leakage",
       "reason": "shares 1 word 5-grams with evaluation requests, e.g. 'price keep the first one'"
+    },
+    {
+      "id": "student_dedup_0013",
+      "status": "leakage",
+      "reason": "shares 1 word 5-grams with evaluation requests, e.g. 'remove duplicates based on age'"
     }
   ]
 }

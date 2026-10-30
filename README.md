@@ -756,7 +756,7 @@ intent-parser/
 │   ├── tasks/                120 task YAMLs (request, gold contract, reference code), 30 per dataset
 │   ├── prompts/              schema_b1-v1.json: the dataset schema shown in every prompt
 │   ├── pool/                 candidate pool v4 (all 4 datasets): pool_v4.jsonl, manifest.json, outputs/*.pkl
-│   ├── agent_scenarios/      rct_v3.jsonl (R/C/T, from pool v4), E/ (should escalate), S/ (safety)
+│   ├── agent_scenarios/      rct_v4.jsonl (R/C/T, from pool v4; T faults on the first tool call), E/ (should escalate), S/ (safety)
 │   ├── redteam/              unsafe code samples for the sandbox tests
 │   └── annotation/           error-kind labels
 ├── kaggle_outputs/           what came back from Kaggle (+ local labels), input to the scripts

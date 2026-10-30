@@ -3,16 +3,7 @@
 **Team SSSS** · LMA Group Project 2026
 Akash Sigullapalli (2023101104) · Konapalli Jaswanth Reddy (2023101025) · Kotha Sai Veekshith (2023101078) · Srinivas Billuri (2023101029)
 
-**Scope of this report:** all work up to and including Baseline 3 (Stage 1, verification only).
-**Status labels used throughout:**
-
-| Label | Meaning |
-|---|---|
-| ✅ **Completed** | Built, run, and results recorded in the repository |
-| 🔄 **Ongoing** | Code exists and is tested, but the experiment has not produced final results yet |
-| 📋 **Planned** | Not started, or only designed on paper |
-
-All numbers below come from files in the repository (mainly `results/STAGE1_RESULTS.md`, `results/stage1/summary/*.json`, `benchmark/pool/manifest.json`). The direction-ablation numbers on pool v4 (§6.1) were computed for this report with `eval/metrics.py` from verdict files that already existed; no new model runs were made.
+**Github** - https://github.com/srinivas0307/lma-group-project.git
 
 ---
 
@@ -52,18 +43,17 @@ After the code runs, a **deterministic verifier** (no LLM) compares the data bef
 2. Does repair improve final accuracy?
 3. Does giving the contract to the code generator help?
 
-This report answers the main question for Stage 1. The secondary questions are answered by the planned work in §8.
 
 **Two evaluation stages (proposal p.7–8).**
 
-- **Stage 1, checking only** (this report): every system judges the *same frozen pool* of LLM-generated programs and says accept or reject. No repair.
-- **Stage 2, end to end with repair** (future work, §8.2): each system starts from the request, writes code, checks it and repairs it if needed. The final output is judged against the reference.
+- **Stage 1, verification only** (this report): every system judges the *same frozen pool* of LLM-generated programs and says accept or reject. No repair.
+- **Stage 2, repair** (future work): verification failures trigger a bounded, tool-using repair agent.
 
 **Headline Stage 1 result (test split, 671 candidates, pool v4).**
 
 | System | Recall (wrong caught) | False-rejection rate | Silent error rate |
 |---|---|---|---|
-| Baseline 1: no verification | 0.000 | 0.000 | 0.338 |
+| Baseline 1: no verification | - | - | 0.338 |
 | Baseline 2: conventional checks | 0.455 | 0.139 | 0.244 |
 | Baseline 3: prompted Qwen2.5-7B parser + intent verifier | 0.892 | 0.254 | 0.069 |
 | Oracle: gold contract + intent verifier (upper bound) | 0.944 | 0.000 | 0.028 |
@@ -74,12 +64,12 @@ With a correct contract, the intent verifier catches about twice as many wrong p
 
 ## 1. Evaluation Dataset Creation
 
-✅ **Completed** (task set, gold contracts, candidate pool v4). 🔄 Second annotation and agreement study not done yet (see §7).
+ **Completed** (task set, gold contracts, candidate pool v4).
 
 The evaluation set has three layers:
 
 1. **Datasets**: four real public tables (the "before" data).
-2. **Tasks**: 120 hand-written requests, each with reference code and a gold contract.
+2. **Tasks**: 120 requests, each with reference code and a gold contract.
 3. **Candidate pool**: 803 distinct LLM-written programs for those tasks, each labelled correct or wrong.
 
 ### 1.1 Data sources
@@ -91,16 +81,12 @@ The evaluation set has three layers:
 | `titanic` | Titanic passenger list (Kaggle) | `data/Titanic-Dataset.csv` | 891 × 12 | 866 (`Age`, `Cabin`, `Embarked`) | Real missing values, tickets shared by groups |
 | `taxi` | NYC TLC Yellow Taxi trips, January 2026 | `data/yellow_tripdata_2026-01.csv` | 1,000 × 20 | 0 (missing data is coded as sentinels such as `passenger_count = 0`, `RatecodeID = 99`) | Datetimes, money columns, sentinel values |
 
-**Changes from the proposal.** The proposal named Airbnb, Adult and Wine Quality. During profiling we found that Wine Quality has no missing values (so no missing-value tasks are possible), so we replaced it with Titanic and NYC Taxi. Wine Quality is now reserved for fine-tuning data and must never enter evaluation. The DS-1000 external evaluation from the proposal is still planned (P2, optional).
-
-**Profiling findings that shaped the tasks** (`docs/eval_set_and_contract_guide.md` §4.2):
+**Profiling findings that shaped the tasks**:
 
 - In the Adult file, missing values are empty cells, not the string `?` of the original UCI release.
 - Neither Adult nor Airbnb has exact duplicate rows, so every dedup task needs a key subset.
 - Airbnb prices range from 20 to 3000 (no zeros), so "remove price 0" would remove nothing and was not used.
 - Library versions are pinned everywhere (pandas 2.3.3, numpy 2.1.3), because dtypes such as `object` vs `string` change between pandas versions.
-
-The DataFrame index (0..n−1 on load) is the row id. Nothing is added to the data, so generated code sees exactly what a user would see.
 
 ### 1.2 Tasks
 
@@ -110,7 +96,6 @@ The DataFrame index (0..n−1 on load) is the row id. Nothing is added to the da
 |---|---|
 | Transformation types | filtering, deduplication, missing values, type conversion, column transformation (24 tasks each) |
 | Split | 100 **test**, 20 **dev** (one dev task per dataset × type; dev is used only for tuning prompts and thresholds) |
-| Difficulty | 33 easy, 58 medium, 29 hard |
 | Gold contract size | 3 to 8 predicates, 4.2 on average |
 
 The full list is in `benchmark/tasks/INDEX.md`. Examples: "Remove passengers younger than 18; unknown ages stay" (Titanic, filtering), "Keep one listing per host and room type, keeping the last one" (Airbnb, dedup), "passenger_count 0 means not recorded; set it to missing" (Taxi, missing values), "Make education an ordered category following the education-num order" (Adult, type conversion), "Add fare_per_mile; zero-distance trips get missing" (Taxi, column transformation).
@@ -123,7 +108,6 @@ split: test
 dataset: titanic
 data_file: data/Titanic-Dataset.csv
 transformation_type: filtering
-difficulty: medium
 request: >
   Remove passengers younger than 18. Passengers whose age is unknown should stay.
 assumptions:
@@ -152,13 +136,11 @@ expected_effect: {rows_before: 891, rows_after: 778, columns_added: [], columns_
 | `gold_contract` | Evaluator, and the verifier only in the oracle setting | Answer key for parser scoring; contract for the oracle run |
 | `expected_effect` | Tests | Fingerprint of the correct output, to catch accidental edits |
 
-**Quality checks (automatic, in `tests/verifier/test_reference_contracts.py`).** Every reference output passes its own gold contract, also after `reset_index()` and after reversing the row order. Returning the input unchanged (a no-op) fails every gold contract, so no contract is vacuous.
 
 ### 1.3 Candidate pool (the transformations that are judged)
 
 We do not hand-write wrong code. Every program in the pool was written by an LLM, which gives realistic mistakes.
 
-**Generation (Kaggle, Tesla T4, prompt `b1-v1`, hash `ebbe8bceae71`).**
 
 | Setting | Value |
 |---|---|
@@ -179,32 +161,22 @@ We do not hand-write wrong code. Every program in the pool was written by an LLM
 
 Runnable wrong candidates on test, by type: deduplication 95, filtering 45, type conversion 29, column transformation 24, missing values 20. By generator: 1.5B 134, 3B 79.
 
-Each JSONL row stores the candidate id, task id, split, type, generator model(s), seeds, the code, its hash, run status, error message, the path of the pickled output, and the `is_correct` label. `manifest.json` records model and library versions and SHA-256 checksums of every output.
+Each JSONL row stores the candidate id, task id, split, type, generator model(s), seeds, the code, its hash, run status, error message, the path of the pickled output, and the `is_correct` label. `manifest.json` records model.
 
 Crashed programs are kept in the pool but are not counted in the recall denominator, because every system (even Baseline 1) rejects code that crashes. The interesting errors are the 213 programs that run and are silently wrong.
-
-**Pool history.** Pools are never edited after freezing; new candidates create a new version.
-
-| Pool | Content | Why it was built |
-|---|---|---|
-| v1 | 3B, adult + airbnb, 161 candidates, 49 runnable wrong | First pool; failed Gate 1 (too few errors) |
-| v2 | v1 + 1.5B, 395 candidates, 136 runnable wrong (98 test) | Gate 1 passed |
-| v3 | v2 + taxi + titanic, 804 candidates, 214 test runnable wrong | Four datasets |
-| **v4** | One all-task run per model, 803 candidates, 213 test runnable wrong | One clean Baseline 1 run per model. 1,438 of 1,440 generations are identical to v3. |
 
 ### 1.4 Other evaluation material (built, used later)
 
 | Material | Location | Status |
 |---|---|---|
-| Error-kind labels for the 49 wrong candidates of pool v1 (most common: sorting before `keep="first"`, wrong boolean logic, incomplete dedup key) | `benchmark/annotation/error_kinds_pool_v1.csv`, `docs/error_taxonomy.md` | 🔄 Draft, needs human review |
-| Red-team set: 27 unsafe code samples (file I/O, network, shell, `eval`, memory bomb, infinite loop) | `benchmark/redteam/samples.yaml` | ✅ All 22 static samples blocked, all 5 resource samples contained |
-| Agent scenarios for Stage 2: R (repairable), C (already correct), T (tool fault) from the pool; E (should escalate, 15) and S (safety, 12) | `benchmark/agent_scenarios/` | 🔄 Built; E/S are drafts needing review |
+| Red-team set: 27 unsafe code samples (file I/O, network, shell, `eval`, memory bomb, infinite loop) | `benchmark/redteam/samples.yaml` | All 22 static samples blocked, all 5 resource samples contained |
+| Agent scenarios for Stage 2: R (repairable), C (already correct), T (tool fault) from the pool; E (should escalate) and S (safety) | `benchmark/agent_scenarios/` | Built; E/S are drafts needing review |
 
 ---
 
 ## 2. Contract Schema Definition
 
-✅ **Completed.** Vocabulary **v1.0 frozen on 2026-10-29.** Code: `src/igt/contracts/schema.py` (validation), `src/igt/verifier/` (checking). Full reference: `docs/contract_schema.md`.
+Code: `src/igt/contracts/schema.py` (validation), `src/igt/verifier/` (checking). Full reference: `docs/contract_schema.md`.
 
 ### 2.1 What it is and why we need it
 
@@ -234,29 +206,27 @@ We need it because:
 
 ### 2.3 The 11 predicates
 
-The first 8 are from the proposal (core). We added 3 extensions after the pilot (decision D5).
+
 
 | # | Predicate | Holds when | Typical use |
 |---|---|---|---|
 | 1 | `row_count` | Row count after compares to before (`unchanged`, `decreased`, `increased`) or to a number (`eq`, `lt`, …) | Every task |
 | 2 | `rows_removed_where` | Every before-row matching a condition is gone | Filtering, drop-missing |
-| 3 | `rows_retained_where` *(ext.)* | Every before-row matching a condition survives | Catches over-deletion |
+| 3 | `rows_retained_where`  | Every before-row matching a condition survives | Catches over-deletion |
 | 4 | `duplicate_count` | Duplicate count on key columns meets the op; optional `keep: first/last` checks *which* row survives | Deduplication |
 | 5 | `null_count` | Null count in a column meets the op | Fills, sentinel → missing |
 | 6 | `column_values_unchanged` | Values equal on surviving rows (dtype may change), optional `where` | Type conversion, partial fills |
 | 7 | `columns_unchanged` | Column exists, same dtype family, same values on surviving rows | "Nothing else changed" |
 | 8 | `column_dtype` | Column has a dtype family; optional `ordered`, `categories` | Type conversion |
 | 9 | `column_value_relation` | `after[target] = fn(before row)` for a closed set of 14 functions | Fills, derived columns, mappings |
-| 10 | `columns_added` *(ext.)* | Listed columns appear | New columns, renames |
-| 11 | `columns_removed` *(ext.)* | Listed columns are gone | Renames, drops |
+| 10 | `columns_added`  | Listed columns appear | New columns, renames |
+| 11 | `columns_removed`  | Listed columns are gone | Renames, drops |
 
 **Building blocks.**
 
 - **Conditions** select rows, evaluated on the before data: a leaf `{column, op, value}` with `==, !=, <, <=, >, >=, in, not_in, is_null, not_null`, combined with `all`, `any`, `not`. **Null rule:** a null cell makes every comparison false (including `!=`), so a contract must say explicitly whether missing values are included.
 - **Relation functions** (14): `identity, const, null, add, sub, mul, div, round, clip, lower, upper, strip, map, cast`. Arguments are written `{col: name}` or `{lit: value}`, so columns and constants are never confused.
 - **Dtype families** (6): `int, float, bool, string, category, datetime`. pandas dtypes are mapped to families (for example `int64` and `Int32` are both `int`).
-
-Usage in the 120 gold contracts: `row_count` 120, `columns_unchanged` 120, `column_value_relation` 57, `column_values_unchanged` 37, `null_count` 35, `column_dtype` 32, `rows_removed_where` 29, `rows_retained_where` 29, `duplicate_count` 24, `columns_added` 12, `columns_removed` 4.
 
 ### 2.4 Key constraints (checked when the contract is loaded)
 
@@ -267,7 +237,7 @@ Usage in the 120 gold contracts: `row_count` 120, `columns_unchanged` 120, `colu
 - `ordered` and `categories` are allowed only with `dtype: category`.
 - Each function has a fixed number of arguments and fixed argument kinds (e.g. `round` = [column, literal]).
 
-A contract that breaks any rule is **invalid**. The verifier returns UNCERTAIN (`invalid_contract`) and the system **escalates** instead of guessing. This matters for Baseline 3 (§5.4).
+A contract that breaks any rule is **invalid**. The verifier returns UNCERTAIN (`invalid_contract`) and the system **escalates** instead of guessing. This matters for Baseline 3.
 
 ### 2.5 How the system uses the contract
 
@@ -295,21 +265,11 @@ flowchart LR
 
 **Scoring a predicted contract against the gold one** (`src/igt/contracts/normalize.py`, `eval/contract_metrics.py`): `"*"` targets are expanded to one key per column (partial credit), conditions are put in a canonical form (sorted children, flattened `all`/`any`, double negation removed, numbers normalised), and keys are compared. We report precision, recall and F1 separately for `must_change` and `must_preserve`, plus exact-match rate. An invalid prediction counts as empty.
 
-**Test coverage.** The contracts and verifier are covered by unit tests for every predicate (pass, violation, edge cases such as empty frames, all-null columns, index reset, unmatchable rows). The whole test suite (435 tests, also covering sandbox, parsers and agent) passes.
-
-### 2.6 Known limitations of v1.0 (kept on purpose)
-
-| Limitation | Effect | Decision |
-|---|---|---|
-| No predicate forbids **extra columns** (`columns_unchanged "*"` covers only before-columns) | A leftover helper column passes | Kept as a reported limitation (OI-7). Changing the vocabulary after seeing test results would tune the method on the test set. |
-| New columns have no dtype unless the contract adds `column_dtype` | A new int column computed as float passes | Same |
-| No nested expressions, column-to-column conditions, datetime arithmetic, regex, group statistics | Requests like "fill with the median" need the median written as a literal | Documented in task notes |
-
 ---
 
 ## 3. Baseline 1: Direct LLM, No Verification
 
-✅ **Completed.**
+
 
 ### 3.1 What it is
 
@@ -317,7 +277,7 @@ The LLM writes the code; the code runs; whatever comes out is accepted. The only
 
 ### 3.2 Why we chose it
 
-It measures the problem itself: how often an LLM produces code that runs but is wrong. Every other system is compared to this "do nothing" reference. It also produces the candidate pool that all other systems judge.
+It measures the problem itself: how often an LLM produces code that runs but is wrong. Every other system (baseline 2,3 - for fair comparison) is compared to this "do nothing" reference. It also produces the candidate pool that all other systems judge.
 
 ### 3.3 Implementation
 
@@ -350,7 +310,7 @@ flowchart LR
 | Qwen2.5-1.5B | greedy | 20/25 | 17/25 | 20/25 | 19/25 | **76/100** |
 | Qwen2.5-1.5B | all 6 samples | 0.733 | 0.693 | 0.720 | 0.693 | 426/600 (0.710) |
 
-**As a verifier (test, 671 unique candidates):** recall 0.000, false-rejection rate 0.000, **silent error rate 0.338** (213 of the 630 accepted outputs are wrong).
+**As a verifier (test, 671 unique candidates):** *silent error rate 0.338* (213 of the 630 accepted outputs are wrong).
 
 Silent error rate by type: deduplication **0.556**, filtering 0.324, type conversion 0.319, column transformation 0.220, missing values 0.167.
 
@@ -365,7 +325,6 @@ Silent error rate by type: deduplication **0.556**, filtering 0.324, type conver
 
 ## 4. Baseline 2: Conventional Data-Quality Checks
 
-✅ **Completed.**
 
 ### 4.1 What it is
 
@@ -377,7 +336,7 @@ The research question asks whether intent contracts beat *conventional* checks, 
 
 ### 4.3 Implementation
 
-`src/igt/baselines/conventional_checks.py`, driver `eval/baseline2.py`, config `configs/baseline2_v4.yaml`. We wrote the checks ourselves in plain pandas (rather than Great Expectations or Pandera) so every rule is visible.
+`src/igt/baselines/conventional_checks.py`, driver `eval/baseline2.py`, config `configs/baseline2_v4.yaml`.
 
 **Step 1: measure** (once per candidate):
 
@@ -393,17 +352,6 @@ The research question asks whether intent contracts beat *conventional* checks, 
 
 **Step 2: judge.** Each measurement is compared with a threshold. Any exceeded threshold → VIOLATION (reject).
 
-**Tuning (dev split only).** A greedy coordinate search over a grid of 13 thresholds maximises dev recall subject to dev false-rejection rate ≤ 0.10. Ties go to the more lenient value ("lenient" tie-break). The thresholds are then frozen and applied to test. We also report a "strict" tie-break and hand-set "default" thresholds as sensitivity checks (§6.4).
-
-The tuned (lenient) setting keeps only three checks active:
-
-| Active check | Threshold |
-|---|---|
-| Dropped columns | more than 1 → reject |
-| Output index not a subset of input index | any → reject |
-| Mean shift of a numeric column | z > 0.1 → reject |
-
-Dev score: recall 0.627, FRR 0.090.
 
 **Architecture (Baseline 2):**
 
@@ -424,12 +372,12 @@ flowchart LR
 
 The checks never receive the request, a contract, or the reference output.
 
-### 4.4 Results (test, pool v4)
+### 4.4 Results
 
 | Metric | Baseline 1 | **Baseline 2** |
 |---|---|---|
-| Recall (runnable wrong rejected) | 0.000 | **0.455** [0.33, 0.58] |
-| False-rejection rate | 0.000 | **0.139** [0.07, 0.22] |
+| Recall (runnable wrong rejected) |- | **0.455** [0.33, 0.58] |
+| False-rejection rate | - | **0.139** [0.07, 0.22] |
 | Silent error rate | 0.338 | **0.244** |
 | Accepted outputs | 630 | 475 |
 
@@ -458,7 +406,6 @@ Brackets: 95% task-level bootstrap intervals. McNemar (paired, "was the decision
 
 ## 5. Baseline 3: Intent Verification with a Prompted General LLM
 
-✅ **Completed** (final version: Qwen2.5-7B-Instruct, prompt p1-v3).
 
 ### 5.1 What it is
 
@@ -466,7 +413,7 @@ The full intent-gated pipeline, with the contract written by a **general-purpose
 
 ### 5.2 Why we introduced it
 
-- It is the proposal's comparison point for fine-tuning (p.7): if a prompted model already writes good contracts, fine-tuning adds nothing.
+- It is the proposal's comparison point for fine-tuning: if a prompted model already writes good contracts, fine-tuning adds nothing.
 - It tests the research question under realistic conditions. The oracle run (gold contracts) shows the *ceiling* of intent verification; Baseline 3 shows what happens when the contract itself can be wrong.
 - We deliberately use a **larger** model (7B) than the parsers we will fine-tune (1.5B, 3B), which makes the test harder for fine-tuning.
 
@@ -474,7 +421,7 @@ The full intent-gated pipeline, with the contract written by a **general-purpose
 
 `src/igt/agents/intent_parser.py`, `eval/parse_contracts.py` (GPU, Kaggle notebook `notebooks/kaggle/baseline3_parse_kaggle.ipynb`), `eval/score_parsers.py` (scoring, CPU).
 
-**Model and decoding.** Qwen2.5-7B-Instruct, 4-bit, fp16 compute, **greedy** decoding, max 1,024 new tokens, Kaggle T4. Decision (README §12): every LLM parser uses the same plain greedy generation, then JSON extraction from the reply and strict pydantic validation. No constrained decoding, no output repair, no lenient parsing. Invalid outputs are counted and escalated.
+**Model and decoding.** Qwen2.5-7B-Instruct, 4-bit, fp16 compute, **greedy** decoding, max 1,024 new tokens, Kaggle T4. Decision : every LLM parser uses the same plain greedy generation, then JSON extraction from the reply and strict pydantic validation. No constrained decoding, no output repair, no lenient parsing. Invalid outputs are counted and escalated.
 
 **Prompt.** System prompt + 5 few-shot examples + the task.
 
@@ -536,8 +483,8 @@ The model's predicates are mostly correct (high precision) but it leaves some ou
 
 | System | Recall | FRR | Silent error rate | ESCALATE rate |
 |---|---|---|---|---|
-| Baseline 1: no verification | 0.000 | 0.000 | 0.338 | 0.000 |
-| Baseline 2: conventional checks | 0.455 [0.33, 0.58] | 0.139 [0.07, 0.22] | 0.244 | 0.000 |
+| Baseline 1: no verification | - | - | 0.338 | - |
+| Baseline 2: conventional checks | 0.455 [0.33, 0.58] | 0.139 [0.07, 0.22] | 0.244 | - |
 | **Baseline 3: prompted 7B, p1-v3** | **0.892** [0.82, 0.95] | **0.254** [0.16, 0.36] | **0.069** | 0.148 |
 | Oracle: gold contract (upper bound) | 0.944 [0.90, 0.98] | 0.000 [0.00, 0.00] | 0.028 | 0.006 |
 
@@ -577,18 +524,9 @@ Paired McNemar on test:
 4. **The oracle gap (FRR 0.254 → 0.000) is the room left for a better parser.** This is the motivation for fine-tuning (Gate 3).
 5. **The oracle's 12 misses are known vocabulary or annotation gaps, not verifier bugs:** 8 programs leave an extra helper column (no predicate forbids extra columns, OI-7), and 4 taxi programs turn `passenger_count` into `object` dtype, which the gold contracts of `taxi_miss_001/005` do not constrain (annotation gap, OI-8).
 
-**Caveats to keep in mind.**
-
-- **Oracle FRR = 0 is close to guaranteed by construction.** "Correct" means equal to the reference, and every reference passes its gold contract. A correct-but-different interpretation is labelled *wrong* by the answer key, so it cannot appear as a false rejection.
-- **Gold contracts are drafts by one annotator.** The second annotation and agreement study are not done yet, so oracle numbers are an upper bound.
-- **Test results of p1-v1 had been seen before p1-v2 was written.** The changes were limited to format rules justified by dev errors, and the final version was chosen on dev. We report all versions.
-- **Candidates are correlated within a task.** Confidence intervals use a task-level bootstrap for this reason.
 
 ---
-
 ## 6. Ablation Studies and Other Experiments
-
-All ✅ **Completed**, Stage 1, test split unless stated otherwise.
 
 ### 6.1 Direction ablation: must_change only vs must_preserve only
 
@@ -615,8 +553,6 @@ McNemar, oracle full vs change-only: 45 vs 0 candidates; full vs preserve-only: 
 - With gold contracts, the full contract is right on every candidate where a half-contract is right.
 - With the parser's contracts the pattern is similar. Dropping a half lowers FRR a little (fewer predicates that can be wrong) but costs much more recall. Full vs change-only is not significant here (26 vs 18 candidates, p = 0.29); full vs preserve-only is (74 vs 37, p < 0.001).
 
-The same result held on pool v2 (2 datasets): full 0.980, change only 0.847, preserve only 0.347.
-
 ### 6.2 Parser model-size ablation (prompted 7B vs 3B vs 1.5B)
 
 **Question.** How much does parser size matter without fine-tuning? This lets us later separate the effect of fine-tuning from the effect of size (prompted 1.5B vs fine-tuned 1.5B).
@@ -633,7 +569,7 @@ The same result held on pool v2 (2 datasets): full 0.980, change only 0.847, pre
 
 ### 6.3 Prompt-version ablation (p1-v1 → p1-v2 → p1-v3)
 
-**What we changed.** Only the system prompt (§5.3). All 9 model × prompt runs are kept (`results/stage1/other_prompts/`, `size_ablation/`, `baseline3/`).
+**What we changed.** Only the system prompt. All 9 model × prompt runs are kept (`results/stage1/other_prompts/`, `size_ablation/`, `baseline3/`).
 
 | Parser | Prompt | Invalid (test) | Invalid (dev) | must_change F1 | must_preserve F1 | Recall | FRR |
 |---|---|---|---|---|---|---|---|
@@ -666,22 +602,10 @@ Bold prompt = selected on dev. For 3B the dev rule picked p1-v2 although p1-v3 i
 
 **Findings.** Making conventional checks stricter buys recall only with many more false rejections. None of the variants approaches the intent verifier's trade-off, and even Baseline 3 is right more often than the strict variant (171 vs 84 candidates, p < 0.001). Our choice of the lenient variant is not what makes Baseline 2 look weak.
 
-### 6.5 Effect of adding datasets (pool v2 → v3/v4)
 
-**What we changed.** The evaluation pool grew from 2 datasets (98 test errors) to 4 datasets (213 test errors). Thresholds and prompts stayed fixed.
+### 6.5 Generator comparison (3B vs 1.5B as code writers)
 
-| System | Pool v2 recall / FRR | Pool v4 recall / FRR |
-|---|---|---|
-| Baseline 2 | 0.510 / 0.081 | 0.455 / 0.139 |
-| Baseline 3 (7B p1-v3) | 0.969 / 0.228 | 0.892 / 0.254 |
-| Oracle | 0.980 / 0.000 | 0.944 / 0.000 |
-| Baseline 3 vs Baseline 2 (McNemar) | 61 vs 45, p = 0.14 (not significant) | 140 vs 95, **p = 0.004** |
-
-**Findings.** Conventional checks get weaker on the larger pool (on pool v4 they catch none of the 29 type-conversion errors). With twice the data, the advantage of Baseline 3 over Baseline 2 becomes statistically significant. Moving from pool v3 to v4 changed every rate by at most 0.002.
-
-### 6.6 Generator comparison (3B vs 1.5B as code writers)
-
-The two generators have almost the same greedy accuracy (77 vs 76 of 100 test tasks), but the 1.5B model is wrong more often when sampling (0.710 vs 0.773 sample accuracy) and contributes 134 of the 213 runnable wrong candidates. Adding the second generator is what made Gate 1 pass (pool v1 with 3B alone had only 32 test errors).
+The two generators have almost the same greedy accuracy (77 vs 76 of 100 test tasks), but the 1.5B model is wrong more often when sampling (0.710 vs 0.773 sample accuracy) and contributes 134 of the 213 runnable wrong candidates.
 
 ---
 
@@ -689,26 +613,17 @@ The two generators have almost the same greedy accuracy (77 vs 76 of 100 test ta
 
 | # | Challenge | What happened | How we handled it | Status |
 |---|---|---|---|---|
-| 1 | **Too few wrong programs** (Gate 1) | Pool v1 (3B only, 2 datasets) had 49 runnable wrong candidates, 0 in two of the five types | Added a second, smaller generator (1.5B) and two more datasets (taxi, titanic). Now 213 test errors over all five types | ✅ Resolved. Column transformation (24) and missing values (20) are still the thinnest types |
-| 2 | **Small LLMs write invalid contracts** | First Baseline 3 run: 34–50% of contracts broke the schema (pandas dtype names, `and`/`or`, merged arguments, `median` as a function) | Format rules from dev errors (p1-v2), reference card covering the whole vocabulary (p1-v3). Strict schema kept for every parser; no output repair | 🔄 Reduced to 13–34%. The rest is left for fine-tuning; constrained decoding or one re-ask are options if applied to all parsers |
-| 3 | **Keeping the test set clean** | p1-v1 test results were seen before p1-v2 was written; Baseline 2's tie-break was chosen after both variants' test numbers were printed | Fixed selection rules on dev only, all versions reported, disclosures in `results/STAGE1_RESULTS.md` and `docs/open_issues.md` (OI-5, OI-9) | ✅ Handled by disclosure |
-| 4 | **Matching rows before and after** | After `reset_index()`, filters, or sorting, it is not obvious which output row came from which input row | Index = row id; fallback to content matching on columns the contract says are unchanged; UNCERTAIN if ambiguous. Two alignment bugs were found during testing (late rows removed after a reset; in-place damage to exactly the preserved columns) and fixed | ✅ Resolved; earlier verdicts re-checked and unchanged |
-| 5 | **Verifier bug found in parser analysis** | Names in `except` of `columns_unchanged "*"` were treated as column references, so excluding a newly added column gave UNCERTAIN | Fixed per spec; oracle and Baseline 2 verdicts byte-identical after the fix; all prompted runs re-scored | ✅ Resolved |
-| 6 | **Vocabulary gaps** | No predicate forbids extra columns; new columns are untyped. Costs the oracle 8 of 213 detections | Kept v1.0 frozen and reported the gap; any v1.1 will be a versioned re-run for every system | 📋 Open by design (OI-7) |
-| 7 | **Single-annotator gold contracts** | All 120 gold contracts were written by one person, who also wrote the reference code | Automatic checks (reference passes, no-op fails); oracle numbers reported as an upper bound | 🔄 Second annotation and agreement study pending (OI-8) |
-| 8 | **Weak conventional baseline risk** | Tuned Baseline 2 relies almost entirely on one statistic (mean shift), tuned on a small dev split (20 tasks) | Documented checks, dev-only tuning, strict and default variants reported (§6.4) | ✅ Handled; small dev split is a stated limitation (OI-2) |
-| 9 | **Non-determinism in greedy decoding** | Batched fp16 greedy decoding changed 2 of 1,440 generations between runs | Frozen pools; later systems reuse saved generations instead of regenerating; one clean all-task run per model (pool v4) | ✅ Resolved |
-| 10 | **Sandbox isolation on our machines** | `unshare -rn` (network namespace) is not allowed on the dev laptop; the filesystem is not isolated | Fallback: socket API replaced in the child process; the AST guard blocks file, network and shell access first; 27 red-team samples all blocked or contained | 🔄 Acceptable for Stage 1 (model-generated, non-adversarial code). Docker with `--network none` would close the gap (OI-6) |
-| 11 | **Limited GPU** | Only Kaggle T4 (16 GB) available | 4-bit 7B model, small batches, all GPU work in notebooks with saved outputs; scoring runs on CPU from saved files | ✅ Working |
-| 12 | **First agent dev run failed** (Stage 2 preparation) | 0 of 14 repairable dev scenarios fixed; the action parser mistook dict literals in code for JSON actions and rejected code-only replies | Parser fixes and agent prompt a1-v2; all model replies now saved. The a1-v1 numbers are not used as results | 🔄 Fixed in a1-v2; Kaggle dev check is next |
-
+| 1 | **Small LLMs write invalid contracts** | First Baseline 3 run: 34–50% of contracts broke the schema (pandas dtype names, `and`/`or`, merged arguments, `median` as a function) | Format rules from dev errors (p1-v2), reference card covering the whole vocabulary (p1-v3). Strict schema kept for every parser; no output repair | Reduced to 13–34%. The rest is left for fine-tuning; constrained decoding or one re-ask are options if applied to all parsers |
+| 2 | **Matching rows before and after** | After `reset_index()`, filters, or sorting, it is not obvious which output row came from which input row | Index = row id; fallback to content matching on columns the contract says are unchanged; UNCERTAIN if ambiguous. Two alignment bugs were found during testing (late rows removed after a reset; in-place damage to exactly the preserved columns) and fixed | Resolved; earlier verdicts re-checked and unchanged |
+| 3 | **Verifier bug found in parser analysis** | Names in `except` of `columns_unchanged "*"` were treated as column references, so excluding a newly added column gave UNCERTAIN | Fixed per spec; oracle and Baseline 2 verdicts byte-identical after the fix; all prompted runs re-scored |  Resolved |
+| 10 | **Sandbox isolation on our machines** | `unshare -rn` (network namespace) is not allowed on the dev laptop; the filesystem is not isolated | Fallback: socket API replaced in the child process; the AST guard blocks file, network and shell access first; 27 red-team samples all blocked or contained |  Acceptable for Stage 1 (model-generated, non-adversarial code). Docker with `--network none` would close the gap (OI-6) |
 ---
 
 ## 8. Future Work
 
 ### 8.1 Fine-tuning data
 
-🔄 **Ongoing.** Guide, checking tools, training script and Kaggle notebook are ready and smoke-tested. The training data itself has not been generated yet.
+ **Ongoing.** Guide, checking tools, training script and Kaggle notebook are ready and smoke-tested. The training data itself has not been generated yet.
 
 **Goal.** 3,000–5,000 examples of *request + schema → contract*, in exactly the same chat format the parser sees at evaluation time (`docs/finetune_data_guide.md`).
 
@@ -717,15 +632,13 @@ The two generators have almost the same greedy accuracy (77 vs 76 of 100 test ta
 1. **Datasets that are never used in evaluation.** Eight candidate files are already downloaded in `data/finetune/`: air-quality health data, avocado prices, UCI Bank Marketing, Diamonds, IMDB top 1000, UCI Student Performance, Walmart sales, and one more (`train.csv`). Wine Quality is also allowed. For each: a fixed 500–1,500-row sample, a profile, licence and checksum. One or two whole datasets are held out for validation.
 2. **Templates.** 30–40 patterns covering all five types, all 11 predicates, all 14 functions and every condition operator. Each pattern links a request template, a contract template and a reference-code template. Values come from the data, so contracts are non-vacuous. At least four phrasing styles per pattern (plain, casual, domain words, indirect). Null handling is generated in both readings and stated in the request.
 3. **Generation and balance.** 4,000–6,000 raw examples, about 20% per type, no dataset above 20%, no pattern above 5%. Optional paraphrases by a larger model (≤ 30%), with a meaning check.
-4. **Automatic checks** (`finetune/data_gen/check_examples.py`), 7 per example: not an evaluation dataset; valid v1.0 contract with real column names; reference code passes the safety guard and runs; the reference output **passes** the contract under our verifier; a no-op does **not** pass; no shared 5-word phrase with any evaluation request and character similarity ≤ 0.75 (leakage check); no duplicates.
-5. **Hand review** of 100 random examples (20 per type); regenerate if more than ~5% are wrong.
-6. **Build SFT files** (`finetune/data_gen/build_sft.py`) with the p1-v2 system prompt (format rules, no reference card), split by whole dataset.
+4. **Build SFT files** (`finetune/data_gen/build_sft.py`) with the p1-v2 system prompt (format rules, no reference card), split by whole dataset.
 
 **Training setup (ready):** QLoRA (4-bit nf4) on Qwen2.5-1.5B-Instruct and Qwen2.5-3B-Instruct; LoRA r = 16, α = 32, dropout 0.05; learning rate 2e-4; 2 epochs; effective batch 16; max sequence 3,072 tokens; loss on contract tokens only; over-long examples dropped, not truncated. A CPU smoke run on Qwen2.5-0.5B dropped the loss from 0.55 to 0.05 in 6 steps and the reloaded adapter produced a valid contract. Adapters record their training prompt version and refuse to parse with another one.
 
 ### 8.2 Additional baselines and systems
 
-The remaining work is organised around the two stages. Each secondary question from §0 maps to one comparison.
+The remaining work is organised around the two stages. Each secondary question from maps to one comparison.
 
 #### Stage 1: checking only (remaining system)
 
@@ -733,13 +646,13 @@ Every system judges the same frozen code (pool v4, the code Baseline 1 generated
 
 | System | Checker | Parser | Status |
 |---|---|---|---|
-| Baseline 1 | none | — | ✅ |
-| Baseline 2 | conventional checks | — | ✅ recall 0.46, false rejections 0.14 |
-| Baseline 3 | intent contract | prompted 7B | ✅ recall 0.89, false rejections 0.25 |
-| **Proposed** | intent contract | **fine-tuned 1.5B / 3B** | ⏳ needs training data (§8.1) |
-| Oracle ablation | intent contract | gold contract | ✅ recall 0.94, false rejections 0.00 |
-| Size ablation | intent contract | prompted 3B / 1.5B | ✅ |
-| Direction ablation | must-change only / must-preserve only | gold and prompted 7B | ✅ |
+| Baseline 1 | none | — | Done |
+| Baseline 2 | conventional checks | — | recall 0.46, false rejections 0.14 |
+| Baseline 3 | intent contract | prompted 7B | recall 0.89, false rejections 0.25 |
+| **Proposed** | **intent contract** | **fine-tuned 1.5B / 3B** | **needs training data** |
+| Oracle ablation | intent contract | gold contract | recall 0.94, false rejections 0.00 |
+| Size ablation | intent contract | prompted 3B / 1.5B | Done |
+| Direction ablation | must-change only / must-preserve only | gold and prompted 7B | Done |
 
 The Proposed row answers secondary question 1 (fine-tuned vs prompted parser). Gate 3: the fine-tuned parser should match or beat the prompted 7B on contract F1.
 
@@ -747,7 +660,7 @@ Stage 1 metrics stay the same: silent error rate, recall and false-rejection rat
 
 #### Stage 2: end to end, with repair
 
-📋 **Planned.** Each system starts from a request, writes code, checks it, and repairs it if needed. The final output is judged against the reference output by the offline evaluator.
+**Planned.** Each system starts from a request, writes code, checks it, and repairs it if needed. The final output is judged against the reference output by the offline evaluator.
 
 | System | Code generator sees | Checker | Repair |
 |---|---|---|---|
@@ -775,77 +688,61 @@ Stage 1 metrics stay the same: silent error rate, recall and false-rejection rat
 - Tool-call validity.
 - Safety: 0 unsafe actions (unsafe-attempt, blocked and unauthorized tool-call counts are reported).
 
-**Agent scenarios.** These test the repair agent's behaviour on its own, separately from the end-to-end table:
 
-| Scenario set | Tests whether the agent… | Source |
-|---|---|---|
-| R (repairable) | fixes known-wrong code | wrong candidates from pool v4 (`rct_v3.jsonl`) |
-| C (already correct) | leaves correct code alone | correct candidates from pool v4 |
-| T (tool fault) | recovers from injected tool errors and timeouts | R scenarios + fault hooks |
-| E (should escalate, 15) | escalates impossible requests (missing column, contradictions, no matching rows) | hand-written drafts |
-| S (safety, 12) | refuses unsafe requests (file, network, shell, environment access) | hand-written drafts |
-
-**Status.** The repair agent, tool registry (inspect, profile, diff, run, verify), orchestrator, limits (at most 3 attempts, escalation) and scenario runner are built and tested with a scripted LLM. The first real-model dev run (agent prompt a1-v1) was invalid because of an action-parser bug (§7, challenge 12). That bug is fixed in a1-v2, and the **Kaggle dev check is next**. One piece is not in the code yet: a code-generator prompt that includes the contract for the *first* generation. Today the generator prompt (`b1-v1`) never shows the contract, and only the repair agent sees it. This prompt variant has to be written before the Proposed and gold-contract Stage 2 runs.
-
-**Optional (P2, outside the core plan):** an LLM-as-verifier baseline, which would need validation against human labels, and a DS-1000 pandas subset (20–30 problems) for external validity.
 
 ### 8.3 Additional ablations
 
 | Ablation | Stage | Question | Status |
 |---|---|---|---|
-| No contract to the generator | 2 | Does giving the contract to the code generator help? | 📋 Planned (generator prompt variant still to write) |
-| Gold contract (generator and checker) | 2 | How much do parser errors cost end to end? | 📋 Planned |
-| Fine-tuned vs prompted at the **same size** (1.5B, 3B) | 1 | Is the gain from fine-tuning or from size? (§6.2 is the prompted half) | 📋 After fine-tuning |
-| Change-only / preserve-only with fine-tuned contracts | 1 | Does the bidirectional result hold for the proposed parser? | 📋 |
-| Predicted vs gold contract gap for every parser | 1 | How much error comes from misunderstanding intent? | ✅ for prompted parsers; 📋 for fine-tuned |
-| 3 seeds for LLM components | 1, 2 | Stability of results | 🔄 Intervals and McNemar done; extra seeds planned |
-| Decoding variant for **all** parsers at once: constrained JSON decoding, or one re-ask with the validation error | 1 | Can format errors be removed without fine-tuning? | 📋 Option (OI-9) |
-| Vocabulary v1.1 (forbid extra columns, type new columns) as a versioned re-run | 1 | Cost of the known vocabulary gap | 📋 Only after main results |
-| Agent-level ablations: no memory; coarse failure report (pass/fail only); contract hidden from the agent; no escalate action; naive retry; feedback retry without tools | 2 | Which agent parts matter? | 🔄 Implemented as agent modes; not run |
-| Fine-tuning data ablations (training-set size; with/without paraphrases) | 1 | Data needs of the parser | 📋 If time allows |
+| No contract to the generator | 2 | Does giving the contract to the code generator help? | Planned |
+| Gold contract (generator and checker) | 2 | How much do parser errors cost end to end? | Planned |
+| Fine-tuned vs prompted at the **same size** (1.5B, 3B) | 1 | Is the gain from fine-tuning or from size? (§6.2 is the prompted half) | Planned (After fine-tuning) |
+| Change-only / preserve-only with fine-tuned contracts | 1 | Does the bidirectional result hold for the proposed parser? | Planned (After fine-tuning)  |
+| Predicted vs gold contract gap for every parser | 1 | How much error comes from misunderstanding intent? | for prompted parsers; for fine-tuned |
+| 3 seeds for LLM components | 1, 2 | Stability of results | Intervals and McNemar done; extra seeds planned |
+| Agent-level ablations: no memory; coarse failure report (pass/fail only); contract hidden from the agent; no escalate action; naive retry; feedback retry without tools | 2 | Which agent parts matter? | Implemented as agent modes; not run |
 
-Other planned work: second annotation of ~20% of gold contracts and agent scenarios with an agreement study; human review of error-kind labels and E/S scenarios; red-team set through every Stage 2 system; qualitative case studies and failure taxonomy.
 
 ### 8.4 Final architecture (proposed)
 
-The final system adds three things to the Stage 1 pipeline: the fine-tuned parser, the contract as an input to the code generator, and the repair agent. Components marked ✅ exist today; 🔄 exist and are tested but have not produced results; 📋 are planned.
+The final system adds three things to the Stage 1 pipeline: the fine-tuned parser, the contract as an input to the code generator, and the repair agent.
 
 ```mermaid
 flowchart TD
     U[User request]
     D[(Input dataset)]
 
-    D --> BEF[(Before snapshot ✅<br/>read-only, index = row id)]
-    BEF --> SCH[Schema extractor ✅<br/>columns, dtypes, nulls, sample rows]
+    D --> BEF[(Before snapshot <br/>read-only, index = row id)]
+    BEF --> SCH[Schema extractor <br/>columns, dtypes, nulls, sample rows]
 
-    U --> P[Intent parser 🔄<br/>fine-tuned Qwen2.5-1.5B / 3B, QLoRA]
+    U --> P[Intent parser <br/>fine-tuned Qwen2.5-1.5B / 3B, QLoRA]
     SCH --> P
-    P --> CV{Contract validator ✅<br/>strict schema + columns exist}
+    P --> CV{Contract validator <br/>strict schema + columns exist}
     CV -->|invalid| ESC
-    CV -->|valid| C[(Intent contract ✅<br/>read-only)]
+    CV -->|valid| C[(Intent contract <br/>read-only)]
 
-    U --> G[Code generator<br/>Qwen2.5-3B / 1.5B ✅<br/>contract-aware prompt 📋]
+    U --> G[Code generator<br/>Qwen2.5-3B / 1.5B <br/>contract-aware prompt ]
     SCH --> G
     C -->|contract given to generator<br/>removed in the no-contract ablation| G
 
-    G --> SC{AST safety guard ✅}
-    SC -->|allowed| SB[Sandbox executor ✅<br/>separate process, limits]
+    G --> SC{AST safety guard }
+    SC -->|allowed| SB[Sandbox executor <br/>separate process, limits]
     BEF --> SB
     SB -->|ok| AFT[(After snapshot)]
 
     BEF --> V
-    AFT --> V{Intent verifier ✅<br/>row alignment + 11 predicates}
+    AFT --> V{Intent verifier <br/>row alignment + 11 predicates}
     C --> V
 
     SC -->|blocked| FR
     SB -->|crash / timeout| FR
     V -->|PASS| ACC([ACCEPT])
     V -->|UNCERTAIN| ESC([ESCALATE<br/>hand off to a human])
-    V -->|VIOLATION| FR[Failure report ✅<br/>violated predicates + example rows]
+    V -->|VIOLATION| FR[Failure report <br/>violated predicates + example rows]
 
     FR -->|budget used up| REJ([REJECT])
-    FR -->|attempts left, max 3| RA[Repair agent 🔄<br/>attempt memory, limits]
-    RA <-->|validated tool calls| TR[Tool registry 🔄<br/>inspect_dataset, profile_column,<br/>diff_datasets, run_transformation,<br/>run_verifier]
+    FR -->|attempts left, max 3| RA[Repair agent <br/>attempt memory, limits]
+    RA <-->|validated tool calls| TR[Tool registry <br/>inspect_dataset, profile_column,<br/>diff_datasets, run_transformation,<br/>run_verifier]
     RA -->|propose_fix: revised code| SC
     RA -->|escalate| ESC
 ```
@@ -864,22 +761,7 @@ flowchart TD
 
 ---
 
-## 9. Summary of Status
+## 9. Conclusion So Far
 
-| Area | Status | Key output |
-|---|---|---|
-| Evaluation set: 4 datasets, 120 tasks, gold contracts, reference code | ✅ (agreement study 🔄) | `benchmark/tasks/` |
-| Candidate pool v4: 803 LLM programs, labelled | ✅ | `benchmark/pool/` |
-| Contract schema v1.0 + deterministic verifier | ✅ | `src/igt/contracts/`, `src/igt/verifier/`, `docs/contract_schema.md` |
-| Sandbox + AST guard + red-team set | ✅ (Docker isolation 📋) | `src/igt/sandbox/`, `benchmark/redteam/` |
-| Baseline 1 (direct LLM) | ✅ | silent error rate 0.338 |
-| Baseline 2 (conventional checks) | ✅ | recall 0.455, FRR 0.139 |
-| Oracle-contract run | ✅ | recall 0.944, FRR 0.000 |
-| Baseline 3 (prompted 7B, p1-v3) | ✅ | recall 0.892, FRR 0.254; significantly better than Baseline 2 (p = 0.004) |
-| Ablations: direction, parser size, prompt version, Baseline 2 sensitivity, dataset growth | ✅ | §6 |
-| Proposed Stage 1 system (fine-tuned parsers) | ⏳ needs training data; training pipeline ready | `finetune/`, `docs/finetune_data_guide.md` |
-| Repair agent, tools, orchestrator, agent scenarios (R/C/T/E/S) | 🔄 built and tested with a scripted LLM; Kaggle dev check next | `src/igt/agents/`, `src/igt/tools/`, `src/igt/orchestrator/`, `benchmark/agent_scenarios/` |
-| Contract-aware code-generator prompt | 📋 not written yet | — |
-| Stage 2 end-to-end runs and ablations (no contract to generator, gold contract), write-up | 📋 | — |
 
 **Main conclusion so far.** A bidirectional intent contract lets a deterministic verifier catch silent errors that request-blind data-quality checks miss, especially in deduplication and type conversion. With gold contracts the gain is large and comes with no false rejections. With a prompted 7B parser the gain is still significant, but invalid and incomplete contracts cause many false rejections. Parser quality is now the bottleneck, which the fine-tuning phase targets. Stage 2 will then test whether repair, and giving the contract to the code generator, improve the final output.

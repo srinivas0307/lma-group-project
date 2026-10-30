@@ -11,7 +11,8 @@ from eval.agent_metrics import paired, summarize
 ROOT = Path(__file__).resolve().parents[2]
 SCEN_POOLS = [(ROOT / "archive/agent_scenarios/rct_v1.jsonl", ROOT / "archive/pools/pool_v2/pool_v2.jsonl"),
               (ROOT / "archive/agent_scenarios/rct_v2.jsonl", ROOT / "archive/pools/pool_v3/pool_v3.jsonl"),
-              (ROOT / "benchmark/agent_scenarios/rct_v3.jsonl", ROOT / "benchmark/pool/pool_v4.jsonl")]
+              (ROOT / "archive/agent_scenarios/rct_v3.jsonl", ROOT / "benchmark/pool/pool_v4.jsonl"),
+              (ROOT / "benchmark/agent_scenarios/rct_v4.jsonl", ROOT / "benchmark/pool/pool_v4.jsonl")]
 
 
 def run(r_cat, outcome, correct, **kw):
@@ -40,7 +41,7 @@ def test_metrics_on_known_trajectories():
     assert p["a vs b"]["only_first"] == 1 and p["a vs b"]["only_second"] == 0
 
 
-@pytest.mark.parametrize("scen_path, pool_path", SCEN_POOLS, ids=["rct_v1", "rct_v2", "rct_v3"])
+@pytest.mark.parametrize("scen_path, pool_path", SCEN_POOLS, ids=["rct_v1", "rct_v2", "rct_v3", "rct_v4"])
 def test_scenarios_file_is_well_formed_and_leak_free(scen_path, pool_path):
     if not scen_path.exists() or not pool_path.exists():
         pytest.skip("scenarios or pool not built")

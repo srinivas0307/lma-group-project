@@ -833,6 +833,63 @@ def p_text_number(ds):
     return out
 
 
+
+def multi_conv(ds, cols, dtype, code_expr, rel_fn=None):
+    """One conversion applied to several columns (one column_dtype per column)."""
+    change = [{"type": "column_dtype", "target": c, "dtype": dtype} for c in cols]
+    if rel_fn:
+        pres = [{"type": "column_value_relation", "target": c, "fn": "cast", "args": [{"col": c}, {"lit": dtype}]} for c in cols]
+    else:
+        pres = [{"type": "column_values_unchanged", "target": cols}]
+    pres += [{"type": "null_count", "target": c, "op": "unchanged"} for c in cols if ds.df[c].isna().any()]
+    return contract(change, pres + [cols_same(*cols), ROWS_SAME]), code(f"out[{lit(cols)}] = out[{lit(cols)}]{code_expr}")
+
+
+@pattern("several_to_category", "type_conversion")
+def p_many_cat(ds):
+    cols = pick(ds.cat, random.choice([2, 2, 3]))
+    if not cols:
+        return []
+    cols = sorted(cols, key=list(ds.df.columns).index)
+    con, cd = multi_conv(ds, cols, "category", ".astype('category')")
+    names = ", ".join(ref(ds, c) for c in cols[:-1]) + f" and {ref(ds, cols[-1])}"
+    return [dict(contract=con, code=cd, requests={
+        "plain": f"Convert {names} to the category dtype.",
+        "casual": f"make {names} categoricals",
+        "domain": f"{', '.join(ds.w(c) for c in cols).capitalize()} are labels with few values; store each as a category.",
+        "indirect": f"Change {names} to pandas categories; the values themselves stay the same."})]
+
+
+@pattern("several_to_text", "type_conversion")
+def p_many_text(ds):
+    cols = pick([x for x in ds.ints if not ds.df[x].isna().any()], 2)
+    if not cols:
+        return []
+    cols = sorted(cols, key=list(ds.df.columns).index)
+    con, cd = multi_conv(ds, cols, "string", ".astype(str)", rel_fn="cast")
+    names = f"{ref(ds, cols[0])} and {ref(ds, cols[1])}"
+    return [dict(contract=con, code=cd, requests={
+        "plain": f"Convert {names} to strings.",
+        "casual": f"turn {names} into text columns",
+        "domain": f"Store {ds.w(cols[0])} and {ds.w(cols[1])} as text instead of numbers.",
+        "indirect": f"Both {names} should have a string dtype."})]
+
+
+@pattern("several_to_float", "type_conversion")
+def p_many_float(ds):
+    cand = [x for x in ds.ints]
+    cols = pick(cand, min(3, len(cand))) if len(cand) >= 3 else None
+    if not cols:
+        return []
+    cols = sorted(cols, key=list(ds.df.columns).index)
+    con, cd = multi_conv(ds, cols, "float", ".astype(float)")
+    names = ", ".join(ref(ds, c) for c in cols[:-1]) + f" and {ref(ds, cols[-1])}"
+    return [dict(contract=con, code=cd, requests={
+        "plain": f"Cast {names} to float.",
+        "casual": f"{names} -> floats please",
+        "domain": f"We need {', '.join(ds.w(c) for c in cols)} as floating-point numbers.",
+        "indirect": f"Change the dtype of {names} from integer to float."})]
+
 # ---------------------------------------------------------------- column transformation
 def new_col_contract(new, rel_fn, args):
     return contract([{"type": "columns_added", "target": [new]},
@@ -1110,12 +1167,13 @@ def main():
     for r in rows:
         by_type[r["transformation_type"]].append(r)
     rows = [r for t, rs in by_type.items() for r in (random.sample(rs, args.type_cap) if len(rs) > args.type_cap else rs)]
-    for _ in range(3):                  # the cap shrinks the total, so apply it a few times
-        cap = int(0.05 * len(rows))
-        by_pat = defaultdict(list)
-        for r in rows:
-            by_pat[r["pattern"]].append(r)
-        rows = [r for p, rs in by_pat.items() for r in (random.sample(rs, cap) if len(rs) > cap else rs)]
+    for _ in range(4):                  # caps shrink the total, so apply them a few times
+        for field, share in (("source_dataset", 0.18), ("pattern", 0.05)):
+            cap = int(share * len(rows))
+            groups = defaultdict(list)
+            for r in rows:
+                groups[r[field]].append(r)
+            rows = [r for g, rs in groups.items() for r in (random.sample(rs, cap) if len(rs) > cap else rs)]
     rows.sort(key=lambda r: r["id"])
     args.out.parent.mkdir(parents=True, exist_ok=True)
     with open(args.out, "w") as fh:

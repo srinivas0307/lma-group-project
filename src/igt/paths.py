@@ -15,8 +15,8 @@ PROMPTS = BENCHMARK / "prompts"                     # schema_b1-v1.json (frozen 
 POOL_VERSION = "v4"                                 # v4: built from the two all-task Baseline 1 runs (3B, 1.5B)
 POOL_DIR = BENCHMARK / "pool"                       # pool_v4.jsonl, manifest.json, outputs/*.pkl
 POOL = POOL_DIR / f"pool_{POOL_VERSION}.jsonl"
-AGENT_SCENARIOS = BENCHMARK / "agent_scenarios"     # rct_v3.jsonl (from pool v4), E/, S/
-RCT = AGENT_SCENARIOS / "rct_v3.jsonl"
+AGENT_SCENARIOS = BENCHMARK / "agent_scenarios"     # rct_v4.jsonl (from pool v4; T faults on the first tool call), E/, S/
+RCT = AGENT_SCENARIOS / "rct_v4.jsonl"
 REDTEAM = BENCHMARK / "redteam"
 
 KAGGLE = ROOT / "kaggle_outputs"
