@@ -221,3 +221,26 @@ Baseline 2 vs Baseline 1: 97 vs 58 (p = 0.0022).
      the vocabulary has no "no extra columns" predicate (OI-7). Impact grew from 2/98 to 8/214.
    - 4 × `passenger_count` turned into `object` dtype by `replace(0, pd.NA)`: the gold contracts of taxi_miss_001/005
      don't state the column's dtype (annotation gap, OI-8). Gold contracts are **not** changed after seeing test.
+
+### Baseline 1 (direct LLM, no verification) by dataset, pool v3
+
+Baseline 1 has no verifier, so it needs no separate run: its result is the generator output itself. These numbers
+come from the generations already made on Kaggle for pool v3 (both generators, all four datasets, prompt
+`ebbe8bceae71`), each labelled with its pool candidate's correctness. Regenerate:
+`.venv/bin/python eval/baseline1_by_dataset.py` (-> `results/baseline1_v3/by_dataset.json`).
+
+Test split, 25 tasks per dataset. Greedy = one temperature-0 output per task; samples = all 6 outputs per task
+(greedy + 5 at T = 0.7). Silent error rate = wrong among the unique pool candidates that ran (the Baseline 1 row above).
+
+| Test | adult | airbnb | taxi | titanic | all |
+|---|---|---|---|---|---|
+| Qwen2.5-3B greedy accuracy | 20/25 (0.80) | 21/25 (0.84) | 17/25 (0.68) | 18/25 (0.72) | 76/100 (0.76) |
+| Qwen2.5-3B sample accuracy | 0.800 | 0.827 | 0.740 | 0.720 | 463/600 (0.772) |
+| Qwen2.5-1.5B greedy accuracy | 20/25 (0.80) | 17/25 (0.68) | 20/25 (0.80) | 19/25 (0.76) | 76/100 (0.76) |
+| Qwen2.5-1.5B sample accuracy | 0.733 | 0.693 | 0.720 | 0.693 | 426/600 (0.710) |
+| Silent error rate (unique candidates) | 48/154 (0.312) | 50/141 (0.355) | 66/176 (0.375) | 50/160 (0.312) | 214/631 (0.339) |
+
+The first Baseline 1 notebook (`notebooks/new-baseline-1_complete.ipynb`, 3B, adult + airbnb only) reported test
+greedy accuracy 0.82; the same subset here is 41/50 = 0.82, so the local re-labelling agrees with it. Quote the
+four-dataset numbers above from now on. Even greedy decoding of the stronger generator gets about 1 task in 4
+wrong, and roughly a third of the distinct programs that run are silently wrong.

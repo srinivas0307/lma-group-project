@@ -1,0 +1,258 @@
+{
+  "pool": "v3",
+  "n_generations": 1440,
+  "accuracy": {
+    "dev|Qwen2.5-1.5B|adult|greedy": {
+      "correct": 4,
+      "n": 5,
+      "rate": 0.8
+    },
+    "dev|Qwen2.5-1.5B|adult|samples": {
+      "correct": 18,
+      "n": 30,
+      "rate": 0.6
+    },
+    "dev|Qwen2.5-1.5B|airbnb|greedy": {
+      "correct": 4,
+      "n": 5,
+      "rate": 0.8
+    },
+    "dev|Qwen2.5-1.5B|airbnb|samples": {
+      "correct": 14,
+      "n": 30,
+      "rate": 0.467
+    },
+    "dev|Qwen2.5-1.5B|all|greedy": {
+      "correct": 16,
+      "n": 20,
+      "rate": 0.8
+    },
+    "dev|Qwen2.5-1.5B|all|samples": {
+      "correct": 75,
+      "n": 120,
+      "rate": 0.625
+    },
+    "dev|Qwen2.5-1.5B|taxi|greedy": {
+      "correct": 4,
+      "n": 5,
+      "rate": 0.8
+    },
+    "dev|Qwen2.5-1.5B|taxi|samples": {
+      "correct": 22,
+      "n": 30,
+      "rate": 0.733
+    },
+    "dev|Qwen2.5-1.5B|titanic|greedy": {
+      "correct": 4,
+      "n": 5,
+      "rate": 0.8
+    },
+    "dev|Qwen2.5-1.5B|titanic|samples": {
+      "correct": 21,
+      "n": 30,
+      "rate": 0.7
+    },
+    "dev|Qwen2.5-3B|adult|greedy": {
+      "correct": 5,
+      "n": 5,
+      "rate": 1.0
+    },
+    "dev|Qwen2.5-3B|adult|samples": {
+      "correct": 20,
+      "n": 30,
+      "rate": 0.667
+    },
+    "dev|Qwen2.5-3B|airbnb|greedy": {
+      "correct": 3,
+      "n": 5,
+      "rate": 0.6
+    },
+    "dev|Qwen2.5-3B|airbnb|samples": {
+      "correct": 18,
+      "n": 30,
+      "rate": 0.6
+    },
+    "dev|Qwen2.5-3B|all|greedy": {
+      "correct": 16,
+      "n": 20,
+      "rate": 0.8
+    },
+    "dev|Qwen2.5-3B|all|samples": {
+      "correct": 88,
+      "n": 120,
+      "rate": 0.733
+    },
+    "dev|Qwen2.5-3B|taxi|greedy": {
+      "correct": 4,
+      "n": 5,
+      "rate": 0.8
+    },
+    "dev|Qwen2.5-3B|taxi|samples": {
+      "correct": 24,
+      "n": 30,
+      "rate": 0.8
+    },
+    "dev|Qwen2.5-3B|titanic|greedy": {
+      "correct": 4,
+      "n": 5,
+      "rate": 0.8
+    },
+    "dev|Qwen2.5-3B|titanic|samples": {
+      "correct": 26,
+      "n": 30,
+      "rate": 0.867
+    },
+    "test|Qwen2.5-1.5B|adult|greedy": {
+      "correct": 20,
+      "n": 25,
+      "rate": 0.8
+    },
+    "test|Qwen2.5-1.5B|adult|samples": {
+      "correct": 110,
+      "n": 150,
+      "rate": 0.733
+    },
+    "test|Qwen2.5-1.5B|airbnb|greedy": {
+      "correct": 17,
+      "n": 25,
+      "rate": 0.68
+    },
+    "test|Qwen2.5-1.5B|airbnb|samples": {
+      "correct": 104,
+      "n": 150,
+      "rate": 0.693
+    },
+    "test|Qwen2.5-1.5B|all|greedy": {
+      "correct": 76,
+      "n": 100,
+      "rate": 0.76
+    },
+    "test|Qwen2.5-1.5B|all|samples": {
+      "correct": 426,
+      "n": 600,
+      "rate": 0.71
+    },
+    "test|Qwen2.5-1.5B|taxi|greedy": {
+      "correct": 20,
+      "n": 25,
+      "rate": 0.8
+    },
+    "test|Qwen2.5-1.5B|taxi|samples": {
+      "correct": 108,
+      "n": 150,
+      "rate": 0.72
+    },
+    "test|Qwen2.5-1.5B|titanic|greedy": {
+      "correct": 19,
+      "n": 25,
+      "rate": 0.76
+    },
+    "test|Qwen2.5-1.5B|titanic|samples": {
+      "correct": 104,
+      "n": 150,
+      "rate": 0.693
+    },
+    "test|Qwen2.5-3B|adult|greedy": {
+      "correct": 20,
+      "n": 25,
+      "rate": 0.8
+    },
+    "test|Qwen2.5-3B|adult|samples": {
+      "correct": 120,
+      "n": 150,
+      "rate": 0.8
+    },
+    "test|Qwen2.5-3B|airbnb|greedy": {
+      "correct": 21,
+      "n": 25,
+      "rate": 0.84
+    },
+    "test|Qwen2.5-3B|airbnb|samples": {
+      "correct": 124,
+      "n": 150,
+      "rate": 0.827
+    },
+    "test|Qwen2.5-3B|all|greedy": {
+      "correct": 76,
+      "n": 100,
+      "rate": 0.76
+    },
+    "test|Qwen2.5-3B|all|samples": {
+      "correct": 463,
+      "n": 600,
+      "rate": 0.772
+    },
+    "test|Qwen2.5-3B|taxi|greedy": {
+      "correct": 17,
+      "n": 25,
+      "rate": 0.68
+    },
+    "test|Qwen2.5-3B|taxi|samples": {
+      "correct": 111,
+      "n": 150,
+      "rate": 0.74
+    },
+    "test|Qwen2.5-3B|titanic|greedy": {
+      "correct": 18,
+      "n": 25,
+      "rate": 0.72
+    },
+    "test|Qwen2.5-3B|titanic|samples": {
+      "correct": 108,
+      "n": 150,
+      "rate": 0.72
+    }
+  },
+  "silent_error_rate": {
+    "dev|adult": {
+      "wrong": 15,
+      "ran": 31,
+      "rate": 0.484
+    },
+    "dev|airbnb": {
+      "wrong": 23,
+      "ran": 35,
+      "rate": 0.657
+    },
+    "dev|all": {
+      "wrong": 59,
+      "ran": 126,
+      "rate": 0.468
+    },
+    "dev|taxi": {
+      "wrong": 11,
+      "ran": 27,
+      "rate": 0.407
+    },
+    "dev|titanic": {
+      "wrong": 10,
+      "ran": 33,
+      "rate": 0.303
+    },
+    "test|adult": {
+      "wrong": 48,
+      "ran": 154,
+      "rate": 0.312
+    },
+    "test|airbnb": {
+      "wrong": 50,
+      "ran": 141,
+      "rate": 0.355
+    },
+    "test|all": {
+      "wrong": 214,
+      "ran": 631,
+      "rate": 0.339
+    },
+    "test|taxi": {
+      "wrong": 66,
+      "ran": 176,
+      "rate": 0.375
+    },
+    "test|titanic": {
+      "wrong": 50,
+      "ran": 160,
+      "rate": 0.312
+    }
+  }
+}
