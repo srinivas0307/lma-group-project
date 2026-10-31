@@ -1,0 +1,29 @@
+digraph G {
+graph [rankdir=TB, bgcolor="transparent", nodesep=0.28, ranksep=0.38, pad=0.10];
+node [fontname="DejaVu Sans", fontsize=10, shape=box, style="rounded,filled", color="#7995a7", fillcolor="#edf3f7", margin="0.12,0.08"];
+edge [fontname="DejaVu Sans", fontsize=8, color="#627d8c", arrowsize=0.65];
+REQ [label="User request + schema", shape=box, fillcolor="#edf3f7"];
+P [label="Intent parser\ngold / prompted LLM / fine-\ntuned", shape=box, fillcolor="#edf3f7"];
+V [label="Schema validation\npydantic, strict", shape=diamond, fillcolor="#edf3f7"];
+U [label="UNCERTAIN \u2192 ESCALATE", shape=box, fillcolor="#fff2d5"];
+C [label="Contract", shape=cylinder, fillcolor="#edf3f7"];
+BEF [label="Before data", shape=cylinder, fillcolor="#edf3f7"];
+AL [label="Row alignment\nindex, else content", shape=box, fillcolor="#edf3f7"];
+AFT [label="After data", shape=cylinder, fillcolor="#edf3f7"];
+CHK [label="One check function\nper predicate", shape=box, fillcolor="#edf3f7"];
+OUT [label="Combine", shape=diamond, fillcolor="#edf3f7"];
+VIO [label="VIOLATION \u2192 REJECT", shape=box, fillcolor="#fcebea"];
+PASS [label="PASS \u2192 ACCEPT", shape=box, fillcolor="#e5f3e9"];
+REQ -> P [label=""];
+P -> V [label=""];
+V -> U [label="invalid"];
+V -> C [label="valid"];
+BEF -> AL [label=""];
+AFT -> AL [label=""];
+AL -> CHK [label=""];
+C -> CHK [label=""];
+CHK -> OUT [label=""];
+OUT -> VIO [label="any violated"];
+OUT -> U [label="none violated, some undecidable"];
+OUT -> PASS [label="all hold"];
+}

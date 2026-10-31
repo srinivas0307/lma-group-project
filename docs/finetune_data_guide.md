@@ -164,12 +164,17 @@ If more than ~5% are wrong, fix the templates and regenerate. Save the review as
 
 ## 9. Done when
 
-- [ ] 6–10 training datasets saved with profiles, licences and checksums; validation datasets chosen
-- [ ] 30+ patterns covering all 11 predicates, all 14 relation functions, all condition operators (incl. `in`, `not_in`, `any`, `not`) and all five types
-- [ ] ≥ 3,000 examples pass `check_examples.py`; balance targets met (report)
-- [ ] 0 leakage drops left unexplained; no evaluation dataset used
-- [ ] 100-example hand review done, ≤ 5% wrong
-- [ ] `sft_train.jsonl` / `sft_val.jsonl` built
+Status 2026-10-31 (built with the scripts below; numbers from `finetune/data/checked.report.json`, `sft_stats.json`):
+
+- [x] 8 datasets saved with profiles, licences and checksums (`finetune/datasets/README.md`); `student` is validation only
+- [x] 43 patterns covering all 11 predicates, all 14 relation functions, every operator incl. `in`, `not_in`, `all`, `any`, `not`, all five types
+- [x] 4,419 of 4,422 generated examples pass `check_examples.py` (0 contract failures). Train 3,623 / val 796.
+      Train by type: filtering 942, column 965, missing 826, conversion 459, dedup 431 (dedup and conversion are
+      12-13%, below the 20% target: the vocabulary allows fewer distinct contracts for them). No dataset above 21% of train.
+- [x] 3 leakage drops, all explained (shared 5-grams such as "remove duplicates based on age"; the examples were dropped)
+- [ ] 100-example hand review (`finetune/data/review.csv`): a first pass by the assistant fixed id-like columns used
+      as quantities, list quoting and grammar; **a team member still has to fill in the verdict column**
+- [x] `sft_train.jsonl` / `sft_val.jsonl` built (prompt p1-v2, longest example ~1,700 tokens < max_seq_len 3072)
 
 ## 10. Files
 

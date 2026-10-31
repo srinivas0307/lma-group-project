@@ -72,7 +72,8 @@ After the code runs, a deterministic verifier compares the data before and after
 1. Contract-based verification beats no verification and beats generic data-quality checks, on tasks where the correct answer is known.
 2. The fine-tuned parser produces better contracts than a prompted general-purpose model.
 3. The repair loop improves final accuracy.
-4. Nothing unsafe ever runs.
+4. Giving the contract to the code generator improves final accuracy (Stage 2, measured against a no-contract ablation).
+5. Nothing unsafe ever runs.
 
 ---
 
@@ -131,7 +132,7 @@ After the code runs, a deterministic verifier compares the data before and after
 |---|---|---|---|
 | G1 | **No source of incorrect transformations is defined** | Detection recall needs known errors. A fixed code generator may be correct ~90% of the time on simple tasks, leaving too few errors to measure. | **Decided:** candidates are **LLM-generated code only** (several samples per task, optionally a second generator model). Each is labelled correct or incorrect by comparing its output with the reference output. Gate 1 (Phase 4) checks there are enough real errors. |
 | G2 | Stage 1 doesn't say what is being judged | Verifiers should judge *the same* transformations so the comparison is paired and fair. | In Stage 1, every system judges the same frozen candidate pool. |
-| G3 | The code generator receives the contract in the diagram (p.3) | If only the proposed system's generator sees the contract, gains can't be attributed to verification vs. generation. | Stage 1: the generator sees only the request, in every system. Contract-conditioned generation becomes a separate Stage 2 variant. |
+| G3 | The code generator receives the contract in the diagram (p.3) | If only the proposed system's generator sees the contract, gains can't be attributed to verification vs. generation. | Stage 1: the generator sees only the request, in every system. **Updated 2026-10-30:** in Stage 2 the Proposed system's generator also receives the contract, and a "no contract to generator" ablation (same system, generator sees request + schema only) isolates the effect. See §4.4 and §12. |
 | G4 | **No ablation of the "bidirectional" claim** | The novelty (p.5) is must-change + must-preserve, and §7 requires ablating what the research question depends on. | Add two ablations: must-change only, and must-preserve only. |
 | G5 | Tool calling is a fixed pipeline | §2.5 asks to show the *model* picks tools, fills in arguments, and recovers from errors. Hardcoded calls don't show that. | The repair agent calls tools from a registry (inspect, profile, diff, run, verify) with JSON-schema arguments. Measure tool selection and argument validity. |
 | G6 | The agentic part is thin | Pass → accept, fail → repair is close to a fixed loop. | The agent decides whether to repair, inspect further, or hand off to a human (the "UNCERTAIN" branch), and keeps a history of past attempts. |
@@ -193,7 +194,7 @@ flowchart TD
 
     U --> G[Code generator<br/>fixed LLM]
     SCH --> G
-    C -. optional variant .-> G
+    C -->|Proposed and gold-contract systems only;<br/>removed in the no-contract ablation| G
 
     G --> SC{Safety checker<br/>AST allow-list}
     SC -->|allowed| SB[Sandbox executor<br/>separate process, no network,<br/>CPU / memory / time limits]
@@ -261,19 +262,41 @@ The runtime writes final outputs and traces. The evaluator reads them **afterwar
 
 ### 4.4 Systems as configurations
 
-All systems share the same schema extractor, generator, safety checker, sandbox, diff, decoding settings, and budgets. They differ only in the slots below.
+All systems share the same schema extractor, generator model, safety checker, sandbox, diff, decoding settings, and budgets. They differ only in the slots below. The "Generator sees contract" column applies to Stage 2 only: in Stage 1 every system judges the frozen pool, whose code was generated from the request and schema alone.
 
-| System | Parser slot | Contract filter | Verifier slot | Repair | Used in |
-|---|---|---|---|---|---|
-| Baseline 1: Direct LLM | none | — | none (always PASS if it runs) | off | Stage 1 and Stage 2 reference |
-| Baseline 2: Conventional | none | — | conventional | off / on | Stage 1 / Stage 2 |
-| Baseline 3: General-LLM parser | prompted Qwen2.5-7B | full | intent | off / on | Stage 1 / Stage 2 |
-| **Proposed** | fine-tuned Qwen2.5-1.5B / 3B | full | intent | off / on | Stage 1 / Stage 2 |
-| Oracle-contract ablation | oracle (gold) | full | intent | off / on | Stage 1 / Stage 2 |
-| Change-only ablation | fine-tuned and oracle | change-only | intent | off | Stage 1 |
-| Preserve-only ablation | fine-tuned and oracle | preserve-only | intent | off | Stage 1 |
-| Repair-without-tools ablation (P1) | fine-tuned | full | intent | on, tools disabled | Stage 2 |
-| Contract-conditioned generation (P2) | fine-tuned | full | intent | on | Stage 2 variant |
+**Stage 1 (checking only, frozen pool v4):**
+
+| System | Parser slot | Contract filter | Verifier slot | Status |
+|---|---|---|---|---|
+| Baseline 1: Direct LLM | none | — | none (always PASS if it runs) | ✅ |
+| Baseline 2: Conventional | none | — | conventional | ✅ |
+| Baseline 3: General-LLM parser | prompted Qwen2.5-7B | full | intent | ✅ |
+| **Proposed** | fine-tuned Qwen2.5-1.5B / 3B | full | intent | needs training data |
+| Oracle-contract ablation | oracle (gold) | full | intent | ✅ |
+| Size ablation | prompted Qwen2.5-3B / 1.5B | full | intent | ✅ |
+| Change-only ablation | fine-tuned and oracle | change-only | intent | ✅ oracle, prompted 7B; fine-tuned pending |
+| Preserve-only ablation | fine-tuned and oracle | preserve-only | intent | ✅ oracle, prompted 7B; fine-tuned pending |
+
+**Stage 2 (end to end, with repair; judged against the reference output):**
+
+| System | Parser slot | Generator sees contract | Verifier slot | Repair |
+|---|---|---|---|---|
+| Baseline 1: Direct LLM | none | no (request + schema) | none | none |
+| Baseline 2 + repair | none | no | conventional | repair loop |
+| Baseline 3 + repair | prompted Qwen2.5-7B | no | intent | repair agent |
+| **Proposed** | fine-tuned Qwen2.5-1.5B / 3B | **yes** (request + schema + contract) | intent | repair agent |
+| No-contract-to-generator ablation | fine-tuned Qwen2.5-1.5B / 3B | no | intent | repair agent |
+| Gold-contract ablation | oracle (gold) | yes (gold contract) | intent | repair agent |
+| Agent-level ablations (P1): no memory, coarse report, hidden contract, no escalate, naive retry, feedback retry, repair without tools | fine-tuned | as Proposed | intent | modified repair agent |
+
+**Stage 2 comparisons:**
+
+| Comparison | What it measures |
+|---|---|
+| Proposed vs Baseline 3 + repair | Effect of the whole proposed pipeline |
+| Proposed vs no-contract-to-generator ablation | Effect of giving the contract to the code generator |
+| Proposed vs gold-contract ablation | Cost of parser errors end to end |
+| Each "+ repair" system vs its Stage 1 result | Whether repair improves final accuracy |
 
 Each row is one YAML file in `configs/`.
 
@@ -286,7 +309,7 @@ Each row is one YAML file in `configs/`.
 | Intent parser slot | Request + schema → contract JSON. Implementations: `FineTunedParser`, `PromptedParser`, `OracleParser`, or none. Same constrained decoding for every LLM parser. | Yes (except oracle / none) |
 | Contract validator | Pydantic validation and a check that every target column exists in the schema. Failure → ESCALATE (counted as UNCERTAIN). | No |
 | Contract filter | Keeps the full contract, only `must_change`, or only `must_preserve`. Used for the G4 ablations. | No |
-| Code generator | Request + schema → `transform(df) -> df`. Gets no instructions about row ids or the index. Used **offline** to build the Stage 1 pool and **online** in Stage 2. | Yes (one fixed model for all systems) |
+| Code generator | Request + schema → `transform(df) -> df`. In Stage 2, the Proposed and gold-contract systems also pass the contract (contract-aware prompt, **not written yet**; the current prompt `b1-v1` never shows it). Gets no instructions about row ids or the index. Used **offline** to build the Stage 1 pool and **online** in Stage 2. | Yes (same models for all systems) |
 | Safety checker | AST allow-list: only `pandas` and `numpy` imports. Blocks `open`, `exec`, `eval`, `compile`, `__import__`, `os`, `sys`, `subprocess`, `socket`, `pathlib`, `shutil`, and dunder attribute access. Every block is logged as an unsafe attempt. | No |
 | Sandbox executor | Runs code in a separate process inside a temp directory, with no network and CPU, memory, and wall-clock limits. Data goes in and out by file. Returns `ok`, `crash`, or `timeout` plus stderr. | No |
 | Diff and profiler | Aligns rows by index label. If the index was lost (labels renumbered or not a subset of the input), falls back to matching rows by content; if rows still can't be matched unambiguously → ESCALATE (UNCERTAIN). Reports rows removed or added, changed cells per column, columns added or dropped, dtype and null changes, and which alignment method was used. | No |
@@ -333,7 +356,7 @@ stateDiagram-v2
 
 1. **Prepare.** The request and CSV arrive. The data is loaded with its default index as the row id, the before snapshot is frozen, and the schema is extracted.
 2. **Parse.** The fine-tuned parser produces a contract. The validator checks it; if it's invalid, the run ends as ESCALATE. Otherwise the contract is frozen.
-3. **Generate.** The fixed generator writes `transform(df)` from the request and schema.
+3. **Generate.** The fixed generator writes `transform(df)` from the request, the schema and the contract. (In the no-contract-to-generator ablation, and in Baselines 1–3, it sees only the request and schema.)
 4. **Safety check.** Blocked code is logged as an unsafe attempt and becomes a failure report.
 5. **Execute.** The sandbox runs the code on the before snapshot. A crash or timeout becomes a failure report.
 6. **Diff and verify.** The diff is computed by matching rows on the index (content fallback if the index was lost), and the intent verifier checks every predicate. PASS → ACCEPT; UNCERTAIN → ESCALATE; VIOLATION → failure report.
@@ -365,7 +388,7 @@ stateDiagram-v2
 2. Ground truth never reaches the runtime, except the gold contract in the oracle configuration.
 3. All verifiers are deterministic and use no LLM.
 4. Every code execution goes through the safety checker, including `run_transformation`.
-5. The generator, decoding settings, and budgets are identical across systems. Only the slots in §4.4 differ.
+5. The generator model, decoding settings, and budgets are identical across systems. Only the slots in §4.4 differ; the only difference in generator input is whether the contract is included (Stage 2).
 6. Generated code always runs on the data exactly as loaded; the harness never adds columns the LLM wasn't shown.
 
 **Outcomes and metrics:** each run ends as ACCEPT, REJECT, or ESCALATE. For detection metrics, REJECT and ESCALATE both count as "not accepted"; the ESCALATE rate is also reported separately (G7).
@@ -399,7 +422,7 @@ Dependency versions will be pinned in `requirements.txt` in Phase 0.
 |---|---|---|
 | Parser to fine-tune | Qwen2.5-1.5B-Instruct and Qwen2.5-3B-Instruct | Training both gives a "size vs. tuning" result — the handout's own example (§2.1). Qwen3-1.7B/4B are reasonable newer alternatives; pick one family and stick with it. |
 | Baseline 3 general parser | Qwen2.5-7B-Instruct, few-shot prompted | A "larger prompted model" the tuned small model should match or beat. |
-| Code generator (fixed for all systems) | Qwen2.5-Coder-7B-Instruct, 4-bit | 1.5B/3B are too weak at pandas; we want a realistic error rate. |
+| Code generator (fixed for all systems) | **Used:** Qwen2.5-3B-Instruct and Qwen2.5-1.5B-Instruct, the same prompt for every system (planned: Qwen2.5-Coder-7B-Instruct, 4-bit) | The smaller models were used because they give a realistic error rate (Gate 1: 213 runnable wrong candidates on test, pool v4). |
 | Repair agent | Qwen2.5-7B-Instruct | Supports tool calling; 1.5B calls tools unreliably. |
 
 ### 5.3 Compute estimate (to add to the proposal — H10, G13)
@@ -720,10 +743,12 @@ Dependency versions will be pinned in `requirements.txt` in Phase 0.
 - **Owner / effort:** all, ~1 week.
 - **Depends on:** Phases 8 and 10.
 - **Tasks:**
-  1. Run Baseline 1 (reference), Baseline 2 + repair, Baseline 3 + repair, Proposed + repair, and Oracle + repair on all test tasks, 3 seeds.
-  2. Metrics: final transformation accuracy, improvement from repair, repair success, average attempts, tool metrics.
-  3. Red-team set through every system; safety table.
-  4. Optional (P2): contract-conditioned generator variant; DS-1000 subset reported separately.
+  1. Write the contract-aware code-generator prompt (request + schema + contract); tune on dev only.
+  2. Run the Stage 2 systems from §4.4 on all test tasks, 3 seeds: Baseline 1 (reference), Baseline 2 + repair, Baseline 3 + repair, Proposed (generator sees the contract), the no-contract-to-generator ablation, and the gold-contract ablation.
+  3. Comparisons: Proposed vs Baseline 3 + repair (whole pipeline); Proposed vs no-contract ablation (contract to generator); Proposed vs gold-contract ablation (cost of parser errors); each "+ repair" system vs its Stage 1 result (does repair help).
+  4. Metrics: final accuracy (against the reference), improvement from repair, repair success, average attempts, unnecessary retries, tool-call validity.
+  5. Red-team set through every system; safety table (target: 0 unsafe actions).
+  6. Optional (P2): DS-1000 subset reported separately.
 - **Exit criteria:** Stage 2 table and safety table final.
 
 ### Phase 12 — Analysis, write-up, demo
@@ -802,9 +827,9 @@ their results are in `archive/` because earlier report sections quote them.
 
 | Priority | Items |
 |---|---|
-| **P0 — Mandatory** | Contract schema and verifier; task set with gold contracts and labelled pool; sandbox and AST guard; Baselines 1–3; fine-tuned parser; Stage 1 evaluation; oracle-contract ablation; must-change-only and must-preserve-only ablations; a metric per capability; tool-call accuracy and unsafe rate; bounded tool-calling repair agent; **agent evaluation on the scenario suite with at least the naive-retry and feedback-retry agent baselines** (TA feedback); Stage 2 end-to-end; qualitative examples; failure analysis; write-up |
+| **P0 — Mandatory** | Contract schema and verifier; task set with gold contracts and labelled pool; sandbox and AST guard; Baselines 1–3; fine-tuned parser; Stage 1 evaluation; oracle-contract ablation; must-change-only and must-preserve-only ablations; a metric per capability; tool-call accuracy and unsafe rate; bounded tool-calling repair agent; **agent evaluation on the scenario suite with at least the naive-retry and feedback-retry agent baselines** (TA feedback); Stage 2 end-to-end, with the contract given to the generator in the Proposed system and the no-contract-to-generator and gold-contract ablations; qualitative examples; failure analysis; write-up |
 | **P1 — Important** | Confidence intervals and McNemar tests; annotation-agreement study; red-team set; leakage check; both 1.5B and 3B parsers; escalation scenarios (E) and tool-fault scenarios (T); agent ablations (memory, coarse report, hidden contract); human trajectory labels; JSONL tracing; config-driven runs |
-| **P2 — Optional** | DS-1000 secondary evaluation; contract-conditioned generator; LLM-as-verifier extra baseline (validate against human labels per H20); LLM judge for trajectories (validated against human labels); Docker sandbox; simple demo UI |
+| **P2 — Optional** | DS-1000 secondary evaluation; LLM-as-verifier extra baseline (validate against human labels per H20); LLM judge for trajectories (validated against human labels); Docker sandbox; simple demo UI |
 
 **Critical path:** Phase 0 → 1 → 4 → 5 → 6 → 7 → 8 → 11 → 12.
 Phases 2 and 3 run alongside Phase 1; Phases 9 → 10 run alongside Phases 7–8.
@@ -850,7 +875,7 @@ Every predicate, normalization, alignment, AST guard, executor limits, tool argu
 | Fine-tuning | Must-change and must-preserve P/R/F1, exact-match accuracy, invalid-JSON rate | Baseline 3 (prompted 7B), oracle contract |
 | Intent verification (research question) | Recall on incorrect candidates, false-rejection rate, silent error rate (G8 definition), ESCALATE rate | No verification, conventional checks, single-direction contracts (§4.4) |
 | Tool calling | Valid-call rate, argument validity, appropriate-tool rate, recovery after tool errors, correct execution rate, unauthorized (non-allow-listed) call rate | Repair without tools (agent sees only the failure report) — P1 |
-| Agentic | Task success, repair success, final accuracy (judged against the reference), regression rate, verifier-gaming rate, escalation P/R/F1, unnecessary-action rate, attempts and tokens per task, human trajectory labels (Phase 10) | No repair, naive retry, feedback retry (no tools); ablations: no memory, coarse report, hidden contract |
+| Agentic | Task success, repair success, final accuracy (judged against the reference), regression rate, verifier-gaming rate, escalation P/R/F1, unnecessary-action rate, attempts and tokens per task, human trajectory labels (Phase 10) | No repair, naive retry, feedback retry (no tools); ablations: no memory, coarse report, hidden contract; Stage 2: no contract to generator, gold contract |
 | Safety | Unsafe-attempt rate, blocked rate, unauthorized tool-call rate (red-team + all runs) | — |
 
 ### 9.5 Reliability
@@ -901,9 +926,9 @@ Every predicate, normalization, alignment, AST guard, executor limits, tool argu
 - [ ] Phase 6: prompted parser (Baseline 3); contract metrics; change-only and preserve-only ablations (MVP-2)
 - [ ] Phase 7: fine-tuning data (separate schemas); leakage check; 1.5B and 3B adapters; Gate 3
 - [ ] Phase 8: full Stage 1 table with confidence intervals and significance tests
-- [ ] Phase 9: repair agent, state machine, memory, limits; all scripted paths pass (MVP-3); Gate 4
-- [ ] Phase 10: agent results vs. naive retry and feedback retry; agent ablations; tool-use, escalation, efficiency, and safety metrics; human trajectory labels; proposal checkpoint 2
-- [ ] Phase 11: Stage 2 end-to-end table; safety table
+- [ ] Phase 9: repair agent, state machine, memory, limits; all scripted paths pass (MVP-3); Gate 4 *(built; scripted-path tests pass; 4 Kaggle dev runs done, agent frozen at prompt a1-v4: R repair 7/14, C 20/20 untouched, 0 regressions, 0 invalid actions. Open: test run)*
+- [ ] Phase 10: agent results vs. naive retry and feedback retry; agent ablations; tool-use, escalation, efficiency, and safety metrics; human trajectory labels; proposal checkpoint 2 *(R/C/T/E/S scenarios, runner and metrics built; E/S drafts need review)*
+- [ ] Phase 11: contract-aware generator prompt; Stage 2 end-to-end table incl. no-contract-to-generator and gold-contract ablations; safety table
 - [ ] Phase 12: qualitative case studies; failure taxonomy; write-up; `reproduce_all.sh`; demo; proposal checkpoint 3
 
 ---
@@ -920,4 +945,5 @@ Use this section to record team feedback before Phase 0 starts.
 | Team | Phase 6 | Baseline 3 first run (prompt p1-v1): 34–50% invalid contracts | **Keep p1-v1 as a reported result; add p1-v2** (2026-10-29) = p1-v1 + explicit format rules, each targeting an invalid-output type that also occurs on the dev split (dtype names, and/or, merged args, unknown fn, ordered on non-category, keep with wrong op). Few-shot, decoding and verifier unchanged; p1-v2 is the default for later runs and for the fine-tuning data (`build_sft.py`). No output repair or lenient parsing: the schema stays strict for every parser. Details: `results/STAGE1_RESULTS.md`. |
 | Team | Phase 6 | Few-shot examples show only 1 of 14 functions and 4 of 10 condition operators | **Prompt p1-v3** (2026-10-30) = p1-v2 + a reference card with one exact JSON snippet for every vocabulary element not demonstrated by the examples. Design rule (fixed before running it): every element appears at least once in exact JSON; invented column names; no shared 5-grams with test requests (tests check all three). **Selection rule:** per prompted model, the Baseline 3 version is the one with the lowest DEV invalid rate (ties: DEV F1, then the earlier version); test is never used to choose; all versions are reported. **Fine-tuned parsers use p1-v2** (no card: they learn the vocabulary from training data, and the card would add ~900 tokens per example); adapters record their training prompt and refuse another one. |
 | Team | §8 Gate 1 | Enough wrong candidates? | **Passed with pool v2** (Qwen2.5-3B + 1.5B): 136 runnable wrong candidates (98 test). Column transformation (7) and missing values (4) reported as low-confidence. Pool v1 kept frozen. |
+| Team | §4.4, Phase 11 | Stage 2 design: should the code generator see the contract? | **Decided 2026-10-30:** yes, in the Proposed Stage 2 system (request + schema + contract); this was a P2 variant before. A **no-contract-to-generator ablation** (same system, request + schema only) isolates the effect, and a **gold-contract ablation** gives the generator and verifier the gold contract. Stage 1 is unchanged (frozen pool, no contract). New secondary question: does giving the contract to the generator help? Open: the contract-aware generator prompt is not written yet. |
 | Team | §8 Gate 2 | Oracle verifier vs conventional checks | **Passed (2026-10-29).** Test, pool v2: oracle recall 0.980 / FRR 0.000 vs Baseline 2 0.510 / 0.081; McNemar p < 0.001. Caveats: gold contracts are unreviewed drafts (OI-8); oracle FRR ≈ 0 by construction. Proceed to Phase 6. Details: `results/STAGE1_RESULTS.md`. |

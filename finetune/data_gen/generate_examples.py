@@ -69,6 +69,7 @@ class DS:
         self.entity = self.cfg["entity"]
         df = self.df
         self.num = [c for c in df.columns if pd.api.types.is_numeric_dtype(df[c]) and df[c].nunique() > 2]
+        self.qty = [c for c in self.num if not re.search(r"(?i)store|postal|code|year|^day$|flag|class|id$", str(c))]
         self.obj = [c for c in df.columns if df[c].dtype == object]
         self.cat = [c for c in self.obj if 2 <= df[c].nunique() <= 15 and c not in self.cfg.get("dates", {})]
         self.text = [c for c in self.obj if df[c].nunique() > 15 and c not in self.cfg.get("dates", {})]
@@ -306,7 +307,7 @@ def p_filter_cat(ds):
     extra = " Rows with no value there stay." if has_null else ""
     return [dict(contract=con, code=cd, requests={
         "plain": f"Remove the rows where {r} is {show(v)}.{extra}",
-        "casual": f"drop all the {show(v)} ones ({k}){extra}",
+        "casual": f"drop all the {show(v)} ones ({k}).{extra}",
         "domain": f"Take out every {e[:-1] if e.endswith('s') else e} with {k} equal to {show(v)}.{extra}",
         "indirect": f"Keep everything except the rows whose {r} is {show(v)}.{extra}"})]
 
@@ -323,12 +324,13 @@ def p_filter_cats(ds):
         return []
     vals = sorted(py(v) for v in random.sample(ok, random.choice([2, 2, 3])))
     k, e, r = ds.w(c), ds.entity, ref(ds, c)
-    lst = ", ".join(show(v) for v in vals[:-1]) + f" or {show(vals[-1])}"
+    qq = random.random() < 0.6
+    lst = ", ".join(show(v, qq) for v in vals[:-1]) + f" or {show(vals[-1], qq)}"
     con, cd = std_filter(leaf(c, "in", vals), leaf(c, "not_in", vals), f"~out[{q(c)}].isin({lit(vals)})")
     return [dict(contract=con, code=cd, requests={
         "plain": f"Remove rows where {r} is {lst}.",
         "casual": f"get rid of the {lst} {e}",
-        "domain": f"Exclude {e} whose {k} is one of {', '.join(show(v) for v in vals)}.",
+        "domain": f"Exclude {e} whose {k} is one of {', '.join(show(v, qq) for v in vals)}.",
         "indirect": f"Keep all {e} apart from those with {k} {lst}."})]
 
 
@@ -343,7 +345,8 @@ def p_filter_keep_cats(ds):
         return []
     vals = sorted(py(v) for v in random.sample(vals_all, random.randint(1, len(vals_all) - 1)))
     k, e, r = ds.w(c), ds.entity, ref(ds, c)
-    sv = [show(v) for v in vals]
+    qq = random.random() < 0.6
+    sv = [show(v, qq) for v in vals]
     l_or = sv[0] if len(sv) == 1 else ", ".join(sv[:-1]) + f" or {sv[-1]}"
     l_and = sv[0] if len(sv) == 1 else ", ".join(sv[:-1]) + f" and {sv[-1]}"
     con, cd = std_filter(leaf(c, "not_in", vals), leaf(c, "in", vals), f"out[{q(c)}].isin({lit(vals)})")
@@ -390,7 +393,7 @@ def p_filter_or(ds):
     return [dict(contract=con, code=cd, requests={
         "plain": f"Remove rows where {ref(ds, a)} is above {show(ta)} or {ref(ds, b)} is below {show(tb)}.",
         "casual": f"drop {e} with {ds.w(a)} over {show(ta)}, and also the ones with {ds.w(b)} under {show(tb)}",
-        "domain": f"Discard any {e} that has a {ds.w(a)} greater than {show(ta)} or a {ds.w(b)} less than {show(tb)}.",
+        "domain": f"Discard any {e} with {ds.w(a)} greater than {show(ta)} or {ds.w(b)} less than {show(tb)}.",
         "indirect": f"Keep a row only if {ds.w(a)} <= {show(ta)} and {ds.w(b)} >= {show(tb)}."})]
 
 
@@ -564,7 +567,7 @@ def p_fill_text(ds):
         "plain": f"Put '{v}' wherever {r} is empty.",
         "casual": f"blank {k}? make it '{v}'",
         "domain": f"Where the {k} wasn't recorded, write '{v}' instead.",
-        "indirect": f"Label every row without a {k} as '{v}'."})]
+        "indirect": f"Rows with no {k} value get the label '{v}'."})]
 
 
 @pattern("fill_median", "missing_values")
@@ -930,7 +933,7 @@ ARITH = {"add": ("+", "plus", "the sum of {a} and {b}", "{a}_plus_{b}"),
 
 @pattern("new_column_two_columns", "column_transformation")
 def p_arith2(ds):
-    cols = pick(ds.num, 2)
+    cols = pick(ds.qty, 2)
     if not cols:
         return []
     a, b = cols
@@ -951,7 +954,7 @@ def p_arith2(ds):
 
 @pattern("scale_by_constant", "column_transformation")
 def p_scale(ds):
-    c = pick(ds.num)
+    c = pick(ds.qty)
     if not c:
         return []
     c = c[0]
@@ -998,7 +1001,7 @@ def p_round(ds):
 
 @pattern("clip_column", "column_transformation")
 def p_clip(ds):
-    c = pick(ds.nonnull(ds.num)) or pick(ds.num)
+    c = pick(ds.nonnull(ds.qty)) or pick(ds.qty)
     if not c:
         return []
     c = c[0]

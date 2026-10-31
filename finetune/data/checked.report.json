@@ -1,63 +1,63 @@
 {
   "summary": {
-    "n_input": 3938,
-    "n_kept": 3935,
+    "n_input": 4422,
+    "n_kept": 4419,
     "by_status": {
-      "ok": 3935,
+      "ok": 4419,
       "leakage": 3
     },
     "kept_by_type": {
-      "column_transformation": 1100,
-      "type_conversion": 488,
-      "deduplication": 423,
-      "filtering": 1100,
-      "missing_values": 824
+      "column_transformation": 1072,
+      "type_conversion": 921,
+      "deduplication": 472,
+      "filtering": 1061,
+      "missing_values": 893
     },
     "kept_by_dataset": {
-      "air_quality": 472,
-      "avocado": 451,
-      "bank": 597,
-      "diamonds": 549,
-      "imdb": 418,
-      "student": 618,
-      "superstore": 462,
-      "walmart": 368
+      "air_quality": 499,
+      "avocado": 453,
+      "bank": 747,
+      "diamonds": 607,
+      "imdb": 452,
+      "student": 796,
+      "superstore": 492,
+      "walmart": 373
     },
     "kept_by_predicate": {
-      "columns_added": 551,
-      "columns_removed": 250,
-      "column_value_relation": 1679,
-      "columns_unchanged": 3935,
-      "row_count": 3935,
-      "column_dtype": 556,
-      "column_values_unchanged": 847,
-      "duplicate_count": 423,
-      "rows_removed_where": 1397,
-      "rows_retained_where": 1397,
-      "null_count": 555
+      "columns_added": 514,
+      "columns_removed": 231,
+      "column_value_relation": 1946,
+      "columns_unchanged": 4419,
+      "row_count": 4419,
+      "column_dtype": 1751,
+      "column_values_unchanged": 1219,
+      "duplicate_count": 472,
+      "rows_removed_where": 1380,
+      "rows_retained_where": 1380,
+      "null_count": 712
     },
     "kept_by_style": {
-      "domain": 1014,
-      "casual": 994,
-      "plain": 992,
-      "indirect": 935
+      "casual": 1103,
+      "domain": 1119,
+      "plain": 1099,
+      "indirect": 1098
     }
   },
   "dropped": [
     {
-      "id": "bank_dedup_0174",
+      "id": "bank_dedup_0035",
       "status": "leakage",
       "reason": "shares 1 word 5-grams with evaluation requests, e.g. 'remove duplicates based on age'"
     },
     {
-      "id": "diamonds_dedup_0443",
+      "id": "student_conv_0522",
       "status": "leakage",
-      "reason": "shares 1 word 5-grams with evaluation requests, e.g. 'price keep the first one'"
+      "reason": "character similarity 0.77 with an evaluation request"
     },
     {
-      "id": "student_dedup_0013",
+      "id": "student_conv_0542",
       "status": "leakage",
-      "reason": "shares 1 word 5-grams with evaluation requests, e.g. 'remove duplicates based on age'"
+      "reason": "character similarity 0.77 with an evaluation request"
     }
   ]
 }
