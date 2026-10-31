@@ -743,8 +743,8 @@ Dependency versions will be pinned in `requirements.txt` in Phase 0.
 - **Owner / effort:** all, ~1 week.
 - **Depends on:** Phases 8 and 10.
 - **Tasks:**
-  1. Write the contract-aware code-generator prompt (request + schema + contract); tune on dev only.
-  2. Run the Stage 2 systems from §4.4 on all test tasks, 3 seeds: Baseline 1 (reference), Baseline 2 + repair, Baseline 3 + repair, Proposed (generator sees the contract), the no-contract-to-generator ablation, and the gold-contract ablation.
+  1. Write the contract-aware code-generator prompt (request + schema + contract); tune on dev only. *(b2-v1 written in `src/igt/agents/code_generator.py`; dev check pending)*
+  2. Run the Stage 2 systems from §4.4 on all test tasks, 3 seeds, with `eval/runner_stage2.py --preset <system>` (one preset per row of the Stage 2 table); score with `eval/stage2_metrics.py`. Systems: Baseline 1 (reference), Baseline 2 + repair, Baseline 3 + repair, Proposed (generator sees the contract), the no-contract-to-generator ablation, and the gold-contract ablation.
   3. Comparisons: Proposed vs Baseline 3 + repair (whole pipeline); Proposed vs no-contract ablation (contract to generator); Proposed vs gold-contract ablation (cost of parser errors); each "+ repair" system vs its Stage 1 result (does repair help).
   4. Metrics: final accuracy (against the reference), improvement from repair, repair success, average attempts, unnecessary retries, tool-call validity.
   5. Red-team set through every system; safety table (target: 0 unsafe actions).
@@ -924,11 +924,11 @@ Every predicate, normalization, alignment, AST guard, executor limits, tool argu
 - [ ] Phase 4: LLM client with scripted backend and cache; fixed code generator; LLM candidate pool v1 frozen; R / C / T scenarios; Gate 1 *(done: generator, pools v1 and v2, Gate 1. Open: LLM client/cache/scripted backend, R/C/T scenarios)*
 - [ ] Phase 5: Baselines 1 and 2; Stage 1 oracle results (MVP-1); Gate 2 decision; proposal checkpoint 1 *(done except proposal checkpoint 1)*
 - [ ] Phase 6: prompted parser (Baseline 3); contract metrics; change-only and preserve-only ablations (MVP-2)
-- [ ] Phase 7: fine-tuning data (separate schemas); leakage check; 1.5B and 3B adapters; Gate 3
+- [ ] Phase 7: fine-tuning data (separate schemas); leakage check; 1.5B and 3B adapters; Gate 3 *(data v1 built and reviewed: 9/100 not OK, fails; fixed as data v2 in `finetune/data/v2/`, re-reviewed 23/25 OK, last 2 wordings fixed with the reviewer's text; the fine-tuning notebook trains on v2. Open: training, Gate 3)*
 - [ ] Phase 8: full Stage 1 table with confidence intervals and significance tests
 - [ ] Phase 9: repair agent, state machine, memory, limits; all scripted paths pass (MVP-3); Gate 4 *(built; scripted-path tests pass; 4 Kaggle dev runs done, agent frozen at prompt a1-v4: R repair 7/14, C 20/20 untouched, 0 regressions, 0 invalid actions. Open: test run)*
 - [ ] Phase 10: agent results vs. naive retry and feedback retry; agent ablations; tool-use, escalation, efficiency, and safety metrics; human trajectory labels; proposal checkpoint 2 *(R/C/T/E/S scenarios, runner and metrics built; E/S drafts need review)*
-- [ ] Phase 11: contract-aware generator prompt; Stage 2 end-to-end table incl. no-contract-to-generator and gold-contract ablations; safety table
+- [ ] Phase 11: contract-aware generator prompt; Stage 2 end-to-end table incl. no-contract-to-generator and gold-contract ablations; safety table *(prompt b2-v1, `eval/runner_stage2.py` and `eval/stage2_metrics.py` built and pipeline-checked. Open: dev check of b2-v1, Kaggle notebook, runs)*
 - [ ] Phase 12: qualitative case studies; failure taxonomy; write-up; `reproduce_all.sh`; demo; proposal checkpoint 3
 
 ---

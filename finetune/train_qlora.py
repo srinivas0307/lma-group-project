@@ -17,6 +17,7 @@ import argparse
 import hashlib
 import json
 import math
+import os
 import platform
 import random
 import sys
@@ -24,6 +25,9 @@ import time
 from pathlib import Path
 
 import yaml
+
+# Less fragmentation on the 16 GB T4 (the OOM message suggests it); set before torch is imported.
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
 
 ROOT = Path(__file__).resolve().parents[1]
 # Running `python finetune/train_qlora.py` puts finetune/ on sys.path, where finetune/datasets/ (the training
@@ -131,6 +135,9 @@ def main():
     if not train_ds:
         sys.exit("no training examples left after tokenisation")
     lens = sorted(len(x["input_ids"]) for x in train_ds)
+    for k in ("train_file", "val_file"):                      # which data this run really uses
+        if cfg[k]:
+            print(f"{k}: {cfg[k]} sha256 {sha256(ROOT / cfg[k])[:12]}", flush=True)
     print(f"train {len(train_ds)} (dropped {drop_tr} too long) | val {len(val_ds)} (dropped {drop_va}) | "
           f"tokens median {lens[len(lens) // 2]} max {lens[-1]}", flush=True)
 

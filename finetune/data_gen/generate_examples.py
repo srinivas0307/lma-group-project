@@ -417,7 +417,7 @@ def p_filter_nulls(ds):
         con, cd = std_filter(leaf(c, "<", t), any_(leaf(c, ">=", t), leaf(c, "is_null")), f"~(out[{q(c)}] < {lit(t)})")
         reqs = {"plain": f"Remove rows where {r} is below {show(t)}; keep the rows where it is missing.",
                 "casual": f"drop {e} with {k} under {show(t)} but leave the blank ones alone",
-                "domain": f"Discard {e} whose {k} is less than {show(t)}. {e.capitalize()} without a {k} stay in.",
+                "domain": f"Discard {e} with {k} below {show(t)}. Keep {e} with missing {k} values.",
                 "indirect": f"Only rows with a {k} below {show(t)} should go, not the ones where {k} is empty."}
     return [dict(contract=con, code=cd, requests=reqs)]
 
@@ -443,9 +443,11 @@ def p_filter_two_cats(ds):
 
 
 # ---------------------------------------------------------------- deduplication
+# Review fix F1 (finetune/data_gen/fix_review_issues.py): every dedup request states first/last and every contract
+# has "keep". Without "keep", duplicate_count eq 0 only checks uniqueness (an empty output passes), and every
+# evaluation gold contract states a keep rule. The None option is gone; data v1 was fixed in place, not regenerated.
 KEEP_TXT = {"first": ["keep the first one", "keep the earliest row", "keep whichever comes first"],
-            "last": ["keep the last one", "keep the latest row", "keep whichever comes last"],
-            None: ["keep one of each", "one copy is enough", ""]}
+            "last": ["keep the last one", "keep the latest row", "keep whichever comes last"]}
 
 
 def dedup(target, exc, keep, df_subset_code):
@@ -468,7 +470,7 @@ def keep_phrase(keep):
 def p_dedup_full(ds):
     if not ds.df.duplicated().any():
         return []
-    keep = random.choice(["first", "last", None])
+    keep = random.choice(["first", "last"])
     con, cd = dedup("*", [], keep, "")
     e, kp = ds.entity, keep_phrase(keep)
     return [dict(contract=con, code=cd, requests={
@@ -492,7 +494,7 @@ def p_dedup_key(ds):
             break
     else:
         return []
-    keep = random.choice(["first", "last", "first", None])
+    keep = random.choice(["first", "last", "first"])
     con, cd = dedup(key, None, keep, f"subset={lit(key)}, ")
     e, kp = ds.entity, keep_phrase(keep)
     names = " and ".join(ref(ds, c) for c in key)
@@ -500,7 +502,7 @@ def p_dedup_key(ds):
         "plain": f"Remove duplicates based on {names}{kp}.",
         "casual": f"dedupe on {', '.join(map(str, key))}{kp}",
         "domain": f"Rows with the same {' and '.join(ds.w(c) for c in key)} are the same record; leave only one per combination{kp}.",
-        "indirect": f"Each combination of {names} should appear only once{kp}."})]
+        "indirect": f"Each {'combination' if len(key) > 1 else 'value'} of {names} should appear only once{kp}."})]
 
 
 @pattern("dedup_all_but", "deduplication")
@@ -513,7 +515,7 @@ def p_dedup_except(ds):
             break
     else:
         return []
-    keep = random.choice(["first", "last", None])
+    keep = random.choice(["first", "last"])
     con, cd = dedup("*", exc, keep, f"subset={lit(key)}, ")
     con["must_change"][0]["except"] = exc
     cd = cd.replace(f"subset={lit(key)}", f"subset=[c for c in df.columns if c not in {lit(exc)}]")

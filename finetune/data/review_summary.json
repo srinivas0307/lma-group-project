@@ -1,0 +1,346 @@
+{
+  "n_rows": 100,
+  "n_reviewed": 100,
+  "n_not_reviewed": 0,
+  "verdicts": {
+    "OK": 91,
+    "wrong_contract": 7,
+    "unnatural_request": 2
+  },
+  "not_ok": 9,
+  "not_ok_rate": 0.09,
+  "threshold": 0.05,
+  "complete": true,
+  "decision": "fail: fix the templates of the patterns below, regenerate, re-check and re-review",
+  "by_type": {
+    "column_transformation": {
+      "n": 20,
+      "reviewed": 20,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "deduplication": {
+      "n": 20,
+      "reviewed": 20,
+      "not_ok": 8,
+      "not_ok_rate": 0.4
+    },
+    "filtering": {
+      "n": 20,
+      "reviewed": 20,
+      "not_ok": 1,
+      "not_ok_rate": 0.05
+    },
+    "missing_values": {
+      "n": 20,
+      "reviewed": 20,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "type_conversion": {
+      "n": 20,
+      "reviewed": 20,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    }
+  },
+  "by_pattern": {
+    "change_case": {
+      "n": 1,
+      "reviewed": 1,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "clip_column": {
+      "n": 4,
+      "reviewed": 4,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "constant_column": {
+      "n": 3,
+      "reviewed": 3,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "dedup_all_but": {
+      "n": 13,
+      "reviewed": 13,
+      "not_ok": 5,
+      "not_ok_rate": 0.385
+    },
+    "dedup_on_key": {
+      "n": 7,
+      "reviewed": 7,
+      "not_ok": 3,
+      "not_ok_rate": 0.429
+    },
+    "drop_column": {
+      "n": 2,
+      "reviewed": 2,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "drop_missing_any": {
+      "n": 8,
+      "reviewed": 8,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "drop_missing_column": {
+      "n": 3,
+      "reviewed": 3,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "fill_constant_number": {
+      "n": 3,
+      "reviewed": 3,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "fill_constant_text": {
+      "n": 5,
+      "reviewed": 5,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "fill_median": {
+      "n": 1,
+      "reviewed": 1,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "filter_and": {
+      "n": 3,
+      "reviewed": 3,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "filter_keep_categories": {
+      "n": 1,
+      "reviewed": 1,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "filter_keep_range": {
+      "n": 3,
+      "reviewed": 3,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "filter_or": {
+      "n": 3,
+      "reviewed": 3,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "filter_remove_categories": {
+      "n": 2,
+      "reviewed": 2,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "filter_remove_category": {
+      "n": 1,
+      "reviewed": 1,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "filter_remove_high": {
+      "n": 1,
+      "reviewed": 1,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "filter_remove_low": {
+      "n": 4,
+      "reviewed": 4,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "filter_two_categories": {
+      "n": 1,
+      "reviewed": 1,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "filter_with_nulls": {
+      "n": 1,
+      "reviewed": 1,
+      "not_ok": 1,
+      "not_ok_rate": 1.0
+    },
+    "int_to_float": {
+      "n": 2,
+      "reviewed": 2,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "map_values": {
+      "n": 1,
+      "reviewed": 1,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "new_column_two_columns": {
+      "n": 3,
+      "reviewed": 3,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "number_to_text": {
+      "n": 1,
+      "reviewed": 1,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "rename_column": {
+      "n": 2,
+      "reviewed": 2,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "round_column": {
+      "n": 1,
+      "reviewed": 1,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "scale_by_constant": {
+      "n": 3,
+      "reviewed": 3,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "several_to_category": {
+      "n": 8,
+      "reviewed": 8,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "several_to_float": {
+      "n": 3,
+      "reviewed": 3,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "several_to_text": {
+      "n": 3,
+      "reviewed": 3,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    },
+    "to_category": {
+      "n": 3,
+      "reviewed": 3,
+      "not_ok": 0,
+      "not_ok_rate": 0.0
+    }
+  },
+  "by_style": {
+    "casual": {
+      "n": 23,
+      "reviewed": 23,
+      "not_ok": 2,
+      "not_ok_rate": 0.087
+    },
+    "domain": {
+      "n": 22,
+      "reviewed": 22,
+      "not_ok": 3,
+      "not_ok_rate": 0.136
+    },
+    "indirect": {
+      "n": 29,
+      "reviewed": 29,
+      "not_ok": 2,
+      "not_ok_rate": 0.069
+    },
+    "plain": {
+      "n": 26,
+      "reviewed": 26,
+      "not_ok": 2,
+      "not_ok_rate": 0.077
+    }
+  },
+  "not_ok_examples": [
+    {
+      "id": "superstore_dedup_0109",
+      "type": "deduplication",
+      "pattern": "dedup_on_key",
+      "verdict": "wrong_contract",
+      "raw_verdict": "wrong_contract",
+      "note": "Incomplete preservation: duplicate_count eq 0 without keep checks uniqueness only. Both an empty output and a one-row output pass this contract on the actual snapshot, although the request requires one survivor per key group. Enforce group coverage without inventing a first/last policy, or explicitly request a first/last rule and regenerate. Reference code itself is correct."
+    },
+    {
+      "id": "walmart_dedup_0358",
+      "type": "deduplication",
+      "pattern": "dedup_all_but",
+      "verdict": "wrong_contract",
+      "raw_verdict": "wrong_contract",
+      "note": "Incomplete preservation: duplicate_count eq 0 without keep checks uniqueness only. Both an empty output and a one-row output pass this contract on the actual snapshot, although the request requires one survivor per key group. Enforce group coverage without inventing a first/last policy, or explicitly request a first/last rule and regenerate. Reference code itself is correct."
+    },
+    {
+      "id": "bank_dedup_0351",
+      "type": "deduplication",
+      "pattern": "dedup_all_but",
+      "verdict": "wrong_contract",
+      "raw_verdict": "wrong_contract",
+      "note": "Incomplete preservation: duplicate_count eq 0 without keep checks uniqueness only. Both an empty output and a one-row output pass this contract on the actual snapshot, although the request requires one survivor per key group. Enforce group coverage without inventing a first/last policy, or explicitly request a first/last rule and regenerate. Reference code itself is correct."
+    },
+    {
+      "id": "imdb_dedup_0286",
+      "type": "deduplication",
+      "pattern": "dedup_on_key",
+      "verdict": "unnatural_request",
+      "raw_verdict": "unnatural_request",
+      "note": "Contract and reference agree, but 'Each combination of number of votes' is awkward for a single key. Rephrase: 'Keep only the last movie for each distinct number of votes.'"
+    },
+    {
+      "id": "bank_dedup_0462",
+      "type": "deduplication",
+      "pattern": "dedup_all_but",
+      "verdict": "wrong_contract",
+      "raw_verdict": "wrong_contract",
+      "note": "Incomplete preservation: duplicate_count eq 0 without keep checks uniqueness only. Both an empty output and a one-row output pass this contract on the actual snapshot, although the request requires one survivor per key group. Enforce group coverage without inventing a first/last policy, or explicitly request a first/last rule and regenerate. Reference code itself is correct."
+    },
+    {
+      "id": "imdb_dedup_0521",
+      "type": "deduplication",
+      "pattern": "dedup_all_but",
+      "verdict": "wrong_contract",
+      "raw_verdict": "wrong_contract",
+      "note": "Incomplete preservation: duplicate_count eq 0 without keep checks uniqueness only. Both an empty output and a one-row output pass this contract on the actual snapshot, although the request requires one survivor per key group. Enforce group coverage without inventing a first/last policy, or explicitly request a first/last rule and regenerate. Reference code itself is correct."
+    },
+    {
+      "id": "walmart_dedup_0412",
+      "type": "deduplication",
+      "pattern": "dedup_all_but",
+      "verdict": "wrong_contract",
+      "raw_verdict": "wrong_contract",
+      "note": "Incomplete preservation: duplicate_count eq 0 without keep checks uniqueness only. Both an empty output and a one-row output pass this contract on the actual snapshot, although the request requires one survivor per key group. Enforce group coverage without inventing a first/last policy, or explicitly request a first/last rule and regenerate. Reference code itself is correct."
+    },
+    {
+      "id": "walmart_dedup_0148",
+      "type": "deduplication",
+      "pattern": "dedup_on_key",
+      "verdict": "wrong_contract",
+      "raw_verdict": "wrong_contract",
+      "note": "Incomplete preservation: duplicate_count eq 0 without keep checks uniqueness only. Both an empty output and a one-row output pass this contract on the actual snapshot, although the request requires one survivor per key group. Enforce group coverage without inventing a first/last policy, or explicitly request a first/last rule and regenerate. Reference code itself is correct."
+    },
+    {
+      "id": "superstore_filt_0105",
+      "type": "filtering",
+      "pattern": "filter_with_nulls",
+      "verdict": "unnatural_request",
+      "raw_verdict": "unnatural_request",
+      "note": "The contract and code correctly retain missing Sales. The phrase 'Orders without a sales stay in' is unnatural. Rephrase: 'Keep orders with missing sales values.'"
+    }
+  ],
+  "patterns_to_fix": [
+    "dedup_all_but",
+    "dedup_on_key",
+    "filter_with_nulls"
+  ]
+}

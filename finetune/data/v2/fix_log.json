@@ -1,0 +1,1340 @@
+{
+  "source": "finetune/data/checked.jsonl",
+  "n_examples": 4419,
+  "n_changed": 165,
+  "by_fix": {
+    "F1": 137,
+    "F2": 9,
+    "F3": 20
+  },
+  "changes": [
+    {
+      "id": "air_quality_dedup_0010",
+      "pattern": "dedup_full_rows",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove readings that are exact duplicates of another row (one copy is enough).",
+      "new": "Remove readings that are exact duplicates of another row (keep the first one)."
+    },
+    {
+      "id": "air_quality_dedup_0011",
+      "pattern": "dedup_full_rows",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Every one of the readings should be listed only once (one copy is enough).",
+      "new": "Every one of the readings should be listed only once (keep the first one)."
+    },
+    {
+      "id": "air_quality_dedup_0018",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe on AQI, PM10, HealthImpactClass",
+      "new": "dedupe on AQI, PM10, HealthImpactClass (keep the first one)"
+    },
+    {
+      "id": "air_quality_dedup_0158",
+      "pattern": "dedup_on_key",
+      "fix": "F2",
+      "field": "request",
+      "old": "Each combination of `O3` should appear only once (keep whichever comes last).",
+      "new": "Each value of `O3` should appear only once (keep whichever comes last)."
+    },
+    {
+      "id": "air_quality_dedup_0178",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove duplicates based on NO2 and health impact score (one copy is enough).",
+      "new": "Remove duplicates based on NO2 and health impact score (keep the first one)."
+    },
+    {
+      "id": "air_quality_dedup_0257",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Each combination of `AQI` and PM10 and humidity should appear only once (one copy is enough).",
+      "new": "Each combination of `AQI` and PM10 and humidity should appear only once (keep the first one)."
+    },
+    {
+      "id": "air_quality_dedup_0291",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove duplicates based on Temperature (keep one of each).",
+      "new": "Remove duplicates based on Temperature (keep the first one)."
+    },
+    {
+      "id": "air_quality_dedup_0314",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe ignoring `Humidity` (one copy is enough)",
+      "new": "dedupe ignoring `Humidity` (keep the first one)"
+    },
+    {
+      "id": "air_quality_dedup_0355",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove rows that are duplicates in all columns other than `HealthImpactScore`.",
+      "new": "Remove rows that are duplicates in all columns other than `HealthImpactScore` (keep the first one)."
+    },
+    {
+      "id": "air_quality_dedup_0358",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Treat rows as duplicates when everything except PM2.5 matches.",
+      "new": "Treat rows as duplicates when everything except PM2.5 matches (keep the first one)."
+    },
+    {
+      "id": "air_quality_dedup_0369",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe ignoring `O3` and `HealthImpactClass`",
+      "new": "dedupe ignoring `O3` and `HealthImpactClass` (keep the first one)"
+    },
+    {
+      "id": "air_quality_dedup_0372",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove rows that are duplicates in all columns other than `O3` and `HealthImpactClass`.",
+      "new": "Remove rows that are duplicates in all columns other than `O3` and `HealthImpactClass` (keep the first one)."
+    },
+    {
+      "id": "air_quality_dedup_0378",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Treat rows as duplicates when everything except PM10 and cardiovascular cases matches (one copy is enough).",
+      "new": "Treat rows as duplicates when everything except PM10 and cardiovascular cases matches (keep the first one)."
+    },
+    {
+      "id": "air_quality_dedup_0411",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Treat rows as duplicates when everything except PM2_5 and wind speed matches (one copy is enough).",
+      "new": "Treat rows as duplicates when everything except PM2_5 and wind speed matches (keep the first one)."
+    },
+    {
+      "id": "air_quality_dedup_0437",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Two readings count as the same if they only differ in `HospitalAdmissions`. Remove the repeats.",
+      "new": "Two readings count as the same if they only differ in `HospitalAdmissions`. Remove the repeats (keep the first one)."
+    },
+    {
+      "id": "air_quality_dedup_0439",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe ignoring `HospitalAdmissions`",
+      "new": "dedupe ignoring `HospitalAdmissions` (keep the first one)"
+    },
+    {
+      "id": "air_quality_dedup_0453",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Treat rows as duplicates when everything except sulphur dioxide matches (keep one of each).",
+      "new": "Treat rows as duplicates when everything except sulphur dioxide matches (keep the first one)."
+    },
+    {
+      "id": "air_quality_dedup_0455",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove rows that are duplicates in all columns other than sulphur dioxide (keep one of each).",
+      "new": "Remove rows that are duplicates in all columns other than sulphur dioxide (keep the first one)."
+    },
+    {
+      "id": "air_quality_dedup_0510",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Treat rows as duplicates when everything except health impact class matches (one copy is enough).",
+      "new": "Treat rows as duplicates when everything except health impact class matches (keep the first one)."
+    },
+    {
+      "id": "air_quality_dedup_0515",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Two readings count as the same if they only differ in PM2.5 and nitrogen dioxide. Remove the repeats (keep one of each).",
+      "new": "Two readings count as the same if they only differ in PM2.5 and nitrogen dioxide. Remove the repeats (keep the first one)."
+    },
+    {
+      "id": "air_quality_dedup_0526",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove rows that are duplicates in all columns other than air quality index (keep one of each).",
+      "new": "Remove rows that are duplicates in all columns other than air quality index (keep the first one)."
+    },
+    {
+      "id": "air_quality_dedup_0531",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe ignoring sulphur dioxide and `Temperature` (keep one of each)",
+      "new": "dedupe ignoring sulphur dioxide and `Temperature` (keep the first one)"
+    },
+    {
+      "id": "air_quality_filt_0095",
+      "pattern": "filter_with_nulls",
+      "fix": "F3",
+      "field": "request",
+      "old": "Discard readings whose humidity is less than 46. Readings without a humidity stay in.",
+      "new": "Discard readings with humidity below 46. Keep readings with missing humidity values."
+    },
+    {
+      "id": "air_quality_filt_0106",
+      "pattern": "filter_with_nulls",
+      "fix": "F3",
+      "field": "request",
+      "old": "Discard readings whose sulphur dioxide is less than 32. Readings without a sulphur dioxide stay in.",
+      "new": "Discard readings with sulphur dioxide below 32. Keep readings with missing sulphur dioxide values."
+    },
+    {
+      "id": "air_quality_filt_0111",
+      "pattern": "filter_with_nulls",
+      "fix": "F3",
+      "field": "request",
+      "old": "Discard readings whose humidity is less than 53. Readings without a humidity stay in.",
+      "new": "Discard readings with humidity below 53. Keep readings with missing humidity values."
+    },
+    {
+      "id": "air_quality_filt_0114",
+      "pattern": "filter_with_nulls",
+      "fix": "F3",
+      "field": "request",
+      "old": "Discard readings whose sulphur dioxide is less than 21. Readings without a sulphur dioxide stay in.",
+      "new": "Discard readings with sulphur dioxide below 21. Keep readings with missing sulphur dioxide values."
+    },
+    {
+      "id": "avocado_dedup_0045",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Each combination of large Hass volume (PLU 4225) and `type` should appear only once.",
+      "new": "Each combination of large Hass volume (PLU 4225) and `type` should appear only once (keep the first one)."
+    },
+    {
+      "id": "avocado_dedup_0047",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe on 4225, type",
+      "new": "dedupe on 4225, type (keep the first one)"
+    },
+    {
+      "id": "avocado_dedup_0061",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Each combination of 4225 and extra large Hass volume (PLU 4770) should appear only once.",
+      "new": "Each combination of 4225 and extra large Hass volume (PLU 4770) should appear only once (keep the first one)."
+    },
+    {
+      "id": "avocado_dedup_0145",
+      "pattern": "dedup_on_key",
+      "fix": "F2",
+      "field": "request",
+      "old": "Each combination of large Hass volume (PLU 4225) should appear only once (keep the first one).",
+      "new": "Each value of large Hass volume (PLU 4225) should appear only once (keep the first one)."
+    },
+    {
+      "id": "avocado_dedup_0213",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Each combination of total volume and Large Bags should appear only once (one copy is enough).",
+      "new": "Each combination of total volume and Large Bags should appear only once (keep the first one)."
+    },
+    {
+      "id": "avocado_dedup_0218",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Rows with the same total volume and large bags and avocado type are the same record; leave only one per combination (keep one of each).",
+      "new": "Rows with the same total volume and large bags and avocado type are the same record; leave only one per combination (keep the first one)."
+    },
+    {
+      "id": "avocado_dedup_0258",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove duplicates based on `AveragePrice` and Total Bags.",
+      "new": "Remove duplicates based on `AveragePrice` and Total Bags (keep the first one)."
+    },
+    {
+      "id": "avocado_dedup_0271",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe on 4225, Large Bags (one copy is enough)",
+      "new": "dedupe on 4225, Large Bags (keep the first one)"
+    },
+    {
+      "id": "avocado_dedup_0347",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove rows that are duplicates in all columns other than AveragePrice and total volume (keep one of each).",
+      "new": "Remove rows that are duplicates in all columns other than AveragePrice and total volume (keep the first one)."
+    },
+    {
+      "id": "avocado_dedup_0369",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe ignoring `region`",
+      "new": "dedupe ignoring `region` (keep the first one)"
+    },
+    {
+      "id": "avocado_dedup_0384",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe ignoring date (keep one of each)",
+      "new": "dedupe ignoring date (keep the first one)"
+    },
+    {
+      "id": "avocado_dedup_0444",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove rows that are duplicates in all columns other than small Hass volume (PLU 4046).",
+      "new": "Remove rows that are duplicates in all columns other than small Hass volume (PLU 4046) (keep the first one)."
+    },
+    {
+      "id": "avocado_dedup_0513",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove rows that are duplicates in all columns other than XLarge Bags.",
+      "new": "Remove rows that are duplicates in all columns other than XLarge Bags (keep the first one)."
+    },
+    {
+      "id": "avocado_dedup_0516",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe ignoring XLarge Bags",
+      "new": "dedupe ignoring XLarge Bags (keep the first one)"
+    },
+    {
+      "id": "avocado_dedup_0523",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Two price records count as the same if they only differ in average price and extra large Hass volume (PLU 4770). Remove the repeats (one copy is enough).",
+      "new": "Two price records count as the same if they only differ in average price and extra large Hass volume (PLU 4770). Remove the repeats (keep the first one)."
+    },
+    {
+      "id": "avocado_dedup_0534",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Two price records count as the same if they only differ in `Date` and 4770. Remove the repeats (keep one of each).",
+      "new": "Two price records count as the same if they only differ in `Date` and 4770. Remove the repeats (keep the first one)."
+    },
+    {
+      "id": "avocado_filt_0109",
+      "pattern": "filter_with_nulls",
+      "fix": "F3",
+      "field": "request",
+      "old": "Discard price records whose large bags is less than 3.6. Price records without a large bags stay in.",
+      "new": "Discard price records with large bags below 3.6. Keep price records with missing large bags values."
+    },
+    {
+      "id": "avocado_filt_0113",
+      "pattern": "filter_with_nulls",
+      "fix": "F3",
+      "field": "request",
+      "old": "Discard price records whose large bags is less than 1400. Price records without a large bags stay in.",
+      "new": "Discard price records with large bags below 1400. Keep price records with missing large bags values."
+    },
+    {
+      "id": "avocado_filt_0122",
+      "pattern": "filter_with_nulls",
+      "fix": "F3",
+      "field": "request",
+      "old": "Discard price records whose total bags is less than 4800. Price records without a total bags stay in.",
+      "new": "Discard price records with total bags below 4800. Keep price records with missing total bags values."
+    },
+    {
+      "id": "bank_dedup_0008",
+      "pattern": "dedup_full_rows",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Every one of the clients should be listed only once (one copy is enough).",
+      "new": "Every one of the clients should be listed only once (keep the first one)."
+    },
+    {
+      "id": "bank_dedup_0057",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Each combination of job and default and account balance should appear only once (keep one of each).",
+      "new": "Each combination of job and default and account balance should appear only once (keep the first one)."
+    },
+    {
+      "id": "bank_dedup_0059",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe on job, default, balance (keep one of each)",
+      "new": "dedupe on job, default, balance (keep the first one)"
+    },
+    {
+      "id": "bank_dedup_0064",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Each combination of account balance and call duration should appear only once (keep one of each).",
+      "new": "Each combination of account balance and call duration should appear only once (keep the first one)."
+    },
+    {
+      "id": "bank_dedup_0072",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe on age, education, day",
+      "new": "dedupe on age, education, day (keep the first one)"
+    },
+    {
+      "id": "bank_dedup_0075",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Rows with the same age and call duration and number of earlier contacts are the same record; leave only one per combination (one copy is enough).",
+      "new": "Rows with the same age and call duration and number of earlier contacts are the same record; leave only one per combination (keep the first one)."
+    },
+    {
+      "id": "bank_dedup_0111",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Each combination of housing and duration should appear only once.",
+      "new": "Each combination of housing and duration should appear only once (keep the first one)."
+    },
+    {
+      "id": "bank_dedup_0122",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe on duration, campaign (one copy is enough)",
+      "new": "dedupe on duration, campaign (keep the first one)"
+    },
+    {
+      "id": "bank_dedup_0129",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Rows with the same account balance and contact day and subscription outcome are the same record; leave only one per combination (keep one of each).",
+      "new": "Rows with the same account balance and contact day and subscription outcome are the same record; leave only one per combination (keep the first one)."
+    },
+    {
+      "id": "bank_dedup_0131",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe on balance, day, y (keep one of each)",
+      "new": "dedupe on balance, day, y (keep the first one)"
+    },
+    {
+      "id": "bank_dedup_0161",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe on default, balance",
+      "new": "dedupe on default, balance (keep the first one)"
+    },
+    {
+      "id": "bank_dedup_0204",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Rows with the same account balance and contact type and number of contacts in this campaign are the same record; leave only one per combination (keep one of each).",
+      "new": "Rows with the same account balance and contact type and number of contacts in this campaign are the same record; leave only one per combination (keep the first one)."
+    },
+    {
+      "id": "bank_dedup_0351",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe ignoring `education` and account balance",
+      "new": "dedupe ignoring `education` and account balance (keep the first one)"
+    },
+    {
+      "id": "bank_dedup_0382",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe ignoring number of contacts in this campaign (keep one of each)",
+      "new": "dedupe ignoring number of contacts in this campaign (keep the first one)"
+    },
+    {
+      "id": "bank_dedup_0422",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Treat rows as duplicates when everything except number of earlier contacts matches.",
+      "new": "Treat rows as duplicates when everything except number of earlier contacts matches (keep the first one)."
+    },
+    {
+      "id": "bank_dedup_0424",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe ignoring number of earlier contacts",
+      "new": "dedupe ignoring number of earlier contacts (keep the first one)"
+    },
+    {
+      "id": "bank_dedup_0455",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe ignoring `day` and `pdays` (keep one of each)",
+      "new": "dedupe ignoring `day` and `pdays` (keep the first one)"
+    },
+    {
+      "id": "bank_dedup_0462",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Treat rows as duplicates when everything except age and previous campaign outcome matches (one copy is enough).",
+      "new": "Treat rows as duplicates when everything except age and previous campaign outcome matches (keep the first one)."
+    },
+    {
+      "id": "bank_dedup_0464",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove rows that are duplicates in all columns other than age and previous campaign outcome (one copy is enough).",
+      "new": "Remove rows that are duplicates in all columns other than age and previous campaign outcome (keep the first one)."
+    },
+    {
+      "id": "bank_dedup_0471",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Two clients count as the same if they only differ in day and campaign. Remove the repeats.",
+      "new": "Two clients count as the same if they only differ in day and campaign. Remove the repeats (keep the first one)."
+    },
+    {
+      "id": "bank_filt_0117",
+      "pattern": "filter_with_nulls",
+      "fix": "F3",
+      "field": "request",
+      "old": "Discard clients whose call duration is less than 140. Clients without a call duration stay in.",
+      "new": "Discard clients with call duration below 140. Keep clients with missing call duration values."
+    },
+    {
+      "id": "bank_filt_0124",
+      "pattern": "filter_with_nulls",
+      "fix": "F3",
+      "field": "request",
+      "old": "Discard clients whose call duration is less than 71. Clients without a call duration stay in.",
+      "new": "Discard clients with call duration below 71. Keep clients with missing call duration values."
+    },
+    {
+      "id": "bank_filt_0131",
+      "pattern": "filter_with_nulls",
+      "fix": "F3",
+      "field": "request",
+      "old": "Discard clients whose account balance is less than 270. Clients without a account balance stay in.",
+      "new": "Discard clients with account balance below 270. Keep clients with missing account balance values."
+    },
+    {
+      "id": "diamonds_dedup_0008",
+      "pattern": "dedup_full_rows",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove diamonds that are exact duplicates of another row.",
+      "new": "Remove diamonds that are exact duplicates of another row (keep the first one)."
+    },
+    {
+      "id": "diamonds_dedup_0025",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe on cut, clarity, z (one copy is enough)",
+      "new": "dedupe on cut, clarity, z (keep the first one)"
+    },
+    {
+      "id": "diamonds_dedup_0028",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove duplicates based on cut and `clarity` and z (one copy is enough).",
+      "new": "Remove duplicates based on cut and `clarity` and z (keep the first one)."
+    },
+    {
+      "id": "diamonds_dedup_0031",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Rows with the same clarity and price are the same record; leave only one per combination (one copy is enough).",
+      "new": "Rows with the same clarity and price are the same record; leave only one per combination (keep the first one)."
+    },
+    {
+      "id": "diamonds_dedup_0053",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe on table, y (one copy is enough)",
+      "new": "dedupe on table, y (keep the first one)"
+    },
+    {
+      "id": "diamonds_dedup_0056",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Each combination of table and y should appear only once (one copy is enough).",
+      "new": "Each combination of table and y should appear only once (keep the first one)."
+    },
+    {
+      "id": "diamonds_dedup_0088",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe on price, x, z (one copy is enough)",
+      "new": "dedupe on price, x, z (keep the first one)"
+    },
+    {
+      "id": "diamonds_dedup_0227",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Rows with the same color and table width and length in mm are the same record; leave only one per combination (one copy is enough).",
+      "new": "Rows with the same color and table width and length in mm are the same record; leave only one per combination (keep the first one)."
+    },
+    {
+      "id": "diamonds_dedup_0255",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe ignoring depth in mm (one copy is enough)",
+      "new": "dedupe ignoring depth in mm (keep the first one)"
+    },
+    {
+      "id": "diamonds_dedup_0296",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Two diamonds count as the same if they only differ in color. Remove the repeats.",
+      "new": "Two diamonds count as the same if they only differ in color. Remove the repeats (keep the first one)."
+    },
+    {
+      "id": "diamonds_dedup_0319",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Two diamonds count as the same if they only differ in `cut` and `clarity`. Remove the repeats.",
+      "new": "Two diamonds count as the same if they only differ in `cut` and `clarity`. Remove the repeats (keep the first one)."
+    },
+    {
+      "id": "diamonds_dedup_0334",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe ignoring total depth percentage (keep one of each)",
+      "new": "dedupe ignoring total depth percentage (keep the first one)"
+    },
+    {
+      "id": "diamonds_dedup_0337",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove rows that are duplicates in all columns other than cut and price.",
+      "new": "Remove rows that are duplicates in all columns other than cut and price (keep the first one)."
+    },
+    {
+      "id": "diamonds_dedup_0338",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe ignoring cut and price",
+      "new": "dedupe ignoring cut and price (keep the first one)"
+    },
+    {
+      "id": "diamonds_dedup_0367",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe ignoring length in mm",
+      "new": "dedupe ignoring length in mm (keep the first one)"
+    },
+    {
+      "id": "diamonds_dedup_0370",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Treat rows as duplicates when everything except `price` matches (keep one of each).",
+      "new": "Treat rows as duplicates when everything except `price` matches (keep the first one)."
+    },
+    {
+      "id": "diamonds_dedup_0453",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Treat rows as duplicates when everything except width in mm and depth in mm matches (one copy is enough).",
+      "new": "Treat rows as duplicates when everything except width in mm and depth in mm matches (keep the first one)."
+    },
+    {
+      "id": "diamonds_dedup_0455",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Two diamonds count as the same if they only differ in width in mm and depth in mm. Remove the repeats (one copy is enough).",
+      "new": "Two diamonds count as the same if they only differ in width in mm and depth in mm. Remove the repeats (keep the first one)."
+    },
+    {
+      "id": "diamonds_dedup_0475",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Two diamonds count as the same if they only differ in clarity and price. Remove the repeats.",
+      "new": "Two diamonds count as the same if they only differ in clarity and price. Remove the repeats (keep the first one)."
+    },
+    {
+      "id": "diamonds_filt_0218",
+      "pattern": "filter_with_nulls",
+      "fix": "F3",
+      "field": "request",
+      "old": "Discard diamonds whose table width is less than 57. Diamonds without a table width stay in.",
+      "new": "Discard diamonds with table width below 57. Keep diamonds with missing table width values."
+    },
+    {
+      "id": "diamonds_filt_0229",
+      "pattern": "filter_with_nulls",
+      "fix": "F3",
+      "field": "request",
+      "old": "Discard diamonds whose price is less than 1100. Diamonds without a price stay in.",
+      "new": "Discard diamonds with price below 1100. Keep diamonds with missing price values."
+    },
+    {
+      "id": "imdb_dedup_0006",
+      "pattern": "dedup_full_rows",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove movies that are exact duplicates of another row (keep one of each).",
+      "new": "Remove movies that are exact duplicates of another row (keep the first one)."
+    },
+    {
+      "id": "imdb_dedup_0008",
+      "pattern": "dedup_full_rows",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "there are repeated movies rows in here, clean them out (keep one of each)",
+      "new": "there are repeated movies rows in here, clean them out (keep the first one)"
+    },
+    {
+      "id": "imdb_dedup_0112",
+      "pattern": "dedup_on_key",
+      "fix": "F2",
+      "field": "request",
+      "old": "Each combination of lead actor should appear only once (keep the last one).",
+      "new": "Each value of lead actor should appear only once (keep the last one)."
+    },
+    {
+      "id": "imdb_dedup_0121",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe on Series_Title, Star4 (keep one of each)",
+      "new": "dedupe on Series_Title, Star4 (keep the first one)"
+    },
+    {
+      "id": "imdb_dedup_0135",
+      "pattern": "dedup_on_key",
+      "fix": "F2",
+      "field": "request",
+      "old": "Each combination of `Series_Title` should appear only once (keep whichever comes first).",
+      "new": "Each value of `Series_Title` should appear only once (keep whichever comes first)."
+    },
+    {
+      "id": "imdb_dedup_0137",
+      "pattern": "dedup_on_key",
+      "fix": "F2",
+      "field": "request",
+      "old": "Each combination of `Gross` should appear only once (keep the last one).",
+      "new": "Each value of `Gross` should appear only once (keep the last one)."
+    },
+    {
+      "id": "imdb_dedup_0218",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove duplicates based on title and number of votes (keep one of each).",
+      "new": "Remove duplicates based on title and number of votes (keep the first one)."
+    },
+    {
+      "id": "imdb_dedup_0238",
+      "pattern": "dedup_on_key",
+      "fix": "F2",
+      "field": "request",
+      "old": "Each combination of star3 should appear only once (keep the first one).",
+      "new": "Each value of star3 should appear only once (keep the first one)."
+    },
+    {
+      "id": "imdb_dedup_0286",
+      "pattern": "dedup_on_key",
+      "fix": "F2",
+      "field": "request",
+      "old": "Each combination of number of votes should appear only once (keep the last one).",
+      "new": "Each value of number of votes should appear only once (keep the last one)."
+    },
+    {
+      "id": "imdb_dedup_0334",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove rows that are duplicates in all columns other than number of votes.",
+      "new": "Remove rows that are duplicates in all columns other than number of votes (keep the first one)."
+    },
+    {
+      "id": "imdb_dedup_0345",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe ignoring `Genre` (keep one of each)",
+      "new": "dedupe ignoring `Genre` (keep the first one)"
+    },
+    {
+      "id": "imdb_dedup_0357",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove rows that are duplicates in all columns other than title and number of votes (keep one of each).",
+      "new": "Remove rows that are duplicates in all columns other than title and number of votes (keep the first one)."
+    },
+    {
+      "id": "imdb_dedup_0358",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe ignoring title and number of votes (keep one of each)",
+      "new": "dedupe ignoring title and number of votes (keep the first one)"
+    },
+    {
+      "id": "imdb_dedup_0363",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Two movies count as the same if they only differ in runtime. Remove the repeats (one copy is enough).",
+      "new": "Two movies count as the same if they only differ in runtime. Remove the repeats (keep the first one)."
+    },
+    {
+      "id": "imdb_dedup_0382",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe ignoring `Released_Year` and Genre (keep one of each)",
+      "new": "dedupe ignoring `Released_Year` and Genre (keep the first one)"
+    },
+    {
+      "id": "imdb_dedup_0413",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe ignoring star2 (one copy is enough)",
+      "new": "dedupe ignoring star2 (keep the first one)"
+    },
+    {
+      "id": "imdb_dedup_0440",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Two movies count as the same if they only differ in Star2 and `Star4`. Remove the repeats (one copy is enough).",
+      "new": "Two movies count as the same if they only differ in Star2 and `Star4`. Remove the repeats (keep the first one)."
+    },
+    {
+      "id": "imdb_dedup_0472",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Two movies count as the same if they only differ in Released_Year and lead actor. Remove the repeats.",
+      "new": "Two movies count as the same if they only differ in Released_Year and lead actor. Remove the repeats (keep the first one)."
+    },
+    {
+      "id": "imdb_dedup_0489",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove rows that are duplicates in all columns other than `Released_Year` (keep one of each).",
+      "new": "Remove rows that are duplicates in all columns other than `Released_Year` (keep the first one)."
+    },
+    {
+      "id": "imdb_dedup_0519",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe ignoring `Star4` (keep one of each)",
+      "new": "dedupe ignoring `Star4` (keep the first one)"
+    },
+    {
+      "id": "imdb_dedup_0521",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Two movies count as the same if they only differ in title. Remove the repeats.",
+      "new": "Two movies count as the same if they only differ in title. Remove the repeats (keep the first one)."
+    },
+    {
+      "id": "imdb_filt_0102",
+      "pattern": "filter_with_nulls",
+      "fix": "F3",
+      "field": "request",
+      "old": "Discard movies whose Metascore is less than 66. Movies without a Metascore stay in.",
+      "new": "Discard movies with Metascore below 66. Keep movies with missing Metascore values."
+    },
+    {
+      "id": "student_dedup_0018",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe on reason, absences, G1 (keep one of each)",
+      "new": "dedupe on reason, absences, G1 (keep the first one)"
+    },
+    {
+      "id": "student_dedup_0072",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Treat rows as duplicates when everything except first-period grade matches (one copy is enough).",
+      "new": "Treat rows as duplicates when everything except first-period grade matches (keep the first one)."
+    },
+    {
+      "id": "student_dedup_0147",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe ignoring `schoolsup` (keep one of each)",
+      "new": "dedupe ignoring `schoolsup` (keep the first one)"
+    },
+    {
+      "id": "student_dedup_0271",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Treat rows as duplicates when everything except school and final grade matches (one copy is enough).",
+      "new": "Treat rows as duplicates when everything except school and final grade matches (keep the first one)."
+    },
+    {
+      "id": "student_filt_0136",
+      "pattern": "filter_with_nulls",
+      "fix": "F3",
+      "field": "request",
+      "old": "Discard students whose number of absences is less than 2. Students without a number of absences stay in.",
+      "new": "Discard students with number of absences below 2. Keep students with missing number of absences values."
+    },
+    {
+      "id": "superstore_dedup_0002",
+      "pattern": "dedup_full_rows",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Every one of the orders should be listed only once.",
+      "new": "Every one of the orders should be listed only once (keep the first one)."
+    },
+    {
+      "id": "superstore_dedup_0003",
+      "pattern": "dedup_full_rows",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove orders that are exact duplicates of another row.",
+      "new": "Remove orders that are exact duplicates of another row (keep the first one)."
+    },
+    {
+      "id": "superstore_dedup_0049",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe on Ship Date, Customer Name, Product ID",
+      "new": "dedupe on Ship Date, Customer Name, Product ID (keep the first one)"
+    },
+    {
+      "id": "superstore_dedup_0051",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Rows with the same ship date and customer name and product id are the same record; leave only one per combination.",
+      "new": "Rows with the same ship date and customer name and product id are the same record; leave only one per combination (keep the first one)."
+    },
+    {
+      "id": "superstore_dedup_0083",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Rows with the same order date are the same record; leave only one per combination (keep one of each).",
+      "new": "Rows with the same order date are the same record; leave only one per combination (keep the first one)."
+    },
+    {
+      "id": "superstore_dedup_0099",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Each combination of Order ID and category and `Product Name` should appear only once (one copy is enough).",
+      "new": "Each combination of Order ID and category and `Product Name` should appear only once (keep the first one)."
+    },
+    {
+      "id": "superstore_dedup_0101",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Rows with the same order id and order date and customer name are the same record; leave only one per combination (one copy is enough).",
+      "new": "Rows with the same order id and order date and customer name are the same record; leave only one per combination (keep the first one)."
+    },
+    {
+      "id": "superstore_dedup_0104",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe on Order ID, Order Date, Customer Name (one copy is enough)",
+      "new": "dedupe on Order ID, Order Date, Customer Name (keep the first one)"
+    },
+    {
+      "id": "superstore_dedup_0108",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Each combination of product name should appear only once (keep one of each).",
+      "new": "Each combination of product name should appear only once (keep the first one)."
+    },
+    {
+      "id": "superstore_dedup_0108",
+      "pattern": "dedup_on_key",
+      "fix": "F2",
+      "field": "request",
+      "old": "Each combination of product name should appear only once (keep the first one).",
+      "new": "Each value of product name should appear only once (keep the first one)."
+    },
+    {
+      "id": "superstore_dedup_0109",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Rows with the same order date and product name are the same record; leave only one per combination (one copy is enough).",
+      "new": "Rows with the same order date and product name are the same record; leave only one per combination (keep the first one)."
+    },
+    {
+      "id": "superstore_dedup_0112",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove duplicates based on `Order Date` and `Product Name` (one copy is enough).",
+      "new": "Remove duplicates based on `Order Date` and `Product Name` (keep the first one)."
+    },
+    {
+      "id": "superstore_dedup_0213",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe on Customer ID, Postal Code (one copy is enough)",
+      "new": "dedupe on Customer ID, Postal Code (keep the first one)"
+    },
+    {
+      "id": "superstore_dedup_0224",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe on Customer Name, Postal Code",
+      "new": "dedupe on Customer Name, Postal Code (keep the first one)"
+    },
+    {
+      "id": "superstore_dedup_0232",
+      "pattern": "dedup_on_key",
+      "fix": "F2",
+      "field": "request",
+      "old": "Each combination of order id should appear only once (keep the first one).",
+      "new": "Each value of order id should appear only once (keep the first one)."
+    },
+    {
+      "id": "superstore_dedup_0313",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Each combination of order date and segment and Region should appear only once (keep one of each).",
+      "new": "Each combination of order date and segment and Region should appear only once (keep the first one)."
+    },
+    {
+      "id": "superstore_dedup_0314",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove duplicates based on order date and segment and Region (keep one of each).",
+      "new": "Remove duplicates based on order date and segment and Region (keep the first one)."
+    },
+    {
+      "id": "superstore_dedup_0334",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove rows that are duplicates in all columns other than `Customer ID`.",
+      "new": "Remove rows that are duplicates in all columns other than `Customer ID` (keep the first one)."
+    },
+    {
+      "id": "superstore_dedup_0335",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Two orders count as the same if they only differ in `Customer ID`. Remove the repeats.",
+      "new": "Two orders count as the same if they only differ in `Customer ID`. Remove the repeats (keep the first one)."
+    },
+    {
+      "id": "superstore_dedup_0366",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Treat rows as duplicates when everything except product id matches.",
+      "new": "Treat rows as duplicates when everything except product id matches (keep the first one)."
+    },
+    {
+      "id": "superstore_dedup_0372",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Treat rows as duplicates when everything except State matches (one copy is enough).",
+      "new": "Treat rows as duplicates when everything except State matches (keep the first one)."
+    },
+    {
+      "id": "superstore_dedup_0424",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove rows that are duplicates in all columns other than Ship Mode and `Product ID`.",
+      "new": "Remove rows that are duplicates in all columns other than Ship Mode and `Product ID` (keep the first one)."
+    },
+    {
+      "id": "superstore_dedup_0430",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe ignoring order id (one copy is enough)",
+      "new": "dedupe ignoring order id (keep the first one)"
+    },
+    {
+      "id": "superstore_dedup_0477",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Two orders count as the same if they only differ in postal code. Remove the repeats (one copy is enough).",
+      "new": "Two orders count as the same if they only differ in postal code. Remove the repeats (keep the first one)."
+    },
+    {
+      "id": "superstore_filt_0094",
+      "pattern": "filter_with_nulls",
+      "fix": "F3",
+      "field": "request",
+      "old": "Discard orders whose postal code is less than 38000. Orders without a postal code stay in.",
+      "new": "Discard orders with postal code below 38000. Keep orders with missing postal code values."
+    },
+    {
+      "id": "superstore_filt_0105",
+      "pattern": "filter_with_nulls",
+      "fix": "F3",
+      "field": "request",
+      "old": "Discard orders whose sales is less than 29. Orders without a sales stay in.",
+      "new": "Discard orders with sales below 29. Keep orders with missing sales values."
+    },
+    {
+      "id": "walmart_dedup_0003",
+      "pattern": "dedup_full_rows",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove store weeks that are exact duplicates of another row (one copy is enough).",
+      "new": "Remove store weeks that are exact duplicates of another row (keep the first one)."
+    },
+    {
+      "id": "walmart_dedup_0004",
+      "pattern": "dedup_full_rows",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Some store weeks appear twice with identical values in every column. Deduplicate them (one copy is enough).",
+      "new": "Some store weeks appear twice with identical values in every column. Deduplicate them (keep the first one)."
+    },
+    {
+      "id": "walmart_dedup_0065",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove duplicates based on `Store` and Date.",
+      "new": "Remove duplicates based on `Store` and Date (keep the first one)."
+    },
+    {
+      "id": "walmart_dedup_0067",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Each combination of `Store` and Date should appear only once.",
+      "new": "Each combination of `Store` and Date should appear only once (keep the first one)."
+    },
+    {
+      "id": "walmart_dedup_0068",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Rows with the same store and date are the same record; leave only one per combination.",
+      "new": "Rows with the same store and date are the same record; leave only one per combination (keep the first one)."
+    },
+    {
+      "id": "walmart_dedup_0106",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove duplicates based on date and temperature (keep one of each).",
+      "new": "Remove duplicates based on date and temperature (keep the first one)."
+    },
+    {
+      "id": "walmart_dedup_0107",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe on Date, Temperature (keep one of each)",
+      "new": "dedupe on Date, Temperature (keep the first one)"
+    },
+    {
+      "id": "walmart_dedup_0108",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Rows with the same date and temperature are the same record; leave only one per combination (keep one of each).",
+      "new": "Rows with the same date and temperature are the same record; leave only one per combination (keep the first one)."
+    },
+    {
+      "id": "walmart_dedup_0148",
+      "pattern": "dedup_on_key",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove duplicates based on Weekly_Sales and `Fuel_Price` (one copy is enough).",
+      "new": "Remove duplicates based on Weekly_Sales and `Fuel_Price` (keep the first one)."
+    },
+    {
+      "id": "walmart_dedup_0271",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe ignoring fuel price",
+      "new": "dedupe ignoring fuel price (keep the first one)"
+    },
+    {
+      "id": "walmart_dedup_0272",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Treat rows as duplicates when everything except fuel price matches.",
+      "new": "Treat rows as duplicates when everything except fuel price matches (keep the first one)."
+    },
+    {
+      "id": "walmart_dedup_0306",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Two store weeks count as the same if they only differ in `Fuel_Price` and consumer price index. Remove the repeats.",
+      "new": "Two store weeks count as the same if they only differ in `Fuel_Price` and consumer price index. Remove the repeats (keep the first one)."
+    },
+    {
+      "id": "walmart_dedup_0321",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Two store weeks count as the same if they only differ in temperature. Remove the repeats.",
+      "new": "Two store weeks count as the same if they only differ in temperature. Remove the repeats (keep the first one)."
+    },
+    {
+      "id": "walmart_dedup_0358",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe ignoring `Temperature` and `Fuel_Price` (keep one of each)",
+      "new": "dedupe ignoring `Temperature` and `Fuel_Price` (keep the first one)"
+    },
+    {
+      "id": "walmart_dedup_0382",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Treat rows as duplicates when everything except date and Holiday_Flag matches (keep one of each).",
+      "new": "Treat rows as duplicates when everything except date and Holiday_Flag matches (keep the first one)."
+    },
+    {
+      "id": "walmart_dedup_0383",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Two store weeks count as the same if they only differ in date and Holiday_Flag. Remove the repeats (keep one of each).",
+      "new": "Two store weeks count as the same if they only differ in date and Holiday_Flag. Remove the repeats (keep the first one)."
+    },
+    {
+      "id": "walmart_dedup_0384",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe ignoring date and Holiday_Flag (keep one of each)",
+      "new": "dedupe ignoring date and Holiday_Flag (keep the first one)"
+    },
+    {
+      "id": "walmart_dedup_0394",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe ignoring `Weekly_Sales` and `CPI` (keep one of each)",
+      "new": "dedupe ignoring `Weekly_Sales` and `CPI` (keep the first one)"
+    },
+    {
+      "id": "walmart_dedup_0409",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "dedupe ignoring weekly sales (keep one of each)",
+      "new": "dedupe ignoring weekly sales (keep the first one)"
+    },
+    {
+      "id": "walmart_dedup_0412",
+      "pattern": "dedup_all_but",
+      "fix": "F1",
+      "field": "contract+request",
+      "old": "Remove rows that are duplicates in all columns other than weekly sales (keep one of each).",
+      "new": "Remove rows that are duplicates in all columns other than weekly sales (keep the first one)."
+    },
+    {
+      "id": "walmart_filt_0108",
+      "pattern": "filter_with_nulls",
+      "fix": "F3",
+      "field": "request",
+      "old": "Discard store weeks whose consumer price index is less than 140. Store weeks without a consumer price index stay in.",
+      "new": "Discard store weeks with consumer price index below 140. Keep store weeks with missing consumer price index values."
+    },
+    {
+      "id": "walmart_filt_0114",
+      "pattern": "filter_with_nulls",
+      "fix": "F3",
+      "field": "request",
+      "old": "Discard store weeks whose fuel price is less than 2.7. Store weeks without a fuel price stay in.",
+      "new": "Discard store weeks with fuel price below 2.7. Keep store weeks with missing fuel price values."
+    },
+    {
+      "id": "walmart_filt_0117",
+      "pattern": "filter_with_nulls",
+      "fix": "F3",
+      "field": "request",
+      "old": "Discard store weeks whose fuel price is less than 3.2. Store weeks without a fuel price stay in.",
+      "new": "Discard store weeks with fuel price below 3.2. Keep store weeks with missing fuel price values."
+    },
+    {
+      "id": "walmart_filt_0124",
+      "pattern": "filter_with_nulls",
+      "fix": "F3",
+      "field": "request",
+      "old": "Discard store weeks whose unemployment rate is less than 6.9. Store weeks without a unemployment rate stay in.",
+      "new": "Discard store weeks with unemployment rate below 6.9. Keep store weeks with missing unemployment rate values."
+    }
+  ]
+}

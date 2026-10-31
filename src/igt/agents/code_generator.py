@@ -1,6 +1,8 @@
-"""Code-generator prompt (prompt version b1-v1), shared by every system and every generator model.
+"""Code-generator prompts, shared by every system and every generator model.
 
-The generator sees only the request and the dataset schema (README G3): no contract, no row-id hints.
+b1-v1: the generator sees only the request and the dataset schema (README G3): no contract, no row-id hints.
+       Used for the Stage 1 pool and, in Stage 2, by Baselines 1-3 and the no-contract-to-generator ablation.
+b2-v1: b1-v1 + the intent contract (Stage 2 Proposed and gold-contract systems; README §4.4).
 This module has no pandas/torch imports so it can run inside the Kaggle GPU kernel unchanged.
 The dataset schema comes from the frozen file benchmark/prompts/schema_b1-v1.json, so prompts are
 byte-identical across runs and machines.
@@ -61,3 +63,57 @@ def build_messages(task, schema):
 
 def sample_seed(base_seed, task_index):
     return base_seed + SEED_OFFSET + task_index
+
+
+# ---------------- b2-v1: contract-aware generator (Stage 2 Proposed and gold-contract systems) ----------------
+# Same as b1-v1 plus (1) a short explanation of the contract in the system prompt and (2) the contract after the
+# request. Nothing else differs, so "Proposed vs no-contract-to-generator ablation" measures only the effect of the
+# contract. b1-v1 above is unchanged (its hash is pinned in tests). Not yet tuned on dev.
+CONTRACT_PROMPT_VERSION = "b2-v1"
+
+CONTRACT_SYSTEM_PROMPT = SYSTEM_PROMPT + """
+
+You are also given an intent contract: the checks your output will be verified against. It has two lists:
+- must_change: what the transformation must do.
+- must_preserve: what must stay as it is.
+The output must satisfy every predicate in both lists. Meaning of the predicates:
+- row_count: number of rows compared with the input ("unchanged", "decreased", "increased") or with a number.
+- rows_removed_where / rows_retained_where: every input row matching the condition is removed / kept.
+- duplicate_count: duplicates on the target columns ("*" = all columns minus "except"); with "keep", exactly one row per group survives, the first or last one in the original row order.
+- null_count: number of missing values in the column.
+- column_values_unchanged: values stay equal on the remaining rows (the dtype may change).
+- columns_unchanged: the columns keep their dtype and values ("*" = every input column minus "except").
+- column_dtype: dtype family of the column (int, float, bool, string, category, datetime); for category also "ordered" and "categories".
+- column_value_relation: the output column equals fn(args) computed from the input row, on rows matching "where".
+- columns_added / columns_removed: these columns must appear / disappear.
+Conditions are evaluated on the input data. A missing value makes every comparison false; "is_null" and "not_null" test for missing values."""
+
+CONTRACT_USER_SUFFIX = "\n\nIntent contract (your output is checked against it):\n{contract}"
+
+CONTRACT_PROMPT_HASH = hashlib.sha256((CONTRACT_PROMPT_VERSION + CONTRACT_SYSTEM_PROMPT + USER_TEMPLATE
+                                       + CONTRACT_USER_SUFFIX).encode()).hexdigest()[:12]
+
+
+def contract_for_prompt(contract):
+    """Compact JSON, one predicate per line, without predicate ids (gold contracts have ids, parsed ones don't,
+    so the generator sees the same format for both)."""
+    lines = ['{"contract_version": "1.0",']
+    for d in ("must_change", "must_preserve"):
+        preds = [json.dumps({k: v for k, v in p.items() if k != "id"}, ensure_ascii=False) for p in contract.get(d) or []]
+        lines.append(f' "{d}": [\n  ' + ",\n  ".join(preds) + "\n ]" + ("," if d == "must_change" else ""))
+    lines.append("}")
+    return "\n".join(lines)
+
+
+def build_generator_messages(task, schema, contract=None):
+    """contract=None -> exactly the b1-v1 messages. Otherwise the b2-v1 messages with the contract appended."""
+    msgs = build_messages(task, schema)
+    if contract is None:
+        return msgs
+    return [{"role": "system", "content": CONTRACT_SYSTEM_PROMPT},
+            {"role": "user", "content": msgs[1]["content"] + CONTRACT_USER_SUFFIX.format(contract=contract_for_prompt(contract))}]
+
+
+def generator_prompt_info(with_contract):
+    return dict(version=CONTRACT_PROMPT_VERSION, hash=CONTRACT_PROMPT_HASH) if with_contract else \
+        dict(version=PROMPT_VERSION, hash=PROMPT_HASH)

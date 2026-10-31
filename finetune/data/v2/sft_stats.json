@@ -1,0 +1,26 @@
+{
+  "train": 3614,
+  "val": 796,
+  "val_datasets": [
+    "student"
+  ],
+  "prompt_version": "p1-v2",
+  "train_by_type": {
+    "column_transformation": 965,
+    "type_conversion": 459,
+    "deduplication": 422,
+    "filtering": 942,
+    "missing_values": 826
+  },
+  "train_by_dataset": {
+    "imdb": 452,
+    "bank": 747,
+    "superstore": 492,
+    "avocado": 451,
+    "diamonds": 605,
+    "walmart": 370,
+    "air_quality": 497
+  },
+  "max_chars": 5929,
+  "approx_max_tokens": 1694
+}

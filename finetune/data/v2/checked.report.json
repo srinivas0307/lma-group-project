@@ -1,0 +1,94 @@
+{
+  "summary": {
+    "n_input": 4419,
+    "n_kept": 4410,
+    "by_status": {
+      "ok": 4410,
+      "unique": 6,
+      "leakage": 3
+    },
+    "kept_by_type": {
+      "column_transformation": 1072,
+      "type_conversion": 921,
+      "deduplication": 463,
+      "filtering": 1061,
+      "missing_values": 893
+    },
+    "kept_by_dataset": {
+      "air_quality": 497,
+      "avocado": 451,
+      "bank": 747,
+      "diamonds": 605,
+      "imdb": 452,
+      "student": 796,
+      "superstore": 492,
+      "walmart": 370
+    },
+    "kept_by_predicate": {
+      "columns_added": 514,
+      "columns_removed": 231,
+      "column_value_relation": 1946,
+      "columns_unchanged": 4410,
+      "row_count": 4410,
+      "column_dtype": 1751,
+      "column_values_unchanged": 1219,
+      "duplicate_count": 463,
+      "rows_removed_where": 1380,
+      "rows_retained_where": 1380,
+      "null_count": 712
+    },
+    "kept_by_style": {
+      "casual": 1099,
+      "domain": 1117,
+      "plain": 1098,
+      "indirect": 1096
+    }
+  },
+  "dropped": [
+    {
+      "id": "air_quality_dedup_0453",
+      "status": "unique",
+      "reason": "duplicate request text"
+    },
+    {
+      "id": "air_quality_dedup_0498",
+      "status": "unique",
+      "reason": "duplicate request text"
+    },
+    {
+      "id": "avocado_dedup_0321",
+      "status": "unique",
+      "reason": "duplicate request text"
+    },
+    {
+      "id": "avocado_dedup_0384",
+      "status": "unique",
+      "reason": "duplicate request text"
+    },
+    {
+      "id": "diamonds_dedup_0337",
+      "status": "leakage",
+      "reason": "shares 1 word 5-grams with evaluation requests, e.g. 'price keep the first one'"
+    },
+    {
+      "id": "diamonds_dedup_0338",
+      "status": "leakage",
+      "reason": "shares 1 word 5-grams with evaluation requests, e.g. 'price keep the first one'"
+    },
+    {
+      "id": "walmart_dedup_0051",
+      "status": "unique",
+      "reason": "duplicate request text"
+    },
+    {
+      "id": "walmart_dedup_0108",
+      "status": "unique",
+      "reason": "duplicate request text"
+    },
+    {
+      "id": "walmart_dedup_0271",
+      "status": "leakage",
+      "reason": "shares 1 word 5-grams with evaluation requests, e.g. 'price keep the first one'"
+    }
+  ]
+}

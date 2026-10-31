@@ -1,0 +1,502 @@
+[
+  {
+    "id": "student_col_0121",
+    "verdict": "OK",
+    "note": "Removal of traveltime matches the request. Remaining columns and all rows are preserved."
+  },
+  {
+    "id": "superstore_col_0045",
+    "verdict": "OK",
+    "note": "Sales is capped at 350 with no lower bound. Other columns and row count are preserved."
+  },
+  {
+    "id": "air_quality_col_0103",
+    "verdict": "OK",
+    "note": "O3 is floored at 24. Values above the floor and nulls remain unchanged."
+  },
+  {
+    "id": "diamonds_col_0143",
+    "verdict": "OK",
+    "note": "The vocabulary's map function preserves unlisted values, matching replace and the request to change only VVS2."
+  },
+  {
+    "id": "walmart_col_0108",
+    "verdict": "OK",
+    "note": "Consumer price index correctly resolves to CPI. Only that column is removed."
+  },
+  {
+    "id": "walmart_col_0046",
+    "verdict": "OK",
+    "note": "Unemployment is divided by 100 in place. Nulls and unrelated columns are preserved."
+  },
+  {
+    "id": "superstore_col_0009",
+    "verdict": "OK",
+    "note": "Rename is captured by addition, removal, and an identity relation preserving the old values."
+  },
+  {
+    "id": "imdb_col_0050",
+    "verdict": "OK",
+    "note": "The requested division overwrites No_of_Votes rather than adding a column."
+  },
+  {
+    "id": "walmart_col_0021",
+    "verdict": "OK",
+    "note": "The explicitly requested multiplication and new column name match both contract and code. The derived feature is synthetic but unambiguous."
+  },
+  {
+    "id": "student_col_0031",
+    "verdict": "OK",
+    "note": "Fedu/G1 and the added column match the request. G1 has no zero denominators in this snapshot. The vocabulary defines division by zero as null on other inputs."
+  },
+  {
+    "id": "diamonds_col_0036",
+    "verdict": "OK",
+    "note": "The explicitly requested subtraction z-price matches the new column and code. It is an arbitrary feature, but the intended arithmetic is unambiguous."
+  },
+  {
+    "id": "walmart_col_0092",
+    "verdict": "OK",
+    "note": "Temperature is floored at 42 without imposing an upper bound."
+  },
+  {
+    "id": "avocado_col_0204",
+    "verdict": "OK",
+    "note": "A new dataset_version column is set to v2 on every row. Original columns and rows are preserved."
+  },
+  {
+    "id": "diamonds_col_0198",
+    "verdict": "OK",
+    "note": "A new currency column is set to USD on every row. Original columns and rows are preserved."
+  },
+  {
+    "id": "avocado_col_0205",
+    "verdict": "OK",
+    "note": "The request clearly adds a currency tag. The contract sets USD and preserves the original data."
+  },
+  {
+    "id": "avocado_col_0081",
+    "verdict": "OK",
+    "note": "Total Bags is rounded to one decimal place. Missing values remain missing and other columns are preserved."
+  },
+  {
+    "id": "diamonds_col_0123",
+    "verdict": "OK",
+    "note": "Uppercase conversion applies only to cut, matching the request and reference."
+  },
+  {
+    "id": "bank_col_0019",
+    "verdict": "OK",
+    "note": "The rename age to age_value preserves values through an identity relation and preserves other columns and rows."
+  },
+  {
+    "id": "imdb_col_0065",
+    "verdict": "OK",
+    "note": "Metascore resolves to Meta_score. The contract adds meta_score_x2 and doubles the original values without overwriting them."
+  },
+  {
+    "id": "avocado_col_0092",
+    "verdict": "OK",
+    "note": "Small Bags is floored at 400 with no upper cap and no changes to other columns."
+  },
+  {
+    "id": "superstore_dedup_0109",
+    "verdict": "wrong_contract",
+    "note": "Incomplete preservation: duplicate_count eq 0 without keep checks uniqueness only. Both an empty output and a one-row output pass this contract on the actual snapshot, although the request requires one survivor per key group. Enforce group coverage without inventing a first/last policy, or explicitly request a first/last rule and regenerate. Reference code itself is correct."
+  },
+  {
+    "id": "air_quality_dedup_0339",
+    "verdict": "OK",
+    "note": "All columns except Humidity and RespiratoryCases form the key. keep:first enforces one original first row per group."
+  },
+  {
+    "id": "walmart_dedup_0358",
+    "verdict": "wrong_contract",
+    "note": "Incomplete preservation: duplicate_count eq 0 without keep checks uniqueness only. Both an empty output and a one-row output pass this contract on the actual snapshot, although the request requires one survivor per key group. Enforce group coverage without inventing a first/last policy, or explicitly request a first/last rule and regenerate. Reference code itself is correct."
+  },
+  {
+    "id": "walmart_dedup_0100",
+    "verdict": "OK",
+    "note": "The three requested key columns match. Earliest means first in original row order, as specified by the schema, rather than earliest date."
+  },
+  {
+    "id": "student_dedup_0257",
+    "verdict": "OK",
+    "note": "Medu and failures are excluded only from the deduplication key. keep:first retains one first row per group with original values."
+  },
+  {
+    "id": "bank_dedup_0351",
+    "verdict": "wrong_contract",
+    "note": "Incomplete preservation: duplicate_count eq 0 without keep checks uniqueness only. Both an empty output and a one-row output pass this contract on the actual snapshot, although the request requires one survivor per key group. Enforce group coverage without inventing a first/last policy, or explicitly request a first/last rule and regenerate. Reference code itself is correct."
+  },
+  {
+    "id": "diamonds_dedup_0400",
+    "verdict": "OK",
+    "note": "Only y is excluded from the key. keep:last enforces the last original row for each group."
+  },
+  {
+    "id": "imdb_dedup_0286",
+    "verdict": "unnatural_request",
+    "note": "Contract and reference agree, but 'Each combination of number of votes' is awkward for a single key. Rephrase: 'Keep only the last movie for each distinct number of votes.'"
+  },
+  {
+    "id": "air_quality_dedup_0406",
+    "verdict": "OK",
+    "note": "WindSpeed is excluded from the key and keep:first enforces the requested survivor for every group."
+  },
+  {
+    "id": "bank_dedup_0462",
+    "verdict": "wrong_contract",
+    "note": "Incomplete preservation: duplicate_count eq 0 without keep checks uniqueness only. Both an empty output and a one-row output pass this contract on the actual snapshot, although the request requires one survivor per key group. Enforce group coverage without inventing a first/last policy, or explicitly request a first/last rule and regenerate. Reference code itself is correct."
+  },
+  {
+    "id": "diamonds_dedup_0266",
+    "verdict": "OK",
+    "note": "depth and x are excluded from the key. keep:last matches the stated survivor rule."
+  },
+  {
+    "id": "bank_dedup_0234",
+    "verdict": "OK",
+    "note": "loan, duration and pdays form the requested key. keep:first preserves one original first row per group."
+  },
+  {
+    "id": "imdb_dedup_0521",
+    "verdict": "wrong_contract",
+    "note": "Incomplete preservation: duplicate_count eq 0 without keep checks uniqueness only. Both an empty output and a one-row output pass this contract on the actual snapshot, although the request requires one survivor per key group. Enforce group coverage without inventing a first/last policy, or explicitly request a first/last rule and regenerate. Reference code itself is correct."
+  },
+  {
+    "id": "student_dedup_0053",
+    "verdict": "OK",
+    "note": "address is excluded from the key. The first row of every group is retained and surviving values stay unchanged."
+  },
+  {
+    "id": "walmart_dedup_0412",
+    "verdict": "wrong_contract",
+    "note": "Incomplete preservation: duplicate_count eq 0 without keep checks uniqueness only. Both an empty output and a one-row output pass this contract on the actual snapshot, although the request requires one survivor per key group. Enforce group coverage without inventing a first/last policy, or explicitly request a first/last rule and regenerate. Reference code itself is correct."
+  },
+  {
+    "id": "avocado_dedup_0255",
+    "verdict": "OK",
+    "note": "Total Volume, 4046 and 4770 are literal column names forming the key. keep:first matches the request."
+  },
+  {
+    "id": "imdb_dedup_0241",
+    "verdict": "OK",
+    "note": "Runtime, Star2 and Star4 form the key, with the last original row retained for every group."
+  },
+  {
+    "id": "diamonds_dedup_0424",
+    "verdict": "OK",
+    "note": "color and depth are excluded only from the key. keep:first and preservation of all surviving values match the request."
+  },
+  {
+    "id": "diamonds_dedup_0304",
+    "verdict": "OK",
+    "note": "table is excluded from the key. keep:last enforces one last original row per group."
+  },
+  {
+    "id": "walmart_dedup_0148",
+    "verdict": "wrong_contract",
+    "note": "Incomplete preservation: duplicate_count eq 0 without keep checks uniqueness only. Both an empty output and a one-row output pass this contract on the actual snapshot, although the request requires one survivor per key group. Enforce group coverage without inventing a first/last policy, or explicitly request a first/last rule and regenerate. Reference code itself is correct."
+  },
+  {
+    "id": "diamonds_filt_0174",
+    "verdict": "OK",
+    "note": "The removal condition is clarity=VS2 AND x<5.7, with the complementary rows retained. Both condition columns have no nulls in this snapshot."
+  },
+  {
+    "id": "avocado_filt_0016",
+    "verdict": "OK",
+    "note": "Strict AveragePrice<1.1 removal keeps the boundary 1.1. AveragePrice has no missing cells in this snapshot."
+  },
+  {
+    "id": "air_quality_filt_0031",
+    "verdict": "OK",
+    "note": "Contract and code correctly remove HealthImpactClass>=0. All 989 rows match, so the result is empty and the retention check is vacuous. Prefer a threshold leaving survivors for more informative training coverage."
+  },
+  {
+    "id": "avocado_filt_0085",
+    "verdict": "OK",
+    "note": "Both organic type and 4046<2300 are required for removal. Other types and the threshold boundary are retained."
+  },
+  {
+    "id": "student_filt_0152",
+    "verdict": "OK",
+    "note": "Removal requires romantic=yes AND internet=no. The complementary rows and all surviving column values are preserved."
+  },
+  {
+    "id": "air_quality_filt_0003",
+    "verdict": "OK",
+    "note": "RespiratoryCases<7 is removed and 7 is retained. The condition column has no nulls in this snapshot."
+  },
+  {
+    "id": "walmart_filt_0074",
+    "verdict": "OK",
+    "note": "The retained sales range includes both 610000 and 1600000. Weekly_Sales has no nulls in this snapshot."
+  },
+  {
+    "id": "imdb_filt_0083",
+    "verdict": "OK",
+    "note": "OR removal and its AND complement are correct. Votes=400000 and rating=7.7 remain eligible."
+  },
+  {
+    "id": "diamonds_filt_0138",
+    "verdict": "OK",
+    "note": "Only Good, Premium and Very Good cut values survive. cut has no nulls in this snapshot."
+  },
+  {
+    "id": "imdb_filt_0067",
+    "verdict": "OK",
+    "note": "The OR condition and complementary retention correctly implement votes>600000 or rating<7.7."
+  },
+  {
+    "id": "avocado_filt_0017",
+    "verdict": "OK",
+    "note": "'No more than 370' means <=370. The contract removes that boundary and retains values strictly above it."
+  },
+  {
+    "id": "diamonds_filt_0022",
+    "verdict": "OK",
+    "note": "'At most 0.34' means <=0.34. The code and preservation predicate use the correct strict complement."
+  },
+  {
+    "id": "diamonds_filt_0086",
+    "verdict": "OK",
+    "note": "The NOT equality condition explicitly retains missing color values. The object column's NaN values are also retained by the reference's != comparison."
+  },
+  {
+    "id": "diamonds_filt_0125",
+    "verdict": "OK",
+    "note": "Only clarity SI2 or VS1 rows are removed. clarity has no nulls in this snapshot, so not_in is a complete complement here."
+  },
+  {
+    "id": "bank_filt_0069",
+    "verdict": "OK",
+    "note": "Only month apr or feb rows are removed. month has no nulls in this snapshot."
+  },
+  {
+    "id": "superstore_filt_0105",
+    "verdict": "unnatural_request",
+    "note": "The contract and code correctly retain missing Sales. The phrase 'Orders without a sales stay in' is unnatural. Rephrase: 'Keep orders with missing sales values.'"
+  },
+  {
+    "id": "avocado_filt_0080",
+    "verdict": "OK",
+    "note": "Removal requires both conventional type and AveragePrice<1.3. The complementary rows are retained."
+  },
+  {
+    "id": "avocado_filt_0056",
+    "verdict": "OK",
+    "note": "The 4046 range is inclusive at 80 and 400000. The condition column has no nulls in this snapshot."
+  },
+  {
+    "id": "imdb_filt_0055",
+    "verdict": "OK",
+    "note": "The retained vote range includes 51000 and 730000, matching 'below' and 'above' removal."
+  },
+  {
+    "id": "walmart_filt_0106",
+    "verdict": "OK",
+    "note": "'And also the ones' describes two removal groups, so OR is correct. Store<=41 AND Temperature>=35 is the retention condition."
+  },
+  {
+    "id": "imdb_miss_0016",
+    "verdict": "OK",
+    "note": "Only missing Meta_score values become -1. Nonmissing scores, other columns and all rows are preserved."
+  },
+  {
+    "id": "air_quality_miss_0168",
+    "verdict": "OK",
+    "note": "A missing value in either NO2 or WindSpeed removes the row. Rows complete in both columns are retained."
+  },
+  {
+    "id": "bank_miss_0113",
+    "verdict": "OK",
+    "note": "The snapshot median duration is exactly 182.5. A precomputed const literal is explicitly allowed by contract_schema sections 6 and 12, so this label is correct for this snapshot. Parser input needs that statistic to infer the literal reliably."
+  },
+  {
+    "id": "imdb_miss_0113",
+    "verdict": "OK",
+    "note": "Missing Gross values receive the literal text Not available. Existing values and unrelated data are preserved."
+  },
+  {
+    "id": "bank_miss_0100",
+    "verdict": "OK",
+    "note": "Only null job values become Other. Existing job labels, including any nonnull unknown sentinel, remain unchanged."
+  },
+  {
+    "id": "superstore_miss_0039",
+    "verdict": "OK",
+    "note": "Only missing Sales values become 1.5. Existing sales and unrelated columns are preserved."
+  },
+  {
+    "id": "air_quality_miss_0194",
+    "verdict": "OK",
+    "note": "A null in any of PM10, SO2 or WindSpeed removes the row. All three must be present to retain it."
+  },
+  {
+    "id": "imdb_miss_0108",
+    "verdict": "OK",
+    "note": "Only missing Genre values become Other. Nonmissing genres remain unchanged."
+  },
+  {
+    "id": "bank_miss_0152",
+    "verdict": "OK",
+    "note": "Rows missing duration are removed. Every row with a recorded duration survives unchanged."
+  },
+  {
+    "id": "walmart_miss_0022",
+    "verdict": "OK",
+    "note": "Only missing Unemployment values become 0. Recorded rates remain unchanged."
+  },
+  {
+    "id": "imdb_miss_0099",
+    "verdict": "OK",
+    "note": "The lowercase text none is a literal string, not Python None or a null. Contract and reference agree."
+  },
+  {
+    "id": "avocado_miss_0114",
+    "verdict": "OK",
+    "note": "Large Bags must be nonnull to retain the row. Zero counts as a recorded value and is retained."
+  },
+  {
+    "id": "superstore_miss_0169",
+    "verdict": "OK",
+    "note": "Both Sales and Segment must be present. The contract removes rows missing either and preserves complete rows."
+  },
+  {
+    "id": "imdb_miss_0192",
+    "verdict": "OK",
+    "note": "Any missing Certificate, Director, Gross or Meta_score removes a row. All four are required for retention."
+  },
+  {
+    "id": "imdb_miss_0162",
+    "verdict": "OK",
+    "note": "All of Director, Gross and Meta_score must be nonnull. Other columns need not be filled."
+  },
+  {
+    "id": "bank_miss_0094",
+    "verdict": "OK",
+    "note": "Only null job values receive Not available. Existing labels, other columns and all rows are preserved."
+  },
+  {
+    "id": "diamonds_miss_0124",
+    "verdict": "OK",
+    "note": "'Table width' resolves to the dataset's table column. Only missing table rows are removed."
+  },
+  {
+    "id": "air_quality_miss_0147",
+    "verdict": "OK",
+    "note": "The OR applies to missingness in Humidity, NO2 and PM10. Rows with all three recorded are retained."
+  },
+  {
+    "id": "imdb_miss_0175",
+    "verdict": "OK",
+    "note": "Missingness in any of Certificate, Director or Genre removes the row. All other complete rows survive."
+  },
+  {
+    "id": "superstore_miss_0167",
+    "verdict": "OK",
+    "note": "Rows missing either Sales or Segment are removed. Both values must be present for retention."
+  },
+  {
+    "id": "student_conv_0013",
+    "verdict": "OK",
+    "note": "Only school's dtype changes to category. Its values and all other columns and rows are preserved."
+  },
+  {
+    "id": "bank_conv_0321",
+    "verdict": "OK",
+    "note": "age, day and previous become float, preserving numeric values. 'Contact day' correctly resolves to day."
+  },
+  {
+    "id": "student_conv_0315",
+    "verdict": "OK",
+    "note": "Mjob, activities and higher become category without changing values. Missing Mjob values remain missing."
+  },
+  {
+    "id": "bank_conv_0229",
+    "verdict": "OK",
+    "note": "job, contact and month become category. Existing values and job missingness are preserved."
+  },
+  {
+    "id": "bank_conv_0291",
+    "verdict": "OK",
+    "note": "age and day become text via cast-to-string relations. Both columns have no nulls in this snapshot."
+  },
+  {
+    "id": "bank_conv_0149",
+    "verdict": "OK",
+    "note": "Personal loan flag resolves to loan. loan and month become category without value changes."
+  },
+  {
+    "id": "bank_conv_0157",
+    "verdict": "OK",
+    "note": "education, loan and month are all converted to category, preserving values and unrelated columns."
+  },
+  {
+    "id": "student_conv_0704",
+    "verdict": "OK",
+    "note": "age, famrel and Walc become float. Their numeric values, other columns and row count are preserved."
+  },
+  {
+    "id": "bank_conv_0153",
+    "verdict": "OK",
+    "note": "housing and contact become category. The requested labels resolve to the correct columns."
+  },
+  {
+    "id": "air_quality_conv_0037",
+    "verdict": "OK",
+    "note": "HospitalAdmissions becomes string with its numeric representation preserved by a cast relation. The column has no nulls in this snapshot."
+  },
+  {
+    "id": "student_conv_0385",
+    "verdict": "OK",
+    "note": "famsize, schoolsup and higher become category while values remain unchanged, as explicitly requested."
+  },
+  {
+    "id": "student_conv_0458",
+    "verdict": "OK",
+    "note": "studytime and freetime become text using cast relations. Both have no missing cells in this snapshot."
+  },
+  {
+    "id": "bank_conv_0256",
+    "verdict": "OK",
+    "note": "job, default and month become category. The values and job null count remain unchanged."
+  },
+  {
+    "id": "student_conv_0157",
+    "verdict": "OK",
+    "note": "G1 becomes float while grades retain their numeric values."
+  },
+  {
+    "id": "bank_conv_0009",
+    "verdict": "OK",
+    "note": "education becomes category without changing its labels or unrelated data."
+  },
+  {
+    "id": "bank_conv_0032",
+    "verdict": "OK",
+    "note": "Housing loan flag correctly resolves to housing, which becomes category without value changes."
+  },
+  {
+    "id": "student_conv_0490",
+    "verdict": "OK",
+    "note": "Father's education resolves to Fedu and weekend alcohol use to Walc. Both become text, with no missing cells in this snapshot."
+  },
+  {
+    "id": "student_conv_0613",
+    "verdict": "OK",
+    "note": "age, Medu and G1 become float. First-period grade correctly resolves to G1 and all numeric values are preserved."
+  },
+  {
+    "id": "bank_conv_0085",
+    "verdict": "OK",
+    "note": "day becomes float. The numeric day values and other columns remain unchanged."
+  },
+  {
+    "id": "superstore_conv_0064",
+    "verdict": "OK",
+    "note": "Ship Mode, Segment and Category become category. Missing Segment values remain missing and unrelated data is preserved."
+  }
+]
