@@ -163,6 +163,9 @@ The "notes / task ideas" column is where most of your task ideas will come from.
 
 ## 5. Contract schema v1 (specification)
 
+> **Reference:** `docs/contract_schema.md` is written from the code (`src/igt/contracts/`, `src/igt/verifier/`) and is the
+> authority where the two differ. The five places where this section used to differ were corrected on 2026-10-31 (OI-10).
+
 ### 5.1 Top-level structure
 
 ```json
@@ -192,7 +195,7 @@ The "notes / task ideas" column is where most of your task ideas will come from.
 | Removed rows | Before rows with no match in after. |
 | Added rows | After rows with no match in before. |
 | Column set `*` | All columns of the **before** data. Used with `except` to avoid long lists. |
-| Value equality | Two values are equal if both are null, or both are non-null and equal. Floats use `atol` (default `1e-9`) and `rtol` (default `0`). Numbers compare by value across int/float (`3 == 3.0`). |
+| Value equality | Two values are equal if both are null, or both are non-null and equal. Floats use an absolute tolerance `atol` (default `1e-9`; `column_value_relation` can set its own). There is no relative tolerance. Numbers compare by value across int/float (`3 == 3.0`). |
 | Row order | Never matters. |
 
 ### 5.3 Conditions (row filters)
@@ -214,7 +217,7 @@ Conditions are evaluated on **before** values. They're trees made of leaves and 
 
 Because null makes every comparison false, `{"not": {"column": "price", "op": "==", "value": 0}}` is **true** for null prices, while `{"column": "price", "op": "!=", "value": 0}` is **false** for them. Pick deliberately; see the null rule in §6.4.
 
-**Canonical form** (required in gold contracts, so matching is exact):
+**Canonical form** (a writing convention for gold contracts, for readability; matching canonicalises conditions automatically (§5.8), so a contract written another way scores the same):
 
 1. Leaves always have the column first and a constant value. No column-to-column comparisons in conditions.
 2. Prefer positive operators: write `{"not": {"column":"x","op":"==","value":1}}` only when you need null-inclusive negation; otherwise write the direct operator.
@@ -269,8 +272,8 @@ Closed set. Arguments are column names (from the before row) or literal values, 
 | `round` | `[col, {"lit": n}]` | Round half-to-even to `n` decimals |
 | `clip` | `[col, {"lit": lo}, {"lit": hi}]` | Clip into [lo, hi] (either bound may be `null` lit) |
 | `lower`, `upper`, `strip` | `[col]` | String functions; null → null |
-| `map` | `[col, {"lit": {"from": "to", ...}}]` | Map listed values; unlisted values unchanged |
-| `cast` | `[col, {"lit": dtype}]` | Same value converted to dtype family (§5.7); unparseable → null. For datetime, values are parsed as ISO `YYYY-MM-DD` unless a format is given as a third arg `{"lit": "%d/%m/%Y"}`. |
+| `map` | `[col, {"lit": {"from": "to", ...}}]` | Map listed values: a value is looked up as it is, then by its string form (so `1` matches `"1"`); unlisted values unchanged |
+| `cast` | `[col, {"lit": dtype}]` | Same value converted to dtype family (§5.7); unparseable → null. For datetime, ISO 8601 text is parsed (a date, or a date and time) unless a format is given as a third arg `{"lit": "%d/%m/%Y"}`. |
 
 If a task needs a function that isn't here, **don't invent one in the gold contract**. Note it in the task's `notes` and raise it at the pilot review; we either add it to the vocabulary (bumping the version) or drop the task.
 
@@ -282,7 +285,7 @@ If a task needs a function that isn't here, **don't invent one in the gold contr
 | `float` | float16–float64, nullable `Float*` |
 | `bool` | bool, nullable `boolean` |
 | `string` | `object` containing only str/null, `string` |
-| `category` | `category` (`ordered` and `categories` optional; `categories` order matters only if `ordered: true`) |
+| `category` | `category` (`ordered` and `categories` optional; `categories` order matters if the contract says `ordered: true` **or** the output column itself is ordered; otherwise they are compared as sets) |
 | `datetime` | `datetime64[*]` (tz-naive) |
 
 ### 5.8 Matching rules (how contracts are scored, no LLM judge)

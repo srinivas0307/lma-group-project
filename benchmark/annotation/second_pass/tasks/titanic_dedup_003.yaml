@@ -1,0 +1,40 @@
+# Second annotation of a gold contract (guide docs/eval_set_and_contract_guide.md §12.2).
+# Write the contract you think is right from the request and the data below ONLY.
+# Do not open benchmark/tasks/, results/ or the first annotator's work until you are finished.
+# Rules: guide §6 (default preservation, null rule, minimal-but-complete, non-vacuity) and docs/contract_schema.md
+# (the 11 predicates, conditions, functions, dtypes). Record every interpretation choice under `assumptions`.
+# When done set status: done. Check the file loads with: .venv/bin/python eval/annotation_agreement.py --check
+task_id: titanic_dedup_003
+dataset: titanic
+data_file: data/Titanic-Dataset.csv
+request: Treat passengers with the same Ticket, Pclass and Embarked values as duplicates and keep only the first of each.
+data: |
+  891 rows, 12 columns.
+  Columns (name: dtype, missing values):
+  - PassengerId: int64, 0 missing
+  - Survived: int64, 0 missing
+  - Pclass: int64, 0 missing
+  - Name: object, 0 missing
+  - Sex: object, 0 missing
+  - Age: float64, 177 missing
+  - SibSp: int64, 0 missing
+  - Parch: int64, 0 missing
+  - Ticket: object, 0 missing
+  - Fare: float64, 0 missing
+  - Cabin: object, 687 missing
+  - Embarked: object, 2 missing
+  First 5 rows (CSV):
+  PassengerId,Survived,Pclass,Name,Sex,Age,SibSp,Parch,Ticket,Fare,Cabin,Embarked
+  1,0,3,"Braund, Mr. Owen Harris",male,22.0,1,0,A/5 21171,7.25,,S
+  2,1,1,"Cumings, Mrs. John Bradley (Florence Briggs Thayer)",female,38.0,1,0,PC 17599,71.2833,C85,C
+  3,1,3,"Heikkinen, Miss. Laina",female,26.0,0,0,STON/O2. 3101282,7.925,,S
+  4,1,1,"Futrelle, Mrs. Jacques Heath (Lily May Peel)",female,35.0,1,0,113803,53.1,C123,S
+  5,0,3,"Allen, Mr. William Henry",male,35.0,0,0,373450,8.05,,S
+annotator: ''
+status: todo
+assumptions: []
+contract:
+  contract_version: '1.0'
+  must_change: []
+  must_preserve: []
+notes: ''

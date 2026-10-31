@@ -12,7 +12,7 @@ function, the validation rules, and exactly how the verifier checks a contract.
 | Verdict format | `docs/verdict_format.md` |
 | Annotation rules | `docs/eval_set_and_contract_guide.md` §6 |
 
-Where this file and the guide's §5 disagree, this file follows the code. The differences are listed in §12.
+Where this file and the guide's §5 disagree, this file follows the code. The guide was corrected on 2026-10-31; §12.2 lists what changed.
 
 ## Contents
 
@@ -718,9 +718,11 @@ gold_contract:
 | Index alignment at the same row count tolerates up to 10% disagreeing rows | A small reorder followed by `reset_index` is reported as "values changed", not "reordered" (still a VIOLATION). | §9.2 |
 | Time-zone-aware datetimes are their own family (`datetime_tz`) | `dtype: datetime` doesn't accept them. | §7 |
 
-### 12.2 Where the guide (§5) differs from the code
+### 12.2 Where the guide (§5) used to differ from the code
 
-| Guide says | Code does |
+All five were corrected in the guide on 2026-10-31 (OI-10); the table records what changed.
+
+| Guide used to say | Code does (guide now says the same) |
 |---|---|
 | Floats use `atol` and `rtol` (default 0) | Only `atol` exists. |
 | `cast` to datetime parses ISO `YYYY-MM-DD` by default | It parses any ISO 8601 text (date, or date and time). |

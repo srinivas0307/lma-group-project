@@ -1,0 +1,7 @@
+# Tests (laptop). Versions from the project environment (.venv, 2026-10-31).
+-r requirements.txt
+pytest==9.2.0
+pluggy==1.7.0
+iniconfig==2.3.1
+packaging==26.3
+pygments==2.21.0

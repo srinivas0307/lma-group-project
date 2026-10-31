@@ -9,7 +9,7 @@ lora_r: 16
 lora_alpha: 32
 lora_dropout: 0.05
 learning_rate: 2.0e-4
-num_epochs: 2
+num_epochs: 1                     # was 2; 2026-10-31 smoke: 3B at 120 s/step needs ~15 h for 2 epochs (> 12 h Kaggle session); same for both sizes
 per_device_batch_size: 1          # Kaggle T4 OOM at 4 (2026-10-31): ~152k-token vocab, fp32 logits of 4 x 1.8k tokens ~8 GB
 gradient_accumulation_steps: 16   # effective batch 16, unchanged
 max_seq_len: 3072                 # p1-v2 prompt ~1.5k tokens + contract; margin so nothing is dropped

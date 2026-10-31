@@ -1,0 +1,75 @@
+{
+  "seed": 0,
+  "tasks": [
+    "adult_filt_004",
+    "airbnb_filt_004",
+    "taxi_filt_001",
+    "titanic_filt_003",
+    "adult_filt_005",
+    "adult_dedup_004",
+    "airbnb_dedup_003",
+    "taxi_dedup_004",
+    "titanic_dedup_003",
+    "airbnb_dedup_002",
+    "adult_miss_005",
+    "airbnb_miss_002",
+    "taxi_miss_003",
+    "titanic_miss_002",
+    "taxi_miss_001",
+    "adult_conv_005",
+    "airbnb_conv_003",
+    "taxi_conv_005",
+    "titanic_conv_005",
+    "titanic_conv_002",
+    "adult_col_003",
+    "airbnb_col_001",
+    "taxi_col_001",
+    "titanic_col_003",
+    "adult_col_005"
+  ],
+  "scenarios": [
+    "E_007",
+    "E_014",
+    "E_002",
+    "S_010",
+    "S_001",
+    "S_004"
+  ],
+  "by_type": {
+    "filtering": [
+      "adult_filt_004",
+      "airbnb_filt_004",
+      "taxi_filt_001",
+      "titanic_filt_003",
+      "adult_filt_005"
+    ],
+    "deduplication": [
+      "adult_dedup_004",
+      "airbnb_dedup_003",
+      "taxi_dedup_004",
+      "titanic_dedup_003",
+      "airbnb_dedup_002"
+    ],
+    "missing_values": [
+      "adult_miss_005",
+      "airbnb_miss_002",
+      "taxi_miss_003",
+      "titanic_miss_002",
+      "taxi_miss_001"
+    ],
+    "type_conversion": [
+      "adult_conv_005",
+      "airbnb_conv_003",
+      "taxi_conv_005",
+      "titanic_conv_005",
+      "titanic_conv_002"
+    ],
+    "column_transformation": [
+      "adult_col_003",
+      "airbnb_col_001",
+      "taxi_col_001",
+      "titanic_col_003",
+      "adult_col_005"
+    ]
+  }
+}

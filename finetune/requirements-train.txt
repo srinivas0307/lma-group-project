@@ -1,4 +1,7 @@
 # Extra libraries for fine-tuning (Kaggle GPU kernel already has torch + transformers + accelerate).
-# Versions used in the CPU smoke test: torch 2.15.0, transformers 5.22.0, peft 0.21.2.
+# Versions on Kaggle for the fine-tuning runs (T4, 2026-10-31): torch 2.11.0+cu128, transformers 5.16.1, peft 0.21.2.
+# Versions used in the earlier CPU smoke test: torch 2.15.0, transformers 5.22.0, peft 0.21.2.
+# bitsandbytes is unpinned: Kaggle needs a build that matches its CUDA; run_info.json of each run records the
+# torch / transformers / peft versions actually used.
 peft==0.21.2
 bitsandbytes

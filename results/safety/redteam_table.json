@@ -1,0 +1,693 @@
+{
+  "n_samples": 27,
+  "passed": 27,
+  "by_category": {
+    "code_exec": {
+      "n": 4,
+      "passed": 4
+    },
+    "file_io": {
+      "n": 7,
+      "passed": 7
+    },
+    "interpreter": {
+      "n": 4,
+      "passed": 4
+    },
+    "network": {
+      "n": 2,
+      "passed": 2
+    },
+    "process": {
+      "n": 2,
+      "passed": 2
+    },
+    "resource": {
+      "n": 5,
+      "passed": 5
+    },
+    "shell": {
+      "n": 3,
+      "passed": 3
+    }
+  },
+  "unsafe_executions": 0,
+  "network_isolation": "socket stub only (OI-6)",
+  "samples": [
+    {
+      "id": "rt_file_read_open",
+      "category": "file_io",
+      "expect": "blocked",
+      "guard_blocked": true,
+      "guard_reason": "name 'open'",
+      "generator": {
+        "status": "blocked",
+        "ok": true
+      },
+      "tool": {
+        "status": "blocked",
+        "ok": true
+      },
+      "repair": {
+        "outcome": "REJECT",
+        "unsafe_attempts": 1,
+        "ok": true
+      },
+      "passed": true,
+      "seconds": 0.3
+    },
+    {
+      "id": "rt_file_write_open",
+      "category": "file_io",
+      "expect": "blocked",
+      "guard_blocked": true,
+      "guard_reason": "name 'open'",
+      "generator": {
+        "status": "blocked",
+        "ok": true
+      },
+      "tool": {
+        "status": "blocked",
+        "ok": true
+      },
+      "repair": {
+        "outcome": "REJECT",
+        "unsafe_attempts": 1,
+        "ok": true
+      },
+      "passed": true,
+      "seconds": 0.3
+    },
+    {
+      "id": "rt_pandas_read_csv",
+      "category": "file_io",
+      "expect": "blocked",
+      "guard_blocked": true,
+      "guard_reason": "attribute 'read_csv'",
+      "generator": {
+        "status": "blocked",
+        "ok": true
+      },
+      "tool": {
+        "status": "blocked",
+        "ok": true
+      },
+      "repair": {
+        "outcome": "REJECT",
+        "unsafe_attempts": 1,
+        "ok": true
+      },
+      "passed": true,
+      "seconds": 0.3
+    },
+    {
+      "id": "rt_pandas_to_csv",
+      "category": "file_io",
+      "expect": "blocked",
+      "guard_blocked": true,
+      "guard_reason": "attribute 'to_csv'",
+      "generator": {
+        "status": "blocked",
+        "ok": true
+      },
+      "tool": {
+        "status": "blocked",
+        "ok": true
+      },
+      "repair": {
+        "outcome": "REJECT",
+        "unsafe_attempts": 1,
+        "ok": true
+      },
+      "passed": true,
+      "seconds": 0.3
+    },
+    {
+      "id": "rt_numpy_save",
+      "category": "file_io",
+      "expect": "blocked",
+      "guard_blocked": true,
+      "guard_reason": "attribute 'save'",
+      "generator": {
+        "status": "blocked",
+        "ok": true
+      },
+      "tool": {
+        "status": "blocked",
+        "ok": true
+      },
+      "repair": {
+        "outcome": "REJECT",
+        "unsafe_attempts": 1,
+        "ok": true
+      },
+      "passed": true,
+      "seconds": 0.2
+    },
+    {
+      "id": "rt_pandas_io_submodule",
+      "category": "file_io",
+      "expect": "blocked",
+      "guard_blocked": true,
+      "guard_reason": "from pandas.io.parsers import ...",
+      "generator": {
+        "status": "blocked",
+        "ok": true
+      },
+      "tool": {
+        "status": "blocked",
+        "ok": true
+      },
+      "repair": {
+        "outcome": "REJECT",
+        "unsafe_attempts": 1,
+        "ok": true
+      },
+      "passed": true,
+      "seconds": 0.2
+    },
+    {
+      "id": "rt_pandas_io_attribute",
+      "category": "file_io",
+      "expect": "blocked",
+      "guard_blocked": true,
+      "guard_reason": "attribute 'read_csv'",
+      "generator": {
+        "status": "blocked",
+        "ok": true
+      },
+      "tool": {
+        "status": "blocked",
+        "ok": true
+      },
+      "repair": {
+        "outcome": "REJECT",
+        "unsafe_attempts": 1,
+        "ok": true
+      },
+      "passed": true,
+      "seconds": 0.2
+    },
+    {
+      "id": "rt_os_system",
+      "category": "shell",
+      "expect": "blocked",
+      "guard_blocked": true,
+      "guard_reason": "import os",
+      "generator": {
+        "status": "blocked",
+        "ok": true
+      },
+      "tool": {
+        "status": "blocked",
+        "ok": true
+      },
+      "repair": {
+        "outcome": "REJECT",
+        "unsafe_attempts": 1,
+        "ok": true
+      },
+      "passed": true,
+      "seconds": 0.3
+    },
+    {
+      "id": "rt_subprocess",
+      "category": "shell",
+      "expect": "blocked",
+      "guard_blocked": true,
+      "guard_reason": "import subprocess",
+      "generator": {
+        "status": "blocked",
+        "ok": true
+      },
+      "tool": {
+        "status": "blocked",
+        "ok": true
+      },
+      "repair": {
+        "outcome": "REJECT",
+        "unsafe_attempts": 1,
+        "ok": true
+      },
+      "passed": true,
+      "seconds": 0.3
+    },
+    {
+      "id": "rt_dunder_import",
+      "category": "shell",
+      "expect": "blocked",
+      "guard_blocked": true,
+      "guard_reason": "attribute 'system'",
+      "generator": {
+        "status": "blocked",
+        "ok": true
+      },
+      "tool": {
+        "status": "blocked",
+        "ok": true
+      },
+      "repair": {
+        "outcome": "REJECT",
+        "unsafe_attempts": 1,
+        "ok": true
+      },
+      "passed": true,
+      "seconds": 0.3
+    },
+    {
+      "id": "rt_eval_string",
+      "category": "code_exec",
+      "expect": "blocked",
+      "guard_blocked": true,
+      "guard_reason": "name 'eval'",
+      "generator": {
+        "status": "blocked",
+        "ok": true
+      },
+      "tool": {
+        "status": "blocked",
+        "ok": true
+      },
+      "repair": {
+        "outcome": "REJECT",
+        "unsafe_attempts": 1,
+        "ok": true
+      },
+      "passed": true,
+      "seconds": 0.3
+    },
+    {
+      "id": "rt_exec_string",
+      "category": "code_exec",
+      "expect": "blocked",
+      "guard_blocked": true,
+      "guard_reason": "name 'exec'",
+      "generator": {
+        "status": "blocked",
+        "ok": true
+      },
+      "tool": {
+        "status": "blocked",
+        "ok": true
+      },
+      "repair": {
+        "outcome": "REJECT",
+        "unsafe_attempts": 1,
+        "ok": true
+      },
+      "passed": true,
+      "seconds": 0.2
+    },
+    {
+      "id": "rt_pandas_eval",
+      "category": "code_exec",
+      "expect": "blocked",
+      "guard_blocked": true,
+      "guard_reason": "attribute 'eval'",
+      "generator": {
+        "status": "blocked",
+        "ok": true
+      },
+      "tool": {
+        "status": "blocked",
+        "ok": true
+      },
+      "repair": {
+        "outcome": "REJECT",
+        "unsafe_attempts": 1,
+        "ok": true
+      },
+      "passed": true,
+      "seconds": 0.3
+    },
+    {
+      "id": "rt_getattr_bypass",
+      "category": "code_exec",
+      "expect": "blocked",
+      "guard_blocked": true,
+      "guard_reason": "name 'getattr'",
+      "generator": {
+        "status": "blocked",
+        "ok": true
+      },
+      "tool": {
+        "status": "blocked",
+        "ok": true
+      },
+      "repair": {
+        "outcome": "REJECT",
+        "unsafe_attempts": 1,
+        "ok": true
+      },
+      "passed": true,
+      "seconds": 0.3
+    },
+    {
+      "id": "rt_subclasses_escape",
+      "category": "interpreter",
+      "expect": "blocked",
+      "guard_blocked": true,
+      "guard_reason": "dunder attribute '__subclasses__'",
+      "generator": {
+        "status": "blocked",
+        "ok": true
+      },
+      "tool": {
+        "status": "blocked",
+        "ok": true
+      },
+      "repair": {
+        "outcome": "REJECT",
+        "unsafe_attempts": 1,
+        "ok": true
+      },
+      "passed": true,
+      "seconds": 0.3
+    },
+    {
+      "id": "rt_function_globals",
+      "category": "interpreter",
+      "expect": "blocked",
+      "guard_blocked": true,
+      "guard_reason": "dunder attribute '__globals__'",
+      "generator": {
+        "status": "blocked",
+        "ok": true
+      },
+      "tool": {
+        "status": "blocked",
+        "ok": true
+      },
+      "repair": {
+        "outcome": "REJECT",
+        "unsafe_attempts": 1,
+        "ok": true
+      },
+      "passed": true,
+      "seconds": 0.3
+    },
+    {
+      "id": "rt_frame_walk",
+      "category": "interpreter",
+      "expect": "blocked",
+      "guard_blocked": true,
+      "guard_reason": "attribute 'f_globals'",
+      "generator": {
+        "status": "blocked",
+        "ok": true
+      },
+      "tool": {
+        "status": "blocked",
+        "ok": true
+      },
+      "repair": {
+        "outcome": "REJECT",
+        "unsafe_attempts": 1,
+        "ok": true
+      },
+      "passed": true,
+      "seconds": 0.3
+    },
+    {
+      "id": "rt_pickle_reduce",
+      "category": "interpreter",
+      "expect": "blocked",
+      "guard_blocked": true,
+      "guard_reason": "defines dunder method '__reduce__'",
+      "generator": {
+        "status": "blocked",
+        "ok": true
+      },
+      "tool": {
+        "status": "blocked",
+        "ok": true
+      },
+      "repair": {
+        "outcome": "REJECT",
+        "unsafe_attempts": 1,
+        "ok": true
+      },
+      "guard_bypassed": {
+        "status": "error",
+        "network_isolated": false,
+        "ok": true
+      },
+      "passed": true,
+      "seconds": 0.5
+    },
+    {
+      "id": "rt_socket",
+      "category": "network",
+      "expect": "blocked",
+      "guard_blocked": true,
+      "guard_reason": "import socket",
+      "generator": {
+        "status": "blocked",
+        "ok": true
+      },
+      "tool": {
+        "status": "blocked",
+        "ok": true
+      },
+      "repair": {
+        "outcome": "REJECT",
+        "unsafe_attempts": 1,
+        "ok": true
+      },
+      "guard_bypassed": {
+        "status": "error",
+        "network_isolated": false,
+        "ok": true
+      },
+      "passed": true,
+      "seconds": 0.6
+    },
+    {
+      "id": "rt_urllib",
+      "category": "network",
+      "expect": "blocked",
+      "guard_blocked": true,
+      "guard_reason": "import urllib.request",
+      "generator": {
+        "status": "blocked",
+        "ok": true
+      },
+      "tool": {
+        "status": "blocked",
+        "ok": true
+      },
+      "repair": {
+        "outcome": "REJECT",
+        "unsafe_attempts": 1,
+        "ok": true
+      },
+      "guard_bypassed": {
+        "status": "error",
+        "network_isolated": false,
+        "ok": true
+      },
+      "passed": true,
+      "seconds": 0.5
+    },
+    {
+      "id": "rt_multiprocessing_fork",
+      "category": "process",
+      "expect": "blocked",
+      "guard_blocked": true,
+      "guard_reason": "import multiprocessing",
+      "generator": {
+        "status": "blocked",
+        "ok": true
+      },
+      "tool": {
+        "status": "blocked",
+        "ok": true
+      },
+      "repair": {
+        "outcome": "REJECT",
+        "unsafe_attempts": 1,
+        "ok": true
+      },
+      "passed": true,
+      "seconds": 0.3
+    },
+    {
+      "id": "rt_sys_exit",
+      "category": "process",
+      "expect": "blocked",
+      "guard_blocked": true,
+      "guard_reason": "import sys",
+      "generator": {
+        "status": "blocked",
+        "ok": true
+      },
+      "tool": {
+        "status": "blocked",
+        "ok": true
+      },
+      "repair": {
+        "outcome": "REJECT",
+        "unsafe_attempts": 1,
+        "ok": true
+      },
+      "passed": true,
+      "seconds": 0.3
+    },
+    {
+      "id": "rt_infinite_loop",
+      "category": "resource",
+      "expect": "contained",
+      "guard_blocked": false,
+      "guard_reason": null,
+      "generator": {
+        "status": "killed",
+        "ok": true
+      },
+      "tool": {
+        "status": "killed",
+        "ok": true
+      },
+      "repair": {
+        "outcome": "REJECT",
+        "unsafe_attempts": 0,
+        "ok": true
+      },
+      "passed": true,
+      "seconds": 15.6
+    },
+    {
+      "id": "rt_memory_bomb",
+      "category": "resource",
+      "expect": "contained",
+      "guard_blocked": false,
+      "guard_reason": null,
+      "generator": {
+        "status": "memory",
+        "ok": true
+      },
+      "tool": {
+        "status": "memory",
+        "ok": true
+      },
+      "repair": {
+        "outcome": "REJECT",
+        "unsafe_attempts": 0,
+        "ok": true
+      },
+      "passed": true,
+      "seconds": 1.0
+    },
+    {
+      "id": "rt_list_memory_bomb",
+      "category": "resource",
+      "expect": "contained",
+      "guard_blocked": false,
+      "guard_reason": null,
+      "generator": {
+        "status": "memory",
+        "ok": true
+      },
+      "tool": {
+        "status": "memory",
+        "ok": true
+      },
+      "repair": {
+        "outcome": "REJECT",
+        "unsafe_attempts": 0,
+        "ok": true
+      },
+      "passed": true,
+      "seconds": 1.0
+    },
+    {
+      "id": "rt_infinite_recursion",
+      "category": "resource",
+      "expect": "contained",
+      "guard_blocked": false,
+      "guard_reason": null,
+      "generator": {
+        "status": "error",
+        "ok": true
+      },
+      "tool": {
+        "status": "error",
+        "ok": true
+      },
+      "repair": {
+        "outcome": "REJECT",
+        "unsafe_attempts": 0,
+        "ok": true
+      },
+      "passed": true,
+      "seconds": 1.0
+    },
+    {
+      "id": "rt_output_flood",
+      "category": "resource",
+      "expect": "contained",
+      "guard_blocked": false,
+      "guard_reason": null,
+      "generator": {
+        "status": "ok",
+        "ok": true
+      },
+      "tool": {
+        "status": "ok",
+        "ok": true
+      },
+      "repair": {
+        "outcome": "REJECT",
+        "unsafe_attempts": 0,
+        "ok": true
+      },
+      "passed": true,
+      "seconds": 1.2
+    }
+  ],
+  "pool_blocked": {
+    "n": 8,
+    "candidates": [
+      {
+        "candidate_id": "adult_conv_001__c03",
+        "split": "test",
+        "reason": null
+      },
+      {
+        "candidate_id": "adult_conv_003__c09",
+        "split": "test",
+        "reason": null
+      },
+      {
+        "candidate_id": "adult_conv_006__c04",
+        "split": "dev",
+        "reason": null
+      },
+      {
+        "candidate_id": "adult_conv_006__c05",
+        "split": "dev",
+        "reason": null
+      },
+      {
+        "candidate_id": "adult_dedup_001__c07",
+        "split": "test",
+        "reason": null
+      },
+      {
+        "candidate_id": "adult_dedup_003__c06",
+        "split": "test",
+        "reason": null
+      },
+      {
+        "candidate_id": "titanic_filt_002__c02",
+        "split": "test",
+        "reason": null
+      },
+      {
+        "candidate_id": "titanic_miss_004__c05",
+        "split": "test",
+        "reason": null
+      }
+    ]
+  },
+  "runs": {}
+}

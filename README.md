@@ -917,19 +917,19 @@ Every predicate, normalization, alignment, AST guard, executor limits, tool argu
 ## 11. Final implementation checklist
 
 - [x] TA approval (agent-evaluation feedback addressed in Phases 2, 9, 10)
-- [ ] Phase 0: environment pinned; data with checksums; shared `types.py` agreed
+- [ ] Phase 0: environment pinned; data with checksums; shared `types.py` agreed *(done: `src/igt/types.py`; `requirements.txt` + `requirements-dev.txt` pinned to the project environment; `data/README.md` with rows, missing values and checksums, checked by `tests/test_data_checksums.py`. Open: download URLs, licences and the sampling of the 1,000-row files are not recorded, see `data/README.md`)*
 - [x] Phase 1: predicate vocabulary v1 frozen and documented; verifier unit-tested *(vocabulary documented in guide §5; `src/igt/contracts`, `src/igt/verifier`, `tests/verifier`)*
-- [ ] Phase 2: ~70 tasks with reference code and gold contracts; E / S agent scenarios; agreement study done; `evalset-v1` frozen *(60 draft tasks; references pass their contracts. Open: review, agreement study, E/S scenarios, freeze)*
-- [ ] Phase 3: AST guard and sandbox; red-team set 100% blocked; tool registry, 5 tools, fault hooks tested *(done: guard, sandbox, red-team. Open: tools, fault hooks)*
-- [ ] Phase 4: LLM client with scripted backend and cache; fixed code generator; LLM candidate pool v1 frozen; R / C / T scenarios; Gate 1 *(done: generator, pools v1 and v2, Gate 1. Open: LLM client/cache/scripted backend, R/C/T scenarios)*
+- [ ] Phase 2: ~70 tasks with reference code and gold contracts; E / S agent scenarios; agreement study done; `evalset-v1` frozen *(120 tasks over 4 datasets, every reference passes its gold contract; 15 E + 12 S scenarios drafted. Open: second annotation (sheets ready: `benchmark/annotation/second_pass/`, score with `eval/annotation_agreement.py`), E/S review, freeze)*
+- [x] Phase 3: AST guard and sandbox; red-team set 100% blocked; tool registry, 5 tools, fault hooks tested *(27/27 red-team samples blocked or contained on every execution path: `results/safety/redteam_table.md`. Known gap: no network namespace or filesystem isolation on the dev machine, OI-6)*
+- [x] Phase 4: LLM client with scripted backend and cache; fixed code generator; LLM candidate pool v1 frozen; R / C / T scenarios; Gate 1 *(current pool v4, 803 candidates; R/C/T scenarios `rct_v4.jsonl`; Gate 1 passed)*
 - [ ] Phase 5: Baselines 1 and 2; Stage 1 oracle results (MVP-1); Gate 2 decision; proposal checkpoint 1 *(done except proposal checkpoint 1)*
-- [ ] Phase 6: prompted parser (Baseline 3); contract metrics; change-only and preserve-only ablations (MVP-2)
+- [x] Phase 6: prompted parser (Baseline 3); contract metrics; change-only and preserve-only ablations (MVP-2) *(Baseline 3 = prompted 7B, p1-v3, chosen on dev; size ablation 3B / 1.5B; `results/STAGE1_RESULTS.md`)*
 - [ ] Phase 7: fine-tuning data (separate schemas); leakage check; 1.5B and 3B adapters; Gate 3 *(data v1 built and reviewed: 9/100 not OK, fails; fixed as data v2 in `finetune/data/v2/`, re-reviewed 23/25 OK, last 2 wordings fixed with the reviewer's text; the fine-tuning notebook trains on v2. Open: training, Gate 3)*
-- [ ] Phase 8: full Stage 1 table with confidence intervals and significance tests
+- [ ] Phase 8: full Stage 1 table with confidence intervals and significance tests *(done for every system except the fine-tuned parsers: bootstrap and Wilson intervals, McNemar. Open: fine-tuned rows)*
 - [ ] Phase 9: repair agent, state machine, memory, limits; all scripted paths pass (MVP-3); Gate 4 *(built; scripted-path tests pass; 4 Kaggle dev runs done, agent frozen at prompt a1-v4: R repair 7/14, C 20/20 untouched, 0 regressions, 0 invalid actions. Open: test run)*
 - [ ] Phase 10: agent results vs. naive retry and feedback retry; agent ablations; tool-use, escalation, efficiency, and safety metrics; human trajectory labels; proposal checkpoint 2 *(R/C/T/E/S scenarios, runner and metrics built; E/S drafts need review)*
-- [ ] Phase 11: contract-aware generator prompt; Stage 2 end-to-end table incl. no-contract-to-generator and gold-contract ablations; safety table *(prompt b2-v1, `eval/runner_stage2.py`, `eval/stage2_metrics.py` and `notebooks/kaggle/stage2_kaggle.ipynb` built and pipeline-checked. Open: dev check of b2-v1 on Kaggle, test runs)*
-- [ ] Phase 12: qualitative case studies; failure taxonomy; write-up; `reproduce_all.sh`; demo; proposal checkpoint 3
+- [ ] Phase 11: contract-aware generator prompt; Stage 2 end-to-end table incl. no-contract-to-generator and gold-contract ablations; safety table *(prompt b2-v1, `eval/runner_stage2.py`, `eval/stage2_metrics.py` and `notebooks/kaggle/stage2_kaggle.ipynb` built and pipeline-checked; red-team part of the safety table done, `eval/safety_table.py`. Open: dev check of b2-v1 on Kaggle, test runs, rerun the safety table with the run results)*
+- [ ] Phase 12: qualitative case studies; failure taxonomy; write-up; `reproduce_all.sh`; demo; proposal checkpoint 3 *(`reproduce_all.sh` done: rebuilds every Stage 1 result and the safety table on CPU in ~17 min and checks they match the saved copy)*
 
 ---
 

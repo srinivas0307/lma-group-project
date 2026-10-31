@@ -1,0 +1,48 @@
+# Second annotation of a gold contract (guide docs/eval_set_and_contract_guide.md §12.2).
+# Write the contract you think is right from the request and the data below ONLY.
+# Do not open benchmark/tasks/, results/ or the first annotator's work until you are finished.
+# Rules: guide §6 (default preservation, null rule, minimal-but-complete, non-vacuity) and docs/contract_schema.md
+# (the 11 predicates, conditions, functions, dtypes). Record every interpretation choice under `assumptions`.
+# When done set status: done. Check the file loads with: .venv/bin/python eval/annotation_agreement.py --check
+task_id: taxi_filt_001
+dataset: taxi
+data_file: data/yellow_tripdata_2026-01.csv
+request: Remove the trips with a negative fare_amount.
+data: |
+  1000 rows, 20 columns.
+  Columns (name: dtype, missing values):
+  - VendorID: int64, 0 missing
+  - tpep_pickup_datetime: object, 0 missing
+  - tpep_dropoff_datetime: object, 0 missing
+  - passenger_count: float64, 0 missing
+  - trip_distance: float64, 0 missing
+  - RatecodeID: float64, 0 missing
+  - store_and_fwd_flag: object, 0 missing
+  - PULocationID: int64, 0 missing
+  - DOLocationID: int64, 0 missing
+  - payment_type: int64, 0 missing
+  - fare_amount: float64, 0 missing
+  - extra: float64, 0 missing
+  - mta_tax: float64, 0 missing
+  - tip_amount: float64, 0 missing
+  - tolls_amount: float64, 0 missing
+  - improvement_surcharge: float64, 0 missing
+  - total_amount: float64, 0 missing
+  - congestion_surcharge: float64, 0 missing
+  - Airport_fee: float64, 0 missing
+  - cbd_congestion_fee: float64, 0 missing
+  First 5 rows (CSV):
+  VendorID,tpep_pickup_datetime,tpep_dropoff_datetime,passenger_count,trip_distance,RatecodeID,store_and_fwd_flag,PULocationID,DOLocationID,payment_type,fare_amount,extra,mta_tax,tip_amount,tolls_amount,improvement_surcharge,total_amount,congestion_surcharge,Airport_fee,cbd_congestion_fee
+  2,2026-01-01 00:54:04,2026-01-01 00:59:37,1.0,0.97,1.0,N,239,238,1,7.2,1.0,0.5,3.66,0.0,1.0,15.86,2.5,0.0,0.0
+  1,2026-01-01 00:34:04,2026-01-01 00:39:47,0.0,0.9,1.0,N,163,162,2,7.9,4.25,0.5,0.0,0.0,1.0,13.65,2.5,0.0,0.75
+  1,2026-01-01 00:57:06,2026-01-01 01:05:59,0.0,1.4,1.0,N,43,237,1,10.7,4.25,0.5,2.5,0.0,1.0,18.95,2.5,0.0,0.75
+  2,2026-01-01 00:15:22,2026-01-01 00:58:10,4.0,5.58,1.0,N,142,209,1,38.7,1.0,0.5,11.11,0.0,1.0,55.56,2.5,0.0,0.75
+  2,2026-01-01 00:27:13,2026-01-01 00:40:43,0.0,2.16,1.0,N,88,144,1,13.5,1.0,0.5,3.85,0.0,1.0,23.1,2.5,0.0,0.75
+annotator: ''
+status: todo
+assumptions: []
+contract:
+  contract_version: '1.0'
+  must_change: []
+  must_preserve: []
+notes: ''

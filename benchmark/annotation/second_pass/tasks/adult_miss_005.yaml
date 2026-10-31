@@ -1,0 +1,44 @@
+# Second annotation of a gold contract (guide docs/eval_set_and_contract_guide.md §12.2).
+# Write the contract you think is right from the request and the data below ONLY.
+# Do not open benchmark/tasks/, results/ or the first annotator's work until you are finished.
+# Rules: guide §6 (default preservation, null rule, minimal-but-complete, non-vacuity) and docs/contract_schema.md
+# (the 11 predicates, conditions, functions, dtypes). Record every interpretation choice under `assumptions`.
+# When done set status: done. Check the file loads with: .venv/bin/python eval/annotation_agreement.py --check
+task_id: adult_miss_005
+dataset: adult
+data_file: data/adult_dev.csv
+request: People with no workclass and no occupation listed are not working. Fill both missing workclass and missing occupation
+  with 'Not-working'.
+data: |
+  1000 rows, 15 columns.
+  Columns (name: dtype, missing values):
+  - age: int64, 0 missing
+  - workclass: object, 62 missing
+  - fnlwgt: int64, 0 missing
+  - education: object, 0 missing
+  - education-num: int64, 0 missing
+  - marital-status: object, 0 missing
+  - occupation: object, 62 missing
+  - relationship: object, 0 missing
+  - race: object, 0 missing
+  - sex: object, 0 missing
+  - capital-gain: int64, 0 missing
+  - capital-loss: int64, 0 missing
+  - hours-per-week: int64, 0 missing
+  - native-country: object, 18 missing
+  - income: object, 0 missing
+  First 5 rows (CSV):
+  age,workclass,fnlwgt,education,education-num,marital-status,occupation,relationship,race,sex,capital-gain,capital-loss,hours-per-week,native-country,income
+  39,State-gov,77516,Bachelors,13,Never-married,Adm-clerical,Not-in-family,White,Male,2174,0,40,United-States,<=50K
+  50,Self-emp-not-inc,83311,Bachelors,13,Married-civ-spouse,Exec-managerial,Husband,White,Male,0,0,13,United-States,<=50K
+  38,Private,215646,HS-grad,9,Divorced,Handlers-cleaners,Not-in-family,White,Male,0,0,40,United-States,<=50K
+  53,Private,234721,11th,7,Married-civ-spouse,Handlers-cleaners,Husband,Black,Male,0,0,40,United-States,<=50K
+  28,Private,338409,Bachelors,13,Married-civ-spouse,Prof-specialty,Wife,Black,Female,0,0,40,Cuba,<=50K
+annotator: ''
+status: todo
+assumptions: []
+contract:
+  contract_version: '1.0'
+  must_change: []
+  must_preserve: []
+notes: ''

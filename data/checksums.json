@@ -1,0 +1,9 @@
+{
+  "note": "SHA-256 of the evaluation datasets (data/README.md); checked by tests/test_data_checksums.py",
+  "sha256": {
+    "adult_dev.csv": "b2ebdd9b244c7fff5ebe1d6a328cc49f37b7a92aa4c2cb6ad0f2b5671e49d2ef",
+    "airbnb_dev.csv": "c25f044eb00cd2c88bf05661bf50726c00890f8cb3aecd1a4770ec9f032e68a3",
+    "Titanic-Dataset.csv": "7d118fef8b6ccf7f81111877bc388536f7b1e498a655e3d649d19aaa010e9f6f",
+    "yellow_tripdata_2026-01.csv": "b1ac75514b2adec94444606a9b5ec7b60a24b02530144592d2e64a2fce891ecc"
+  }
+}

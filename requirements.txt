@@ -3,3 +3,13 @@ pandas==2.3.3
 numpy==2.1.3
 pyyaml==6.0.2
 pydantic==2.14.1
+# Their dependencies, pinned to the versions in the project environment (.venv, 2026-10-31).
+# pandas reads dates and time zones through these (OI-3).
+python-dateutil==3.0.0
+pytz==2026.5
+tzdata==2026.6
+six==1.17.0
+pydantic-core==2.50.1
+annotated-types==0.8.0
+typing-extensions==4.16.0
+typing-inspection==0.4.4
