@@ -216,6 +216,7 @@ def main(argv=None):
                        difficulty=t.get("difficulty"), seed=seed, system=args.system, preset=args.preset,
                        contract_source=args.contract, generator_contract=args.generator_contract, verifier=args.verifier,
                        repair_mode=args.repair_mode, generator_prompt=gen_info["version"],
+                       generator_model=args.generator_model, agent_model=args.agent_model,
                        agent_prompt_version=AGENT_PROMPT_VERSION)
 
             # 1. contract

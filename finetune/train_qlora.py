@@ -55,13 +55,20 @@ def sha256(path):
     return h.hexdigest()
 
 
-def load_rows(path, limit):
+def load_rows(path, limit, sample_seed=None):
+    """limit: keep `limit` rows; the first ones, or a seeded random sample if sample_seed is given
+    (the validation file is ordered by type, so its first rows would cover only one or two types)."""
     rows = [json.loads(l) for l in Path(path).read_text().splitlines() if l.strip()]
     for r in rows:
         roles = [m["role"] for m in r["messages"]]
         if roles[-1] != "assistant" or roles[0] != "system":
             raise ValueError(f"{path}: example {r.get('id')} must be [system, user, ..., assistant]")
-    return rows[:limit] if limit else rows
+    if not limit or limit >= len(rows):
+        return rows
+    if sample_seed is None:
+        return rows[:limit]
+    keep = sorted(random.Random(sample_seed).sample(range(len(rows)), limit))
+    return [rows[i] for i in keep]
 
 
 def tokenize(rows, tok, max_len):
@@ -129,7 +136,7 @@ def main():
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
     train_rows = load_rows(ROOT / cfg["train_file"], cfg["limit_train"])
-    val_rows = load_rows(ROOT / cfg["val_file"], cfg["limit_val"]) if cfg["val_file"] else []
+    val_rows = load_rows(ROOT / cfg["val_file"], cfg["limit_val"], sample_seed=cfg["seed"]) if cfg["val_file"] else []
     train_ds, drop_tr = tokenize(train_rows, tok, cfg["max_seq_len"])
     val_ds, drop_va = tokenize(val_rows, tok, cfg["max_seq_len"])
     if not train_ds:

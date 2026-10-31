@@ -928,7 +928,7 @@ Every predicate, normalization, alignment, AST guard, executor limits, tool argu
 - [ ] Phase 8: full Stage 1 table with confidence intervals and significance tests
 - [ ] Phase 9: repair agent, state machine, memory, limits; all scripted paths pass (MVP-3); Gate 4 *(built; scripted-path tests pass; 4 Kaggle dev runs done, agent frozen at prompt a1-v4: R repair 7/14, C 20/20 untouched, 0 regressions, 0 invalid actions. Open: test run)*
 - [ ] Phase 10: agent results vs. naive retry and feedback retry; agent ablations; tool-use, escalation, efficiency, and safety metrics; human trajectory labels; proposal checkpoint 2 *(R/C/T/E/S scenarios, runner and metrics built; E/S drafts need review)*
-- [ ] Phase 11: contract-aware generator prompt; Stage 2 end-to-end table incl. no-contract-to-generator and gold-contract ablations; safety table *(prompt b2-v1, `eval/runner_stage2.py` and `eval/stage2_metrics.py` built and pipeline-checked. Open: dev check of b2-v1, Kaggle notebook, runs)*
+- [ ] Phase 11: contract-aware generator prompt; Stage 2 end-to-end table incl. no-contract-to-generator and gold-contract ablations; safety table *(prompt b2-v1, `eval/runner_stage2.py`, `eval/stage2_metrics.py` and `notebooks/kaggle/stage2_kaggle.ipynb` built and pipeline-checked. Open: dev check of b2-v1 on Kaggle, test runs)*
 - [ ] Phase 12: qualitative case studies; failure taxonomy; write-up; `reproduce_all.sh`; demo; proposal checkpoint 3
 
 ---

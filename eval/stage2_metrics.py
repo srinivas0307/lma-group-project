@@ -94,7 +94,17 @@ def main(argv=None):
         systems[p.parent.name] = [r for r in load_jsonl(p) if r["split"] == split]
     names = sorted(systems)
     paired = {f"{a} vs {b}": pair(systems[a], systems[b]) for i, a in enumerate(names) for b in names[i + 1:]}
-    named = {f"{a} vs {b} ({what})": pair(systems[a], systems[b]) for a, b, what in NAMED if a in systems and b in systems}
+    # Named comparisons match systems by preset (folder names may carry generator / parser tags) and only compare
+    # systems that used the same code generator.
+    def key(rs):
+        return (rs[0].get("preset"), rs[0].get("generator_model")) if rs else (None, None)
+    named = {}
+    for a, b, what in NAMED:
+        for sa in names:
+            for sb in names:
+                ka, kb = key(systems[sa]), key(systems[sb])
+                if ka[0] == a and kb[0] == b and ka[1] == kb[1]:
+                    named[f"{sa} vs {sb} ({what})"] = pair(systems[sa], systems[sb])
     report = dict(split=split, systems={k: summarize(v) for k, v in systems.items()}, comparisons=named,
                   paired_final_correct=paired, repair_vs_no_repair={k: pair(
                       v, [dict(r, final_correct=bool(r.get("no_repair_correct"))) for r in v]) for k, v in systems.items()},

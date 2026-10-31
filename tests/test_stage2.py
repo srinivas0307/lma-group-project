@@ -105,6 +105,18 @@ def test_metrics(tmp_path):
     assert sorted(rep["not_valid_results"]) == ["baseline1", "gold_contract"]
 
 
+def test_named_comparisons_match_by_preset(tmp_path):
+    """Folder names with generator / parser tags (as the Kaggle notebook writes them) still get the plan's comparisons."""
+    from eval.stage2_metrics import main
+    _run(tmp_path, "--preset", "gold_contract", "--system", "gold_contract__gen_3b")
+    p = tmp_path / "parses.jsonl"
+    p.write_text("".join(json.dumps(dict(task_id=t["id"], raw_output="```json\n" + json.dumps(t["gold_contract"]) + "\n```"))
+                         + "\n" for t in (TASK, yaml.safe_load((ROOT / "benchmark/tasks/titanic/titanic_dedup_001.yaml").read_text()))))
+    _run(tmp_path, "--preset", "proposed", "--parses", str(p), "--system", "proposed__gen_3b__ft_x")
+    rep = main([str(tmp_path), "test"])
+    assert any(k.startswith("proposed__gen_3b__ft_x vs gold_contract__gen_3b") for k in rep["comparisons"])
+
+
 # ---------------- fine-tuning review tools ----------------
 def test_tally_review(tmp_path):
     import tally_review
