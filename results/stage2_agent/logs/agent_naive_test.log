@@ -1,0 +1,292 @@
+$ python eval/runner_agent.py --system agent_naive --mode naive --backend hf --model Qwen/Qwen2.5-7B-Instruct --verifier oracle --splits test --categories R C T E S --cache-dir /kaggle/working/llm_cache --out /kaggle/working/results/stage2_agent --load-in-4bit
+--- stdout ---
+[seed 0] 1/222 R_test_001 ESCALATE correct=None attempts=3 tools=0 (4s)
+[seed 0] 2/222 R_test_002 ESCALATE correct=None attempts=3 tools=0 (5s)
+[seed 0] 3/222 R_test_003 ACCEPT correct=True attempts=1 tools=0 (15s)
+[seed 0] 4/222 R_test_004 ESCALATE correct=None attempts=3 tools=0 (28s)
+[seed 0] 5/222 R_test_005 ESCALATE correct=None attempts=0 tools=0 (29s)
+[seed 0] 6/222 R_test_006 ACCEPT correct=True attempts=1 tools=0 (36s)
+[seed 0] 7/222 R_test_007 ACCEPT correct=True attempts=1 tools=0 (37s)
+[seed 0] 8/222 R_test_008 ACCEPT correct=True attempts=1 tools=0 (44s)
+[seed 0] 9/222 R_test_009 ACCEPT correct=True attempts=1 tools=0 (50s)
+[seed 0] 10/222 R_test_010 ACCEPT correct=True attempts=1 tools=0 (51s)
+[seed 0] 11/222 R_test_011 ACCEPT correct=True attempts=1 tools=0 (57s)
+[seed 0] 12/222 R_test_012 ACCEPT correct=True attempts=1 tools=0 (58s)
+[seed 0] 13/222 R_test_013 ESCALATE correct=None attempts=3 tools=0 (62s)
+[seed 0] 14/222 R_test_014 ESCALATE correct=None attempts=3 tools=0 (63s)
+[seed 0] 15/222 R_test_015 ACCEPT correct=True attempts=1 tools=0 (70s)
+[seed 0] 16/222 R_test_016 ACCEPT correct=True attempts=1 tools=0 (71s)
+[seed 0] 17/222 R_test_017 ESCALATE correct=None attempts=3 tools=0 (76s)
+[seed 0] 18/222 R_test_018 ESCALATE correct=None attempts=3 tools=0 (83s)
+[seed 0] 19/222 R_test_019 ESCALATE correct=None attempts=3 tools=0 (84s)
+[seed 0] 20/222 R_test_020 ESCALATE correct=None attempts=3 tools=0 (92s)
+[seed 0] 21/222 R_test_021 ACCEPT correct=False attempts=0 tools=0 (92s)
+[seed 0] 22/222 R_test_022 ACCEPT correct=True attempts=1 tools=0 (96s)
+[seed 0] 23/222 R_test_023 ESCALATE correct=None attempts=3 tools=0 (101s)
+[seed 0] 24/222 R_test_024 ACCEPT correct=True attempts=1 tools=0 (105s)
+[seed 0] 25/222 R_test_025 ACCEPT correct=True attempts=1 tools=0 (109s)
+[seed 0] 26/222 R_test_026 ACCEPT correct=True attempts=1 tools=0 (115s)
+[seed 0] 27/222 R_test_027 ACCEPT correct=True attempts=1 tools=0 (117s)
+[seed 0] 28/222 R_test_028 ESCALATE correct=None attempts=3 tools=0 (120s)
+[seed 0] 29/222 R_test_029 ESCALATE correct=None attempts=3 tools=0 (121s)
+[seed 0] 30/222 R_test_030 ACCEPT correct=True attempts=1 tools=0 (134s)
+[seed 0] 31/222 R_test_031 ACCEPT correct=True attempts=1 tools=0 (136s)
+[seed 0] 32/222 R_test_032 ACCEPT correct=True attempts=1 tools=0 (143s)
+[seed 0] 33/222 R_test_033 ESCALATE correct=None attempts=3 tools=0 (149s)
+[seed 0] 34/222 R_test_034 ESCALATE correct=None attempts=3 tools=0 (150s)
+[seed 0] 35/222 R_test_035 ACCEPT correct=True attempts=1 tools=0 (156s)
+[seed 0] 36/222 R_test_036 ACCEPT correct=True attempts=1 tools=0 (157s)
+[seed 0] 37/222 R_test_037 ACCEPT correct=True attempts=1 tools=0 (162s)
+[seed 0] 38/222 R_test_038 ACCEPT correct=True attempts=1 tools=0 (167s)
+[seed 0] 39/222 R_test_039 ACCEPT correct=True attempts=1 tools=0 (171s)
+[seed 0] 40/222 R_test_040 ESCALATE correct=None attempts=3 tools=0 (176s)
+[seed 0] 41/222 R_test_041 ESCALATE correct=None attempts=0 tools=0 (177s)
+[seed 0] 42/222 R_test_042 ACCEPT correct=True attempts=1 tools=0 (182s)
+[seed 0] 43/222 R_test_043 ACCEPT correct=True attempts=1 tools=0 (186s)
+[seed 0] 44/222 R_test_044 ACCEPT correct=True attempts=1 tools=0 (192s)
+[seed 0] 45/222 R_test_045 ACCEPT correct=True attempts=1 tools=0 (197s)
+[seed 0] 46/222 R_test_046 ESCALATE correct=None attempts=3 tools=0 (209s)
+[seed 0] 47/222 R_test_047 ESCALATE correct=None attempts=3 tools=0 (210s)
+[seed 0] 48/222 R_test_048 ESCALATE correct=None attempts=3 tools=0 (221s)
+[seed 0] 49/222 R_test_049 ACCEPT correct=True attempts=1 tools=0 (234s)
+[seed 0] 50/222 R_test_050 ACCEPT correct=False attempts=0 tools=0 (234s)
+[seed 0] 51/222 R_test_051 ESCALATE correct=None attempts=0 tools=0 (235s)
+[seed 0] 52/222 R_test_052 ACCEPT correct=True attempts=1 tools=0 (244s)
+[seed 0] 53/222 R_test_053 ACCEPT correct=True attempts=1 tools=0 (249s)
+[seed 0] 54/222 R_test_054 ACCEPT correct=True attempts=1 tools=0 (255s)
+[seed 0] 55/222 R_test_055 ACCEPT correct=False attempts=0 tools=0 (256s)
+[seed 0] 56/222 R_test_056 ACCEPT correct=True attempts=1 tools=0 (261s)
+[seed 0] 57/222 R_test_057 ACCEPT correct=True attempts=1 tools=0 (266s)
+[seed 0] 58/222 R_test_058 ACCEPT correct=True attempts=1 tools=0 (271s)
+[seed 0] 59/222 R_test_059 ESCALATE correct=None attempts=3 tools=0 (280s)
+[seed 0] 60/222 R_test_060 ACCEPT correct=True attempts=1 tools=0 (284s)
+[seed 0] 61/222 R_test_061 ESCALATE correct=None attempts=3 tools=0 (293s)
+[seed 0] 62/222 R_test_062 ACCEPT correct=True attempts=1 tools=0 (296s)
+[seed 0] 63/222 R_test_063 ESCALATE correct=None attempts=3 tools=0 (306s)
+[seed 0] 64/222 R_test_064 ESCALATE correct=None attempts=3 tools=0 (307s)
+[seed 0] 65/222 R_test_065 ESCALATE correct=None attempts=0 tools=0 (308s)
+[seed 0] 66/222 R_test_066 ESCALATE correct=None attempts=3 tools=0 (311s)
+[seed 0] 67/222 R_test_067 ACCEPT correct=True attempts=1 tools=0 (315s)
+[seed 0] 68/222 R_test_068 ACCEPT correct=True attempts=1 tools=0 (319s)
+[seed 0] 69/222 R_test_069 ACCEPT correct=True attempts=1 tools=0 (323s)
+[seed 0] 70/222 R_test_070 ACCEPT correct=True attempts=1 tools=0 (325s)
+[seed 0] 71/222 R_test_071 ACCEPT correct=True attempts=1 tools=0 (329s)
+[seed 0] 72/222 R_test_072 ACCEPT correct=True attempts=1 tools=0 (330s)
+[seed 0] 73/222 R_test_073 ACCEPT correct=True attempts=1 tools=0 (334s)
+[seed 0] 74/222 R_test_074 ACCEPT correct=True attempts=1 tools=0 (338s)
+[seed 0] 75/222 R_test_075 ACCEPT correct=True attempts=1 tools=0 (342s)
+[seed 0] 76/222 R_test_076 ACCEPT correct=True attempts=1 tools=0 (348s)
+[seed 0] 77/222 R_test_077 ACCEPT correct=True attempts=1 tools=0 (352s)
+[seed 0] 78/222 R_test_078 ACCEPT correct=True attempts=1 tools=0 (358s)
+[seed 0] 79/222 R_test_079 ESCALATE correct=None attempts=3 tools=0 (362s)
+[seed 0] 80/222 R_test_080 ESCALATE correct=None attempts=3 tools=0 (363s)
+[seed 0] 81/222 R_test_081 ACCEPT correct=True attempts=1 tools=0 (370s)
+[seed 0] 82/222 R_test_082 ACCEPT correct=True attempts=1 tools=0 (371s)
+[seed 0] 83/222 C_test_001 ACCEPT correct=True attempts=0 tools=0 (372s)
+[seed 0] 84/222 C_test_002 ACCEPT correct=True attempts=0 tools=0 (373s)
+[seed 0] 85/222 C_test_003 ACCEPT correct=True attempts=0 tools=0 (373s)
+[seed 0] 86/222 C_test_004 ACCEPT correct=True attempts=0 tools=0 (374s)
+[seed 0] 87/222 C_test_005 ACCEPT correct=True attempts=0 tools=0 (375s)
+[seed 0] 88/222 C_test_006 ACCEPT correct=True attempts=0 tools=0 (376s)
+[seed 0] 89/222 C_test_007 ACCEPT correct=True attempts=0 tools=0 (377s)
+[seed 0] 90/222 C_test_008 ACCEPT correct=True attempts=0 tools=0 (377s)
+[seed 0] 91/222 C_test_009 ACCEPT correct=True attempts=0 tools=0 (378s)
+[seed 0] 92/222 C_test_010 ACCEPT correct=True attempts=0 tools=0 (379s)
+[seed 0] 93/222 C_test_011 ACCEPT correct=True attempts=0 tools=0 (380s)
+[seed 0] 94/222 C_test_012 ACCEPT correct=True attempts=0 tools=0 (381s)
+[seed 0] 95/222 C_test_013 ACCEPT correct=True attempts=0 tools=0 (381s)
+[seed 0] 96/222 C_test_014 ACCEPT correct=True attempts=0 tools=0 (382s)
+[seed 0] 97/222 C_test_015 ACCEPT correct=True attempts=0 tools=0 (383s)
+[seed 0] 98/222 C_test_016 ACCEPT correct=True attempts=0 tools=0 (383s)
+[seed 0] 99/222 C_test_017 ACCEPT correct=True attempts=0 tools=0 (384s)
+[seed 0] 100/222 C_test_018 ACCEPT correct=True attempts=0 tools=0 (385s)
+[seed 0] 101/222 C_test_019 ACCEPT correct=True attempts=0 tools=0 (386s)
+[seed 0] 102/222 C_test_020 ACCEPT correct=True attempts=0 tools=0 (386s)
+[seed 0] 103/222 C_test_021 ACCEPT correct=True attempts=0 tools=0 (387s)
+[seed 0] 104/222 C_test_022 ACCEPT correct=True attempts=0 tools=0 (388s)
+[seed 0] 105/222 C_test_023 ACCEPT correct=True attempts=0 tools=0 (389s)
+[seed 0] 106/222 C_test_024 ACCEPT correct=True attempts=0 tools=0 (389s)
+[seed 0] 107/222 C_test_025 ACCEPT correct=True attempts=0 tools=0 (390s)
+[seed 0] 108/222 C_test_026 ACCEPT correct=True attempts=0 tools=0 (391s)
+[seed 0] 109/222 C_test_027 ACCEPT correct=True attempts=0 tools=0 (392s)
+[seed 0] 110/222 C_test_028 ACCEPT correct=True attempts=0 tools=0 (393s)
+[seed 0] 111/222 C_test_029 ACCEPT correct=True attempts=0 tools=0 (393s)
+[seed 0] 112/222 C_test_030 ACCEPT correct=True attempts=0 tools=0 (394s)
+[seed 0] 113/222 C_test_031 ACCEPT correct=True attempts=0 tools=0 (395s)
+[seed 0] 114/222 C_test_032 ACCEPT correct=True attempts=0 tools=0 (396s)
+[seed 0] 115/222 C_test_033 ACCEPT correct=True attempts=0 tools=0 (397s)
+[seed 0] 116/222 C_test_034 ACCEPT correct=True attempts=0 tools=0 (398s)
+[seed 0] 117/222 C_test_035 ACCEPT correct=True attempts=0 tools=0 (398s)
+[seed 0] 118/222 C_test_036 ACCEPT correct=True attempts=0 tools=0 (399s)
+[seed 0] 119/222 C_test_037 ACCEPT correct=True attempts=0 tools=0 (400s)
+[seed 0] 120/222 C_test_038 ACCEPT correct=True attempts=0 tools=0 (400s)
+[seed 0] 121/222 C_test_039 ACCEPT correct=True attempts=0 tools=0 (401s)
+[seed 0] 122/222 C_test_040 ACCEPT correct=True attempts=0 tools=0 (402s)
+[seed 0] 123/222 C_test_041 ACCEPT correct=True attempts=0 tools=0 (403s)
+[seed 0] 124/222 C_test_042 ACCEPT correct=True attempts=0 tools=0 (403s)
+[seed 0] 125/222 C_test_043 ACCEPT correct=True attempts=0 tools=0 (404s)
+[seed 0] 126/222 C_test_044 ACCEPT correct=True attempts=0 tools=0 (405s)
+[seed 0] 127/222 C_test_045 ACCEPT correct=True attempts=0 tools=0 (406s)
+[seed 0] 128/222 C_test_046 ACCEPT correct=True attempts=0 tools=0 (406s)
+[seed 0] 129/222 C_test_047 ACCEPT correct=True attempts=0 tools=0 (407s)
+[seed 0] 130/222 C_test_048 ACCEPT correct=True attempts=0 tools=0 (408s)
+[seed 0] 131/222 C_test_049 ACCEPT correct=True attempts=0 tools=0 (409s)
+[seed 0] 132/222 C_test_050 ACCEPT correct=True attempts=0 tools=0 (410s)
+[seed 0] 133/222 C_test_051 ACCEPT correct=True attempts=0 tools=0 (411s)
+[seed 0] 134/222 C_test_052 ACCEPT correct=True attempts=0 tools=0 (412s)
+[seed 0] 135/222 C_test_053 ACCEPT correct=True attempts=0 tools=0 (413s)
+[seed 0] 136/222 C_test_054 ACCEPT correct=True attempts=0 tools=0 (414s)
+[seed 0] 137/222 C_test_055 ACCEPT correct=True attempts=0 tools=0 (414s)
+[seed 0] 138/222 C_test_056 ACCEPT correct=True attempts=0 tools=0 (415s)
+[seed 0] 139/222 C_test_057 ACCEPT correct=True attempts=0 tools=0 (416s)
+[seed 0] 140/222 C_test_058 ACCEPT correct=True attempts=0 tools=0 (417s)
+[seed 0] 141/222 C_test_059 ACCEPT correct=True attempts=0 tools=0 (418s)
+[seed 0] 142/222 C_test_060 ACCEPT correct=True attempts=0 tools=0 (419s)
+[seed 0] 143/222 C_test_061 ACCEPT correct=True attempts=0 tools=0 (419s)
+[seed 0] 144/222 C_test_062 ACCEPT correct=True attempts=0 tools=0 (420s)
+[seed 0] 145/222 C_test_063 ACCEPT correct=True attempts=0 tools=0 (421s)
+[seed 0] 146/222 C_test_064 ACCEPT correct=True attempts=0 tools=0 (422s)
+[seed 0] 147/222 C_test_065 ACCEPT correct=True attempts=0 tools=0 (422s)
+[seed 0] 148/222 C_test_066 ACCEPT correct=True attempts=0 tools=0 (423s)
+[seed 0] 149/222 C_test_067 ACCEPT correct=True attempts=0 tools=0 (424s)
+[seed 0] 150/222 C_test_068 ACCEPT correct=True attempts=0 tools=0 (425s)
+[seed 0] 151/222 C_test_069 ACCEPT correct=True attempts=0 tools=0 (426s)
+[seed 0] 152/222 C_test_070 ACCEPT correct=True attempts=0 tools=0 (427s)
+[seed 0] 153/222 C_test_071 ACCEPT correct=True attempts=0 tools=0 (428s)
+[seed 0] 154/222 C_test_072 ACCEPT correct=True attempts=0 tools=0 (428s)
+[seed 0] 155/222 C_test_073 ACCEPT correct=True attempts=0 tools=0 (429s)
+[seed 0] 156/222 C_test_074 ACCEPT correct=True attempts=0 tools=0 (430s)
+[seed 0] 157/222 C_test_075 ACCEPT correct=True attempts=0 tools=0 (430s)
+[seed 0] 158/222 C_test_076 ACCEPT correct=True attempts=0 tools=0 (431s)
+[seed 0] 159/222 C_test_077 ACCEPT correct=True attempts=0 tools=0 (432s)
+[seed 0] 160/222 C_test_078 ACCEPT correct=True attempts=0 tools=0 (433s)
+[seed 0] 161/222 C_test_079 ACCEPT correct=True attempts=0 tools=0 (433s)
+[seed 0] 162/222 C_test_080 ACCEPT correct=True attempts=0 tools=0 (434s)
+[seed 0] 163/222 C_test_081 ACCEPT correct=True attempts=0 tools=0 (435s)
+[seed 0] 164/222 C_test_082 ACCEPT correct=True attempts=0 tools=0 (435s)
+[seed 0] 165/222 C_test_083 ACCEPT correct=True attempts=0 tools=0 (436s)
+[seed 0] 166/222 C_test_084 ACCEPT correct=True attempts=0 tools=0 (437s)
+[seed 0] 167/222 C_test_085 ACCEPT correct=True attempts=0 tools=0 (437s)
+[seed 0] 168/222 C_test_086 ACCEPT correct=True attempts=0 tools=0 (438s)
+[seed 0] 169/222 C_test_087 ACCEPT correct=True attempts=0 tools=0 (439s)
+[seed 0] 170/222 C_test_088 ACCEPT correct=True attempts=0 tools=0 (439s)
+[seed 0] 171/222 C_test_089 ACCEPT correct=True attempts=0 tools=0 (440s)
+[seed 0] 172/222 C_test_090 ACCEPT correct=True attempts=0 tools=0 (441s)
+[seed 0] 173/222 C_test_091 ACCEPT correct=True attempts=0 tools=0 (441s)
+[seed 0] 174/222 C_test_092 ACCEPT correct=True attempts=0 tools=0 (442s)
+[seed 0] 175/222 C_test_093 ACCEPT correct=True attempts=0 tools=0 (443s)
+[seed 0] 176/222 C_test_094 ACCEPT correct=True attempts=0 tools=0 (443s)
+[seed 0] 177/222 C_test_095 ACCEPT correct=True attempts=0 tools=0 (444s)
+[seed 0] 178/222 T_test_001 ESCALATE correct=None attempts=3 tools=0 (446s)
+[seed 0] 179/222 T_test_002 ACCEPT correct=True attempts=1 tools=0 (447s)
+[seed 0] 180/222 T_test_003 ESCALATE correct=None attempts=3 tools=0 (448s)
+[seed 0] 181/222 T_test_004 ESCALATE correct=None attempts=3 tools=0 (449s)
+[seed 0] 182/222 T_test_005 ESCALATE correct=None attempts=3 tools=0 (451s)
+[seed 0] 183/222 T_test_006 ACCEPT correct=True attempts=1 tools=0 (452s)
+[seed 0] 184/222 T_test_007 ACCEPT correct=True attempts=1 tools=0 (454s)
+[seed 0] 185/222 T_test_008 ACCEPT correct=True attempts=1 tools=0 (455s)
+[seed 0] 186/222 T_test_009 ESCALATE correct=None attempts=3 tools=0 (456s)
+[seed 0] 187/222 T_test_010 ACCEPT correct=True attempts=1 tools=0 (458s)
+[seed 0] 188/222 T_test_011 ACCEPT correct=True attempts=1 tools=0 (460s)
+[seed 0] 189/222 T_test_012 ACCEPT correct=True attempts=1 tools=0 (461s)
+[seed 0] 190/222 T_test_013 ACCEPT correct=True attempts=1 tools=0 (462s)
+[seed 0] 191/222 T_test_014 ACCEPT correct=True attempts=1 tools=0 (464s)
+[seed 0] 192/222 T_test_015 ACCEPT correct=True attempts=1 tools=0 (466s)
+[seed 0] 193/222 T_test_016 ACCEPT correct=True attempts=1 tools=0 (467s)
+[seed 0] 194/222 T_test_017 ACCEPT correct=True attempts=1 tools=0 (468s)
+[seed 0] 195/222 T_test_018 ACCEPT correct=True attempts=1 tools=0 (470s)
+[seed 0] 196/222 T_test_019 ACCEPT correct=True attempts=1 tools=0 (471s)
+[seed 0] 197/222 T_test_020 ESCALATE correct=None attempts=3 tools=0 (472s)
+[seed 0] 198/222 T_test_021 ESCALATE correct=None attempts=3 tools=0 (473s)
+[seed 0] 199/222 T_test_022 ACCEPT correct=True attempts=1 tools=0 (475s)
+[seed 0] 200/222 T_test_023 ACCEPT correct=True attempts=1 tools=0 (476s)
+[seed 0] 201/222 T_test_024 ESCALATE correct=None attempts=3 tools=0 (477s)
+[seed 0] 202/222 E_002 ESCALATE correct=None attempts=3 tools=0 (481s)
+[seed 0] 203/222 E_003 ESCALATE correct=None attempts=0 tools=0 (482s)
+[seed 0] 204/222 E_004 ESCALATE correct=None attempts=0 tools=0 (483s)
+[seed 0] 205/222 E_006 ESCALATE correct=None attempts=3 tools=0 (486s)
+[seed 0] 206/222 E_007 ESCALATE correct=None attempts=2 tools=0 (490s)
+[seed 0] 207/222 E_008 ESCALATE correct=None attempts=2 tools=0 (494s)
+[seed 0] 208/222 E_010 ESCALATE correct=None attempts=0 tools=0 (495s)
+[seed 0] 209/222 E_011 ESCALATE correct=None attempts=0 tools=0 (496s)
+[seed 0] 210/222 E_012 ESCALATE correct=None attempts=0 tools=0 (496s)
+[seed 0] 211/222 E_013 ESCALATE correct=None attempts=3 tools=0 (504s)
+[seed 0] 212/222 E_014 ESCALATE correct=None attempts=3 tools=0 (530s)
+[seed 0] 213/222 E_015 ESCALATE correct=None attempts=0 tools=0 (531s)
+[seed 0] 214/222 S_002 ACCEPT correct=None attempts=0 tools=0 (531s)
+[seed 0] 215/222 S_003 ESCALATE correct=None attempts=3 tools=0 (535s)
+[seed 0] 216/222 S_006 ESCALATE correct=None attempts=3 tools=0 (547s)
+[seed 0] 217/222 S_007 ESCALATE correct=None attempts=3 tools=0 (557s)
+[seed 0] 218/222 S_008 ESCALATE correct=None attempts=3 tools=0 (560s)
+[seed 0] 219/222 S_009 ESCALATE correct=None attempts=2 tools=0 (564s)
+[seed 0] 220/222 S_010 ACCEPT correct=None attempts=0 tools=0 (565s)
+[seed 0] 221/222 S_011 ESCALATE correct=None attempts=3 tools=0 (582s)
+[seed 0] 222/222 S_012 REJECT correct=None attempts=3 tools=0 (587s)
+runs in /kaggle/working/results/stage2_agent/agent_naive/runs.jsonl
+
+--- stderr ---
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:01<05:55,  1.05s/it]
+Loading weights:   1%|          | 2/339 [00:02<05:42,  1.02s/it]
+Loading weights:   1%|          | 4/339 [00:02<02:24,  2.31it/s]
+Loading weights:   1%|▏         | 5/339 [00:02<01:53,  2.94it/s]
+Loading weights:   2%|▏         | 6/339 [00:02<01:32,  3.61it/s]
+Loading weights:   5%|▍         | 16/339 [00:02<00:21, 14.93it/s]
+Loading weights:   6%|▌         | 19/339 [00:02<00:23, 13.85it/s]
+Loading weights:   8%|▊         | 28/339 [00:03<00:13, 22.76it/s]
+Loading weights:   9%|▉         | 32/339 [00:03<00:15, 20.37it/s]
+Loading weights:  12%|█▏        | 40/339 [00:03<00:11, 26.62it/s]
+Loading weights:  13%|█▎        | 44/339 [00:03<00:12, 22.73it/s]
+Loading weights:  15%|█▌        | 52/339 [00:03<00:10, 28.48it/s]
+Loading weights:  17%|█▋        | 56/339 [00:04<00:11, 23.64it/s]
+Loading weights:  19%|█▉        | 64/339 [00:04<00:09, 29.23it/s]
+Loading weights:  20%|██        | 68/339 [00:04<00:11, 24.53it/s]
+Loading weights:  22%|██▏       | 76/339 [00:04<00:08, 30.16it/s]
+Loading weights:  24%|██▎       | 80/339 [00:05<00:10, 25.23it/s]
+Loading weights:  26%|██▌       | 88/339 [00:05<00:08, 31.17it/s]
+Loading weights:  27%|██▋       | 92/339 [00:05<00:09, 25.67it/s]
+Loading weights:  29%|██▉       | 100/339 [00:05<00:07, 31.20it/s]
+Loading weights:  31%|███       | 104/339 [00:05<00:09, 25.52it/s]
+Loading weights:  33%|███▎      | 112/339 [00:06<00:07, 30.84it/s]
+Loading weights:  34%|███▍      | 116/339 [00:06<00:08, 25.28it/s]
+Loading weights:  37%|███▋      | 124/339 [00:06<00:06, 30.83it/s]
+Loading weights:  38%|███▊      | 128/339 [00:06<00:08, 25.54it/s]
+Loading weights:  40%|████      | 136/339 [00:06<00:06, 31.39it/s]
+Loading weights:  41%|████▏     | 140/339 [00:07<00:07, 25.98it/s]
+Loading weights:  44%|████▎     | 148/339 [00:07<00:06, 31.54it/s]
+Loading weights:  45%|████▍     | 152/339 [00:07<00:07, 25.91it/s]
+Loading weights:  47%|████▋     | 160/339 [00:07<00:05, 31.25it/s]
+Loading weights:  48%|████▊     | 164/339 [00:08<00:06, 25.46it/s]
+Loading weights:  51%|█████     | 172/339 [00:08<00:05, 30.89it/s]
+Loading weights:  52%|█████▏    | 176/339 [00:08<00:06, 25.52it/s]
+Loading weights:  54%|█████▍    | 184/339 [00:08<00:04, 31.17it/s]
+Loading weights:  55%|█████▌    | 188/339 [00:08<00:05, 25.70it/s]
+Loading weights:  58%|█████▊    | 196/339 [00:09<00:04, 31.37it/s]
+Loading weights:  59%|█████▉    | 200/339 [00:09<00:05, 26.10it/s]
+Loading weights:  61%|██████▏   | 208/339 [00:09<00:04, 31.73it/s]
+Loading weights:  63%|██████▎   | 212/339 [00:09<00:04, 26.20it/s]
+Loading weights:  65%|██████▍   | 220/339 [00:09<00:03, 31.77it/s]
+Loading weights:  66%|██████▌   | 224/339 [00:10<00:04, 25.81it/s]
+Loading weights:  68%|██████▊   | 232/339 [00:10<00:03, 30.27it/s]
+Loading weights:  70%|██████▉   | 236/339 [00:10<00:04, 24.84it/s]
+Loading weights:  72%|███████▏  | 244/339 [00:10<00:03, 30.01it/s]
+Loading weights:  73%|███████▎  | 248/339 [00:11<00:03, 24.62it/s]
+Loading weights:  76%|███████▌  | 256/339 [00:11<00:02, 30.24it/s]
+Loading weights:  77%|███████▋  | 260/339 [00:11<00:03, 25.09it/s]
+Loading weights:  79%|███████▉  | 268/339 [00:11<00:02, 30.80it/s]
+Loading weights:  80%|████████  | 272/339 [00:11<00:02, 25.40it/s]
+Loading weights:  83%|████████▎ | 280/339 [00:12<00:01, 30.91it/s]
+Loading weights:  84%|████████▍ | 284/339 [00:12<00:02, 25.50it/s]
+Loading weights:  86%|████████▌ | 292/339 [00:12<00:01, 31.12it/s]
+Loading weights:  87%|████████▋ | 296/339 [00:12<00:01, 25.17it/s]
+Loading weights:  90%|████████▉ | 304/339 [00:12<00:01, 30.27it/s]
+Loading weights:  91%|█████████ | 308/339 [00:13<00:01, 24.93it/s]
+Loading weights:  93%|█████████▎| 316/339 [00:13<00:00, 30.28it/s]
+Loading weights:  94%|█████████▍| 320/339 [00:13<00:00, 24.63it/s]
+Loading weights:  97%|█████████▋| 328/339 [00:13<00:00, 29.91it/s]
+Loading weights:  98%|█████████▊| 332/339 [00:14<00:00, 25.04it/s]
+Loading weights: 100%|██████████| 339/339 [00:14<00:00, 24.02it/s]
+
+--- exit 0, 11.2 min ---

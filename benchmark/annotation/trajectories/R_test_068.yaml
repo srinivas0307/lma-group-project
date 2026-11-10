@@ -1,0 +1,83 @@
+# Trajectory labels (README Phase 10). Label EVERY step under `steps` with one of: useful | redundant | wrong
+#   useful     moves toward a correct result (diagnoses the real problem; a fix that passes or removes failures;
+#              a justified escalation)
+#   redundant  adds nothing (repeated tool call or code; inspecting something unrelated; no progress)
+#   wrong      makes things worse or is incorrect (breaks something that held; invents data; ignores part of the
+#              request; unjustified escalation; unsafe attempt; invalid reply)
+# Step 0 is the generator's code being checked: it is not an agent decision and is not labelled.
+# Fill `label` (and `label_b` only if you are the second labeller of a run marked second_labeller: yes), set
+# labeller / labeller_b and status: done. Don't read `answer_key` at the bottom until you have labelled the steps.
+# Check with: .venv/bin/python eval/trajectory_labels.py score
+run_id: R_test_068
+system: agent_full
+category: R
+stratum: R not repaired
+second_labeller: 'no'
+labeller: ''
+labeller_b: ''
+status: todo
+request: Passengers who share the same ticket number are duplicates. Keep only the last passenger listed for each ticket.
+contract: |
+  ```json
+  {"contract_version": "1.0",
+   "must_change": [
+    {"type": "duplicate_count", "target": ["Ticket"], "op": "eq", "value": 0, "keep": "last"},
+    {"type": "row_count", "target": null, "op": "decreased"}
+   ],
+   "must_preserve": [
+    {"type": "columns_unchanged", "target": "*", "except": []}
+   ]
+  }
+  ```
+first_code: |
+  def transform(df):
+      df['Ticket'] = df['Ticket'].str.replace('\\W+', '', regex=True)
+      grouped = df.groupby('Ticket').last()
+      return grouped.reset_index()
+first_check: 'check: VIOLATION (failed: c1)'
+steps:
+- n: 1
+  step: calls diff_datasets(max_examples=5)
+  result: tool ok
+  label: ''
+  note: ''
+- n: 2
+  step: proposes a fix
+  result: 'check: VIOLATION (failed: c1)'
+  code: |
+    def transform(df):
+        df['Ticket'] = df['Ticket'].str.replace(r'\W+', '', regex=True)
+        grouped = df.groupby('Ticket', sort=False).last().reset_index()
+        return grouped
+  label: ''
+  note: ''
+- n: 3
+  step: calls diff_datasets(max_examples=5)
+  result: tool ok
+  label: ''
+  note: ''
+- n: 4
+  step: proposes a fix
+  result: same code as an earlier attempt (time 1)
+  code: |
+    def transform(df):
+        df['Ticket'] = df['Ticket'].str.replace(r'\W+', '', regex=True)
+        grouped = df.groupby('Ticket', sort=False).last().reset_index()
+        return grouped
+  label: ''
+  note: ''
+- n: 5
+  step: proposes a fix
+  result: 'check: VIOLATION (failed: c1)'
+  code: |
+    def transform(df):
+        df['Ticket'] = df['Ticket'].str.replace(r'\W+', '', regex=True)
+        grouped = df.sort_values(by='PassengerId', ascending=False).groupby('Ticket', sort=False).last().reset_index()
+        return grouped
+  label: ''
+  note: ''
+run_note: ''
+answer_key:
+  outcome: REJECT
+  final_correct: null
+  escalate_reason: null

@@ -1,0 +1,489 @@
+{
+  "image": "igt-sandbox:docker1",
+  "redteam": [
+    {
+      "id": "rt_file_read_open",
+      "expect": "blocked",
+      "status": "blocked",
+      "ok": true
+    },
+    {
+      "id": "rt_file_write_open",
+      "expect": "blocked",
+      "status": "blocked",
+      "ok": true
+    },
+    {
+      "id": "rt_pandas_read_csv",
+      "expect": "blocked",
+      "status": "blocked",
+      "ok": true
+    },
+    {
+      "id": "rt_pandas_to_csv",
+      "expect": "blocked",
+      "status": "blocked",
+      "ok": true
+    },
+    {
+      "id": "rt_numpy_save",
+      "expect": "blocked",
+      "status": "blocked",
+      "ok": true
+    },
+    {
+      "id": "rt_pandas_io_submodule",
+      "expect": "blocked",
+      "status": "blocked",
+      "ok": true
+    },
+    {
+      "id": "rt_pandas_io_attribute",
+      "expect": "blocked",
+      "status": "blocked",
+      "ok": true
+    },
+    {
+      "id": "rt_os_system",
+      "expect": "blocked",
+      "status": "blocked",
+      "ok": true
+    },
+    {
+      "id": "rt_subprocess",
+      "expect": "blocked",
+      "status": "blocked",
+      "ok": true
+    },
+    {
+      "id": "rt_dunder_import",
+      "expect": "blocked",
+      "status": "blocked",
+      "ok": true
+    },
+    {
+      "id": "rt_eval_string",
+      "expect": "blocked",
+      "status": "blocked",
+      "ok": true
+    },
+    {
+      "id": "rt_exec_string",
+      "expect": "blocked",
+      "status": "blocked",
+      "ok": true
+    },
+    {
+      "id": "rt_pandas_eval",
+      "expect": "blocked",
+      "status": "blocked",
+      "ok": true
+    },
+    {
+      "id": "rt_getattr_bypass",
+      "expect": "blocked",
+      "status": "blocked",
+      "ok": true
+    },
+    {
+      "id": "rt_subclasses_escape",
+      "expect": "blocked",
+      "status": "blocked",
+      "ok": true
+    },
+    {
+      "id": "rt_function_globals",
+      "expect": "blocked",
+      "status": "blocked",
+      "ok": true
+    },
+    {
+      "id": "rt_frame_walk",
+      "expect": "blocked",
+      "status": "blocked",
+      "ok": true
+    },
+    {
+      "id": "rt_pickle_reduce",
+      "expect": "blocked",
+      "status": "blocked",
+      "ok": true,
+      "bypass_status": "error",
+      "bypass_ok": true
+    },
+    {
+      "id": "rt_socket",
+      "expect": "blocked",
+      "status": "blocked",
+      "ok": true,
+      "bypass_status": "error",
+      "bypass_ok": true
+    },
+    {
+      "id": "rt_urllib",
+      "expect": "blocked",
+      "status": "blocked",
+      "ok": true,
+      "bypass_status": "error",
+      "bypass_ok": true
+    },
+    {
+      "id": "rt_multiprocessing_fork",
+      "expect": "blocked",
+      "status": "blocked",
+      "ok": true
+    },
+    {
+      "id": "rt_sys_exit",
+      "expect": "blocked",
+      "status": "blocked",
+      "ok": true
+    },
+    {
+      "id": "rt_infinite_loop",
+      "expect": "contained",
+      "status": "killed",
+      "ok": true
+    },
+    {
+      "id": "rt_memory_bomb",
+      "expect": "contained",
+      "status": "memory",
+      "ok": true
+    },
+    {
+      "id": "rt_list_memory_bomb",
+      "expect": "contained",
+      "status": "memory",
+      "ok": true
+    },
+    {
+      "id": "rt_infinite_recursion",
+      "expect": "contained",
+      "status": "error",
+      "ok": true
+    },
+    {
+      "id": "rt_output_flood",
+      "expect": "contained",
+      "status": "ok",
+      "ok": true
+    }
+  ],
+  "probes": [
+    {
+      "id": "probe_host_file",
+      "docker": "error",
+      "docker_error": "FileNotFoundError: [Errno 2] No such file or directory: '/home/srinivas-billuri/4-1/LMA/intent-parser/README.md'",
+      "subprocess": "ok",
+      "subprocess_error": "",
+      "ok": true
+    },
+    {
+      "id": "probe_network",
+      "docker": "error",
+      "docker_error": "OSError: [Errno 101] Network is unreachable",
+      "subprocess": "ok",
+      "subprocess_error": "",
+      "ok": true
+    },
+    {
+      "id": "probe_write_root",
+      "docker": "error",
+      "docker_error": "OSError: [Errno 30] Read-only file system: '/pwned'",
+      "subprocess": "error",
+      "subprocess_error": "PermissionError: [Errno 13] Permission denied: '/pwned'",
+      "ok": true
+    }
+  ],
+  "equivalence": [
+    {
+      "item": "ref:titanic_filt_001",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "ref:airbnb_filt_002",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "ref:titanic_conv_002",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "ref:titanic_filt_006",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "ref:airbnb_filt_006",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "ref:adult_col_006",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "ref:airbnb_col_004",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.9
+    },
+    {
+      "item": "ref:taxi_col_006",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "ref:taxi_col_003",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "ref:airbnb_filt_004",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "pool:titanic_miss_006__c06",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.9
+    },
+    {
+      "item": "pool:airbnb_dedup_006__c00",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "pool:taxi_dedup_004__c01",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "pool:airbnb_miss_003__c00",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.9
+    },
+    {
+      "item": "pool:taxi_miss_006__c06",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "pool:airbnb_col_004__c03",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "pool:taxi_filt_001__c02",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.9
+    },
+    {
+      "item": "pool:adult_filt_003__c05",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "pool:airbnb_dedup_004__c02",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "pool:adult_filt_003__c06",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "pool:titanic_miss_002__c09",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "pool:adult_dedup_004__c02",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "pool:titanic_conv_001__c00",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "pool:airbnb_conv_006__c01",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "pool:taxi_filt_005__c04",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "pool:titanic_filt_001__c02",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "pool:titanic_col_004__c04",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "pool:adult_filt_004__c06",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.9
+    },
+    {
+      "item": "pool:airbnb_dedup_006__c07",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "pool:adult_dedup_004__c06",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.9
+    },
+    {
+      "item": "pool:titanic_filt_005__c02",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "pool:adult_dedup_001__c08",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "pool:titanic_dedup_004__c10",
+      "subprocess": "error",
+      "docker": "error",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "pool:airbnb_filt_003__c02",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "pool:taxi_dedup_003__c07",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.9
+    },
+    {
+      "item": "pool:taxi_miss_003__c03",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "pool:adult_dedup_005__c01",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    },
+    {
+      "item": "pool:airbnb_miss_001__c00",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.9
+    },
+    {
+      "item": "pool:taxi_conv_003__c02",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.9
+    },
+    {
+      "item": "pool:airbnb_filt_001__c02",
+      "subprocess": "ok",
+      "docker": "ok",
+      "same": true,
+      "seconds": 0.8
+    }
+  ],
+  "summary": {
+    "redteam_passed": 27,
+    "redteam_n": 27,
+    "probes_contained": 3,
+    "probes_n": 3,
+    "equivalent": 40,
+    "equivalence_n": 40
+  }
+}

@@ -1,0 +1,5 @@
+system: intent_ft_3b
+runner: finetune/train_qlora.py
+needs: gpu
+args:
+  config: finetune/configs/qwen25_3b.yaml

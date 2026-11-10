@@ -1,0 +1,8 @@
+system: intent_prompted_3b_p1v2
+runner: eval/parse_contracts.py
+needs: gpu
+args:
+  model: Qwen/Qwen2.5-3B-Instruct
+  load-in-4bit: false
+  prompt-version: p1-v2
+  out: /kaggle/working/parse_3b_p1-v2

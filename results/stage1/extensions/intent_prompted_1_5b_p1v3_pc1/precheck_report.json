@@ -1,0 +1,90 @@
+{
+  "source": "kaggle_outputs/parsing/1_5b_p1-v3",
+  "base_system": "intent_prompted_1_5b_p1v3",
+  "precheck_version": "pc1",
+  "n_tasks": 120,
+  "valid_before": 79,
+  "flagged": 5,
+  "flagged_by_split": {
+    "dev": 1,
+    "test": 4
+  },
+  "flagged_wrong_vs_gold": 5,
+  "flagged_matches_gold": 0,
+  "by_check": {
+    "type_mismatch": {
+      "flagged": 1,
+      "wrong_vs_gold": 1
+    },
+    "unknown_dup_key": {
+      "flagged": 1,
+      "wrong_vs_gold": 1
+    },
+    "zero_match": {
+      "flagged": 3,
+      "wrong_vs_gold": 3
+    }
+  },
+  "tasks": [
+    {
+      "task_id": "adult_col_006",
+      "split": "dev",
+      "exact_vs_gold": false,
+      "issues": [
+        {
+          "check": "zero_match",
+          "where": "must_change.c1 (column_value_relation)",
+          "message": "the condition matches 0 rows of the input, so the requested change can't happen"
+        }
+      ]
+    },
+    {
+      "task_id": "adult_conv_002",
+      "split": "test",
+      "exact_vs_gold": false,
+      "issues": [
+        {
+          "check": "type_mismatch",
+          "where": "must_change.c2 (column_value_relation)",
+          "message": "number 50 compared with text column 'income'"
+        }
+      ]
+    },
+    {
+      "task_id": "taxi_dedup_005",
+      "split": "test",
+      "exact_vs_gold": false,
+      "issues": [
+        {
+          "check": "unknown_dup_key",
+          "where": "must_change.c1 (duplicate_count)",
+          "message": "duplicate key column(s) ['pickup_zone', 'dropoff_zone'] not in the data"
+        }
+      ]
+    },
+    {
+      "task_id": "titanic_filt_002",
+      "split": "test",
+      "exact_vs_gold": false,
+      "issues": [
+        {
+          "check": "zero_match",
+          "where": "must_change.c1 (rows_removed_where)",
+          "message": "the condition matches 0 rows of the input, so the requested change can't happen"
+        }
+      ]
+    },
+    {
+      "task_id": "titanic_filt_003",
+      "split": "test",
+      "exact_vs_gold": false,
+      "issues": [
+        {
+          "check": "zero_match",
+          "where": "must_change.c2 (rows_removed_where)",
+          "message": "the condition matches 0 rows of the input, so the requested change can't happen"
+        }
+      ]
+    }
+  ]
+}

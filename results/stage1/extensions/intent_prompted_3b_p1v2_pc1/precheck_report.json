@@ -1,0 +1,13 @@
+{
+  "source": "kaggle_outputs/parsing/3b_p1-v2",
+  "base_system": "intent_prompted_3b_p1v2",
+  "precheck_version": "pc1",
+  "n_tasks": 120,
+  "valid_before": 84,
+  "flagged": 0,
+  "flagged_by_split": {},
+  "flagged_wrong_vs_gold": 0,
+  "flagged_matches_gold": 0,
+  "by_check": {},
+  "tasks": []
+}

@@ -1,0 +1,4 @@
+system: baseline1
+runner: eval/baseline1_by_dataset.py
+needs: cpu
+description: Baseline 1 (execution success) by dataset

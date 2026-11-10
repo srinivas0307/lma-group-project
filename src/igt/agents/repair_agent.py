@@ -373,8 +373,9 @@ class _Run:
                 self.tool_calls += 1
                 if (res.error or {}).get("type") == "unknown_tool":
                     self.unknown += 1
-                if a["tool"] == "run_transformation" and res.ok and res.output.get("status") == "blocked":
-                    self.unsafe += 1
+                if a["tool"] == "run_transformation" and res.ok and res.output.get("status") == "blocked" \
+                        and "syntax error" not in str(res.output.get("error", "")):
+                    self.unsafe += 1        # a syntax error (e.g. code still wrapped in ``` fences) is not a safety event
                 calls.append(dict(tool=a["tool"], args=a["args"], ok=res.ok, error_type=(res.error or {}).get("type")))
                 self.ev("tool", tool=a["tool"], args={k: (v if k != "code" else code_hash(v)) for k, v in a["args"].items()},
                         ok=res.ok, error_type=(res.error or {}).get("type"))

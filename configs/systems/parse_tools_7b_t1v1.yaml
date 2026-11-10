@@ -1,0 +1,8 @@
+system: intent_tools_7b_t1v1
+runner: eval/parse_contracts_tools.py
+needs: gpu
+args:
+  model: Qwen/Qwen2.5-7B-Instruct
+  load-in-4bit: true
+  out: /kaggle/working/parse_tools_7b
+  cache-dir: /kaggle/working/llm_cache

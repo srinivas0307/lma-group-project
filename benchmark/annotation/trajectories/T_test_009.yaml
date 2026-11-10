@@ -1,0 +1,91 @@
+# Trajectory labels (README Phase 10). Label EVERY step under `steps` with one of: useful | redundant | wrong
+#   useful     moves toward a correct result (diagnoses the real problem; a fix that passes or removes failures;
+#              a justified escalation)
+#   redundant  adds nothing (repeated tool call or code; inspecting something unrelated; no progress)
+#   wrong      makes things worse or is incorrect (breaks something that held; invents data; ignores part of the
+#              request; unjustified escalation; unsafe attempt; invalid reply)
+# Step 0 is the generator's code being checked: it is not an agent decision and is not labelled.
+# Fill `label` (and `label_b` only if you are the second labeller of a run marked second_labeller: yes), set
+# labeller / labeller_b and status: done. Don't read `answer_key` at the bottom until you have labelled the steps.
+# Check with: .venv/bin/python eval/trajectory_labels.py score
+run_id: T_test_009
+system: agent_full
+category: T
+stratum: T
+second_labeller: 'no'
+labeller: ''
+labeller_b: ''
+status: todo
+request: People with no workclass and no occupation listed are not working. Fill both missing workclass and missing occupation
+  with 'Not-working'.
+contract: |
+  ```json
+  {"contract_version": "1.0",
+   "must_change": [
+    {"type": "column_value_relation", "target": "workclass", "where": {"column": "workclass", "op": "is_null"}, "fn": "const", "args": [{"lit": "Not-working"}]},
+    {"type": "null_count", "target": "workclass", "op": "eq", "value": 0},
+    {"type": "column_value_relation", "target": "occupation", "where": {"column": "occupation", "op": "is_null"}, "fn": "const", "args": [{"lit": "Not-working"}]},
+    {"type": "null_count", "target": "occupation", "op": "eq", "value": 0}
+   ],
+   "must_preserve": [
+    {"type": "column_values_unchanged", "target": "workclass", "where": {"column": "workclass", "op": "not_null"}},
+    {"type": "column_values_unchanged", "target": "occupation", "where": {"column": "occupation", "op": "not_null"}},
+    {"type": "columns_unchanged", "target": "*", "except": ["workclass", "occupation"]},
+    {"type": "row_count", "target": null, "op": "unchanged"}
+   ]
+  }
+  ```
+first_code: |
+  import pandas as pd
+
+  def transform(df):
+      no_workclass_and_occupation = df[df['workclass'].isna() & df['occupation'].isna()]
+      df.loc[df['workclass'].isnull(), 'workclass'] = 'Not-working'
+      return df
+first_check: 'check: VIOLATION (failed: c3, c4)'
+steps:
+- n: 1
+  step: calls diff_datasets(max_examples=5)
+  result: tool ok
+  label: ''
+  note: ''
+- n: 2
+  step: proposes a fix
+  result: 'check: VIOLATION (failed: c3, c4)'
+  code: |
+    def transform(df):
+        df.loc[(df['workclass'].isnull()) & (df['occupation'].isnull()), 'workclass'] = 'Not-working'
+        df.loc[(df['workclass'].isnull()) & (df['occupation'].isnull()), 'occupation'] = 'Not-working'
+        return df
+  label: ''
+  note: ''
+- n: 3
+  step: calls diff_datasets(max_examples=5)
+  result: tool ok
+  label: ''
+  note: ''
+- n: 4
+  step: proposes a fix
+  result: same code as an earlier attempt (time 1)
+  code: |
+    def transform(df):
+        df.loc[(df['workclass'].isnull()) & (df['occupation'].isnull()), 'workclass'] = 'Not-working'
+        df.loc[(df['workclass'].isnull()) & (df['occupation'].isnull()), 'occupation'] = 'Not-working'
+        return df
+  label: ''
+  note: ''
+- n: 5
+  step: proposes a fix
+  result: same code as an earlier attempt (time 2)
+  code: |
+    def transform(df):
+        df.loc[(df['workclass'].isnull()) & (df['occupation'].isnull()), 'workclass'] = 'Not-working'
+        df.loc[(df['workclass'].isnull()) & (df['occupation'].isnull()), 'occupation'] = 'Not-working'
+        return df
+  label: ''
+  note: ''
+run_note: ''
+answer_key:
+  outcome: ESCALATE
+  final_correct: null
+  escalate_reason: identical code proposed twice

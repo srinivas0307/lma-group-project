@@ -1,0 +1,3 @@
+# vLLM backend (extension #7, src/igt/llm/vllm_backend.py). GPU only (Kaggle); install on top of Kaggle's torch stack.
+# Greedy outputs can differ from transformers: vLLM runs are their own version (model name prefixed "vllm:").
+vllm>=0.6

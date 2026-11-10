@@ -1,0 +1,16 @@
+system: proposed
+runner: eval/runner_stage2.py
+needs: gpu
+args:
+  preset: proposed
+  parses: kaggle_outputs/parsing/ft_1_5b/parses.jsonl
+  backend: hf
+  generator-model: Qwen/Qwen2.5-3B-Instruct
+  agent-model: Qwen/Qwen2.5-7B-Instruct
+  agent-4bit: true
+  splits:
+  - test
+  seeds:
+  - 0
+  cache-dir: /kaggle/working/llm_cache
+  out: /kaggle/working/results/stage2

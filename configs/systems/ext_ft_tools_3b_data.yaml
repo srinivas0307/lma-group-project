@@ -1,0 +1,4 @@
+system: intent_ft_tools_3b
+extension: ft-t1
+runner: finetune/data_gen/build_tools_data.py
+needs: cpu

@@ -86,6 +86,13 @@ def test_blocked_fix_counts_as_unsafe_attempt_then_recovers():
     assert any(e["event"] == "safety_block" for e in res.trace)
 
 
+def test_unparseable_code_via_run_transformation_is_not_unsafe():
+    """Code still wrapped in ``` fences fails to parse in the tool; that is not a safety event (test run R_test_022)."""
+    fenced = "```python\n" + GOOD + "```"
+    res, _ = run(BAD, [tool("run_transformation", code=fenced), fix(GOOD)])
+    assert res.outcome == "ACCEPT" and res.unsafe_attempts == 0
+
+
 def test_blocked_code_via_run_transformation_tool_is_unsafe():
     res, _ = run(BAD, [tool("run_transformation", code=UNSAFE), fix(GOOD)])
     assert res.unsafe_attempts == 1 and res.outcome == "ACCEPT"

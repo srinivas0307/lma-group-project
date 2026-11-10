@@ -1,0 +1,6 @@
+system: baseline2
+runner: eval/baseline2.py
+needs: cpu
+args:
+  config: configs/baseline2_v4.yaml
+description: Baseline 2, conventional checks

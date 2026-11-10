@@ -1,0 +1,45 @@
+{
+  "source": "kaggle_outputs/parsing/7b_p1-v3",
+  "base_system": "intent_prompted_7b_p1v3",
+  "precheck_version": "pc1",
+  "n_tasks": 120,
+  "valid_before": 102,
+  "flagged": 2,
+  "flagged_by_split": {
+    "test": 2
+  },
+  "flagged_wrong_vs_gold": 2,
+  "flagged_matches_gold": 0,
+  "by_check": {
+    "stat_name": {
+      "flagged": 2,
+      "wrong_vs_gold": 2
+    }
+  },
+  "tasks": [
+    {
+      "task_id": "airbnb_miss_004",
+      "split": "test",
+      "exact_vs_gold": false,
+      "issues": [
+        {
+          "check": "stat_name",
+          "where": "must_change.c1 (column_value_relation)",
+          "message": "literal 'median' is the name of a statistic; the contract needs the actual value computed from the data"
+        }
+      ]
+    },
+    {
+      "task_id": "titanic_miss_004",
+      "split": "test",
+      "exact_vs_gold": false,
+      "issues": [
+        {
+          "check": "stat_name",
+          "where": "must_change.c1 (column_value_relation)",
+          "message": "literal 'median' is the name of a statistic; the contract needs the actual value computed from the data"
+        }
+      ]
+    }
+  ]
+}

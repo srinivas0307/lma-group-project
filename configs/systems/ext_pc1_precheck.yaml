@@ -1,0 +1,8 @@
+system: <parser>_pc1
+extension: pc1
+runner: eval/ext_precheck.py
+needs: cpu
+positional:
+- 7b_p1-v3
+- 3b_p1-v2
+- 1_5b_p1-v3

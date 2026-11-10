@@ -1,0 +1,4 @@
+system: baseline3 + parser ablations
+runner: eval/score_parsers.py
+needs: cpu
+description: score every kaggle_outputs/parsing/* run (Baseline 3 = intent_prompted_7b_p1v3)

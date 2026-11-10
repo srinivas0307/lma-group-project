@@ -1,0 +1,681 @@
+{
+  "n": 213,
+  "reviewed": 0,
+  "kinds": {
+    "wrong_target_values": 27,
+    "wrong_target_type": 23,
+    "wrong_output_column": 6,
+    "helper_column_left": 16,
+    "wrong_category_order": 14,
+    "inverted_selection": 10,
+    "removes_too_few_rows": 11,
+    "order_changed_before_keep": 17,
+    "broken_logic": 6,
+    "wrong_key": 3,
+    "removes_too_many_rows": 22,
+    "removes_all_copies": 4,
+    "hardcoded_value_list": 1,
+    "wrong_proxy_condition": 3,
+    "unrequested_change": 20,
+    "incomplete_condition": 1,
+    "wrong_column": 11,
+    "wrong_null_handling": 2,
+    "incomplete_key": 5,
+    "wrong_keep_rule": 2,
+    "wrong_boolean_logic": 1,
+    "groupby_first_mixes_rows": 8
+  },
+  "systems": {
+    "Baseline 2 (conventional)": {
+      "overall": 0.455,
+      "by_kind": {
+        "wrong_target_values": {
+          "caught": 11,
+          "n": 27
+        },
+        "wrong_target_type": {
+          "caught": 0,
+          "n": 23
+        },
+        "removes_too_many_rows": {
+          "caught": 20,
+          "n": 22
+        },
+        "unrequested_change": {
+          "caught": 10,
+          "n": 20
+        },
+        "order_changed_before_keep": {
+          "caught": 7,
+          "n": 17
+        },
+        "helper_column_left": {
+          "caught": 3,
+          "n": 16
+        },
+        "wrong_category_order": {
+          "caught": 0,
+          "n": 14
+        },
+        "removes_too_few_rows": {
+          "caught": 1,
+          "n": 11
+        },
+        "wrong_column": {
+          "caught": 8,
+          "n": 11
+        },
+        "inverted_selection": {
+          "caught": 9,
+          "n": 10
+        },
+        "groupby_first_mixes_rows": {
+          "caught": 8,
+          "n": 8
+        },
+        "wrong_output_column": {
+          "caught": 3,
+          "n": 6
+        },
+        "broken_logic": {
+          "caught": 4,
+          "n": 6
+        },
+        "incomplete_key": {
+          "caught": 5,
+          "n": 5
+        },
+        "removes_all_copies": {
+          "caught": 3,
+          "n": 4
+        },
+        "wrong_key": {
+          "caught": 0,
+          "n": 3
+        },
+        "wrong_proxy_condition": {
+          "caught": 2,
+          "n": 3
+        },
+        "wrong_null_handling": {
+          "caught": 1,
+          "n": 2
+        },
+        "wrong_keep_rule": {
+          "caught": 1,
+          "n": 2
+        },
+        "hardcoded_value_list": {
+          "caught": 0,
+          "n": 1
+        },
+        "incomplete_condition": {
+          "caught": 0,
+          "n": 1
+        },
+        "wrong_boolean_logic": {
+          "caught": 1,
+          "n": 1
+        }
+      }
+    },
+    "Baseline 3 (prompted 7B)": {
+      "overall": 0.892,
+      "by_kind": {
+        "wrong_target_values": {
+          "caught": 26,
+          "n": 27
+        },
+        "wrong_target_type": {
+          "caught": 18,
+          "n": 23
+        },
+        "removes_too_many_rows": {
+          "caught": 22,
+          "n": 22
+        },
+        "unrequested_change": {
+          "caught": 17,
+          "n": 20
+        },
+        "order_changed_before_keep": {
+          "caught": 17,
+          "n": 17
+        },
+        "helper_column_left": {
+          "caught": 9,
+          "n": 16
+        },
+        "wrong_category_order": {
+          "caught": 9,
+          "n": 14
+        },
+        "removes_too_few_rows": {
+          "caught": 11,
+          "n": 11
+        },
+        "wrong_column": {
+          "caught": 10,
+          "n": 11
+        },
+        "inverted_selection": {
+          "caught": 10,
+          "n": 10
+        },
+        "groupby_first_mixes_rows": {
+          "caught": 8,
+          "n": 8
+        },
+        "wrong_output_column": {
+          "caught": 6,
+          "n": 6
+        },
+        "broken_logic": {
+          "caught": 6,
+          "n": 6
+        },
+        "incomplete_key": {
+          "caught": 5,
+          "n": 5
+        },
+        "removes_all_copies": {
+          "caught": 4,
+          "n": 4
+        },
+        "wrong_key": {
+          "caught": 3,
+          "n": 3
+        },
+        "wrong_proxy_condition": {
+          "caught": 3,
+          "n": 3
+        },
+        "wrong_null_handling": {
+          "caught": 1,
+          "n": 2
+        },
+        "wrong_keep_rule": {
+          "caught": 2,
+          "n": 2
+        },
+        "hardcoded_value_list": {
+          "caught": 1,
+          "n": 1
+        },
+        "incomplete_condition": {
+          "caught": 1,
+          "n": 1
+        },
+        "wrong_boolean_logic": {
+          "caught": 1,
+          "n": 1
+        }
+      }
+    },
+    "prompted 3B": {
+      "overall": 0.958,
+      "by_kind": {
+        "wrong_target_values": {
+          "caught": 27,
+          "n": 27
+        },
+        "wrong_target_type": {
+          "caught": 22,
+          "n": 23
+        },
+        "removes_too_many_rows": {
+          "caught": 22,
+          "n": 22
+        },
+        "unrequested_change": {
+          "caught": 20,
+          "n": 20
+        },
+        "order_changed_before_keep": {
+          "caught": 17,
+          "n": 17
+        },
+        "helper_column_left": {
+          "caught": 15,
+          "n": 16
+        },
+        "wrong_category_order": {
+          "caught": 9,
+          "n": 14
+        },
+        "removes_too_few_rows": {
+          "caught": 11,
+          "n": 11
+        },
+        "wrong_column": {
+          "caught": 10,
+          "n": 11
+        },
+        "inverted_selection": {
+          "caught": 10,
+          "n": 10
+        },
+        "groupby_first_mixes_rows": {
+          "caught": 8,
+          "n": 8
+        },
+        "wrong_output_column": {
+          "caught": 6,
+          "n": 6
+        },
+        "broken_logic": {
+          "caught": 6,
+          "n": 6
+        },
+        "incomplete_key": {
+          "caught": 5,
+          "n": 5
+        },
+        "removes_all_copies": {
+          "caught": 4,
+          "n": 4
+        },
+        "wrong_key": {
+          "caught": 3,
+          "n": 3
+        },
+        "wrong_proxy_condition": {
+          "caught": 3,
+          "n": 3
+        },
+        "wrong_null_handling": {
+          "caught": 2,
+          "n": 2
+        },
+        "wrong_keep_rule": {
+          "caught": 2,
+          "n": 2
+        },
+        "hardcoded_value_list": {
+          "caught": 1,
+          "n": 1
+        },
+        "incomplete_condition": {
+          "caught": 0,
+          "n": 1
+        },
+        "wrong_boolean_logic": {
+          "caught": 1,
+          "n": 1
+        }
+      }
+    },
+    "prompted 1.5B": {
+      "overall": 0.953,
+      "by_kind": {
+        "wrong_target_values": {
+          "caught": 26,
+          "n": 27
+        },
+        "wrong_target_type": {
+          "caught": 20,
+          "n": 23
+        },
+        "removes_too_many_rows": {
+          "caught": 22,
+          "n": 22
+        },
+        "unrequested_change": {
+          "caught": 17,
+          "n": 20
+        },
+        "order_changed_before_keep": {
+          "caught": 16,
+          "n": 17
+        },
+        "helper_column_left": {
+          "caught": 14,
+          "n": 16
+        },
+        "wrong_category_order": {
+          "caught": 14,
+          "n": 14
+        },
+        "removes_too_few_rows": {
+          "caught": 11,
+          "n": 11
+        },
+        "wrong_column": {
+          "caught": 11,
+          "n": 11
+        },
+        "inverted_selection": {
+          "caught": 10,
+          "n": 10
+        },
+        "groupby_first_mixes_rows": {
+          "caught": 8,
+          "n": 8
+        },
+        "wrong_output_column": {
+          "caught": 6,
+          "n": 6
+        },
+        "broken_logic": {
+          "caught": 6,
+          "n": 6
+        },
+        "incomplete_key": {
+          "caught": 5,
+          "n": 5
+        },
+        "removes_all_copies": {
+          "caught": 4,
+          "n": 4
+        },
+        "wrong_key": {
+          "caught": 3,
+          "n": 3
+        },
+        "wrong_proxy_condition": {
+          "caught": 3,
+          "n": 3
+        },
+        "wrong_null_handling": {
+          "caught": 2,
+          "n": 2
+        },
+        "wrong_keep_rule": {
+          "caught": 2,
+          "n": 2
+        },
+        "hardcoded_value_list": {
+          "caught": 1,
+          "n": 1
+        },
+        "incomplete_condition": {
+          "caught": 1,
+          "n": 1
+        },
+        "wrong_boolean_logic": {
+          "caught": 1,
+          "n": 1
+        }
+      }
+    },
+    "Oracle (gold contract)": {
+      "overall": 0.944,
+      "by_kind": {
+        "wrong_target_values": {
+          "caught": 27,
+          "n": 27
+        },
+        "wrong_target_type": {
+          "caught": 18,
+          "n": 23
+        },
+        "removes_too_many_rows": {
+          "caught": 22,
+          "n": 22
+        },
+        "unrequested_change": {
+          "caught": 20,
+          "n": 20
+        },
+        "order_changed_before_keep": {
+          "caught": 17,
+          "n": 17
+        },
+        "helper_column_left": {
+          "caught": 9,
+          "n": 16
+        },
+        "wrong_category_order": {
+          "caught": 14,
+          "n": 14
+        },
+        "removes_too_few_rows": {
+          "caught": 11,
+          "n": 11
+        },
+        "wrong_column": {
+          "caught": 11,
+          "n": 11
+        },
+        "inverted_selection": {
+          "caught": 10,
+          "n": 10
+        },
+        "groupby_first_mixes_rows": {
+          "caught": 8,
+          "n": 8
+        },
+        "wrong_output_column": {
+          "caught": 6,
+          "n": 6
+        },
+        "broken_logic": {
+          "caught": 6,
+          "n": 6
+        },
+        "incomplete_key": {
+          "caught": 5,
+          "n": 5
+        },
+        "removes_all_copies": {
+          "caught": 4,
+          "n": 4
+        },
+        "wrong_key": {
+          "caught": 3,
+          "n": 3
+        },
+        "wrong_proxy_condition": {
+          "caught": 3,
+          "n": 3
+        },
+        "wrong_null_handling": {
+          "caught": 2,
+          "n": 2
+        },
+        "wrong_keep_rule": {
+          "caught": 2,
+          "n": 2
+        },
+        "hardcoded_value_list": {
+          "caught": 1,
+          "n": 1
+        },
+        "incomplete_condition": {
+          "caught": 1,
+          "n": 1
+        },
+        "wrong_boolean_logic": {
+          "caught": 1,
+          "n": 1
+        }
+      }
+    },
+    "Oracle, must_change only": {
+      "overall": 0.732,
+      "by_kind": {
+        "wrong_target_values": {
+          "caught": 25,
+          "n": 27
+        },
+        "wrong_target_type": {
+          "caught": 9,
+          "n": 23
+        },
+        "removes_too_many_rows": {
+          "caught": 8,
+          "n": 22
+        },
+        "unrequested_change": {
+          "caught": 6,
+          "n": 20
+        },
+        "order_changed_before_keep": {
+          "caught": 17,
+          "n": 17
+        },
+        "helper_column_left": {
+          "caught": 9,
+          "n": 16
+        },
+        "wrong_category_order": {
+          "caught": 14,
+          "n": 14
+        },
+        "removes_too_few_rows": {
+          "caught": 11,
+          "n": 11
+        },
+        "wrong_column": {
+          "caught": 8,
+          "n": 11
+        },
+        "inverted_selection": {
+          "caught": 10,
+          "n": 10
+        },
+        "groupby_first_mixes_rows": {
+          "caught": 8,
+          "n": 8
+        },
+        "wrong_output_column": {
+          "caught": 6,
+          "n": 6
+        },
+        "broken_logic": {
+          "caught": 6,
+          "n": 6
+        },
+        "incomplete_key": {
+          "caught": 5,
+          "n": 5
+        },
+        "removes_all_copies": {
+          "caught": 4,
+          "n": 4
+        },
+        "wrong_key": {
+          "caught": 3,
+          "n": 3
+        },
+        "wrong_proxy_condition": {
+          "caught": 2,
+          "n": 3
+        },
+        "wrong_null_handling": {
+          "caught": 0,
+          "n": 2
+        },
+        "wrong_keep_rule": {
+          "caught": 2,
+          "n": 2
+        },
+        "hardcoded_value_list": {
+          "caught": 1,
+          "n": 1
+        },
+        "incomplete_condition": {
+          "caught": 1,
+          "n": 1
+        },
+        "wrong_boolean_logic": {
+          "caught": 1,
+          "n": 1
+        }
+      }
+    },
+    "Oracle, must_preserve only": {
+      "overall": 0.446,
+      "by_kind": {
+        "wrong_target_values": {
+          "caught": 7,
+          "n": 27
+        },
+        "wrong_target_type": {
+          "caught": 16,
+          "n": 23
+        },
+        "removes_too_many_rows": {
+          "caught": 15,
+          "n": 22
+        },
+        "unrequested_change": {
+          "caught": 20,
+          "n": 20
+        },
+        "order_changed_before_keep": {
+          "caught": 1,
+          "n": 17
+        },
+        "helper_column_left": {
+          "caught": 2,
+          "n": 16
+        },
+        "wrong_category_order": {
+          "caught": 5,
+          "n": 14
+        },
+        "removes_too_few_rows": {
+          "caught": 3,
+          "n": 11
+        },
+        "wrong_column": {
+          "caught": 9,
+          "n": 11
+        },
+        "inverted_selection": {
+          "caught": 4,
+          "n": 10
+        },
+        "groupby_first_mixes_rows": {
+          "caught": 0,
+          "n": 8
+        },
+        "wrong_output_column": {
+          "caught": 4,
+          "n": 6
+        },
+        "broken_logic": {
+          "caught": 1,
+          "n": 6
+        },
+        "incomplete_key": {
+          "caught": 1,
+          "n": 5
+        },
+        "removes_all_copies": {
+          "caught": 0,
+          "n": 4
+        },
+        "wrong_key": {
+          "caught": 0,
+          "n": 3
+        },
+        "wrong_proxy_condition": {
+          "caught": 3,
+          "n": 3
+        },
+        "wrong_null_handling": {
+          "caught": 2,
+          "n": 2
+        },
+        "wrong_keep_rule": {
+          "caught": 0,
+          "n": 2
+        },
+        "hardcoded_value_list": {
+          "caught": 1,
+          "n": 1
+        },
+        "incomplete_condition": {
+          "caught": 0,
+          "n": 1
+        },
+        "wrong_boolean_logic": {
+          "caught": 1,
+          "n": 1
+        }
+      }
+    }
+  }
+}

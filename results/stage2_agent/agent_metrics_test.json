@@ -1,0 +1,390 @@
+{
+  "split": "test",
+  "systems": {
+    "agent_feedback": {
+      "n_runs": 222,
+      "R": {
+        "n": 82,
+        "repair_success": 0.622,
+        "repair_success_ci": [
+          0.514,
+          0.719
+        ],
+        "escalate": 0.183,
+        "reject": 0.134,
+        "regression": 0.098
+      },
+      "C": {
+        "n": 95,
+        "correct_accept": 1.0,
+        "unnecessary_action": 0.0,
+        "over_escalation": 0.0
+      },
+      "T": {
+        "n": 24,
+        "fault_fired": 0,
+        "recovery": null,
+        "success": 0.625
+      },
+      "E": {
+        "n": 12,
+        "escalation_recall": 0.833,
+        "escalation_precision": 0.4,
+        "escalation_f1": 0.54,
+        "accept": 0.0
+      },
+      "S": {
+        "n": 9,
+        "safe_outcome": 0.556,
+        "accepted_safe_part": 0.444,
+        "unsafe_attempt_runs": 3
+      },
+      "verifier_gaming": 0.035,
+      "tools": {
+        "calls": 0,
+        "valid_call_rate": null,
+        "unknown_tool_attempts": 0,
+        "mean_tool_calls": 0.0
+      },
+      "efficiency": {
+        "mean_attempts": 0.9,
+        "mean_llm_calls": 0.99,
+        "mean_tokens": 811,
+        "mean_latency_s": 4.4,
+        "invalid_actions": 3,
+        "implicit_fixes": 0,
+        "normalized_actions": 0,
+        "invalid_per_llm_call": 0.014,
+        "ci95": {
+          "attempts": [
+            0.75,
+            1.05
+          ],
+          "tool_calls": [
+            0.0,
+            0.0
+          ],
+          "tokens": [
+            679.08,
+            954.48
+          ],
+          "latency_s": [
+            3.65,
+            5.28
+          ]
+        }
+      },
+      "safety": {
+        "runs_with_unsafe_attempt": 3,
+        "unsafe_executions": 0,
+        "initial_code_blocked": 3
+      },
+      "trace": {
+        "repair_attempts": 196,
+        "no_progress_attempts": 109,
+        "no_progress_rate": 0.556,
+        "runs_with_repair": 112,
+        "runs_with_no_progress_attempt": 46,
+        "tool_selection": {
+          "expected": {
+            "R": [
+              "diff_datasets"
+            ],
+            "T": [
+              "diff_datasets"
+            ],
+            "E": [],
+            "S": [],
+            "C": []
+          },
+          "runs": 99,
+          "score": null,
+          "mean_other_tool_calls": 0.0,
+          "frequency": {}
+        },
+        "escalation_causes": {
+          "E": {
+            "repeated code": 4,
+            "verifier uncertain": 6
+          },
+          "R": {
+            "verifier uncertain": 4,
+            "repeated code": 11
+          },
+          "S": {
+            "repeated code": 4
+          },
+          "T": {
+            "repeated code": 3
+          }
+        }
+      }
+    },
+    "agent_full": {
+      "n_runs": 222,
+      "R": {
+        "n": 82,
+        "repair_success": 0.707,
+        "repair_success_ci": [
+          0.601,
+          0.795
+        ],
+        "escalate": 0.073,
+        "reject": 0.171,
+        "regression": 0.061
+      },
+      "C": {
+        "n": 95,
+        "correct_accept": 1.0,
+        "unnecessary_action": 0.0,
+        "over_escalation": 0.0
+      },
+      "T": {
+        "n": 24,
+        "fault_fired": 24,
+        "recovery": 0.75,
+        "success": 0.75
+      },
+      "E": {
+        "n": 12,
+        "escalation_recall": 0.667,
+        "escalation_precision": 0.571,
+        "escalation_f1": 0.615,
+        "accept": 0.0
+      },
+      "S": {
+        "n": 9,
+        "safe_outcome": 0.222,
+        "accepted_safe_part": 0.778,
+        "unsafe_attempt_runs": 5
+      },
+      "verifier_gaming": 0.022,
+      "tools": {
+        "calls": 252,
+        "valid_call_rate": 1.0,
+        "unknown_tool_attempts": 0,
+        "mean_tool_calls": 1.14
+      },
+      "efficiency": {
+        "mean_attempts": 0.82,
+        "mean_llm_calls": 2.06,
+        "mean_tokens": 4417,
+        "mean_latency_s": 15.01,
+        "invalid_actions": 1,
+        "implicit_fixes": 0,
+        "normalized_actions": 28,
+        "invalid_per_llm_call": 0.002,
+        "ci95": {
+          "attempts": [
+            0.69,
+            0.97
+          ],
+          "tool_calls": [
+            0.95,
+            1.37
+          ],
+          "tokens": [
+            3624.23,
+            5377.16
+          ],
+          "latency_s": [
+            12.17,
+            18.41
+          ]
+        }
+      },
+      "safety": {
+        "runs_with_unsafe_attempt": 6,
+        "unsafe_executions": 0,
+        "initial_code_blocked": 3
+      },
+      "trace": {
+        "repair_attempts": 182,
+        "no_progress_attempts": 93,
+        "no_progress_rate": 0.511,
+        "runs_with_repair": 112,
+        "runs_with_no_progress_attempt": 40,
+        "tool_selection": {
+          "expected": {
+            "R": [
+              "diff_datasets"
+            ],
+            "T": [
+              "diff_datasets"
+            ],
+            "E": [],
+            "S": [],
+            "C": []
+          },
+          "runs": 99,
+          "score": 0.566,
+          "mean_other_tool_calls": 1.36,
+          "frequency": {
+            "diff_datasets": 90,
+            "inspect_dataset": 105,
+            "profile_column": 10,
+            "run_transformation": 28,
+            "run_verifier": 19
+          }
+        },
+        "escalation_causes": {
+          "E": {
+            "verifier uncertain": 7,
+            "repeated code": 1
+          },
+          "R": {
+            "verifier uncertain": 4,
+            "repeated code": 1,
+            "agent": 1
+          },
+          "S": {
+            "repeated code": 1
+          },
+          "T": {
+            "repeated code": 2
+          }
+        }
+      }
+    },
+    "agent_naive": {
+      "n_runs": 222,
+      "R": {
+        "n": 82,
+        "repair_success": 0.61,
+        "repair_success_ci": [
+          0.502,
+          0.708
+        ],
+        "escalate": 0.354,
+        "reject": 0.0,
+        "regression": 0.037
+      },
+      "C": {
+        "n": 95,
+        "correct_accept": 1.0,
+        "unnecessary_action": 0.0,
+        "over_escalation": 0.0
+      },
+      "T": {
+        "n": 24,
+        "fault_fired": 0,
+        "recovery": null,
+        "success": 0.667
+      },
+      "E": {
+        "n": 12,
+        "escalation_recall": 1.0,
+        "escalation_precision": 0.293,
+        "escalation_f1": 0.453,
+        "accept": 0.0
+      },
+      "S": {
+        "n": 9,
+        "safe_outcome": 0.778,
+        "accepted_safe_part": 0.222,
+        "unsafe_attempt_runs": 4
+      },
+      "verifier_gaming": 0.018,
+      "tools": {
+        "calls": 0,
+        "valid_call_rate": null,
+        "unknown_tool_attempts": 0,
+        "mean_tool_calls": 0.0
+      },
+      "efficiency": {
+        "mean_attempts": 0.91,
+        "mean_llm_calls": 1.0,
+        "mean_tokens": 677,
+        "mean_latency_s": 2.64,
+        "invalid_actions": 3,
+        "implicit_fixes": 0,
+        "normalized_actions": 0,
+        "invalid_per_llm_call": 0.014,
+        "ci95": {
+          "attempts": [
+            0.76,
+            1.06
+          ],
+          "tool_calls": [
+            0.0,
+            0.0
+          ],
+          "tokens": [
+            569.39,
+            798.05
+          ],
+          "latency_s": [
+            2.23,
+            3.12
+          ]
+        }
+      },
+      "safety": {
+        "runs_with_unsafe_attempt": 4,
+        "unsafe_executions": 0,
+        "initial_code_blocked": 3
+      },
+      "trace": {
+        "repair_attempts": 198,
+        "no_progress_attempts": 125,
+        "no_progress_rate": 0.631,
+        "runs_with_repair": 111,
+        "runs_with_no_progress_attempt": 45,
+        "tool_selection": {
+          "expected": {
+            "R": [
+              "diff_datasets"
+            ],
+            "T": [
+              "diff_datasets"
+            ],
+            "E": [],
+            "S": [],
+            "C": []
+          },
+          "runs": 99,
+          "score": null,
+          "mean_other_tool_calls": 0.0,
+          "frequency": {}
+        },
+        "escalation_causes": {
+          "E": {
+            "repeated code": 6,
+            "verifier uncertain": 6
+          },
+          "R": {
+            "repeated code": 25,
+            "verifier uncertain": 4
+          },
+          "S": {
+            "repeated code": 6
+          },
+          "T": {
+            "repeated code": 8
+          }
+        }
+      }
+    }
+  },
+  "paired_R_success": {
+    "agent_feedback vs agent_full": {
+      "n": 82,
+      "only_first": 6,
+      "only_second": 13,
+      "p_value": 0.1671
+    },
+    "agent_feedback vs agent_naive": {
+      "n": 82,
+      "only_first": 15,
+      "only_second": 14,
+      "p_value": 1.0
+    },
+    "agent_full vs agent_naive": {
+      "n": 82,
+      "only_first": 19,
+      "only_second": 11,
+      "p_value": 0.2005
+    }
+  },
+  "not_valid_results": []
+}

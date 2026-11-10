@@ -1,0 +1,27 @@
+{
+  "data_version": "v3-tools",
+  "source": "finetune/data/v2",
+  "prompt_version": "ft-t1",
+  "train": 3614,
+  "val": 796,
+  "tool_examples": {
+    "train": 73,
+    "val": 6
+  },
+  "tool_repeat": 1,
+  "dropped": 0,
+  "dropped_by_reason": {},
+  "tool_patterns": [
+    "fill_median",
+    "fill_most_common"
+  ],
+  "train_by_type": {
+    "column_transformation": 965,
+    "type_conversion": 459,
+    "deduplication": 422,
+    "filtering": 942,
+    "missing_values": 826
+  },
+  "max_chars": 7669,
+  "approx_max_tokens": 2191
+}

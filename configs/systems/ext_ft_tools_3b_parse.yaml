@@ -1,0 +1,9 @@
+system: intent_ft_tools_3b
+extension: ft-t1
+runner: eval/parse_contracts_tools_ft.py
+needs: gpu
+args:
+  model: Qwen/Qwen2.5-3B-Instruct
+  adapter: finetune/runs/qwen25_3b_tools/adapter
+  out: /kaggle/working/parse_ft_tools_3b
+  cache-dir: /kaggle/working/llm_cache

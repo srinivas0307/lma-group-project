@@ -1,0 +1,3130 @@
+{
+  "agent_full": {
+    "recorded": {
+      "n": 222,
+      "outcomes": {
+        "ACCEPT": 182,
+        "ESCALATE": 17,
+        "REJECT": 23
+      },
+      "stopped": 0,
+      "stopped_by_category": {},
+      "stopped_recorded_outcomes": {},
+      "repairs_lost": 0,
+      "wrong_accepts_avoided": 0,
+      "R_repaired": 58,
+      "R_n": 82,
+      "E_escalated": 8,
+      "E_n": 12,
+      "S_escalated": 1,
+      "S_n": 9,
+      "escalations": 17,
+      "tokens": 980554,
+      "llm_calls": 457
+    },
+    "by_k": {
+      "1": {
+        "summary": {
+          "n": 222,
+          "outcomes": {
+            "ACCEPT": 172,
+            "ESCALATE": 50
+          },
+          "stopped": 39,
+          "stopped_by_category": {
+            "R": 21,
+            "T": 8,
+            "E": 5,
+            "S": 5
+          },
+          "stopped_recorded_outcomes": {
+            "REJECT": 23,
+            "ACCEPT": 10,
+            "ESCALATE": 6
+          },
+          "repairs_lost": 7,
+          "wrong_accepts_avoided": 0,
+          "R_repaired": 53,
+          "R_n": 82,
+          "E_escalated": 12,
+          "E_n": 12,
+          "S_escalated": 5,
+          "S_n": 9,
+          "escalations": 50,
+          "tokens": 653643,
+          "llm_calls": 323,
+          "tokens_saved": 326911,
+          "llm_calls_saved": 134
+        },
+        "stopped_runs": [
+          {
+            "scenario_id": "R_test_008",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 3232,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_009",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 3250,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_014",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 6683,
+            "llm_calls": 4,
+            "stopped": true,
+            "recorded_outcome": "ACCEPT",
+            "recorded_correct": true
+          },
+          {
+            "scenario_id": "R_test_019",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 7551,
+            "llm_calls": 4,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_024",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 3815,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_030",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 4044,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_032",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 6275,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "ACCEPT",
+            "recorded_correct": true
+          },
+          {
+            "scenario_id": "R_test_033",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 3997,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_034",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 20038,
+            "llm_calls": 8,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_036",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 8986,
+            "llm_calls": 4,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_045",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 7264,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_046",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 4559,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_049",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 9235,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_053",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 13444,
+            "llm_calls": 4,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_059",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 13666,
+            "llm_calls": 4,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_061",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 3662,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_067",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 3037,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ACCEPT",
+            "recorded_correct": true
+          },
+          {
+            "scenario_id": "R_test_068",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 3045,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_069",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 3776,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ACCEPT",
+            "recorded_correct": true
+          },
+          {
+            "scenario_id": "R_test_073",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 3131,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_075",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 3127,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ACCEPT",
+            "recorded_correct": true
+          },
+          {
+            "scenario_id": "T_test_001",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 8528,
+            "llm_calls": 4,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_002",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 5627,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_004",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 7528,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_007",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 8225,
+            "llm_calls": 4,
+            "stopped": true,
+            "recorded_outcome": "ACCEPT",
+            "recorded_correct": true
+          },
+          {
+            "scenario_id": "T_test_009",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 3693,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_018",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 5344,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_022",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 3196,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_023",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 5946,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "ACCEPT",
+            "recorded_correct": true
+          },
+          {
+            "scenario_id": "E_002",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 3522,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_006",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 3421,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_007",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 4028,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_008",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 12496,
+            "llm_calls": 5,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_014",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 4144,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_006",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 7412,
+            "llm_calls": 4,
+            "stopped": true,
+            "recorded_outcome": "ACCEPT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_008",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 3667,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_009",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 11992,
+            "llm_calls": 5,
+            "stopped": true,
+            "recorded_outcome": "ACCEPT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_011",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 10294,
+            "llm_calls": 4,
+            "stopped": true,
+            "recorded_outcome": "ACCEPT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_012",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2003,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          }
+        ]
+      },
+      "2": {
+        "summary": {
+          "n": 222,
+          "outcomes": {
+            "ACCEPT": 180,
+            "ESCALATE": 41,
+            "REJECT": 1
+          },
+          "stopped": 29,
+          "stopped_by_category": {
+            "R": 16,
+            "T": 6,
+            "E": 5,
+            "S": 2
+          },
+          "stopped_recorded_outcomes": {
+            "REJECT": 22,
+            "ESCALATE": 5,
+            "ACCEPT": 2
+          },
+          "repairs_lost": 2,
+          "wrong_accepts_avoided": 0,
+          "R_repaired": 56,
+          "R_n": 82,
+          "E_escalated": 12,
+          "E_n": 12,
+          "S_escalated": 2,
+          "S_n": 9,
+          "escalations": 41,
+          "tokens": 866846,
+          "llm_calls": 415,
+          "tokens_saved": 113708,
+          "llm_calls_saved": 42
+        },
+        "stopped_runs": [
+          {
+            "scenario_id": "R_test_008",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 6804,
+            "llm_calls": 4,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_009",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 6888,
+            "llm_calls": 4,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_019",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 11521,
+            "llm_calls": 6,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_024",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 8254,
+            "llm_calls": 4,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_033",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 7714,
+            "llm_calls": 4,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_034",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 27476,
+            "llm_calls": 11,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_036",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 13130,
+            "llm_calls": 6,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_046",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 9472,
+            "llm_calls": 4,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_049",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 14739,
+            "llm_calls": 5,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_053",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 27643,
+            "llm_calls": 8,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_059",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 29168,
+            "llm_calls": 8,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_061",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 7711,
+            "llm_calls": 4,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_067",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 6346,
+            "llm_calls": 4,
+            "stopped": true,
+            "recorded_outcome": "ACCEPT",
+            "recorded_correct": true
+          },
+          {
+            "scenario_id": "R_test_068",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 6372,
+            "llm_calls": 4,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_069",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 7853,
+            "llm_calls": 4,
+            "stopped": true,
+            "recorded_outcome": "ACCEPT",
+            "recorded_correct": true
+          },
+          {
+            "scenario_id": "R_test_073",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 6607,
+            "llm_calls": 4,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_001",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 12579,
+            "llm_calls": 6,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_002",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 8954,
+            "llm_calls": 5,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_004",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 22606,
+            "llm_calls": 7,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_009",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 7954,
+            "llm_calls": 4,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_018",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 8717,
+            "llm_calls": 5,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_022",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 6834,
+            "llm_calls": 4,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_002",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 7706,
+            "llm_calls": 5,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_006",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 7385,
+            "llm_calls": 5,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_007",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 7423,
+            "llm_calls": 5,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_008",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 16556,
+            "llm_calls": 7,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_014",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 10223,
+            "llm_calls": 6,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_008",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 6783,
+            "llm_calls": 5,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_012",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 3470,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          }
+        ]
+      },
+      "3": {
+        "summary": {
+          "n": 222,
+          "outcomes": {
+            "ACCEPT": 182,
+            "ESCALATE": 35,
+            "REJECT": 5
+          },
+          "stopped": 18,
+          "stopped_by_category": {
+            "R": 9,
+            "T": 4,
+            "E": 4,
+            "S": 1
+          },
+          "stopped_recorded_outcomes": {
+            "REJECT": 18
+          },
+          "repairs_lost": 0,
+          "wrong_accepts_avoided": 0,
+          "R_repaired": 58,
+          "R_n": 82,
+          "E_escalated": 12,
+          "E_n": 12,
+          "S_escalated": 2,
+          "S_n": 9,
+          "escalations": 35,
+          "tokens": 980554,
+          "llm_calls": 457,
+          "tokens_saved": 0,
+          "llm_calls_saved": 0
+        },
+        "stopped_runs": [
+          {
+            "scenario_id": "R_test_008",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 8839,
+            "llm_calls": 5,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_009",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 9010,
+            "llm_calls": 5,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_024",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 14003,
+            "llm_calls": 6,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_033",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 15276,
+            "llm_calls": 7,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_046",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 12639,
+            "llm_calls": 5,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_053",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 33171,
+            "llm_calls": 10,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_061",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 20263,
+            "llm_calls": 8,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_068",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 8343,
+            "llm_calls": 5,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_073",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 8693,
+            "llm_calls": 5,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_002",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 10925,
+            "llm_calls": 6,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_004",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 37969,
+            "llm_calls": 11,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_018",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 10664,
+            "llm_calls": 6,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_022",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 8956,
+            "llm_calls": 5,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_002",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 12726,
+            "llm_calls": 7,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_007",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 9372,
+            "llm_calls": 6,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_008",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 20920,
+            "llm_calls": 9,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_014",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 12781,
+            "llm_calls": 7,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_008",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 8570,
+            "llm_calls": 6,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          }
+        ]
+      }
+    }
+  },
+  "agent_feedback": {
+    "recorded": {
+      "n": 222,
+      "outcomes": {
+        "ACCEPT": 171,
+        "ESCALATE": 32,
+        "REJECT": 19
+      },
+      "stopped": 0,
+      "stopped_by_category": {},
+      "stopped_recorded_outcomes": {},
+      "repairs_lost": 0,
+      "wrong_accepts_avoided": 0,
+      "R_repaired": 51,
+      "R_n": 82,
+      "E_escalated": 10,
+      "E_n": 12,
+      "S_escalated": 4,
+      "S_n": 9,
+      "escalations": 32,
+      "tokens": 180032,
+      "llm_calls": 220
+    },
+    "by_k": {
+      "1": {
+        "summary": {
+          "n": 222,
+          "outcomes": {
+            "ACCEPT": 166,
+            "ESCALATE": 56
+          },
+          "stopped": 46,
+          "stopped_by_category": {
+            "R": 26,
+            "T": 9,
+            "E": 6,
+            "S": 5
+          },
+          "stopped_recorded_outcomes": {
+            "REJECT": 19,
+            "ACCEPT": 5,
+            "ESCALATE": 22
+          },
+          "repairs_lost": 5,
+          "wrong_accepts_avoided": 0,
+          "R_repaired": 47,
+          "R_n": 82,
+          "E_escalated": 12,
+          "E_n": 12,
+          "S_escalated": 5,
+          "S_n": 9,
+          "escalations": 56,
+          "tokens": 116664,
+          "llm_calls": 145,
+          "tokens_saved": 63368,
+          "llm_calls_saved": 75
+        },
+        "stopped_runs": [
+          {
+            "scenario_id": "R_test_006",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1857,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_007",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 689,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_008",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 750,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_009",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 747,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_014",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1512,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ACCEPT",
+            "recorded_correct": true
+          },
+          {
+            "scenario_id": "R_test_018",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 704,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_019",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1528,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_023",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 803,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_028",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1789,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_031",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 721,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ACCEPT",
+            "recorded_correct": true
+          },
+          {
+            "scenario_id": "R_test_035",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 903,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_045",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1123,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_046",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1116,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_047",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2299,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_049",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1266,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_052",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2274,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_053",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1144,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_054",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1008,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ACCEPT",
+            "recorded_correct": true
+          },
+          {
+            "scenario_id": "R_test_056",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1106,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_059",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1178,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_063",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 644,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_064",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 608,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_068",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 671,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_069",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 801,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_073",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 757,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ACCEPT",
+            "recorded_correct": true
+          },
+          {
+            "scenario_id": "R_test_075",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 631,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_002",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 671,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_004",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1178,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_010",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1857,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_014",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1106,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_015",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1123,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_017",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 757,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ACCEPT",
+            "recorded_correct": true
+          },
+          {
+            "scenario_id": "T_test_018",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 631,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_020",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 608,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_022",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 747,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_002",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1292,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_006",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1162,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_007",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1606,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_008",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2067,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_013",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1142,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_014",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1369,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_006",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2865,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_007",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2200,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_008",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1303,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_009",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1615,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_012",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1257,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          }
+        ]
+      },
+      "2": {
+        "summary": {
+          "n": 222,
+          "outcomes": {
+            "ACCEPT": 171,
+            "ESCALATE": 46,
+            "REJECT": 5
+          },
+          "stopped": 28,
+          "stopped_by_category": {
+            "R": 14,
+            "T": 6,
+            "E": 4,
+            "S": 4
+          },
+          "stopped_recorded_outcomes": {
+            "REJECT": 14,
+            "ESCALATE": 14
+          },
+          "repairs_lost": 0,
+          "wrong_accepts_avoided": 0,
+          "R_repaired": 51,
+          "R_n": 82,
+          "E_escalated": 12,
+          "E_n": 12,
+          "S_escalated": 5,
+          "S_n": 9,
+          "escalations": 46,
+          "tokens": 158718,
+          "llm_calls": 195,
+          "tokens_saved": 21314,
+          "llm_calls_saved": 25
+        },
+        "stopped_runs": [
+          {
+            "scenario_id": "R_test_006",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2765,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_007",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1361,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_008",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1501,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_009",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1493,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_018",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1417,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_023",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1601,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_046",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2236,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_049",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2565,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_053",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2288,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_056",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2216,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_059",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2432,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_063",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1261,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_068",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1354,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_075",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1273,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_002",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1354,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_004",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2432,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_010",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2765,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_014",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2216,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_018",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1273,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_022",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1493,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_007",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2372,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_008",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 3053,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_013",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1720,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_014",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2067,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_006",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 3755,
+            "llm_calls": 4,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_008",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1934,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_009",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2368,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_012",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1857,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          }
+        ]
+      },
+      "3": {
+        "summary": {
+          "n": 222,
+          "outcomes": {
+            "ACCEPT": 171,
+            "ESCALATE": 41,
+            "REJECT": 10
+          },
+          "stopped": 9,
+          "stopped_by_category": {
+            "R": 5,
+            "T": 3,
+            "E": 1
+          },
+          "stopped_recorded_outcomes": {
+            "REJECT": 9
+          },
+          "repairs_lost": 0,
+          "wrong_accepts_avoided": 0,
+          "R_repaired": 51,
+          "R_n": 82,
+          "E_escalated": 11,
+          "E_n": 12,
+          "S_escalated": 4,
+          "S_n": 9,
+          "escalations": 41,
+          "tokens": 180032,
+          "llm_calls": 220,
+          "tokens_saved": 0,
+          "llm_calls_saved": 0
+        },
+        "stopped_runs": [
+          {
+            "scenario_id": "R_test_008",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2252,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_009",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2236,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_018",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2245,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_068",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2116,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_075",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1917,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_002",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2116,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_018",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1917,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_022",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2236,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_013",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2306,
+            "llm_calls": 4,
+            "stopped": true,
+            "recorded_outcome": "REJECT",
+            "recorded_correct": null
+          }
+        ]
+      }
+    }
+  },
+  "agent_naive": {
+    "recorded": {
+      "n": 222,
+      "outcomes": {
+        "ESCALATE": 55,
+        "ACCEPT": 166,
+        "REJECT": 1
+      },
+      "stopped": 0,
+      "stopped_by_category": {},
+      "stopped_recorded_outcomes": {},
+      "repairs_lost": 0,
+      "wrong_accepts_avoided": 0,
+      "R_repaired": 50,
+      "R_n": 82,
+      "E_escalated": 12,
+      "E_n": 12,
+      "S_escalated": 6,
+      "S_n": 9,
+      "escalations": 55,
+      "tokens": 150347,
+      "llm_calls": 222
+    },
+    "by_k": {
+      "1": {
+        "summary": {
+          "n": 222,
+          "outcomes": {
+            "ESCALATE": 55,
+            "ACCEPT": 166,
+            "REJECT": 1
+          },
+          "stopped": 45,
+          "stopped_by_category": {
+            "R": 25,
+            "T": 8,
+            "E": 6,
+            "S": 6
+          },
+          "stopped_recorded_outcomes": {
+            "ESCALATE": 45
+          },
+          "repairs_lost": 0,
+          "wrong_accepts_avoided": 0,
+          "R_repaired": 50,
+          "R_n": 82,
+          "E_escalated": 12,
+          "E_n": 12,
+          "S_escalated": 6,
+          "S_n": 9,
+          "escalations": 55,
+          "tokens": 97497,
+          "llm_calls": 142,
+          "tokens_saved": 52850,
+          "llm_calls_saved": 80
+        },
+        "stopped_runs": [
+          {
+            "scenario_id": "R_test_001",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 551,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_002",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 551,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_004",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1366,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_013",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 583,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_014",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 583,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_017",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 572,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_018",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 618,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_019",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1236,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_020",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 623,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_023",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 671,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_028",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 657,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_029",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 657,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_033",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 690,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_034",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1380,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_040",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 681,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_046",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 995,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_047",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1990,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_048",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1978,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_059",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 952,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_061",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 589,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_063",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 593,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_064",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1186,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_066",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 491,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_079",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 499,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_080",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 499,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_001",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 589,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_003",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 572,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_004",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 952,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_005",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 491,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_009",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 623,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_020",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1186,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_021",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 551,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_024",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 499,
+            "llm_calls": 1,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_002",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1226,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_006",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1083,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_007",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1526,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_008",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1945,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_013",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1128,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_014",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1571,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_003",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1119,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_006",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1791,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_007",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2146,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_008",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1253,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_009",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1547,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_011",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2360,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          }
+        ]
+      },
+      "2": {
+        "summary": {
+          "n": 222,
+          "outcomes": {
+            "ESCALATE": 55,
+            "ACCEPT": 166,
+            "REJECT": 1
+          },
+          "stopped": 35,
+          "stopped_by_category": {
+            "R": 19,
+            "T": 7,
+            "E": 4,
+            "S": 5
+          },
+          "stopped_recorded_outcomes": {
+            "ESCALATE": 35
+          },
+          "repairs_lost": 0,
+          "wrong_accepts_avoided": 0,
+          "R_repaired": 50,
+          "R_n": 82,
+          "E_escalated": 12,
+          "E_n": 12,
+          "S_escalated": 6,
+          "S_n": 9,
+          "escalations": 55,
+          "tokens": 127617,
+          "llm_calls": 187,
+          "tokens_saved": 22730,
+          "llm_calls_saved": 35
+        },
+        "stopped_runs": [
+          {
+            "scenario_id": "R_test_001",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1102,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_002",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1102,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_013",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1166,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_014",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1166,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_017",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1144,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_018",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1236,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_020",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1246,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_023",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1342,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_028",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1314,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_029",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1314,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_033",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1380,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_040",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1362,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_046",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1990,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_059",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1904,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_061",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1178,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_063",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1186,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_066",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 982,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_079",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 998,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "R_test_080",
+            "category": "R",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 998,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_001",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1178,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_003",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1144,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_004",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1904,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_005",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 982,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_009",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1246,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_021",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1102,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "T_test_024",
+            "category": "T",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 998,
+            "llm_calls": 2,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_002",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1787,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_006",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1583,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_013",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1678,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "E_014",
+            "category": "E",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2458,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_003",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1617,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_006",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 2595,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_007",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 3110,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_008",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 1834,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          },
+          {
+            "scenario_id": "S_011",
+            "category": "S",
+            "outcome": "ESCALATE",
+            "final_correct": null,
+            "tokens": 3413,
+            "llm_calls": 3,
+            "stopped": true,
+            "recorded_outcome": "ESCALATE",
+            "recorded_correct": null
+          }
+        ]
+      },
+      "3": {
+        "summary": {
+          "n": 222,
+          "outcomes": {
+            "ESCALATE": 55,
+            "ACCEPT": 166,
+            "REJECT": 1
+          },
+          "stopped": 0,
+          "stopped_by_category": {},
+          "stopped_recorded_outcomes": {},
+          "repairs_lost": 0,
+          "wrong_accepts_avoided": 0,
+          "R_repaired": 50,
+          "R_n": 82,
+          "E_escalated": 12,
+          "E_n": 12,
+          "S_escalated": 6,
+          "S_n": 9,
+          "escalations": 55,
+          "tokens": 150347,
+          "llm_calls": 222,
+          "tokens_saved": 0,
+          "llm_calls_saved": 0
+        },
+        "stopped_runs": []
+      }
+    }
+  }
+}

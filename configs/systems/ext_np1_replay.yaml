@@ -1,0 +1,9 @@
+system: agent_*_np1 (offline)
+extension: np1
+runner: eval/ext_replay_no_progress.py
+needs: cpu
+args:
+  ks:
+  - 1
+  - 2
+  - 3

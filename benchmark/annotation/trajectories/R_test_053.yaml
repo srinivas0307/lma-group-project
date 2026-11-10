@@ -1,0 +1,143 @@
+# Trajectory labels (README Phase 10). Label EVERY step under `steps` with one of: useful | redundant | wrong
+#   useful     moves toward a correct result (diagnoses the real problem; a fix that passes or removes failures;
+#              a justified escalation)
+#   redundant  adds nothing (repeated tool call or code; inspecting something unrelated; no progress)
+#   wrong      makes things worse or is incorrect (breaks something that held; invents data; ignores part of the
+#              request; unjustified escalation; unsafe attempt; invalid reply)
+# Step 0 is the generator's code being checked: it is not an agent decision and is not labelled.
+# Fill `label` (and `label_b` only if you are the second labeller of a run marked second_labeller: yes), set
+# labeller / labeller_b and status: done. Don't read `answer_key` at the bottom until you have labelled the steps.
+# Check with: .venv/bin/python eval/trajectory_labels.py score
+run_id: R_test_053
+system: agent_full
+category: R
+stratum: R not repaired
+second_labeller: 'yes'
+labeller: ''
+labeller_b: ''
+status: todo
+request: Remove the trips that were picked up before 1 January 2026. The pickup and dropoff times are text in the form YYYY-MM-DD
+  HH:MM:SS (for example 2026-01-01 00:54:04).
+contract: |
+  ```json
+  {"contract_version": "1.0",
+   "must_change": [
+    {"type": "rows_removed_where", "target": null, "condition": {"column": "tpep_pickup_datetime", "op": "<", "value": "2026-01-01 00:00:00"}},
+    {"type": "row_count", "target": null, "op": "decreased"}
+   ],
+   "must_preserve": [
+    {"type": "rows_retained_where", "target": null, "condition": {"column": "tpep_pickup_datetime", "op": ">=", "value": "2026-01-01 00:00:00"}},
+    {"type": "columns_unchanged", "target": "*", "except": []}
+   ]
+  }
+  ```
+first_code: |
+  import pandas as pd
+  from datetime import datetime
+
+  def transform(df):
+      df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])
+      df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])
+      mask = df['tpep_pickup_datetime'].dt.year >= 2026
+      return df.loc[mask]
+first_check: 'check: VIOLATION (failed: p2)'
+steps:
+- n: 1
+  step: calls inspect_dataset(which=before, n_rows=5, columns=['tpep_pickup_datetime', 'tpep_dropoff_datetime'])
+  result: tool ok
+  label: ''
+  label_b: ''
+  note: ''
+- n: 2
+  step: calls run_transformation(code=<code, 7 lines>)
+  result: tool ok
+  code: |
+    import pandas as pd
+    from datetime import datetime
+    def transform(df):
+        df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])
+        df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])
+        mask = df['tpep_pickup_datetime'] >= pd.to_datetime('2026-01-01 00:00:00')
+        return df.loc[mask]
+  label: ''
+  label_b: ''
+  note: ''
+- n: 3
+  step: calls run_verifier()
+  result: tool ok
+  label: ''
+  label_b: ''
+  note: ''
+- n: 4
+  step: proposes a fix
+  result: 'check: VIOLATION (failed: p2)'
+  code: |
+    def transform(df):
+        df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])
+        df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])
+        mask = df['tpep_pickup_datetime'] >= pd.to_datetime('2026-01-01 00:00:00')
+        return df.loc[mask]
+  label: ''
+  label_b: ''
+  note: ''
+- n: 5
+  step: calls inspect_dataset(which=before, n_rows=5, columns=['tpep_pickup_datetime', 'tpep_dropoff_datetime'])
+  result: tool ok
+  label: ''
+  label_b: ''
+  note: ''
+- n: 6
+  step: calls run_transformation(code=<code, 7 lines>)
+  result: tool ok
+  code: |
+    import pandas as pd
+    from datetime import datetime
+    def transform(df):
+        df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])
+        df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])
+        mask = df['tpep_pickup_datetime'] >= pd.to_datetime('2026-01-01 00:00:00')
+        return df.loc[mask]
+  label: ''
+  label_b: ''
+  note: ''
+- n: 7
+  step: calls run_verifier()
+  result: tool ok
+  label: ''
+  label_b: ''
+  note: ''
+- n: 8
+  step: proposes a fix
+  result: 'check: VIOLATION (failed: p2)'
+  code: |
+    def transform(df):
+        df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])
+        df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])
+        mask = df['tpep_pickup_datetime'] >= pd.to_datetime('2026-01-01 00:00:00')
+        return df.loc[mask, df.columns]
+  label: ''
+  label_b: ''
+  note: ''
+- n: 9
+  step: calls diff_datasets(max_examples=5)
+  result: tool ok
+  label: ''
+  label_b: ''
+  note: ''
+- n: 10
+  step: proposes a fix
+  result: same code as an earlier attempt (time 1)
+  code: |
+    def transform(df):
+        df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])
+        df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])
+        mask = df['tpep_pickup_datetime'] >= pd.to_datetime('2026-01-01 00:00:00')
+        return df.loc[mask, df.columns]
+  label: ''
+  label_b: ''
+  note: ''
+run_note: ''
+answer_key:
+  outcome: REJECT
+  final_correct: null
+  escalate_reason: null

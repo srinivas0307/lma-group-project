@@ -107,3 +107,23 @@ def test_runner_handles_es_with_generated_initial_code(tmp_path):
     runs = [json.loads(l) for l in (tmp_path / "smoke_es" / "runs.jsonl").read_text().splitlines()]
     assert {r["category"] for r in runs} == {"E", "S"} and all(r["initial_generated"] for r in runs)
     assert all(r["outcome"] in ("ESCALATE", "REJECT") for r in runs) and all(r["final_correct"] is None for r in runs)
+
+
+def test_no_progress_and_tool_selection_from_traces():
+    from eval.agent_metrics import attempt_results, no_progress, trace_metrics
+    v = lambda st, failed=(): dict(event="verified", status=st, failed=list(failed))      # noqa: E731
+    trace = [dict(event="initial_code"), v("VIOLATION", ["c1", "p1"]),
+             dict(event="tool", tool="diff_datasets", ok=True, error_type=None),
+             v("VIOLATION", ["c1", "p1"]),                  # same failures: no progress
+             v("VIOLATION", ["c1"]),                        # strict subset: progress
+             dict(event="repeated_code"),                   # repeat: no progress
+             v("PASS")]                                     # pass: progress
+    ap = attempt_results(trace)
+    assert [no_progress(a, b) for a, b in ap] == [True, False, True, False]
+    run = dict(scenario_id="R_1", seed=0, category="R", outcome="ACCEPT", escalate_reason=None)
+    tm = trace_metrics([run], [dict(scenario_id="R_1", seed=0, trace=trace)])
+    assert tm["no_progress_attempts"] == 2 and tm["repair_attempts"] == 4
+    assert tm["tool_selection"]["score"] == 1.0 and tm["tool_selection"]["frequency"] == {"diff_datasets": 1}
+    esc = dict(run, outcome="ESCALATE", escalate_reason="verifier uncertain")
+    assert trace_metrics([esc], [dict(scenario_id="R_1", seed=0, trace=trace[:2])])["escalation_causes"] == \
+        {"R": {"verifier uncertain": 1}}

@@ -1,0 +1,63 @@
+# Trajectory labels (README Phase 10). Label EVERY step under `steps` with one of: useful | redundant | wrong
+#   useful     moves toward a correct result (diagnoses the real problem; a fix that passes or removes failures;
+#              a justified escalation)
+#   redundant  adds nothing (repeated tool call or code; inspecting something unrelated; no progress)
+#   wrong      makes things worse or is incorrect (breaks something that held; invents data; ignores part of the
+#              request; unjustified escalation; unsafe attempt; invalid reply)
+# Step 0 is the generator's code being checked: it is not an agent decision and is not labelled.
+# Fill `label` (and `label_b` only if you are the second labeller of a run marked second_labeller: yes), set
+# labeller / labeller_b and status: done. Don't read `answer_key` at the bottom until you have labelled the steps.
+# Check with: .venv/bin/python eval/trajectory_labels.py score
+run_id: T_test_005
+system: agent_full
+category: T
+stratum: T
+second_labeller: 'yes'
+labeller: ''
+labeller_b: ''
+status: todo
+request: Make Embarked a categorical column.
+contract: |
+  ```json
+  {"contract_version": "1.0",
+   "must_change": [
+    {"type": "column_dtype", "target": "Embarked", "dtype": "category"}
+   ],
+   "must_preserve": [
+    {"type": "column_values_unchanged", "target": "Embarked"},
+    {"type": "null_count", "target": "Embarked", "op": "unchanged"},
+    {"type": "columns_unchanged", "target": "*", "except": ["Embarked"]},
+    {"type": "row_count", "target": null, "op": "unchanged"}
+   ]
+  }
+  ```
+first_code: |
+  import pandas as pd
+  import numpy as np
+
+  def transform(df):
+      df['Embarked'] = df['Embarked'].map({'S': 1, 'C': 2, 'Q': 3})
+      return df
+first_check: 'check: VIOLATION (failed: c1, p1)'
+steps:
+- n: 1
+  step: calls inspect_dataset(which=last_output, n_rows=5, columns=['Embarked'])
+  result: 'tool error: timeout'
+  label: ''
+  label_b: ''
+  note: ''
+- n: 2
+  step: proposes a fix
+  result: 'check: PASS'
+  code: |
+    def transform(df):
+        df['Embarked'] = df['Embarked'].astype('category')
+        return df
+  label: ''
+  label_b: ''
+  note: ''
+run_note: ''
+answer_key:
+  outcome: ACCEPT
+  final_correct: true
+  escalate_reason: null

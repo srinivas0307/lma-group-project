@@ -1,0 +1,18 @@
+# QLoRA, Qwen2.5-3B-Instruct, Kaggle T4 (16 GB, fp16). Extension 13 (ft-t1, data v3-tools). System name after training: intent_ft_tools_3b
+base_model: Qwen/Qwen2.5-3B-Instruct
+train_file: finetune/data/v3_tools/sft_train.jsonl
+val_file: finetune/data/v3_tools/sft_val.jsonl
+output_dir: finetune/runs/qwen25_3b_tools
+load_in_4bit: true
+compute_dtype: float16            # T4 has no bfloat16
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+learning_rate: 2.0e-4
+num_epochs: 1                     # was 2; 2026-10-31 smoke: 3B at 120 s/step needs ~15 h for 2 epochs (> 12 h Kaggle session); same for both sizes
+per_device_batch_size: 1          # Kaggle T4 OOM at 4 (2026-10-31): ~152k-token vocab, fp32 logits of 4 x 1.8k tokens ~8 GB
+gradient_accumulation_steps: 16   # effective batch 16, unchanged
+max_seq_len: 3072                 # p1-v2 prompt ~1.5k tokens + contract; margin so nothing is dropped
+logging_steps: 10
+eval_steps: 100
+seed: 1234

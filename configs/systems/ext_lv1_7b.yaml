@@ -1,0 +1,10 @@
+system: llm_verifier_7b_lv1
+extension: lv1
+runner: eval/run_llm_verifier.py
+needs: gpu
+args:
+  backend: hf
+  model: Qwen/Qwen2.5-7B-Instruct
+  load-in-4bit: true
+  out: /kaggle/working/ext/llm_verifier_7b_lv1
+  cache-dir: /kaggle/working/llm_cache

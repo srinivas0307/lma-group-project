@@ -1,0 +1,5 @@
+system: demo UI
+extension: ui
+runner: app/demo_app.py
+needs: cpu
+notes: the Live tab needs a GPU (notebooks/kaggle/demo_ui_kaggle.ipynb)

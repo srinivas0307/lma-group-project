@@ -1,0 +1,4 @@
+system: intent_oracle
+runner: eval/run_intent_oracle.py
+needs: cpu
+description: intent verifier with gold contracts

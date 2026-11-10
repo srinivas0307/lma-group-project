@@ -1,0 +1,94 @@
+# Trajectory labels (README Phase 10). Label EVERY step under `steps` with one of: useful | redundant | wrong
+#   useful     moves toward a correct result (diagnoses the real problem; a fix that passes or removes failures;
+#              a justified escalation)
+#   redundant  adds nothing (repeated tool call or code; inspecting something unrelated; no progress)
+#   wrong      makes things worse or is incorrect (breaks something that held; invents data; ignores part of the
+#              request; unjustified escalation; unsafe attempt; invalid reply)
+# Step 0 is the generator's code being checked: it is not an agent decision and is not labelled.
+# Fill `label` (and `label_b` only if you are the second labeller of a run marked second_labeller: yes), set
+# labeller / labeller_b and status: done. Don't read `answer_key` at the bottom until you have labelled the steps.
+# Check with: .venv/bin/python eval/trajectory_labels.py score
+run_id: R_test_024
+system: agent_full
+category: R
+stratum: R not repaired
+second_labeller: 'no'
+labeller: ''
+labeller_b: ''
+status: todo
+request: Convert last_review into a proper date column. The dates are written in YYYY-MM-DD format (for example 2019-05-21).
+contract: |
+  ```json
+  {"contract_version": "1.0",
+   "must_change": [
+    {"type": "column_dtype", "target": "last_review", "dtype": "datetime"}
+   ],
+   "must_preserve": [
+    {"type": "column_value_relation", "target": "last_review", "fn": "cast", "args": [{"col": "last_review"}, {"lit": "datetime"}]},
+    {"type": "null_count", "target": "last_review", "op": "unchanged"},
+    {"type": "columns_unchanged", "target": "*", "except": ["last_review"]},
+    {"type": "row_count", "target": null, "op": "unchanged"}
+   ]
+  }
+  ```
+first_code: |
+  import pandas as pd
+  from datetime import datetime
+
+  def transform(df):
+      df = df.dropna(subset=['last_review'])
+      df['last_review'] = pd.to_datetime(df['last_review'], errors='coerce')
+      return df
+first_check: 'check: VIOLATION (failed: p2, p4)'
+steps:
+- n: 1
+  step: calls diff_datasets(max_examples=5)
+  result: tool ok
+  label: ''
+  note: ''
+- n: 2
+  step: proposes a fix
+  result: 'check: VIOLATION (failed: p2, p4)'
+  code: |
+    def transform(df):
+        df = df.dropna(subset=['last_review'])
+        df['last_review'] = pd.to_datetime(df['last_review'], errors='coerce')
+        return df
+  label: ''
+  note: ''
+- n: 3
+  step: calls inspect_dataset(which=last_output, n_rows=5, columns=['last_review'])
+  result: tool ok
+  label: ''
+  note: ''
+- n: 4
+  step: proposes a fix
+  result: same code as an earlier attempt (time 1)
+  code: |
+    def transform(df):
+        df = df.dropna(subset=['last_review'])
+        df['last_review'] = pd.to_datetime(df['last_review'], errors='coerce')
+        return df
+  label: ''
+  note: ''
+- n: 5
+  step: calls run_verifier()
+  result: tool ok
+  label: ''
+  note: ''
+- n: 6
+  step: proposes a fix
+  result: 'check: VIOLATION (failed: p2, p4)'
+  code: |
+    def transform(df):
+        df = df.dropna(subset=['last_review'])
+        df['last_review'] = pd.to_datetime(df['last_review'], errors='coerce')
+        df.fillna(value={df.columns.get_loc('last_review'): pd.NaT}, inplace=True)
+        return df
+  label: ''
+  note: ''
+run_note: ''
+answer_key:
+  outcome: REJECT
+  final_correct: null
+  escalate_reason: null

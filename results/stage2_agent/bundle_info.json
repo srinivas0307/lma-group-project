@@ -1,0 +1,18 @@
+{
+  "stage": "test",
+  "commit": "6a79a3690433907d19a5d92242817ee1898a05d2",
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "load_in_4bit": true,
+  "verifier": "oracle",
+  "systems": [
+    "agent_feedback",
+    "agent_full",
+    "agent_naive"
+  ],
+  "created": "2026-10-31T12:47:20",
+  "runs": {
+    "agent_feedback": 222,
+    "agent_full": 222,
+    "agent_naive": 222
+  }
+}

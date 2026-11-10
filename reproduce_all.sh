@@ -45,6 +45,8 @@ step "4. intent verifier with gold contracts (oracle + change-only / preserve-on
 $PY eval/run_intent_oracle.py
 step "5. every downloaded parser run (Baseline 3, size ablation, other prompts, fine-tuned if present) + summary tables"
 $PY eval/score_parsers.py
+step "5b. Stage 1 recall by error kind (labels: benchmark/annotation/error_kinds_pool_v4.csv)"
+$PY eval/error_kind_breakdown.py > /dev/null && echo "results/stage1/summary/error_kinds.md"
 step "6. safety table (red-team samples through every execution path)"
 $PY eval/safety_table.py > /dev/null && echo "results/safety/redteam_table.md"
 
@@ -67,5 +69,13 @@ sys.exit(0 if same else 1)
 EOF
   fi
   rm -rf "$PREV"
+fi
+if [[ -f results/stage2_agent/agent_full/runs.jsonl ]]; then
+  step "8. agent test-run metrics (from the downloaded runs; no model calls)"
+  $PY eval/agent_metrics.py results/stage2_agent test | tail -4
+fi
+if ls results/stage2/*/runs.jsonl > /dev/null 2>&1; then
+  step "9. Stage 2 metrics (from the downloaded runs)"
+  $PY eval/stage2_metrics.py results/stage2 test | head -12
 fi
 echo; echo "done. Tables: results/STAGE1_RESULTS.md (text), results/stage1/summary/metrics_stage1.json, results/safety/redteam_table.md"

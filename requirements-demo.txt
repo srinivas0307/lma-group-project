@@ -1,0 +1,4 @@
+# Demo UI (extension #6, app/demo_app.py). Optional; not needed for any result. The Live tab also needs a GPU stack
+# (torch, transformers, bitsandbytes), as on Kaggle.
+-r requirements.txt
+gradio>=5,<6

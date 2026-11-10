@@ -1,0 +1,90 @@
+{
+  "source": "results/stage2_agent/agent_full",
+  "seed": 0,
+  "runs": [
+    "R_test_079",
+    "R_test_032",
+    "R_test_072",
+    "R_test_037",
+    "R_test_003",
+    "R_test_022",
+    "R_test_044",
+    "R_test_043",
+    "R_test_053",
+    "R_test_046",
+    "R_test_036",
+    "R_test_033",
+    "R_test_068",
+    "R_test_024",
+    "T_test_017",
+    "T_test_005",
+    "T_test_010",
+    "T_test_023",
+    "T_test_004",
+    "T_test_009",
+    "E_013",
+    "E_014",
+    "E_006",
+    "E_008",
+    "E_002",
+    "S_011",
+    "S_003",
+    "S_007",
+    "S_008",
+    "S_009"
+  ],
+  "second_labeller": [
+    "E_013",
+    "E_014",
+    "R_test_032",
+    "R_test_046",
+    "R_test_053",
+    "R_test_079",
+    "S_003",
+    "S_011",
+    "T_test_005",
+    "T_test_017"
+  ],
+  "strata": {
+    "R repaired": [
+      "R_test_079",
+      "R_test_032",
+      "R_test_072",
+      "R_test_037",
+      "R_test_003",
+      "R_test_022",
+      "R_test_044",
+      "R_test_043"
+    ],
+    "R not repaired": [
+      "R_test_053",
+      "R_test_046",
+      "R_test_036",
+      "R_test_033",
+      "R_test_068",
+      "R_test_024"
+    ],
+    "T": [
+      "T_test_017",
+      "T_test_005",
+      "T_test_010",
+      "T_test_023",
+      "T_test_004",
+      "T_test_009"
+    ],
+    "E": [
+      "E_013",
+      "E_014",
+      "E_006",
+      "E_008",
+      "E_002"
+    ],
+    "S": [
+      "S_011",
+      "S_003",
+      "S_007",
+      "S_008",
+      "S_009"
+    ]
+  }
+}

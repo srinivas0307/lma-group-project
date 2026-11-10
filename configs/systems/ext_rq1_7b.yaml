@@ -1,0 +1,11 @@
+system: intent_prompted_7b_p1v3_rq1
+extension: rq1
+runner: eval/ext_reask.py
+needs: gpu
+positional:
+- 7b_p1-v3
+args:
+  backend: hf
+  model: Qwen/Qwen2.5-7B-Instruct
+  load-in-4bit: true
+  out-root: /kaggle/working/ext

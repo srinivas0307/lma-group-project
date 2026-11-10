@@ -1,0 +1,4 @@
+system: docker sandbox, red-team set
+extension: docker
+runner: eval/ext_docker_check.py
+needs: docker

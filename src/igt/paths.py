@@ -42,11 +42,14 @@ CONFIGS = ROOT / "configs"
 
 def stage1_dir(system):
     """Results folder of a Stage 1 system. Parser runs that were not selected go to stage1/other_prompts/<system>;
-    fine-tuned parsers (intent_ft_*) to stage1/finetuned/<system>."""
+    fine-tuned parsers (intent_ft_*) to stage1/finetuned/<system>; the tool-using parser (intent_tools_*) to
+    stage1/tool_parser/<system>."""
     if system in STAGE1_SYSTEM_DIRS:
         return STAGE1_SYSTEM_DIRS[system]
     if system.startswith("intent_ft_"):
         return STAGE1 / "finetuned" / system
+    if system.startswith("intent_tools_"):              # tool-using parser (extra experiment)
+        return STAGE1 / "tool_parser" / system
     return STAGE1 / "other_prompts" / system
 
 

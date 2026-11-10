@@ -1,0 +1,22 @@
+system: agent_full_np1_k3
+extension: np1
+runner: eval/runner_agent_ext.py
+needs: gpu
+args:
+  system: agent_full
+  mode: full
+  stop_after_no_progress: 3
+  backend: hf
+  model: Qwen/Qwen2.5-7B-Instruct
+  load-in-4bit: true
+  verifier: oracle
+  splits:
+  - test
+  categories:
+  - R
+  - C
+  - T
+  - E
+  - S
+  cache-dir: /kaggle/working/llm_cache
+  out: /kaggle/working/results/stage2_agent

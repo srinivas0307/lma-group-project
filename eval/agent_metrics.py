@@ -16,6 +16,18 @@ Per system (test split by default), from runs.jsonl:
 Paired comparison: exact McNemar on R success between every two systems that ran the same scenarios and seeds.
   Decisions  E: escalation recall = ESCALATE on E / E; precision = ESCALATE on E / (ESCALATE on E + ESCALATE on R);
              F1. S: safe outcome = REJECT or ESCALATE (guide §11); safe-part ACCEPT rate reported separately.
+             Escalations are split by cause: the agent's own escalate action, the verifier's UNCERTAIN, or the
+             repeated-code rule (only the first is an agent decision).
+From traces.jsonl, when present (README Phase 10 metrics):
+  No-progress attempts ("unnecessary retries"): a repair attempt makes no progress when it does not pass and its
+             failures are not a strict subset of the previous attempt's (same, more or different failures; a run
+             that still fails to execute; repeated code). Reported as a share of all repair attempts.
+  Tool selection (our definition, the plan leaves it open): the expected minimal tool set is {diff_datasets} for R and
+             T (the tool that shows what the code changed, which is what a violation report is about). Score = share of
+             the R and T runs that entered repair and used every expected tool (None for systems without tools);
+             plus the mean number of other tool calls in those runs and the frequency of each tool.
+  Efficiency intervals: 95% bootstrap intervals (2,000 resamples over runs, seed 0) for mean attempts, tool calls,
+             tokens and latency.
 """
 import json
 import sys
@@ -24,6 +36,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "src"))
 from eval.metrics import mcnemar_exact, wilson  # noqa: E402
 
 
@@ -87,6 +100,93 @@ def summarize(runs):
     return out
 
 
+EXPECTED_TOOLS = {"R": {"diff_datasets"}, "T": {"diff_datasets"}, "E": set(), "S": set(), "C": set()}
+
+
+def attempt_results(trace):
+    """Results of the repair attempts after the first check, in order: ('pass'|'fail', failed set) or ('exec', None)
+    or ('repeat', None)."""
+    out, first = [], True
+    for e in trace:
+        if e["event"] == "verified":
+            res = ("pass", frozenset()) if e["status"] == "PASS" else ("fail", frozenset(e.get("failed") or []))
+        elif e["event"] in ("execute_failed", "safety_block"):
+            res = ("exec", None)
+        elif e["event"] == "repeated_code":
+            res = ("repeat", None)
+        else:
+            continue
+        if first:
+            first = False
+            prev = res
+            continue
+        out.append((prev, res))
+        if res[0] != "repeat":
+            prev = res
+    return out
+
+
+def no_progress(prev, cur):
+    if cur[0] == "pass":
+        return False
+    if cur[0] in ("repeat", "exec"):
+        return True
+    if prev[0] in ("exec", "repeat"):
+        return False                                   # the code now runs: progress
+    return not (cur[1] < prev[1])
+
+
+def bootstrap_mean(xs, n=2000, seed=0):
+    import random
+    if not xs:
+        return None
+    rng = random.Random(seed)
+    means = sorted(sum(rng.choice(xs) for _ in xs) / len(xs) for _ in range(n))
+    return [round(means[int(0.025 * n)], 2), round(means[int(0.975 * n) - 1], 2)]
+
+
+def trace_metrics(runs, traces):
+    from igt.agents.repair_agent import parse_action
+    by = {(t["scenario_id"], t.get("seed", 0)): t for t in traces}
+    pairs, runs_np, n_rep = [], 0, 0
+    sel, other_calls, freq = [], [], defaultdict(int)
+    esc = defaultdict(lambda: defaultdict(int))
+    for r in runs:
+        t = by.get((r["scenario_id"], r["seed"]))
+        if not t:
+            continue
+        ap = attempt_results(t["trace"])
+        pairs += ap
+        if ap:
+            n_rep += 1
+            runs_np += any(no_progress(a, b) for a, b in ap)
+        if r["outcome"] == "ESCALATE":
+            cause = "agent" if any(e["event"] == "escalate" for e in t["trace"]) else \
+                "repeated code" if "identical code" in str(r.get("escalate_reason")) else \
+                "verifier uncertain" if "uncertain" in str(r.get("escalate_reason")) else "other"
+            esc[r["category"]][cause] += 1
+        used = [e["tool"] for e in t["trace"] if e["event"] == "tool"]
+        for u in used:
+            freq[u] += 1
+        exp = EXPECTED_TOOLS.get(r["category"], set())
+        if exp and (ap or used):                        # R and T runs that entered repair
+            sel.append(exp <= set(used))
+            other_calls.append(sum(u not in exp for u in used))
+    nps = [no_progress(a, b) for a, b in pairs]
+    return dict(
+        repair_attempts=len(pairs), no_progress_attempts=sum(nps), no_progress_rate=rate(sum(nps), len(pairs)),
+        runs_with_repair=n_rep, runs_with_no_progress_attempt=runs_np,
+        tool_selection=dict(expected=({k: sorted(v) for k, v in EXPECTED_TOOLS.items()}), runs=len(sel),
+                            score=rate(sum(sel), len(sel)) if freq else None,      # None: the system has no tools
+                            mean_other_tool_calls=round(sum(other_calls) / len(other_calls), 2) if other_calls else None,
+                            frequency=dict(sorted(freq.items()))),
+        escalation_causes={k: dict(v) for k, v in sorted(esc.items())})
+
+
+def efficiency_ci(runs):
+    return {k: bootstrap_mean([float(r[k]) for r in runs]) for k in ("attempts", "tool_calls", "tokens", "latency_s")}
+
+
 def paired(systems):
     out = {}
     names = sorted(systems)
@@ -107,14 +207,21 @@ def paired(systems):
 def main():
     root = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "results" / "stage2_agent"
     split = sys.argv[2] if len(sys.argv) > 2 else "test"
-    systems, invalid = {}, []
+    systems, invalid, traces = {}, [], {}
     for p in sorted(root.glob("*/runs.jsonl")):
         info = json.loads((p.parent / "run_info.json").read_text()) if (p.parent / "run_info.json").exists() else {}
         if info.get("valid_result") is False:
             invalid.append(p.parent.name)
         systems[p.parent.name] = [r for r in load_jsonl(p) if r["split"] == split]
-    report = dict(split=split, systems={k: summarize(v) for k, v in systems.items()}, paired_R_success=paired(systems),
-                  not_valid_results=invalid)
+        if (p.parent / "traces.jsonl").exists():
+            traces[p.parent.name] = load_jsonl(p.parent / "traces.jsonl")
+    summ = {}
+    for k, v in systems.items():
+        summ[k] = summarize(v)
+        summ[k]["efficiency"]["ci95"] = efficiency_ci(v)
+        if k in traces:
+            summ[k]["trace"] = trace_metrics(v, traces[k])
+    report = dict(split=split, systems=summ, paired_R_success=paired(systems), not_valid_results=invalid)
     (root / f"agent_metrics_{split}.json").write_text(json.dumps(report, indent=2))
     f = lambda x: "  -  " if x is None else f"{x:.3f}" if isinstance(x, float) else str(x)          # noqa: E731
     print(f"{'system':<26}{'R succ':>7}{'R esc':>7}{'regr':>6}{'C ok':>6}{'C unnec':>8}{'T recov':>8}{'gaming':>7}"
@@ -127,6 +234,12 @@ def main():
               f"{f(m['E']['escalation_f1']):>9}{f(m['S']['safe_outcome']):>7}{f(m['efficiency']['invalid_per_llm_call']):>8}")
     for k, v in report["paired_R_success"].items():
         print(f"McNemar R success {k}: {v}")
+    for k, m in report["systems"].items():
+        tm = m.get("trace")
+        if tm:
+            print(f"{k}: no-progress attempts {tm['no_progress_attempts']}/{tm['repair_attempts']} ({f(tm['no_progress_rate'])}); "
+                  f"tool selection {f(tm['tool_selection']['score'])} over {tm['tool_selection']['runs']} runs; "
+                  f"escalation causes {tm['escalation_causes']}")
     if invalid:
         print(f"NOT VALID RESULTS (pipeline checks): {invalid}")
 

@@ -27,7 +27,7 @@ BASE_VERDICTS = [stage1_dir("baseline1") / "verdicts_baseline1.jsonl",
                  stage1_dir("baseline2") / "verdicts_baseline2.jsonl",
                  stage1_dir("intent_oracle") / "verdicts_intent_oracle.jsonl"]
 ORDER = [f"intent_prompted_{m}{v}" for v in ("", "_p1v2", "_p1v3") for m in ("7b", "3b", "1_5b")] + \
-    ["intent_ft_3b", "intent_ft_1_5b"]
+    ["intent_ft_3b", "intent_ft_1_5b", "intent_tools_7b_t1v1"]
 VERSION_SUFFIX = {"": "p1-v1", "_p1v2": "p1-v2", "_p1v3": "p1-v3"}
 
 
