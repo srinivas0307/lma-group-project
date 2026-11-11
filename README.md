@@ -5,7 +5,10 @@ marp: false
 # Intent-Gated Data Transformation Agent: Implementation Roadmap
 
 **Team SSSS** · LMA Group Project 2026
-**Status:** Draft for team review. No code has been written yet.
+**Status (2026-11-11):** Core implementation, Stage 1 evaluation, agent experiments, and full 1.5B/3B parser fine-tuning are complete. The roadmap below retains planning and historical notes; use the result reports for current experiment status.
+
+Full fine-tuning analysis: [results/FINETUNE_RESULTS.md](results/FINETUNE_RESULTS.md).
+Executed full-run notebook: [notebooks/executed/finetune_qlora_full.ipynb](notebooks/executed/finetune_qlora_full.ipynb).
 
 This document is the development plan for the project. It is based on two sources:
 

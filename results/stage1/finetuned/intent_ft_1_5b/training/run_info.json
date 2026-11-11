@@ -1,0 +1,72 @@
+{
+  "config": {
+    "base_model": "Qwen/Qwen2.5-1.5B-Instruct",
+    "train_file": "finetune/data/sft_train.jsonl",
+    "val_file": "finetune/data/sft_val.jsonl",
+    "output_dir": "finetune/runs/qwen25_1_5b",
+    "load_in_4bit": true,
+    "compute_dtype": "float16",
+    "gradient_checkpointing": true,
+    "lora_r": 16,
+    "lora_alpha": 32,
+    "lora_dropout": 0.05,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "learning_rate": 0.0002,
+    "num_epochs": 2,
+    "max_steps": -1,
+    "warmup_ratio": 0.03,
+    "weight_decay": 0.0,
+    "lr_scheduler": "cosine",
+    "per_device_batch_size": 1,
+    "gradient_accumulation_steps": 16,
+    "max_seq_len": 3072,
+    "logging_steps": 10,
+    "eval_steps": 100,
+    "save_steps": 0,
+    "seed": 1234,
+    "limit_train": null,
+    "limit_val": 200,
+    "optim": null
+  },
+  "base_model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "parser_prompt_version": "p1-v2",
+  "runtime_s": 14530.5,
+  "train_loss": 0.03340716805902466,
+  "final_eval": {
+    "eval_loss": 0.013757896609604359,
+    "eval_runtime": 134.3805,
+    "eval_samples_per_second": 1.488,
+    "eval_steps_per_second": 0.744,
+    "epoch": 2.0
+  },
+  "first_logged_loss": 0.44231014251708983,
+  "last_logged_loss": 0.0028192928060889245,
+  "n_train": 3614,
+  "n_val": 200,
+  "dropped_too_long": {
+    "train": 0,
+    "val": 0
+  },
+  "max_tokens": 1827,
+  "steps": 226,
+  "trainable_params": 18464768,
+  "data_sha256": {
+    "train_file": "4222330ebad0e91b5497c64d17721e01a4f66bad90c6a834a25553eea8b46597",
+    "val_file": "79e9db54a13fda41d2fda42c8b4b17a2d4edb062d6601e9c7f8717a3d922c9e3"
+  },
+  "versions": {
+    "python": "3.13.15",
+    "torch": "2.11.0+cu128",
+    "transformers": "5.16.1",
+    "peft": "0.21.2"
+  },
+  "gpu": "Tesla T4"
+}

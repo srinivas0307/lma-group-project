@@ -14,6 +14,7 @@ Where the current (pool v4) files are:
 | Oracle (gold contracts) | `results/stage1/oracle/` |
 | Size ablation (prompted 3B p1-v2, 1.5B p1-v3) | `results/stage1/size_ablation/` |
 | Parser runs not selected on dev | `results/stage1/other_prompts/` |
+| Fine-tuned 1.5B and 3B parsers (full runs imported 2026-11-11) | `results/stage1/finetuned/` |
 | All systems side by side, prompt selection | `results/stage1/summary/` |
 
 Regenerate pool v4 (CPU, about 20 min):
@@ -49,7 +50,11 @@ so the 9 parser runs were re-scored without any new GPU run.
 | **Baseline 3: prompted 7B (p1-v3)** | 0.892 [0.82, 0.95] | 0.254 [0.16, 0.36] | 0.069 | 0.148 |
 | prompted 3B (p1-v2, dev-selected) | 0.958 [0.90, 0.99] | 0.578 [0.46, 0.68] | 0.049 | 0.297 |
 | prompted 1.5B (p1-v3) | 0.953 [0.90, 0.99] | 0.796 [0.71, 0.88] | 0.105 | 0.356 |
+| Fine-tuned 1.5B (p1-v2, imported 2026-11-11) | 0.944 [0.90, 0.98] | 0.165 [0.09, 0.25] | 0.033 | 0.031 |
+| Fine-tuned 3B (p1-v2, imported 2026-11-11) | 0.915 [0.85, 0.97] | 0.158 [0.09, 0.24] | 0.049 | 0.031 |
 | Intent verifier, oracle contract | 0.944 [0.90, 0.98] | 0.000 [0.00, 0.00] | 0.028 | 0.006 |
+
+The fine-tuned rows were scored on the unchanged pool v4 after importing the full-run notebook and outputs. Both reduce invalid test contracts to 2% and exact-match 56/100 test contracts. These are Stage 1 verification results, not end-to-end repair runs. See [FINETUNE_RESULTS.md](FINETUNE_RESULTS.md) for training provenance, contract F1, counts, caveats, artifact locations, and reproduction commands.
 
 Brackets: 95% task-level bootstrap intervals. Paired McNemar (test): Baseline 3 vs Baseline 2: Baseline 3 right on
 140 candidates where Baseline 2 was wrong, the reverse on 95 (**p = 0.004**); oracle vs Baseline 2: 164 vs 2

@@ -421,5 +421,99 @@
         "fn": 267
       }
     }
+  },
+  "intent_ft_1_5b": {
+    "folder": "kaggle_outputs/parsing/ft_1_5b",
+    "results": "results/stage1/finetuned/intent_ft_1_5b",
+    "contract_metrics": "results/stage1/finetuned/intent_ft_1_5b/contract_metrics.json",
+    "overall": {
+      "n_tasks": 120,
+      "invalid_rate": 0.017,
+      "exact_match": 0.575,
+      "must_change": {
+        "precision": 0.81,
+        "recall": 0.885,
+        "f1": 0.846,
+        "tp": 255,
+        "fp": 60,
+        "fn": 33
+      },
+      "must_preserve": {
+        "precision": 0.991,
+        "recall": 0.959,
+        "f1": 0.974,
+        "tp": 1910,
+        "fp": 18,
+        "fn": 82
+      }
+    },
+    "test": {
+      "n_tasks": 100,
+      "invalid_rate": 0.02,
+      "exact_match": 0.56,
+      "must_change": {
+        "precision": 0.794,
+        "recall": 0.883,
+        "f1": 0.836,
+        "tp": 204,
+        "fp": 53,
+        "fn": 27
+      },
+      "must_preserve": {
+        "precision": 0.992,
+        "recall": 0.954,
+        "f1": 0.972,
+        "tp": 1587,
+        "fp": 13,
+        "fn": 77
+      }
+    }
+  },
+  "intent_ft_3b": {
+    "folder": "kaggle_outputs/parsing/ft_3b",
+    "results": "results/stage1/finetuned/intent_ft_3b",
+    "contract_metrics": "results/stage1/finetuned/intent_ft_3b/contract_metrics.json",
+    "overall": {
+      "n_tasks": 120,
+      "invalid_rate": 0.033,
+      "exact_match": 0.592,
+      "must_change": {
+        "precision": 0.752,
+        "recall": 0.833,
+        "f1": 0.791,
+        "tp": 240,
+        "fp": 79,
+        "fn": 48
+      },
+      "must_preserve": {
+        "precision": 0.994,
+        "recall": 0.949,
+        "f1": 0.971,
+        "tp": 1891,
+        "fp": 11,
+        "fn": 101
+      }
+    },
+    "test": {
+      "n_tasks": 100,
+      "invalid_rate": 0.02,
+      "exact_match": 0.56,
+      "must_change": {
+        "precision": 0.72,
+        "recall": 0.87,
+        "f1": 0.788,
+        "tp": 201,
+        "fp": 78,
+        "fn": 30
+      },
+      "must_preserve": {
+        "precision": 0.994,
+        "recall": 0.96,
+        "f1": 0.977,
+        "tp": 1597,
+        "fp": 9,
+        "fn": 67
+      }
+    }
   }
 }
