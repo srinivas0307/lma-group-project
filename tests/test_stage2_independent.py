@@ -124,3 +124,28 @@ def test_collector_rejects_inconsistent_runs(complete,tmp_path,damage):
         for n,b in files.items():z.writestr(n,b)
         z.writestr('bundle.json',json.dumps(seal))
     with pytest.raises(ValueError):read_bundle(target,allow_scripted=True)
+
+
+def test_incompatible_optional_torchao_is_removed_before_model_loading():
+    import importlib.metadata as metadata
+    from eval.stage2_independent.environment import prepare_optional_packages
+    installed={'torchao':'0.10.0'};commands=[]
+    def version(name):
+        if name not in installed:raise metadata.PackageNotFoundError(name)
+        return installed[name]
+    def run(command,check):
+        assert check is True
+        commands.append(command);installed.pop('torchao')
+    result=prepare_optional_packages(version,run,executable='/kaggle/python')
+    assert result['action']=='removed_incompatible'
+    assert commands==[['/kaggle/python','-m','pip','uninstall','-y','torchao']]
+    assert prepare_optional_packages(version,run)['action']=='already_absent'
+    installed['torchao']='0.16.0'
+    assert prepare_optional_packages(version,run)['action']=='compatible_unchanged'
+    assert len(commands)==1
+
+
+def test_setup_fails_if_incompatible_package_remains():
+    from eval.stage2_independent.environment import prepare_optional_packages
+    with pytest.raises(RuntimeError,match='still installed'):
+        prepare_optional_packages(lambda name:'0.10.0',lambda command,check:None)

@@ -21,7 +21,9 @@ Follow the [complete Kaggle instructions](docs/stage2_six_notebooks.md). The not
 
 The active next phase follows the [contract-quality improvement plan](docs/contract_quality_improvement_plan.md). A CPU-validated synthetic draft suite and two Kaggle adapter-comparison notebooks and a CPU results collector are ready. Follow the [pilot runbook](docs/contract_quality/RUNBOOK.md) and download the [three-notebook pack](notebooks/kaggle/contract_quality/contract_quality_pilots.zip). GPU pilot results and independent task review are still pending; retraining follows the grounding decision.
 
-The [independent Stage 2 workflow](docs/stage2_independent.md) now runs directly from raw datasets and requests, generating its own enriched-input contracts inside each job. Download the [six-system notebook pack plus collector](notebooks/kaggle/stage2_independent/stage2_independent_notebooks.zip). It requires model weights but no earlier experiment outputs or parser-pilot run. Start with notebook 05 for the proposed system. This new workflow is CPU-tested; its GPU results are pending.
+The [independent Stage 2 workflow](docs/stage2_independent.md) now runs directly from raw datasets and requests, generating its own enriched-input contracts inside each job. Download the [six-system notebook pack plus collector](notebooks/kaggle/stage2_independent/stage2_independent_notebooks.zip). It requires model weights but no earlier experiment outputs or parser-pilot run. Start with notebook 05 for the proposed system. The first proposed-system GPU run completed and validated: **44 correct, 2 incorrect accepted, 54 withheld**. See the [run analysis](results/stage2_independent_analysis/proposed_v1/ANALYSIS.md) before running further comparisons; it found major contract regressions and a changed parser quantization setting. Other independent-system GPU runs remain pending.
+
+A separate [tool-enabled Stage 2 version](docs/stage2_tools.md) lets the parser request read-only dataset queries before writing its contract. Its [notebook pack](notebooks/kaggle/stage2_tools/stage2_tools_notebooks.zip) can be run after the current profile-based experiment; its outputs and collector are separate. The existing adapter has not been trained on this new tool protocol.
 
 ## Setup and local checks
 
@@ -74,3 +76,5 @@ The layout keeps executable dependencies and frozen research inputs at stable pa
 - [Project handout](docs/course/handout.txt) and [proposal](docs/course/SSSS_LMA_PROJECT_PROPOSAL.pdf)
 
 Adapters and the Python environment are local, git-ignored assets. Archiving files inside this project organizes the layout without reducing its total disk usage.
+
+Parser loading correction: [Stage 2 v2 and development diagnostic](docs/stage2_independent_v2.md). Run the diagnostic before interpreting NF4 as a quality fix.

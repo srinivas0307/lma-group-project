@@ -139,6 +139,8 @@ def run(preset,out,adapter=None,split='test',limit=None,backend_factory=None,pac
             from .backend import Backend
             backend_factory=lambda role:Backend(role,adapter if role=='parser' else None)
             plan['environment']['packages']={n:importlib.metadata.version(n) for n in ['torch','transformers','peft','bitsandbytes','accelerate','numpy']}
+            try:plan['environment']['torchao']=importlib.metadata.version('torchao')
+            except importlib.metadata.PackageNotFoundError:plan['environment']['torchao']=None
         def load(role):
             b=backend_factory(role);loaded.append(b)
             plan['resolved_models'][role]=dict(model=b.model,revision=getattr(b,'revision',None))

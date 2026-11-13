@@ -60,6 +60,9 @@ This new method uses profiles for live parsers and hand-set conventional thresho
 Run a two-task infrastructure smoke check, then all 100 tasks in this notebook. Use a fresh Kaggle session.'''),
             nb.v4.new_code_cell(common),
             nb.v4.new_code_cell(f"PRESET={preset!r}\n"+'''subprocess.run([sys.executable,'-m','pip','install','-q','transformers==5.20.2','peft==0.21.2','bitsandbytes==0.50.2','accelerate==1.15.0','tokenizers==0.23.3','safetensors==0.8.0','huggingface-hub==1.33.0'],check=True)
+# PEFT probes Kaggle's optional torchao package even for this ordinary LoRA adapter.
+# Check adapter injection on a tiny CPU model before downloading the large models.
+subprocess.run([sys.executable,'-m','eval.stage2_independent.environment','--prepare'],cwd=ROOT,env=ENV,check=True)
 ADAPTER=None
 if PRESET in ['proposed','no_contract_to_generator']:
     spec=json.loads((ROOT/'eval/stage2_independent/adapter.json').read_text())

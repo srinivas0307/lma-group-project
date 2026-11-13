@@ -1,6 +1,8 @@
 # Independent Stage 2 workflow
 
-Status: implementation and CPU pipeline checks ready. Actual model execution on Kaggle has not been tested for this new workflow.
+For the new NF4 loading correction and controlled development notebook, see [Stage 2 v2](stage2_independent_v2.md). This page documents preserved v1.
+
+Status: the first proposed-system GPU run completed all 100 tasks and passed validation, producing **44 correct, 2 incorrect accepted and 54 withheld**. See the [detailed run analysis](../results/stage2_independent_analysis/proposed_v1/ANALYSIS.md). The other systems remain pending; the proposed result is a regression and needs controlled parser diagnosis before additional GPU spending.
 
 This workflow starts from raw CSVs, task requests, executable source and model weights. You do **not** need Stage 1, parser pilot runs, previous parses, tuned threshold files, generated-code pools, previous Stage 2 outputs or a GitHub push. Every system produces its own fresh results in its own notebook job. The collector only combines finished results; no system consumes the collector's outputs.
 
@@ -84,3 +86,15 @@ Local collection of downloaded full runs:
 ```
 
 The old frozen experiment and parser pilot remain available separately. Neither is a prerequisite for this workflow. Reusing tested source modules is code reuse; this new workflow does not depend on their experiment outputs.
+
+## Fixed setup failure: Kaggle torchao 0.10.0
+
+The supplied executed notebook `stage2-independent-05.ipynb` stopped during `PeftModel.from_pretrained`, before generating any contracts. Adapter discovery and base-model loading succeeded. The fatal error was `ImportError: Found an incompatible version of torchao ... 0.10.0 ... 0.16.0`.
+
+PEFT 0.21.2 probes this optional package while dispatching LoRA layers, including ordinary FP16 adapters. Its [version check](https://github.com/huggingface/peft/blob/v0.21.2/src/peft/import_utils.py#L135) returns unavailable when torchao is absent, but rejects an installed version below 0.16.0. This workflow uses FP16 and bitsandbytes NF4, so it does not require torchao.
+
+The updated GPU notebooks run `eval.stage2_independent.environment --prepare` before loading large models. It removes only an incompatible torchao installation from the disposable Kaggle session, verifies removal, and runs a tiny CPU LoRA injection/forward test. Absent or supported torchao versions are left unchanged. Pip dependency warnings in the earlier setup output were not the terminating exception.
+
+Download the rebuilt notebook 05 or pack, replace the previous template, and start a **fresh Kaggle session**. Attach the same adapter dataset and use T4 ×2 with Internet on. Run all cells. Setup should print `removed_incompatible` (or `already_absent`) and `cpu_lora_injection_and_forward` with `status: passed` before model inference. The old failed job produced no evaluation records to resume. Keep the executed failed notebook for diagnosis; do not score its partial ZIP. Use all later system notebooks and the collector from the same updated pack because source provenance changed.
+
+The removal branches and fresh notebook payload are CPU-tested locally. Actual adapter loading and GPU inference still require the Kaggle run; the local environment has no torch/transformers installation.
