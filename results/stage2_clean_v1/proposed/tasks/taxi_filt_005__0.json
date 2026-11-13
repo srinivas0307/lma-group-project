@@ -1,0 +1,75 @@
+{
+  "record": {
+    "task_id": "taxi_filt_005",
+    "split": "test",
+    "dataset": "taxi",
+    "transformation_type": "filtering",
+    "difficulty": "medium",
+    "seed": 0,
+    "system": "proposed",
+    "preset": "proposed",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "parsed",
+    "generator_contract": true,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "generator_prompt": "b2-v2",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "ok",
+    "stage_ended": "check",
+    "outcome": "ACCEPT",
+    "final_correct": true,
+    "initial_correct": true,
+    "initial_parse_ok": true,
+    "first_check": "PASS",
+    "no_repair_outcome": "ACCEPT",
+    "no_repair_correct": true,
+    "final_status": "PASS",
+    "attempts": 0,
+    "tool_calls": 0,
+    "llm_calls": 1,
+    "tokens": 1907,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": null,
+    "path": [
+      "PREPARE",
+      "PARSE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "ACCEPTED"
+    ],
+    "tool_trace": [],
+    "latency_s": 4.33
+  },
+  "trace": {
+    "task_id": "taxi_filt_005",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    # Remove rows where payment_type is 1 and tip_amount is 0\n    df_filtered = df[~((df['payment_type'] == 1) & (df['tip_amount'] == 0))]\n    \n    return df_filtered\n```",
+    "initial_code": "def transform(df):\n    df_filtered = df[~((df['payment_type'] == 1) & (df['tip_amount'] == 0))]\n    return df_filtered",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "c227116e78907068"
+      },
+      {
+        "step": 1,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "c227116e78907068",
+        "status": "PASS",
+        "n_failures": 0,
+        "failed": []
+      }
+    ]
+  }
+}

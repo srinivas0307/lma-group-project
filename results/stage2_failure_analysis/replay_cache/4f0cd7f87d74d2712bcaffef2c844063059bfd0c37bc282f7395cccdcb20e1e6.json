@@ -1,0 +1,38 @@
+{
+  "code_hash": "dea1c71f36e4d178",
+  "code": "def transform(df):\n    df['minimum_nights'] = df['minimum_nights'].clip(upper=30)\n    return df\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": true,
+  "equivalence_reason": "equal",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "predicate",
+        "predicate_id": "c1",
+        "predicate_type": "column_value_relation",
+        "direction": "must_change",
+        "target": "minimum_nights",
+        "expected": "minimum_nights = clip(...)",
+        "observed": "900 of 1000 rows differ",
+        "detail": "e.g. row 0: expected 30, got 1",
+        "evidence_rows": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ],
+    "evidence_rows": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  }
+}

@@ -1,0 +1,293 @@
+{
+  "record": {
+    "task_id": "taxi_filt_004",
+    "split": "test",
+    "dataset": "taxi",
+    "transformation_type": "filtering",
+    "difficulty": "hard",
+    "seed": 0,
+    "system": "baseline3_repair",
+    "preset": "baseline3_repair",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "parsed",
+    "generator_contract": false,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "generator_prompt": "b1-v1",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "ok",
+    "stage_ended": "repair",
+    "outcome": "REJECT",
+    "final_correct": false,
+    "initial_correct": false,
+    "initial_parse_ok": true,
+    "first_check": "VIOLATION",
+    "no_repair_outcome": "REJECT",
+    "no_repair_correct": false,
+    "final_status": "VIOLATION",
+    "attempts": 3,
+    "tool_calls": 5,
+    "llm_calls": 9,
+    "tokens": 25765,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": null,
+    "path": [
+      "PREPARE",
+      "PARSE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REJECTED"
+    ],
+    "tool_trace": [
+      {
+        "tool": "inspect_dataset",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "run_transformation",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "run_verifier",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      }
+    ],
+    "latency_s": 69.33
+  },
+  "trace": {
+    "task_id": "taxi_filt_004",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])\n    df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])\n    \n    filtered_df = df[(df['tpep_pickup_datetime'] >= '2026-01-01 00:00:00') | (df['tpep_dropoff_datetime'] >= '2026-01-01 00:00:00')]\n    \n    return filtered_df\n```",
+    "initial_code": "def transform(df):\n    df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])\n    df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])\n    filtered_df = df[(df['tpep_pickup_datetime'] >= '2026-01-01 00:00:00') | (df['tpep_dropoff_datetime'] >= '2026-01-01 00:00:00')]\n    return filtered_df",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "d55c3c00bc854cb9"
+      },
+      {
+        "step": 1,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "d55c3c00bc854cb9",
+        "status": "VIOLATION",
+        "n_failures": 2,
+        "failed": [
+          "c1",
+          "p2"
+        ]
+      },
+      {
+        "step": 2,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2037,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"inspect_dataset\", \"args\": {\"which\": \"before\", \"n_rows\": 5, \"columns\": [\"tpep_pickup_datetime\", \"tpep_dropoff_datetime\"]}}"
+      },
+      {
+        "step": 3,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "inspect_dataset",
+        "args": {
+          "which": "before",
+          "n_rows": 5,
+          "columns": [
+            "tpep_pickup_datetime",
+            "tpep_dropoff_datetime"
+          ]
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 4,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 3150,
+        "cached": false,
+        "reply": "{\"action\": \"run_transformation\", \"args\": {\"code\": \"def transform(df):\\n    df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])\\n    df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])\\n    filtered_df = df[df['tpep_pickup_datetime'] >= '2026-01-01 00:00:00']\\n    return filtered_df\"}}"
+      },
+      {
+        "step": 5,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "run_transformation",
+        "args": {
+          "code": "90b283e0f5fb2a7a"
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 6,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 4093,
+        "cached": false,
+        "reply": "{\"action\": \"run_verifier\", \"args\": {}}"
+      },
+      {
+        "step": 7,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "run_verifier",
+        "args": {},
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 8,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 4359,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])\n    df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])\n    filtered_df = df[df['tpep_pickup_datetime'] >= '2026-01-01 00:00:00']\n    return filtered_df\n```"
+      },
+      {
+        "step": 9,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "90b283e0f5fb2a7a",
+        "implicit": false
+      },
+      {
+        "step": 10,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "90b283e0f5fb2a7a",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "p2"
+        ]
+      },
+      {
+        "step": 11,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2195,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 12,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 13,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 3067,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])\n    df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])\n    filtered_df = df[df['tpep_pickup_datetime'] >= pd.to_datetime('2026-01-01 00:00:00')]\n    return filtered_df\n```"
+      },
+      {
+        "step": 14,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "0bd7800b5d34805d",
+        "implicit": false
+      },
+      {
+        "step": 15,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "0bd7800b5d34805d",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "p2"
+        ]
+      },
+      {
+        "step": 16,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2382,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 17,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 18,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 3254,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])\n    df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])\n    filtered_df = df[df['tpep_pickup_datetime'] >= pd.to_datetime('2026-01-01 00:00:00')]\n    return filtered_df\n```"
+      },
+      {
+        "step": 19,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "0bd7800b5d34805d",
+        "implicit": false
+      },
+      {
+        "step": 20,
+        "state": "REPAIR",
+        "event": "repeated_code",
+        "code_hash": "0bd7800b5d34805d",
+        "times": 1
+      }
+    ]
+  }
+}

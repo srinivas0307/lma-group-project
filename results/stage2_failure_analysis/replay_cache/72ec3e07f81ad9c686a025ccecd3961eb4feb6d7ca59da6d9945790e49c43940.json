@@ -1,0 +1,55 @@
+{
+  "code_hash": "a6e0af1f44a9caca",
+  "code": "def transform(df):\n    out = df[df['Age'].notnull() | (df['Age'] >= 18)].reset_index(drop=True)\n    return out\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": false,
+  "equivalence_reason": "row count differs (714 vs 778)",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "predicate",
+        "predicate_id": "c1",
+        "predicate_type": "rows_removed_where",
+        "direction": "must_change",
+        "target": null,
+        "expected": "all 113 matching rows removed",
+        "observed": "113 still present",
+        "detail": "113 of 113 rows that should be removed are still there",
+        "evidence_rows": [
+          7,
+          9,
+          10,
+          14,
+          16
+        ]
+      },
+      {
+        "kind": "predicate",
+        "predicate_id": "p1",
+        "predicate_type": "rows_retained_where",
+        "direction": "must_preserve",
+        "target": null,
+        "expected": "all 778 matching rows kept",
+        "observed": "177 removed",
+        "detail": "177 of 778 rows that should be kept were removed",
+        "evidence_rows": [
+          5,
+          17,
+          19,
+          26,
+          28
+        ]
+      }
+    ],
+    "evidence_rows": [
+      7,
+      9,
+      10,
+      14,
+      16
+    ]
+  }
+}

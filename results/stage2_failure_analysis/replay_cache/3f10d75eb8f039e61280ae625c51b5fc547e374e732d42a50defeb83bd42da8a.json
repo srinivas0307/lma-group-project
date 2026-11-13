@@ -1,0 +1,14 @@
+{
+  "code_hash": "58653dc427a53809",
+  "code": "def transform(df):\n    df['Pclass'] = pd.Categorical(df['Pclass'], categories=[1, 2, 3], ordered=True)\n    return df",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": false,
+  "equivalence_reason": "category order differs in Pclass",
+  "checker": {
+    "status": "PASS",
+    "failures": [],
+    "evidence_rows": []
+  }
+}

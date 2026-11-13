@@ -1,0 +1,341 @@
+{
+  "train": 3614,
+  "full_validation": 796,
+  "monitored_validation": 200,
+  "train_datasets": [
+    "air_quality",
+    "avocado",
+    "bank",
+    "diamonds",
+    "imdb",
+    "superstore",
+    "walmart"
+  ],
+  "validation_datasets": [
+    "student"
+  ],
+  "train_validation_id_overlap": [],
+  "sft_reconstruction_mismatches": [],
+  "exact_evaluation_request_overlap": [],
+  "evaluation_five_gram_overlap": [],
+  "train_patterns": {
+    "change_case": 54,
+    "clip_column": 122,
+    "constant_column": 37,
+    "copy_column": 122,
+    "dedup_all_but": 182,
+    "dedup_full_rows": 23,
+    "dedup_on_key": 217,
+    "drop_column": 99,
+    "drop_missing_any": 216,
+    "drop_missing_column": 89,
+    "fill_constant_number": 211,
+    "fill_constant_text": 190,
+    "fill_from_other": 4,
+    "fill_median": 62,
+    "fill_most_common": 11,
+    "filter_and": 79,
+    "filter_keep_categories": 56,
+    "filter_keep_range": 124,
+    "filter_or": 125,
+    "filter_remove_categories": 51,
+    "filter_remove_category": 59,
+    "filter_remove_high": 130,
+    "filter_remove_low": 115,
+    "filter_two_categories": 59,
+    "filter_with_nulls": 144,
+    "float_to_int": 4,
+    "int_to_float": 91,
+    "map_values": 85,
+    "new_column_two_columns": 117,
+    "number_to_text": 40,
+    "rename_column": 100,
+    "round_column": 65,
+    "scale_by_constant": 153,
+    "sentinel_to_missing": 43,
+    "several_to_category": 137,
+    "several_to_float": 38,
+    "several_to_text": 49,
+    "strip_whitespace": 11,
+    "text_to_datetime": 13,
+    "text_to_number": 4,
+    "to_category": 60,
+    "to_ordered_category": 9,
+    "yes_no_to_bool": 14
+  },
+  "validation_patterns": {
+    "change_case": 5,
+    "clip_column": 6,
+    "constant_column": 3,
+    "copy_column": 18,
+    "dedup_all_but": 33,
+    "dedup_full_rows": 6,
+    "dedup_on_key": 2,
+    "drop_column": 17,
+    "drop_missing_any": 6,
+    "drop_missing_column": 8,
+    "fill_constant_number": 11,
+    "fill_constant_text": 32,
+    "fill_from_other": 4,
+    "fill_median": 3,
+    "fill_most_common": 3,
+    "filter_and": 16,
+    "filter_keep_categories": 6,
+    "filter_keep_range": 7,
+    "filter_or": 10,
+    "filter_remove_categories": 3,
+    "filter_remove_category": 17,
+    "filter_remove_high": 24,
+    "filter_remove_low": 15,
+    "filter_two_categories": 15,
+    "filter_with_nulls": 6,
+    "int_to_float": 69,
+    "map_values": 12,
+    "new_column_two_columns": 16,
+    "number_to_text": 43,
+    "rename_column": 15,
+    "scale_by_constant": 15,
+    "several_to_category": 85,
+    "several_to_float": 111,
+    "several_to_text": 91,
+    "to_category": 41,
+    "yes_no_to_bool": 22
+  },
+  "monitored_validation_patterns": {
+    "change_case": 1,
+    "clip_column": 4,
+    "constant_column": 1,
+    "copy_column": 6,
+    "dedup_all_but": 7,
+    "dedup_full_rows": 2,
+    "dedup_on_key": 1,
+    "drop_column": 8,
+    "drop_missing_any": 1,
+    "drop_missing_column": 2,
+    "fill_constant_number": 4,
+    "fill_constant_text": 4,
+    "fill_from_other": 1,
+    "filter_and": 4,
+    "filter_keep_categories": 2,
+    "filter_keep_range": 1,
+    "filter_or": 2,
+    "filter_remove_categories": 1,
+    "filter_remove_category": 5,
+    "filter_remove_high": 2,
+    "filter_remove_low": 1,
+    "filter_two_categories": 2,
+    "filter_with_nulls": 4,
+    "int_to_float": 22,
+    "map_values": 5,
+    "new_column_two_columns": 4,
+    "number_to_text": 7,
+    "rename_column": 4,
+    "scale_by_constant": 6,
+    "several_to_category": 20,
+    "several_to_float": 31,
+    "several_to_text": 18,
+    "to_category": 10,
+    "yes_no_to_bool": 7
+  },
+  "unique_train_dataset_program_contracts": 1863,
+  "runs": {
+    "1_5b": {
+      "recorded_config": {
+        "base_model": "Qwen/Qwen2.5-1.5B-Instruct",
+        "train_file": "finetune/data/sft_train.jsonl",
+        "val_file": "finetune/data/sft_val.jsonl",
+        "output_dir": "finetune/runs/qwen25_1_5b",
+        "load_in_4bit": true,
+        "compute_dtype": "float16",
+        "gradient_checkpointing": true,
+        "lora_r": 16,
+        "lora_alpha": 32,
+        "lora_dropout": 0.05,
+        "target_modules": [
+          "q_proj",
+          "k_proj",
+          "v_proj",
+          "o_proj",
+          "gate_proj",
+          "up_proj",
+          "down_proj"
+        ],
+        "learning_rate": 0.0002,
+        "num_epochs": 2,
+        "max_steps": -1,
+        "warmup_ratio": 0.03,
+        "weight_decay": 0.0,
+        "lr_scheduler": "cosine",
+        "per_device_batch_size": 1,
+        "gradient_accumulation_steps": 16,
+        "max_seq_len": 3072,
+        "logging_steps": 10,
+        "eval_steps": 100,
+        "save_steps": 0,
+        "seed": 1234,
+        "limit_train": null,
+        "limit_val": 200,
+        "optim": null
+      },
+      "adapter_sha256": "53c3edd79ee610e5a050faa5dbe9af08637be3637cf99f763e7475e989723b53",
+      "tensor_count": 392,
+      "adapter_parameters": 18464768,
+      "nonfinite_tensors": [],
+      "all_zero_tensors": [],
+      "corrected_data_hashes_match": {
+        "train_file": true,
+        "val_file": true
+      },
+      "default_data_hashes_match": {
+        "train_file": false,
+        "val_file": false
+      },
+      "current_config_differences": {
+        "num_epochs": {
+          "saved_run": 2,
+          "current_yaml": 1
+        }
+      },
+      "final_eval": {
+        "eval_loss": 0.013757896609604359,
+        "eval_runtime": 134.3805,
+        "eval_samples_per_second": 1.488,
+        "eval_steps_per_second": 0.744,
+        "epoch": 2.0
+      },
+      "eval_loss_history": [
+        {
+          "step": 100,
+          "epoch": 0.8854454897620365,
+          "eval_loss": 0.017676496878266335
+        },
+        {
+          "step": 200,
+          "epoch": 1.7703375760929718,
+          "eval_loss": 0.013863938860595226
+        },
+        {
+          "step": 226,
+          "epoch": 2.0,
+          "eval_loss": 0.013757896609604359
+        },
+        {
+          "step": 226,
+          "epoch": 2.0,
+          "eval_loss": 0.013757896609604359
+        }
+      ],
+      "steps": 226,
+      "approx_samples_per_optimizer_step": 31.982,
+      "training_gpu_topology_recorded": false,
+      "dropped_too_long": {
+        "train": 0,
+        "val": 0
+      },
+      "max_tokens": 1827,
+      "prompt_version": "p1-v2"
+    },
+    "3b": {
+      "recorded_config": {
+        "base_model": "Qwen/Qwen2.5-3B-Instruct",
+        "train_file": "finetune/data/sft_train.jsonl",
+        "val_file": "finetune/data/sft_val.jsonl",
+        "output_dir": "finetune/runs/qwen25_3b",
+        "load_in_4bit": true,
+        "compute_dtype": "float16",
+        "gradient_checkpointing": true,
+        "lora_r": 16,
+        "lora_alpha": 32,
+        "lora_dropout": 0.05,
+        "target_modules": [
+          "q_proj",
+          "k_proj",
+          "v_proj",
+          "o_proj",
+          "gate_proj",
+          "up_proj",
+          "down_proj"
+        ],
+        "learning_rate": 0.0002,
+        "num_epochs": 2,
+        "max_steps": -1,
+        "warmup_ratio": 0.03,
+        "weight_decay": 0.0,
+        "lr_scheduler": "cosine",
+        "per_device_batch_size": 1,
+        "gradient_accumulation_steps": 16,
+        "max_seq_len": 3072,
+        "logging_steps": 10,
+        "eval_steps": 100,
+        "save_steps": 0,
+        "seed": 1234,
+        "limit_train": null,
+        "limit_val": 200,
+        "optim": null
+      },
+      "adapter_sha256": "9606ded95074cb352bc19f8f2ac23bc91a3d4c1f844a78823d748caa91cd941a",
+      "tensor_count": 504,
+      "adapter_parameters": 29933568,
+      "nonfinite_tensors": [],
+      "all_zero_tensors": [],
+      "corrected_data_hashes_match": {
+        "train_file": true,
+        "val_file": true
+      },
+      "default_data_hashes_match": {
+        "train_file": false,
+        "val_file": false
+      },
+      "current_config_differences": {
+        "num_epochs": {
+          "saved_run": 2,
+          "current_yaml": 1
+        }
+      },
+      "final_eval": {
+        "eval_loss": 0.008077379316091537,
+        "eval_runtime": 238.4698,
+        "eval_samples_per_second": 0.839,
+        "eval_steps_per_second": 0.419,
+        "epoch": 2.0
+      },
+      "eval_loss_history": [
+        {
+          "step": 100,
+          "epoch": 0.8854454897620365,
+          "eval_loss": 0.013886320404708385
+        },
+        {
+          "step": 200,
+          "epoch": 1.7703375760929718,
+          "eval_loss": 0.007925931364297867
+        },
+        {
+          "step": 226,
+          "epoch": 2.0,
+          "eval_loss": 0.008077379316091537
+        },
+        {
+          "step": 226,
+          "epoch": 2.0,
+          "eval_loss": 0.008077379316091537
+        }
+      ],
+      "steps": 226,
+      "approx_samples_per_optimizer_step": 31.982,
+      "training_gpu_topology_recorded": false,
+      "dropped_too_long": {
+        "train": 0,
+        "val": 0
+      },
+      "max_tokens": 1827,
+      "prompt_version": "p1-v2"
+    }
+  },
+  "limitations": [
+    "Adapter tensor integrity does not prove correctness of all training gradients.",
+    "Dataset/request separation does not prove independence of semantic templates.",
+    "No GPU retraining or generation was performed.",
+    "This checks label serialization and schema, not a fresh human semantic review of all 4,410 examples."
+  ]
+}

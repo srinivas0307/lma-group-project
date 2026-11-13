@@ -1,0 +1,137 @@
+{
+  "record": {
+    "task_id": "taxi_miss_001",
+    "split": "test",
+    "dataset": "taxi",
+    "transformation_type": "missing_values",
+    "difficulty": "medium",
+    "seed": 0,
+    "system": "proposed",
+    "preset": "proposed",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "parsed",
+    "generator_contract": true,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "generator_prompt": "b2-v2",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "ok",
+    "stage_ended": "repair",
+    "outcome": "ACCEPT",
+    "final_correct": true,
+    "initial_correct": false,
+    "initial_parse_ok": true,
+    "first_check": "VIOLATION",
+    "no_repair_outcome": "REJECT",
+    "no_repair_correct": false,
+    "final_status": "PASS",
+    "attempts": 1,
+    "tool_calls": 1,
+    "llm_calls": 3,
+    "tokens": 6442,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": null,
+    "path": [
+      "PREPARE",
+      "PARSE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "ACCEPTED"
+    ],
+    "tool_trace": [
+      {
+        "tool": "inspect_dataset",
+        "ok": true,
+        "error_type": null
+      }
+    ],
+    "latency_s": 14.18
+  },
+  "trace": {
+    "task_id": "taxi_miss_001",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    df['passenger_count'].mask(df['passenger_count'] == 0, np.nan, inplace=True)\n    return df.dropna(subset=['passenger_count'], how='any').reset_index(drop=True)\n```",
+    "initial_code": "def transform(df):\n    df['passenger_count'].mask(df['passenger_count'] == 0, np.nan, inplace=True)\n    return df.dropna(subset=['passenger_count'], how='any').reset_index(drop=True)",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "171fa079d27293d2"
+      },
+      {
+        "step": 1,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "171fa079d27293d2",
+        "status": "VIOLATION",
+        "n_failures": 2,
+        "failed": [
+          "c2",
+          "p3"
+        ]
+      },
+      {
+        "step": 2,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1871,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"inspect_dataset\", \"args\": {\"which\": \"last_output\", \"n_rows\": 5, \"columns\": [\"passenger_count\"]}}"
+      },
+      {
+        "step": 3,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "inspect_dataset",
+        "args": {
+          "which": "last_output",
+          "n_rows": 5,
+          "columns": [
+            "passenger_count"
+          ]
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 4,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2679,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df['passenger_count'] = df['passenger_count'].mask(df['passenger_count'] == 0, np.nan)\n    return df\n```"
+      },
+      {
+        "step": 5,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "20626fa76c07cfbd",
+        "implicit": false
+      },
+      {
+        "step": 6,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "20626fa76c07cfbd",
+        "status": "PASS",
+        "n_failures": 0,
+        "failed": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "code_hash": "58653dc427a53809",
+  "code": "def transform(df):\n    df['Pclass'] = pd.Categorical(df['Pclass'], categories=[1, 2, 3], ordered=True)\n    return df",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": false,
+  "equivalence_reason": "category order differs in Pclass",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "predicate",
+        "predicate_id": "c1",
+        "predicate_type": "column_dtype",
+        "direction": "must_change",
+        "target": "Pclass",
+        "expected": "category, ordered=True, categories given",
+        "observed": [
+          1,
+          2,
+          3
+        ],
+        "detail": "Pclass categories differ (order matters: True)",
+        "evidence_rows": []
+      },
+      {
+        "kind": "predicate",
+        "predicate_id": "c2",
+        "predicate_type": "column_value_relation",
+        "direction": "must_change",
+        "target": "Pclass",
+        "expected": "Pclass = map(...)",
+        "observed": "675 of 891 rows differ",
+        "detail": "e.g. row 0: expected 2, got 3",
+        "evidence_rows": [
+          0,
+          2,
+          4,
+          5,
+          7
+        ]
+      }
+    ],
+    "evidence_rows": [
+      0,
+      2,
+      4,
+      5,
+      7
+    ]
+  }
+}

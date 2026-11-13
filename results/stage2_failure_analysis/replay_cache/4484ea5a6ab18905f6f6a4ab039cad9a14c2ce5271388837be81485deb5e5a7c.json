@@ -1,0 +1,38 @@
+{
+  "code_hash": "5920b6a5e0b00e78",
+  "code": "def transform(df):\n    medians_by_pclass_age = df.groupby('Pclass')['Age'].transform('median')\n    df['Age'] = df['Age'].combine_first(medians_by_pclass_age)\n    return df\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": true,
+  "equivalence_reason": "equal",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "predicate",
+        "predicate_id": "c1",
+        "predicate_type": "column_value_relation",
+        "direction": "must_change",
+        "target": "Age",
+        "expected": "Age = const(...) where condition",
+        "observed": "177 of 177 rows differ",
+        "detail": "e.g. row 5: expected 37.95, got 24.0",
+        "evidence_rows": [
+          5,
+          17,
+          19,
+          26,
+          28
+        ]
+      }
+    ],
+    "evidence_rows": [
+      5,
+      17,
+      19,
+      26,
+      28
+    ]
+  }
+}

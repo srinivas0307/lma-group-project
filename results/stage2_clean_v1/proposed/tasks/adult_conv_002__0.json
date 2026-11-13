@@ -1,0 +1,274 @@
+{
+  "record": {
+    "task_id": "adult_conv_002",
+    "split": "test",
+    "dataset": "adult",
+    "transformation_type": "type_conversion",
+    "difficulty": "medium",
+    "seed": 0,
+    "system": "proposed",
+    "preset": "proposed",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "parsed",
+    "generator_contract": true,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "generator_prompt": "b2-v2",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "ok",
+    "stage_ended": "repair",
+    "outcome": "REJECT",
+    "final_correct": false,
+    "initial_correct": true,
+    "initial_parse_ok": true,
+    "first_check": "VIOLATION",
+    "no_repair_outcome": "REJECT",
+    "no_repair_correct": false,
+    "final_status": "VIOLATION",
+    "attempts": 3,
+    "tool_calls": 4,
+    "llm_calls": 8,
+    "tokens": 15704,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": null,
+    "path": [
+      "PREPARE",
+      "PARSE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REJECTED"
+    ],
+    "tool_trace": [
+      {
+        "tool": "inspect_dataset",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "inspect_dataset",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "run_verifier",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "inspect_dataset",
+        "ok": true,
+        "error_type": null
+      }
+    ],
+    "latency_s": 31.42
+  },
+  "trace": {
+    "task_id": "adult_conv_002",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    df['income'] = df['income'].map({'<=50K': 0, '>50K': 1})\n    df['income'] = df['income'].astype(int)\n    return df\n```",
+    "initial_code": "def transform(df):\n    df['income'] = df['income'].map({'<=50K': 0, '>50K': 1})\n    df['income'] = df['income'].astype(int)\n    return df",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "cad262b1dc050e17"
+      },
+      {
+        "step": 1,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "cad262b1dc050e17",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "c2"
+        ]
+      },
+      {
+        "step": 2,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1524,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"inspect_dataset\", \"args\": {\"which\": \"before\", \"n_rows\": 5, \"columns\": [\"income\"]}}"
+      },
+      {
+        "step": 3,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "inspect_dataset",
+        "args": {
+          "which": "before",
+          "n_rows": 5,
+          "columns": [
+            "income"
+          ]
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 4,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2156,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df['income'] = df['income'].map({'<=50K': 0, '>50K': 1}).fillna(0).astype(int)\n    return df\n```"
+      },
+      {
+        "step": 5,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "f0be11d9bf2a8fdb",
+        "implicit": false
+      },
+      {
+        "step": 6,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "f0be11d9bf2a8fdb",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "c2"
+        ]
+      },
+      {
+        "step": 7,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1661,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"inspect_dataset\", \"args\": {\"which\": \"before\", \"n_rows\": 5, \"columns\": [\"income\"]}}"
+      },
+      {
+        "step": 8,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "inspect_dataset",
+        "args": {
+          "which": "before",
+          "n_rows": 5,
+          "columns": [
+            "income"
+          ]
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 9,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2257,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"run_verifier\", \"args\": {}}"
+      },
+      {
+        "step": 10,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "run_verifier",
+        "args": {},
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 11,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2470,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df['income'] = df['income'].map({'<=50K': 0, '>50K': 1})\n    return df\n```"
+      },
+      {
+        "step": 12,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "4d1a490c44070880",
+        "implicit": false
+      },
+      {
+        "step": 13,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "4d1a490c44070880",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "c2"
+        ]
+      },
+      {
+        "step": 14,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1792,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"inspect_dataset\", \"args\": {\"which\": \"last_output\", \"n_rows\": 5, \"columns\": [\"income\"]}}"
+      },
+      {
+        "step": 15,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "inspect_dataset",
+        "args": {
+          "which": "last_output",
+          "n_rows": 5,
+          "columns": [
+            "income"
+          ]
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 16,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2405,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df['income'] = df['income'].map({'<=50K': 0, '>50K': 1})\n    return df\n```"
+      },
+      {
+        "step": 17,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "4d1a490c44070880",
+        "implicit": false
+      },
+      {
+        "step": 18,
+        "state": "REPAIR",
+        "event": "repeated_code",
+        "code_hash": "4d1a490c44070880",
+        "times": 1
+      }
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "code_hash": "6b0688b057d16621",
+  "code": "def transform(df):\n    df['reviews_per_month'].fillna(df['reviews_per_month'].median(), inplace=True)\n    return df",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": true,
+  "equivalence_reason": "equal",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "predicate",
+        "predicate_id": "c1",
+        "predicate_type": "column_value_relation",
+        "direction": "must_change",
+        "target": "reviews_per_month",
+        "expected": "reviews_per_month = const(...) where condition",
+        "observed": "41 of 41 rows differ",
+        "detail": "e.g. row 2: expected 'median', got 0.59",
+        "evidence_rows": [
+          2,
+          19,
+          26,
+          36,
+          38
+        ]
+      }
+    ],
+    "evidence_rows": [
+      2,
+      19,
+      26,
+      36,
+      38
+    ]
+  }
+}

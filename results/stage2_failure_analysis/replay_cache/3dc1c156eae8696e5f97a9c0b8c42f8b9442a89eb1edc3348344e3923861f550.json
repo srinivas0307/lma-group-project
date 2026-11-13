@@ -1,0 +1,41 @@
+{
+  "code_hash": "6c3143769fd5b352",
+  "code": "def transform(df):\n    df = df.dropna(subset=['last_review'])\n    df = df.sort_values(by=['host_id', 'neighbourhood', 'id'])\n    df = df.drop_duplicates(subset=['host_id', 'neighbourhood'], keep='first')\n    return df\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": false,
+  "equivalence_reason": "row count differs (822 vs 857)",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "predicate",
+        "predicate_id": "c1",
+        "predicate_type": "duplicate_count",
+        "direction": "must_change",
+        "target": [
+          "host_id",
+          "neighbourhood"
+        ],
+        "expected": "one row per key group, the first one",
+        "observed": "36 groups wrong",
+        "detail": "36 of 857 key groups don't keep exactly their first row",
+        "evidence_rows": [
+          2,
+          19,
+          26,
+          36,
+          38
+        ]
+      }
+    ],
+    "evidence_rows": [
+      2,
+      19,
+      26,
+      36,
+      38
+    ]
+  }
+}

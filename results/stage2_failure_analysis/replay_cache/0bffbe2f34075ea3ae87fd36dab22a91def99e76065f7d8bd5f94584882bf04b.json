@@ -1,0 +1,38 @@
+{
+  "code_hash": "deec3bb0cdb1bd67",
+  "code": "def transform(df):\n    df = df.copy()\n    df['RatecodeID'].replace(99, 1, inplace=True)\n    return df\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": true,
+  "equivalence_reason": "equal",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "predicate",
+        "predicate_id": "c1",
+        "predicate_type": "column_value_relation",
+        "direction": "must_change",
+        "target": "RatecodeID",
+        "expected": "RatecodeID = const(...)",
+        "observed": "18 of 1000 rows differ",
+        "detail": "e.g. row 39: expected 1, got 4.0",
+        "evidence_rows": [
+          39,
+          51,
+          149,
+          333,
+          355
+        ]
+      }
+    ],
+    "evidence_rows": [
+      39,
+      51,
+      149,
+      333,
+      355
+    ]
+  }
+}

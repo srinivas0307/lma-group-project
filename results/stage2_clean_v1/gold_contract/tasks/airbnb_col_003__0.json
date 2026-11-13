@@ -1,0 +1,75 @@
+{
+  "record": {
+    "task_id": "airbnb_col_003",
+    "split": "test",
+    "dataset": "airbnb",
+    "transformation_type": "column_transformation",
+    "difficulty": "medium",
+    "seed": 0,
+    "system": "gold_contract",
+    "preset": "gold_contract",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "oracle",
+    "generator_contract": true,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "generator_prompt": "b2-v2",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "ok",
+    "stage_ended": "check",
+    "outcome": "ACCEPT",
+    "final_correct": true,
+    "initial_correct": true,
+    "initial_parse_ok": true,
+    "first_check": "PASS",
+    "no_repair_outcome": "ACCEPT",
+    "no_repair_correct": true,
+    "final_status": "PASS",
+    "attempts": 0,
+    "tool_calls": 0,
+    "llm_calls": 1,
+    "tokens": 1583,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": null,
+    "path": [
+      "PREPARE",
+      "PARSE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "ACCEPTED"
+    ],
+    "tool_trace": [],
+    "latency_s": 3.49
+  },
+  "trace": {
+    "task_id": "airbnb_col_003",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    out = df.copy()\n    out['minimum_nights'] = out['minimum_nights'].clip(lower=None, upper=30)\n    return out\n```",
+    "initial_code": "def transform(df):\n    out = df.copy()\n    out['minimum_nights'] = out['minimum_nights'].clip(lower=None, upper=30)\n    return out",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "1e7d8f844b945d9d"
+      },
+      {
+        "step": 1,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "1e7d8f844b945d9d",
+        "status": "PASS",
+        "n_failures": 0,
+        "failed": []
+      }
+    ]
+  }
+}

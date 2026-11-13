@@ -1,0 +1,180 @@
+{
+  "record": {
+    "task_id": "airbnb_conv_005",
+    "split": "test",
+    "dataset": "airbnb",
+    "transformation_type": "type_conversion",
+    "difficulty": "hard",
+    "seed": 0,
+    "system": "gold_contract",
+    "preset": "gold_contract",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "oracle",
+    "generator_contract": true,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "generator_prompt": "b2-v2",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "ok",
+    "stage_ended": "repair",
+    "outcome": "ACCEPT",
+    "final_correct": true,
+    "initial_correct": false,
+    "initial_parse_ok": true,
+    "first_check": "error",
+    "no_repair_outcome": "REJECT",
+    "no_repair_correct": false,
+    "final_status": "PASS",
+    "attempts": 1,
+    "tool_calls": 3,
+    "llm_calls": 5,
+    "tokens": 11536,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": null,
+    "path": [
+      "PREPARE",
+      "PARSE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "ACCEPTED"
+    ],
+    "tool_trace": [
+      {
+        "tool": "inspect_dataset",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "run_transformation",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "run_verifier",
+        "ok": true,
+        "error_type": null
+      }
+    ],
+    "latency_s": 21.09
+  },
+  "trace": {
+    "task_id": "airbnb_conv_005",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    df = df.copy()\n    df['room_type'] = df['room_type'].astype('category', ordered=True).cat.reorder_categories(['Shared room', 'Private room', 'Entire home/apt'])\n    return df\n```",
+    "initial_code": "def transform(df):\n    df = df.copy()\n    df['room_type'] = df['room_type'].astype('category', ordered=True).cat.reorder_categories(['Shared room', 'Private room', 'Entire home/apt'])\n    return df",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "4879650b76f24997"
+      },
+      {
+        "step": 1,
+        "state": "EXECUTE",
+        "event": "execute_failed",
+        "code_hash": "4879650b76f24997",
+        "status": "error",
+        "error": "TypeError: NDFrame.astype() got an unexpected keyword argument 'ordered'"
+      },
+      {
+        "step": 2,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1613,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"inspect_dataset\", \"args\": {\"which\": \"before\", \"n_rows\": 3, \"columns\": [\"room_type\"]}}"
+      },
+      {
+        "step": 3,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "inspect_dataset",
+        "args": {
+          "which": "before",
+          "n_rows": 3,
+          "columns": [
+            "room_type"
+          ]
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 4,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2265,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"run_transformation\", \"args\": {\"code\": \"def transform(df):\\n    df['room_type'] = pd.Categorical(df['room_type'], categories=['Shared room', 'Private room', 'Entire home/apt'], ordered=True)\\n    return df\"}}"
+      },
+      {
+        "step": 5,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "run_transformation",
+        "args": {
+          "code": "7c13d3e6569677bf"
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 6,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2952,
+        "cached": false,
+        "reply": "{\"action\": \"run_verifier\"}"
+      },
+      {
+        "step": 7,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "run_verifier",
+        "args": {},
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 8,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 3093,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df['room_type'] = pd.Categorical(df['room_type'], categories=['Shared room', 'Private room', 'Entire home/apt'], ordered=True)\n    return df\n```"
+      },
+      {
+        "step": 9,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "7c13d3e6569677bf",
+        "implicit": false
+      },
+      {
+        "step": 10,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "7c13d3e6569677bf",
+        "status": "PASS",
+        "n_failures": 0,
+        "failed": []
+      }
+    ]
+  }
+}

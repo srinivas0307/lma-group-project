@@ -1,0 +1,27 @@
+{
+  "code_hash": "ab883e194b70f345",
+  "code": "def transform(df):\n    return df[(df['SibSp'] == 0) & (df['Parch'] == 0)]",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": true,
+  "equivalence_reason": "equal",
+  "checker": {
+    "status": "UNCERTAIN",
+    "failures": [
+      {
+        "kind": "uncertain",
+        "reason": "predicate_not_evaluable",
+        "detail": "can't compare column 'Cabin' value 'C85' with 0 using >=",
+        "predicate_id": "c1"
+      },
+      {
+        "kind": "uncertain",
+        "reason": "predicate_not_evaluable",
+        "detail": "can't compare column 'Cabin' value 'C85' with 0 using <",
+        "predicate_id": "p1"
+      }
+    ],
+    "evidence_rows": []
+  }
+}

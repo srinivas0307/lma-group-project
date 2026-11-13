@@ -1,0 +1,14 @@
+{
+  "code_hash": "61dd23d50720bb66",
+  "code": "def transform(df):\n    df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])\n    df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])\n    df.sort_values(by=['VendorID', 'tpep_pickup_datetime', 'tpep_dropoff_datetime'], inplace=True)\n    df.drop_duplicates(subset=['VendorID', 'tpep_pickup_datetime', 'tpep_dropoff_datetime', 'PULocationID', 'DOLocationID'], keep='first', inplace=True)\n    return df",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": false,
+  "equivalence_reason": "dtype family differs in tpep_pickup_datetime (datetime vs string)",
+  "checker": {
+    "status": "PASS",
+    "failures": [],
+    "evidence_rows": []
+  }
+}

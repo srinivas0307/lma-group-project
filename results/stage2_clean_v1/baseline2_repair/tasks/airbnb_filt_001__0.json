@@ -1,0 +1,213 @@
+{
+  "record": {
+    "task_id": "airbnb_filt_001",
+    "split": "test",
+    "dataset": "airbnb",
+    "transformation_type": "filtering",
+    "difficulty": "easy",
+    "seed": 0,
+    "system": "baseline2_repair",
+    "preset": "baseline2_repair",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "none",
+    "generator_contract": false,
+    "verifier": "conventional",
+    "repair_mode": "full",
+    "generator_prompt": "b1-v1",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "not_used",
+    "stage_ended": "repair",
+    "outcome": "REJECT",
+    "final_correct": false,
+    "initial_correct": true,
+    "initial_parse_ok": true,
+    "first_check": "VIOLATION",
+    "no_repair_outcome": "REJECT",
+    "no_repair_correct": false,
+    "final_status": "VIOLATION",
+    "attempts": 3,
+    "tool_calls": 2,
+    "llm_calls": 6,
+    "tokens": 8749,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": null,
+    "path": [
+      "PREPARE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REJECTED"
+    ],
+    "tool_trace": [
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      }
+    ],
+    "latency_s": 19.05
+  },
+  "trace": {
+    "task_id": "airbnb_filt_001",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    df = df[df['availability_365'] > 0]\n    return df\n```",
+    "initial_code": "def transform(df):\n    df = df[df['availability_365'] > 0]\n    return df",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "dc024fce7a52c259"
+      },
+      {
+        "step": 1,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "dc024fce7a52c259",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "distribution.mean_shift"
+        ]
+      },
+      {
+        "step": 2,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1393,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 3,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 4,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1583,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    out = df[df['availability_365'] > 0]\n    return out\n```"
+      },
+      {
+        "step": 5,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "5d6264c7a41b5127",
+        "implicit": false
+      },
+      {
+        "step": 6,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "5d6264c7a41b5127",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "distribution.mean_shift"
+        ]
+      },
+      {
+        "step": 7,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1474,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 8,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 9,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1664,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    out = df[df['availability_365'] > 0]\n    return out\n```"
+      },
+      {
+        "step": 10,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "5d6264c7a41b5127",
+        "implicit": false
+      },
+      {
+        "step": 11,
+        "state": "REPAIR",
+        "event": "repeated_code",
+        "code_hash": "5d6264c7a41b5127",
+        "times": 1
+      },
+      {
+        "step": 12,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1817,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    out = df[df['availability_365'] > 0].copy()\n    return out\n```"
+      },
+      {
+        "step": 13,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "6aea4ba5e2c31744",
+        "implicit": false
+      },
+      {
+        "step": 14,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "6aea4ba5e2c31744",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "distribution.mean_shift"
+        ]
+      }
+    ]
+  }
+}

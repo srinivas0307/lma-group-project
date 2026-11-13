@@ -1,0 +1,8 @@
+{
+  "code_hash": "61c21b5b75d2f0c9",
+  "code": "def transform(df):\n    df = df.copy()\n    df['Pclass'] = pd.Categorical(df['Pclass'], categories=[1, 3, 2], ordered=True)\n    df['Pclass'] = df['Pclass'].cat.map({1: 1, 3: 2, 2: 3})\n    return df",
+  "ran_ok": false,
+  "execution_status": "error",
+  "error": "AttributeError: 'CategoricalAccessor' object has no attribute 'map'",
+  "correct": false
+}

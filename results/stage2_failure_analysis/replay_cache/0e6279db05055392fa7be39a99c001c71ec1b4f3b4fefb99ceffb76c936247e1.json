@@ -1,0 +1,14 @@
+{
+  "code_hash": "9208936313c1da7d",
+  "code": "def transform(df):\n    df['last_row'] = df.groupby('host_name')['host_name'].transform(max).eq(df['host_name'])\n    return df[df['last_row']].drop(columns=['last_row'])",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": false,
+  "equivalence_reason": "row count differs (999 vs 868)",
+  "checker": {
+    "status": "PASS",
+    "failures": [],
+    "evidence_rows": []
+  }
+}

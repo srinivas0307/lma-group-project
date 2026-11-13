@@ -1,0 +1,14 @@
+{
+  "code_hash": "62c1acd5e1f8af19",
+  "code": "def transform(df):\n    df = df.sort_values(by='fnlwgt').drop_duplicates(subset='fnlwgt', keep='first')\n    return df",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": false,
+  "equivalence_reason": "values differ",
+  "checker": {
+    "status": "PASS",
+    "failures": [],
+    "evidence_rows": []
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "code_hash": "32a19a8c094f0820",
+  "code": "def transform(df):\n    retained_rows = (df['neighbourhood'] == 'Brooklyn') | (df['neighbourhood'] == 'Manhattan')\n    return df[retained_rows].copy()\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": false,
+  "equivalence_reason": "row count differs (0 vs 927)",
+  "checker": {
+    "status": "PASS",
+    "failures": [],
+    "evidence_rows": []
+  }
+}

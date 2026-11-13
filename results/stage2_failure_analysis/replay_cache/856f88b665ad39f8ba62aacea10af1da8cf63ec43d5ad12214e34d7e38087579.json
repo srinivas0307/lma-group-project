@@ -1,0 +1,38 @@
+{
+  "code_hash": "d385c36fdb1b3c94",
+  "code": "def transform(df):\n    out = df.copy()\n    out = out[(out['neighbourhood_group'] == 'Brooklyn') | (out['neighbourhood_group'] == 'Manhattan')]\n    return out\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": true,
+  "equivalence_reason": "equal",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "predicate",
+        "predicate_id": "c1",
+        "predicate_type": "rows_removed_where",
+        "direction": "must_change",
+        "target": null,
+        "expected": "all 1000 matching rows removed",
+        "observed": "927 still present",
+        "detail": "927 of 1000 rows that should be removed are still there",
+        "evidence_rows": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ],
+    "evidence_rows": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  }
+}

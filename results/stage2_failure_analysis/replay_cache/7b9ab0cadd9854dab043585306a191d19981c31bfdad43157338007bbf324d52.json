@@ -1,0 +1,43 @@
+{
+  "code_hash": "28b4da11afc3e1a7",
+  "code": "def transform(df):\n    df_no_fnlwgt = df.drop(columns=['fnlwgt'])\n    grouped = df_no_fnlwgt.groupby(list(df_no_fnlwgt.columns), dropna=False)\n    last_occurrences = grouped.last().reset_index()\n    last_occurrences['fnlwgt'] = df[df.index.isin(last_occurrences.index)]['fnlwgt']\n    return last_occurrences\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": false,
+  "equivalence_reason": "values differ",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "predicate",
+        "predicate_id": "c1",
+        "predicate_type": "duplicate_count",
+        "direction": "must_change",
+        "target": {
+          "cols": "*",
+          "except": [
+            "fnlwgt"
+          ]
+        },
+        "expected": "one row per key group, the last one",
+        "observed": "992 groups wrong",
+        "detail": "992 of 993 key groups don't keep exactly their last row",
+        "evidence_rows": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ],
+    "evidence_rows": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "code_hash": "65be0c414edfdd31",
+  "code": "def transform(df):\n    df_deduped = df.drop_duplicates(subset=[col for col in ['SibSp', 'Parch', 'Cabin', 'Ticket'] if col != 'PassengerId'], keep='first')\n    df_filtered = df_deduped[df_deduped['SibSp'] == 0 & df_deduped['Parch'] == 0 & df_deduped['Cabin'].isnull() & df_deduped['Ticket'].str.len() == 0]\n    return df_filtered",
+  "ran_ok": false,
+  "execution_status": "error",
+  "error": "ValueError: The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
+  "correct": false
+}

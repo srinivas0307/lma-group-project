@@ -1,0 +1,8 @@
+{
+  "code_hash": "c19a4e537caae567",
+  "code": "def transform(df):\n    medians_by_pclass_age = df.groupby('Pclass')['Age'].median()\n\n    def fill_age(row):\n        pclass = row['Pclass']\n        if pd.isnull(row['Age']):\n            return medians_by_pclass_age[pclass]\n        return row['Age']\n    df['Age'] = df.apply(fill_age, axis=1)\n    df['Age'] = df.groupby('Pclass')['Age'].apply(lambda x: x.fillna(x.median()))\n    return df",
+  "ran_ok": false,
+  "execution_status": "error",
+  "error": "TypeError: incompatible index of inserted column with frame index",
+  "correct": false
+}

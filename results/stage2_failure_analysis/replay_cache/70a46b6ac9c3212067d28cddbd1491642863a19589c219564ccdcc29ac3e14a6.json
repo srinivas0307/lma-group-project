@@ -1,0 +1,38 @@
+{
+  "code_hash": "b14ecb247eed58df",
+  "code": "def transform(df):\n    out = df.copy()\n    out['PassengerId'] = out['PassengerId'].astype(str)\n    return out\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": true,
+  "equivalence_reason": "equal",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "predicate",
+        "predicate_id": "p1",
+        "predicate_type": "column_values_unchanged",
+        "direction": "must_preserve",
+        "target": "PassengerId",
+        "expected": "values unchanged",
+        "observed": "891 changed cells in ['PassengerId']",
+        "detail": "PassengerId: 891 rows changed",
+        "evidence_rows": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ],
+    "evidence_rows": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  }
+}

@@ -6,14 +6,20 @@ An agent that checks LLM-generated pandas transformations against an intent cont
 
 ## Current status and next step
 
-Stage 1 evaluation, parser fine-tuning, agent experiments, and Stage 2 prompt development are complete. The final Stage 2 experiment uses six independent Kaggle evaluation notebooks and a CPU collector. Full completion on Kaggle is still pending.
+Stage 1 evaluation, parser fine-tuning, agent experiments, Stage 2 prompt development, and the final six-system Stage 2 evaluation are complete. All six Kaggle runs contain 100 verified task records, and the collector contains 600 records across the same 100 test tasks. Its 657 files match an independent local collection.
+
+See the [Stage 2 summary](results/stage2_clean_v1/stage2_summary.csv), [full metrics and paired comparisons](results/stage2_clean_v1/stage2_metrics_test.json), and [import validation](kaggle_outputs/stage2/clean_v1/import_validation.json). Completed bundles are in `kaggle_outputs/stage2/clean_v1/`; executed notebooks are in `notebooks/executed/stage2/clean_v1/`. The [failure analysis](results/STAGE2_FAILURE_ANALYSIS.md) is complete: predicted contracts reduce incorrect acceptances but also reject correct programs. The next step is the final write-up and, if pursued, a separately developed method revision followed by an independent benchmark.
+
+To reproduce the completed GPU experiment:
 
 1. Download and extract [the notebook pack](notebooks/kaggle/stage2_six_notebooks.zip).
 2. Run [notebook 06](notebooks/kaggle/stage2_06_no_contract_to_generator.ipynb) first, with Internet on and GPU T4 ×2. Use **Save Version → Save & Run All**. Wait for **COMPLETE AND VALIDATED: 100 / 100**.
 3. Run notebooks 01–05 in fresh sessions with the same settings, saving each completed bundle.
 4. Attach the six outputs to [the CPU collector](notebooks/kaggle/stage2_collect_results.ipynb) and download the final bundle after **600 / 600 verified task records**.
 
-Follow the [complete Kaggle instructions](docs/stage2_six_notebooks.md). The notebooks embed their shared runtime; no new GitHub push, adapter upload, old checkpoint, or separate resume notebook is required. Real GPU execution remains to be verified on Kaggle.
+Follow the [complete Kaggle instructions](docs/stage2_six_notebooks.md). The notebooks embed their shared runtime; no new GitHub push, adapter upload, old checkpoint, or separate resume notebook is required. All six supplied Kaggle runs completed without recorded generation or attention failures.
+
+The active next phase follows the [contract-quality improvement plan](docs/contract_quality_improvement_plan.md). A CPU-validated synthetic draft suite and two Kaggle adapter-comparison notebooks are ready. Follow the [pilot runbook](docs/contract_quality/RUNBOOK.md) and download the [two-notebook pack](notebooks/kaggle/contract_quality/contract_quality_pilots.zip). GPU pilot results and independent task review are still pending; retraining follows the grounding decision.
 
 ## Setup and local checks
 
@@ -39,6 +45,7 @@ This script uses the frozen benchmark, downloaded parser/generation inputs, and 
 - `eval/` — research runners and scoring; `eval/stage2_clean/` implements the current six-notebook workflow.
 - `notebooks/kaggle/` — the seven current notebooks, their builder, and the download pack.
 - `notebooks/training/` — the parser fine-tuning template.
+- `notebooks/executed/stage2/clean_v1/` — completed Stage 2 notebooks, including the collector.
 - `benchmark/`, `data/`, `configs/` — frozen tasks, candidate pool, datasets, and experiment settings.
 - `finetune/` — training scripts, datasets, configurations, and local trained adapters in `runs/`.
 - `kaggle_outputs/` — generation and parser inputs needed for reproducibility.
@@ -53,9 +60,11 @@ The layout keeps executable dependencies and frozen research inputs at stable pa
 ## Research results and references
 
 - [Stage 1 results](results/STAGE1_RESULTS.md)
-- [Fine-tuning results](results/FINETUNE_RESULTS.md)
+- [Fine-tuning results](results/FINETUNE_RESULTS.md) and [training/data audit](results/FINETUNE_AUDIT.md)
 - [Agent evaluation](results/STAGE2_AGENT_RESULTS.md)
 - [Stage 2 development comparisons](results/STAGE2_DEV_RESULTS.md)
+- [Stage 2 failure analysis](results/STAGE2_FAILURE_ANALYSIS.md) with [reproducible audit evidence](results/stage2_failure_analysis/audit.json)
+- [Completed Stage 2 test metrics](results/stage2_clean_v1/stage2_metrics_test.json) and [summary CSV](results/stage2_clean_v1/stage2_summary.csv)
 - [Contract schema](docs/contract_schema.md) and [verdict format](docs/verdict_format.md)
 - [Open issues](docs/open_issues.md) and [future work](docs/future_work.md)
 - [Mid-submission report](docs/mid_submission_report.md), [PDF](docs/reports/mid_submission_report.pdf)

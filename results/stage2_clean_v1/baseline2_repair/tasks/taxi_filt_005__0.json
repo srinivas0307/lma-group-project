@@ -1,0 +1,268 @@
+{
+  "record": {
+    "task_id": "taxi_filt_005",
+    "split": "test",
+    "dataset": "taxi",
+    "transformation_type": "filtering",
+    "difficulty": "medium",
+    "seed": 0,
+    "system": "baseline2_repair",
+    "preset": "baseline2_repair",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "none",
+    "generator_contract": false,
+    "verifier": "conventional",
+    "repair_mode": "full",
+    "generator_prompt": "b1-v1",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "not_used",
+    "stage_ended": "repair",
+    "outcome": "REJECT",
+    "final_correct": false,
+    "initial_correct": false,
+    "initial_parse_ok": true,
+    "first_check": "VIOLATION",
+    "no_repair_outcome": "REJECT",
+    "no_repair_correct": false,
+    "final_status": "VIOLATION",
+    "attempts": 3,
+    "tool_calls": 4,
+    "llm_calls": 8,
+    "tokens": 15953,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": null,
+    "path": [
+      "PREPARE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REJECTED"
+    ],
+    "tool_trace": [
+      {
+        "tool": "inspect_dataset",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "run_transformation",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      }
+    ],
+    "latency_s": 32.48
+  },
+  "trace": {
+    "task_id": "taxi_filt_005",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    df_filtered = df[df['tip_amount'] != 0]\n    return df_filtered\n```",
+    "initial_code": "def transform(df):\n    df_filtered = df[df['tip_amount'] != 0]\n    return df_filtered",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "17b9d0e74ebfdcf4"
+      },
+      {
+        "step": 1,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "17b9d0e74ebfdcf4",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "distribution.mean_shift"
+        ]
+      },
+      {
+        "step": 2,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1619,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"inspect_dataset\", \"args\": {\"which\": \"before\", \"n_rows\": 5, \"columns\": [\"payment_type\", \"tip_amount\"]}}"
+      },
+      {
+        "step": 3,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "inspect_dataset",
+        "args": {
+          "which": "before",
+          "n_rows": 5,
+          "columns": [
+            "payment_type",
+            "tip_amount"
+          ]
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 4,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2475,
+        "cached": false,
+        "reply": "{\"action\": \"run_transformation\", \"args\": {\"code\": \"def transform(df):\\n    out = df[(df['payment_type'] == 1) & (df['tip_amount'] != 0)]\\n    return out\\n\"}}"
+      },
+      {
+        "step": 5,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "run_transformation",
+        "args": {
+          "code": "c56ec2fdeff7f42d"
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 6,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 3453,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    out = df[(df['payment_type'] == 1) & (df['tip_amount'] != 0)]\n    return out\n```"
+      },
+      {
+        "step": 7,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "c56ec2fdeff7f42d",
+        "implicit": false
+      },
+      {
+        "step": 8,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "c56ec2fdeff7f42d",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "distribution.mean_shift"
+        ]
+      },
+      {
+        "step": 9,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1687,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 10,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 11,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1887,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    out = df[(df['payment_type'] == 1) & (df['tip_amount'] > 0)]\n    return out\n```"
+      },
+      {
+        "step": 12,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "715188c29fdef487",
+        "implicit": false
+      },
+      {
+        "step": 13,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "715188c29fdef487",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "distribution.mean_shift"
+        ]
+      },
+      {
+        "step": 14,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1773,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 15,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 16,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1973,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    out = df[(df['payment_type'] == 1) & (df['tip_amount'] > 0)]\n    return out\n```"
+      },
+      {
+        "step": 17,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "715188c29fdef487",
+        "implicit": false
+      },
+      {
+        "step": 18,
+        "state": "REPAIR",
+        "event": "repeated_code",
+        "code_hash": "715188c29fdef487",
+        "times": 1
+      }
+    ]
+  }
+}

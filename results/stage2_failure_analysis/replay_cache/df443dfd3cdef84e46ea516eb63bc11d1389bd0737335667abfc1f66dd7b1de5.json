@@ -1,0 +1,44 @@
+{
+  "code_hash": "7c596a05866c1423",
+  "code": "def transform(df):\n    return df[df['number_of_reviews'] > 0]\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": true,
+  "equivalence_reason": "equal",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "uncertain",
+        "reason": "predicate_not_evaluable",
+        "detail": "condition matches 0 rows in the input",
+        "predicate_id": "c1"
+      },
+      {
+        "kind": "predicate",
+        "predicate_id": "p1",
+        "predicate_type": "rows_retained_where",
+        "direction": "must_preserve",
+        "target": null,
+        "expected": "all 1000 matching rows kept",
+        "observed": "41 removed",
+        "detail": "41 of 1000 rows that should be kept were removed",
+        "evidence_rows": [
+          2,
+          19,
+          26,
+          36,
+          38
+        ]
+      }
+    ],
+    "evidence_rows": [
+      2,
+      19,
+      26,
+      36,
+      38
+    ]
+  }
+}

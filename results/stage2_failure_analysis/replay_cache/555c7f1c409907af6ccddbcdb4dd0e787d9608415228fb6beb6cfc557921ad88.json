@@ -1,0 +1,22 @@
+{
+  "code_hash": "3f87154c4ea68185",
+  "code": "def transform(df):\n    out = df.drop_duplicates(subset='name', keep='first', ignore_index=True)\n    out['calculated_host_listings_count'] = out['calculated_host_listings_count'].replace(0, np.nan)\n    return out\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": true,
+  "equivalence_reason": "equal",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "check",
+        "check": "distribution.mean_shift",
+        "value": 0.106766,
+        "threshold": 0.1,
+        "column": "calculated_host_listings_count"
+      }
+    ],
+    "evidence_rows": []
+  }
+}

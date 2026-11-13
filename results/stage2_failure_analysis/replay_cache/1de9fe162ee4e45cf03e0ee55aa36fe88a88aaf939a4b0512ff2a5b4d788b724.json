@@ -1,0 +1,37 @@
+{
+  "code_hash": "28360f11332badfb",
+  "code": "def transform(df):\n    df['passenger_count'].replace(0, np.nan, inplace=True)\n    df['RatecodeID'].replace(99, np.nan, inplace=True)\n    return df\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": true,
+  "equivalence_reason": "equal",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "predicate",
+        "predicate_id": "p1",
+        "predicate_type": "column_values_unchanged",
+        "direction": "must_preserve",
+        "target": [
+          "passenger_count",
+          "RatecodeID"
+        ],
+        "expected": "values unchanged",
+        "observed": "3 changed cells in ['RatecodeID']",
+        "detail": "RatecodeID: 3 rows changed",
+        "evidence_rows": [
+          642,
+          822,
+          837
+        ]
+      }
+    ],
+    "evidence_rows": [
+      642,
+      822,
+      837
+    ]
+  }
+}

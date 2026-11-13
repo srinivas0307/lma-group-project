@@ -1,0 +1,71 @@
+{
+  "code_hash": "3adf473fdf62a1b6",
+  "code": "def transform(df):\n    out = df.drop(columns=['fnlwgt']).drop_duplicates(keep='first', subset=df.columns.difference(['fnlwgt']))\n    out = pd.concat([out, df[['fnlwgt']]], axis=1)\n    return out\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": false,
+  "equivalence_reason": "row count differs (1000 vs 993)",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "predicate",
+        "predicate_id": "c1",
+        "predicate_type": "duplicate_count",
+        "direction": "must_change",
+        "target": {
+          "cols": "*",
+          "except": [
+            "fnlwgt"
+          ]
+        },
+        "expected": "eq 0",
+        "observed": 6,
+        "detail": "6 rows still duplicate an earlier row on the key",
+        "evidence_rows": [
+          391,
+          563,
+          570,
+          673,
+          864
+        ]
+      },
+      {
+        "kind": "predicate",
+        "predicate_id": "c2",
+        "predicate_type": "row_count",
+        "direction": "must_change",
+        "target": null,
+        "expected": "< 1000 (decreased)",
+        "observed": 1000,
+        "detail": "1000 rows after, 1000 before",
+        "evidence_rows": []
+      },
+      {
+        "kind": "predicate",
+        "predicate_id": "p1",
+        "predicate_type": "columns_unchanged",
+        "direction": "must_preserve",
+        "target": "*",
+        "expected": "same dtype family",
+        "observed": {
+          "age": "int->float",
+          "education-num": "int->float",
+          "capital-gain": "int->float",
+          "capital-loss": "int->float",
+          "hours-per-week": "int->float"
+        },
+        "detail": "dtype family changed in ['age', 'education-num', 'capital-gain', 'capital-loss', 'hours-per-week']",
+        "evidence_rows": []
+      }
+    ],
+    "evidence_rows": [
+      391,
+      563,
+      570,
+      673,
+      864
+    ]
+  }
+}

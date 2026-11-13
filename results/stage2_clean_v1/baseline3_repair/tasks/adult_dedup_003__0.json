@@ -1,0 +1,132 @@
+{
+  "record": {
+    "task_id": "adult_dedup_003",
+    "split": "test",
+    "dataset": "adult",
+    "transformation_type": "deduplication",
+    "difficulty": "medium",
+    "seed": 0,
+    "system": "baseline3_repair",
+    "preset": "baseline3_repair",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "parsed",
+    "generator_contract": false,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "generator_prompt": "b1-v1",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "ok",
+    "stage_ended": "repair",
+    "outcome": "ACCEPT",
+    "final_correct": true,
+    "initial_correct": false,
+    "initial_parse_ok": true,
+    "first_check": "VIOLATION",
+    "no_repair_outcome": "REJECT",
+    "no_repair_correct": false,
+    "final_status": "PASS",
+    "attempts": 1,
+    "tool_calls": 1,
+    "llm_calls": 3,
+    "tokens": 3766,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": null,
+    "path": [
+      "PREPARE",
+      "PARSE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "ACCEPTED"
+    ],
+    "tool_trace": [
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      }
+    ],
+    "latency_s": 9.84
+  },
+  "trace": {
+    "task_id": "adult_dedup_003",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    df = df.sort_values(by='fnlwgt').drop_duplicates(subset='fnlwgt', keep='first')\n    return df\n```",
+    "initial_code": "def transform(df):\n    df = df.sort_values(by='fnlwgt').drop_duplicates(subset='fnlwgt', keep='first')\n    return df",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "62c1acd5e1f8af19"
+      },
+      {
+        "step": 1,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "62c1acd5e1f8af19",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "c1"
+        ]
+      },
+      {
+        "step": 2,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1446,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 3,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 4,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1642,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    out = df.drop_duplicates(subset='fnlwgt', keep='first')\n    return out\n```"
+      },
+      {
+        "step": 5,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "7ede07764e2bb460",
+        "implicit": false
+      },
+      {
+        "step": 6,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "7ede07764e2bb460",
+        "status": "PASS",
+        "n_failures": 0,
+        "failed": []
+      }
+    ]
+  }
+}

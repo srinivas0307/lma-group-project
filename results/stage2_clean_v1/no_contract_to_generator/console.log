@@ -1,0 +1,321 @@
+Command: ["/usr/bin/python3", "-m", "stage2_clean.runner", "--preset", "no_contract_to_generator", "--repo", "/kaggle/working/repo_stage2_clean_v1", "--out", "/kaggle/working/stage2_clean_v1", "--packages", "/kaggle/working/stage2_clean_packages"]
+GPU: {"task_id": null, "time": 1794558022.9632294, "event": "kernel_self_test_passed", "device": "cuda:0", "case": "causal_prefill", "max_absolute_error": 0.001953125, "rtol": 0.005, "atol": 0.005}
+GPU: {"task_id": null, "time": 1794558022.9877954, "event": "kernel_self_test_passed", "device": "cuda:0", "case": "decode", "max_absolute_error": 0.00048828125, "rtol": 0.005, "atol": 0.005}
+GPU: {"task_id": null, "time": 1794558022.990236, "event": "kernel_self_test_passed", "device": "cuda:0", "case": "masked_prefill", "max_absolute_error": 0.0009765625, "rtol": 0.005, "atol": 0.005}
+GPU: {"task_id": null, "time": 1794558023.2235234, "event": "kernel_self_test_passed", "device": "cuda:1", "case": "causal_prefill", "max_absolute_error": 0.001953125, "rtol": 0.005, "atol": 0.005}
+GPU: {"task_id": null, "time": 1794558023.2263777, "event": "kernel_self_test_passed", "device": "cuda:1", "case": "decode", "max_absolute_error": 0.00048828125, "rtol": 0.005, "atol": 0.005}
+GPU: {"task_id": null, "time": 1794558023.228464, "event": "kernel_self_test_passed", "device": "cuda:1", "case": "masked_prefill", "max_absolute_error": 0.0009765625, "rtol": 0.005, "atol": 0.005}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]
+Fetching 2 files:  50%|█████     | 1/2 [00:32<00:32, 32.43s/it]
+Fetching 2 files: 100%|██████████| 2/2 [00:32<00:00, 16.21s/it]
+
+Loading weights:   0%|          | 0/434 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/434 [00:00<06:52,  1.05it/s]
+Loading weights:  17%|█▋        | 75/434 [00:01<00:03, 97.31it/s]
+Loading weights:  27%|██▋       | 119/434 [00:01<00:02, 116.89it/s]
+Loading weights:  35%|███▍      | 150/434 [00:01<00:02, 115.72it/s]
+Loading weights:  40%|███▉      | 173/434 [00:01<00:02, 120.17it/s]
+Loading weights:  44%|████▍     | 193/434 [00:01<00:01, 126.94it/s]
+Loading weights:  49%|████▉     | 212/434 [00:02<00:01, 127.42it/s]
+Loading weights:  53%|█████▎    | 231/434 [00:02<00:01, 132.05it/s]
+Loading weights:  57%|█████▋    | 247/434 [00:02<00:01, 133.83it/s]
+Loading weights:  61%|██████    | 263/434 [00:02<00:01, 132.25it/s]
+Loading weights:  64%|██████▍   | 279/434 [00:02<00:01, 128.68it/s]
+Loading weights:  68%|██████▊   | 293/434 [00:02<00:01, 125.61it/s]
+Loading weights:  73%|███████▎  | 315/434 [00:02<00:00, 124.64it/s]
+Loading weights:  78%|███████▊  | 339/434 [00:03<00:00, 123.88it/s]
+Loading weights:  84%|████████▎ | 363/434 [00:03<00:00, 121.28it/s]
+Loading weights:  89%|████████▉ | 387/434 [00:03<00:00, 135.04it/s]
+Loading weights:  92%|█████████▏| 401/434 [00:03<00:00, 125.99it/s]
+Loading weights:  97%|█████████▋| 423/434 [00:03<00:00, 132.16it/s]
+Loading weights: 100%|██████████| 434/434 [00:03<00:00, 117.43it/s]
+GPU: {"task_id": null, "time": 1794558084.226866, "event": "model_loaded", "role": "generator", "model": "Qwen/Qwen2.5-3B-Instruct", "revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1", "device": "cuda:1", "four_bit": false, "quantized_parameters": 0, "allocated_bytes": 6180398080}
+
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]
+Fetching 4 files:  25%|██▌       | 1/4 [01:15<03:45, 75.25s/it]
+Fetching 4 files: 100%|██████████| 4/4 [01:15<00:00, 18.81s/it]
+
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:01<09:52,  1.75s/it]
+Loading weights:   1%|          | 2/339 [00:04<12:01,  2.14s/it]
+Loading weights:   1%|          | 4/339 [00:04<04:46,  1.17it/s]
+Loading weights:   1%|▏         | 5/339 [00:04<03:36,  1.54it/s]
+Loading weights:   2%|▏         | 6/339 [00:04<02:43,  2.04it/s]
+Loading weights:   5%|▍         | 16/339 [00:04<00:34,  9.44it/s]
+Loading weights:   6%|▌         | 19/339 [00:05<00:32,  9.86it/s]
+Loading weights:   8%|▊         | 28/339 [00:05<00:18, 17.18it/s]
+Loading weights:   9%|▉         | 31/339 [00:05<00:19, 15.57it/s]
+Loading weights:  12%|█▏        | 40/339 [00:05<00:12, 23.04it/s]
+Loading weights:  13%|█▎        | 44/339 [00:05<00:14, 20.60it/s]
+Loading weights:  15%|█▌        | 52/339 [00:06<00:10, 26.25it/s]
+Loading weights:  17%|█▋        | 56/339 [00:06<00:12, 21.86it/s]
+Loading weights:  19%|█▉        | 64/339 [00:06<00:10, 27.44it/s]
+Loading weights:  20%|██        | 68/339 [00:06<00:11, 22.97it/s]
+Loading weights:  22%|██▏       | 76/339 [00:07<00:15, 16.96it/s]
+Loading weights:  23%|██▎       | 79/339 [00:08<00:27,  9.39it/s]
+Loading weights:  26%|██▌       | 88/339 [00:08<00:19, 13.09it/s]
+Loading weights:  27%|██▋       | 91/339 [00:09<00:23, 10.51it/s]
+Loading weights:  29%|██▉       | 100/339 [00:09<00:16, 14.37it/s]
+Loading weights:  30%|███       | 102/339 [00:10<00:21, 11.11it/s]
+Loading weights:  33%|███▎      | 112/339 [00:10<00:14, 16.12it/s]
+Loading weights:  34%|███▍      | 115/339 [00:10<00:14, 14.97it/s]
+Loading weights:  37%|███▋      | 124/339 [00:11<00:10, 21.11it/s]
+Loading weights:  37%|███▋      | 127/339 [00:11<00:11, 18.40it/s]
+Loading weights:  40%|████      | 136/339 [00:11<00:08, 25.16it/s]
+Loading weights:  41%|████▏     | 140/339 [00:11<00:09, 22.04it/s]
+Loading weights:  44%|████▎     | 148/339 [00:11<00:07, 26.51it/s]
+Loading weights:  45%|████▍     | 152/339 [00:12<00:15, 12.16it/s]
+Loading weights:  46%|████▌     | 155/339 [00:13<00:13, 13.57it/s]
+Loading weights:  47%|████▋     | 158/339 [00:13<00:12, 14.87it/s]
+Loading weights:  47%|████▋     | 161/339 [00:14<00:23,  7.63it/s]
+Loading weights:  48%|████▊     | 163/339 [00:14<00:25,  6.81it/s]
+Loading weights:  49%|████▉     | 166/339 [00:14<00:20,  8.62it/s]
+Loading weights:  50%|█████     | 171/339 [00:14<00:13, 12.84it/s]
+Loading weights:  51%|█████▏    | 174/339 [00:15<00:20,  8.12it/s]
+Loading weights:  53%|█████▎    | 180/339 [00:15<00:13, 11.91it/s]
+Loading weights:  54%|█████▍    | 184/339 [00:15<00:10, 14.15it/s]
+Loading weights:  55%|█████▌    | 187/339 [00:16<00:11, 13.32it/s]
+Loading weights:  58%|█████▊    | 196/339 [00:16<00:06, 21.37it/s]
+Loading weights:  59%|█████▉    | 200/339 [00:16<00:10, 13.64it/s]
+Loading weights:  60%|██████    | 204/339 [00:17<00:08, 15.40it/s]
+Loading weights:  61%|██████▏   | 208/339 [00:17<00:11, 11.72it/s]
+Loading weights:  62%|██████▏   | 210/339 [00:18<00:20,  6.40it/s]
+Loading weights:  64%|██████▎   | 216/339 [00:18<00:13,  9.45it/s]
+Loading weights:  65%|██████▍   | 220/339 [00:19<00:13,  8.64it/s]
+Loading weights:  65%|██████▌   | 222/339 [00:20<00:21,  5.45it/s]
+Loading weights:  67%|██████▋   | 228/339 [00:20<00:13,  8.38it/s]
+Loading weights:  68%|██████▊   | 232/339 [00:21<00:13,  7.95it/s]
+Loading weights:  69%|██████▉   | 234/339 [00:22<00:17,  5.94it/s]
+Loading weights:  72%|███████▏  | 244/339 [00:22<00:08, 10.82it/s]
+Loading weights:  73%|███████▎  | 246/339 [00:23<00:13,  6.75it/s]
+Loading weights:  74%|███████▍  | 252/339 [00:23<00:09,  9.64it/s]
+Loading weights:  76%|███████▌  | 256/339 [00:24<00:09,  8.75it/s]
+Loading weights:  76%|███████▌  | 258/339 [00:25<00:14,  5.58it/s]
+Loading weights:  77%|███████▋  | 262/339 [00:25<00:10,  7.51it/s]
+Loading weights:  78%|███████▊  | 266/339 [00:25<00:07,  9.90it/s]
+Loading weights:  79%|███████▉  | 269/339 [00:26<00:11,  6.16it/s]
+Loading weights:  80%|███████▉  | 271/339 [00:26<00:12,  5.60it/s]
+Loading weights:  81%|████████  | 274/339 [00:27<00:08,  7.31it/s]
+Loading weights:  83%|████████▎ | 280/339 [00:27<00:07,  8.04it/s]
+Loading weights:  83%|████████▎ | 282/339 [00:28<00:10,  5.35it/s]
+Loading weights:  85%|████████▍ | 288/339 [00:28<00:06,  8.40it/s]
+Loading weights:  86%|████████▌ | 292/339 [00:29<00:06,  7.82it/s]
+Loading weights:  87%|████████▋ | 294/339 [00:30<00:08,  5.02it/s]
+Loading weights:  88%|████████▊ | 298/339 [00:30<00:05,  7.03it/s]
+Loading weights:  89%|████████▉ | 301/339 [00:30<00:04,  8.78it/s]
+Loading weights:  90%|████████▉ | 304/339 [00:31<00:04,  7.50it/s]
+Loading weights:  90%|█████████ | 306/339 [00:32<00:07,  4.61it/s]
+Loading weights:  91%|█████████▏| 310/339 [00:32<00:04,  6.85it/s]
+Loading weights:  93%|█████████▎| 316/339 [00:33<00:02,  7.72it/s]
+Loading weights:  94%|█████████▍| 318/339 [00:34<00:04,  4.98it/s]
+Loading weights:  96%|█████████▌| 324/339 [00:34<00:01,  7.76it/s]
+Loading weights:  97%|█████████▋| 328/339 [00:34<00:01,  7.46it/s]
+Loading weights:  97%|█████████▋| 330/339 [00:36<00:01,  4.96it/s]
+Loading weights:  99%|█████████▉| 336/339 [00:36<00:00,  7.76it/s]
+Loading weights: 100%|██████████| 339/339 [00:36<00:00,  9.36it/s]
+GPU: {"task_id": null, "time": 1794558201.1811059, "event": "model_loaded", "role": "agent", "model": "Qwen/Qwen2.5-7B-Instruct", "revision": "a09a35458c702b33eeacc393d103063234e8bc28", "device": "cuda:0", "four_bit": true, "quantized_parameters": 196, "allocated_bytes": 5860898816}
+TASK START: no_contract_to_generator taxi_dedup_003 (0/100 saved)
+TASK DONE: no_contract_to_generator 1/100 taxi_dedup_003 REJECT
+TASK START: no_contract_to_generator adult_col_001 (1/100 saved)
+TASK DONE: no_contract_to_generator 2/100 adult_col_001 ACCEPT
+TASK START: no_contract_to_generator adult_col_002 (2/100 saved)
+TASK DONE: no_contract_to_generator 3/100 adult_col_002 ACCEPT
+TASK START: no_contract_to_generator adult_col_003 (3/100 saved)
+TASK DONE: no_contract_to_generator 4/100 adult_col_003 ACCEPT
+TASK START: no_contract_to_generator adult_col_004 (4/100 saved)
+TASK DONE: no_contract_to_generator 5/100 adult_col_004 ACCEPT
+TASK START: no_contract_to_generator adult_col_005 (5/100 saved)
+TASK DONE: no_contract_to_generator 6/100 adult_col_005 ESCALATE
+TASK START: no_contract_to_generator adult_conv_001 (6/100 saved)
+TASK DONE: no_contract_to_generator 7/100 adult_conv_001 ACCEPT
+TASK START: no_contract_to_generator adult_conv_002 (7/100 saved)
+TASK DONE: no_contract_to_generator 8/100 adult_conv_002 REJECT
+TASK START: no_contract_to_generator adult_conv_003 (8/100 saved)
+TASK DONE: no_contract_to_generator 9/100 adult_conv_003 REJECT
+TASK START: no_contract_to_generator adult_conv_004 (9/100 saved)
+TASK DONE: no_contract_to_generator 10/100 adult_conv_004 ACCEPT
+TASK START: no_contract_to_generator adult_conv_005 (10/100 saved)
+TASK DONE: no_contract_to_generator 11/100 adult_conv_005 ACCEPT
+TASK START: no_contract_to_generator adult_dedup_001 (11/100 saved)
+TASK DONE: no_contract_to_generator 12/100 adult_dedup_001 ACCEPT
+TASK START: no_contract_to_generator adult_dedup_002 (12/100 saved)
+TASK DONE: no_contract_to_generator 13/100 adult_dedup_002 ACCEPT
+TASK START: no_contract_to_generator adult_dedup_003 (13/100 saved)
+TASK DONE: no_contract_to_generator 14/100 adult_dedup_003 ACCEPT
+TASK START: no_contract_to_generator adult_dedup_004 (14/100 saved)
+TASK DONE: no_contract_to_generator 15/100 adult_dedup_004 ACCEPT
+TASK START: no_contract_to_generator adult_dedup_005 (15/100 saved)
+TASK DONE: no_contract_to_generator 16/100 adult_dedup_005 ACCEPT
+TASK START: no_contract_to_generator adult_filt_001 (16/100 saved)
+TASK DONE: no_contract_to_generator 17/100 adult_filt_001 ACCEPT
+TASK START: no_contract_to_generator adult_filt_002 (17/100 saved)
+TASK DONE: no_contract_to_generator 18/100 adult_filt_002 ACCEPT
+TASK START: no_contract_to_generator adult_filt_003 (18/100 saved)
+TASK DONE: no_contract_to_generator 19/100 adult_filt_003 ACCEPT
+TASK START: no_contract_to_generator adult_filt_004 (19/100 saved)
+TASK DONE: no_contract_to_generator 20/100 adult_filt_004 ACCEPT
+TASK START: no_contract_to_generator adult_filt_005 (20/100 saved)
+TASK DONE: no_contract_to_generator 21/100 adult_filt_005 REJECT
+TASK START: no_contract_to_generator adult_miss_001 (21/100 saved)
+TASK DONE: no_contract_to_generator 22/100 adult_miss_001 ACCEPT
+TASK START: no_contract_to_generator adult_miss_002 (22/100 saved)
+TASK DONE: no_contract_to_generator 23/100 adult_miss_002 ACCEPT
+TASK START: no_contract_to_generator adult_miss_003 (23/100 saved)
+TASK DONE: no_contract_to_generator 24/100 adult_miss_003 ACCEPT
+TASK START: no_contract_to_generator adult_miss_004 (24/100 saved)
+TASK DONE: no_contract_to_generator 25/100 adult_miss_004 ACCEPT
+TASK START: no_contract_to_generator adult_miss_005 (25/100 saved)
+TASK DONE: no_contract_to_generator 26/100 adult_miss_005 ACCEPT
+TASK START: no_contract_to_generator airbnb_col_001 (26/100 saved)
+TASK DONE: no_contract_to_generator 27/100 airbnb_col_001 ACCEPT
+TASK START: no_contract_to_generator airbnb_col_002 (27/100 saved)
+TASK DONE: no_contract_to_generator 28/100 airbnb_col_002 ACCEPT
+TASK START: no_contract_to_generator airbnb_col_003 (28/100 saved)
+TASK DONE: no_contract_to_generator 29/100 airbnb_col_003 ACCEPT
+TASK START: no_contract_to_generator airbnb_col_004 (29/100 saved)
+TASK DONE: no_contract_to_generator 30/100 airbnb_col_004 ACCEPT
+TASK START: no_contract_to_generator airbnb_col_005 (30/100 saved)
+TASK DONE: no_contract_to_generator 31/100 airbnb_col_005 ACCEPT
+TASK START: no_contract_to_generator airbnb_conv_001 (31/100 saved)
+TASK DONE: no_contract_to_generator 32/100 airbnb_conv_001 ACCEPT
+TASK START: no_contract_to_generator airbnb_conv_002 (32/100 saved)
+TASK DONE: no_contract_to_generator 33/100 airbnb_conv_002 ACCEPT
+TASK START: no_contract_to_generator airbnb_conv_003 (33/100 saved)
+TASK DONE: no_contract_to_generator 34/100 airbnb_conv_003 ACCEPT
+TASK START: no_contract_to_generator airbnb_conv_004 (34/100 saved)
+TASK DONE: no_contract_to_generator 35/100 airbnb_conv_004 ACCEPT
+TASK START: no_contract_to_generator airbnb_conv_005 (35/100 saved)
+TASK DONE: no_contract_to_generator 36/100 airbnb_conv_005 ACCEPT
+TASK START: no_contract_to_generator airbnb_dedup_001 (36/100 saved)
+TASK DONE: no_contract_to_generator 37/100 airbnb_dedup_001 ESCALATE
+TASK START: no_contract_to_generator airbnb_dedup_002 (37/100 saved)
+TASK DONE: no_contract_to_generator 38/100 airbnb_dedup_002 ACCEPT
+TASK START: no_contract_to_generator airbnb_dedup_003 (38/100 saved)
+TASK DONE: no_contract_to_generator 39/100 airbnb_dedup_003 REJECT
+TASK START: no_contract_to_generator airbnb_dedup_004 (39/100 saved)
+TASK DONE: no_contract_to_generator 40/100 airbnb_dedup_004 REJECT
+TASK START: no_contract_to_generator airbnb_dedup_005 (40/100 saved)
+TASK DONE: no_contract_to_generator 41/100 airbnb_dedup_005 REJECT
+TASK START: no_contract_to_generator airbnb_filt_001 (41/100 saved)
+TASK DONE: no_contract_to_generator 42/100 airbnb_filt_001 ACCEPT
+TASK START: no_contract_to_generator airbnb_filt_002 (42/100 saved)
+TASK DONE: no_contract_to_generator 43/100 airbnb_filt_002 REJECT
+TASK START: no_contract_to_generator airbnb_filt_003 (43/100 saved)
+TASK DONE: no_contract_to_generator 44/100 airbnb_filt_003 ACCEPT
+TASK START: no_contract_to_generator airbnb_filt_004 (44/100 saved)
+TASK DONE: no_contract_to_generator 45/100 airbnb_filt_004 ACCEPT
+TASK START: no_contract_to_generator airbnb_filt_005 (45/100 saved)
+TASK DONE: no_contract_to_generator 46/100 airbnb_filt_005 REJECT
+TASK START: no_contract_to_generator airbnb_miss_001 (46/100 saved)
+TASK DONE: no_contract_to_generator 47/100 airbnb_miss_001 ACCEPT
+TASK START: no_contract_to_generator airbnb_miss_002 (47/100 saved)
+TASK DONE: no_contract_to_generator 48/100 airbnb_miss_002 ACCEPT
+TASK START: no_contract_to_generator airbnb_miss_003 (48/100 saved)
+TASK DONE: no_contract_to_generator 49/100 airbnb_miss_003 ACCEPT
+TASK START: no_contract_to_generator airbnb_miss_004 (49/100 saved)
+TASK DONE: no_contract_to_generator 50/100 airbnb_miss_004 ESCALATE
+TASK START: no_contract_to_generator airbnb_miss_005 (50/100 saved)
+TASK DONE: no_contract_to_generator 51/100 airbnb_miss_005 ACCEPT
+TASK START: no_contract_to_generator taxi_col_001 (51/100 saved)
+TASK DONE: no_contract_to_generator 52/100 taxi_col_001 ACCEPT
+TASK START: no_contract_to_generator taxi_col_002 (52/100 saved)
+TASK DONE: no_contract_to_generator 53/100 taxi_col_002 ACCEPT
+TASK START: no_contract_to_generator taxi_col_003 (53/100 saved)
+TASK DONE: no_contract_to_generator 54/100 taxi_col_003 ACCEPT
+TASK START: no_contract_to_generator taxi_col_004 (54/100 saved)
+TASK DONE: no_contract_to_generator 55/100 taxi_col_004 ACCEPT
+TASK START: no_contract_to_generator taxi_col_005 (55/100 saved)
+TASK DONE: no_contract_to_generator 56/100 taxi_col_005 ACCEPT
+TASK START: no_contract_to_generator taxi_conv_001 (56/100 saved)
+TASK DONE: no_contract_to_generator 57/100 taxi_conv_001 ACCEPT
+TASK START: no_contract_to_generator taxi_conv_002 (57/100 saved)
+TASK DONE: no_contract_to_generator 58/100 taxi_conv_002 ESCALATE
+TASK START: no_contract_to_generator taxi_conv_003 (58/100 saved)
+TASK DONE: no_contract_to_generator 59/100 taxi_conv_003 ACCEPT
+TASK START: no_contract_to_generator taxi_conv_004 (59/100 saved)
+TASK DONE: no_contract_to_generator 60/100 taxi_conv_004 ACCEPT
+TASK START: no_contract_to_generator taxi_conv_005 (60/100 saved)
+TASK DONE: no_contract_to_generator 61/100 taxi_conv_005 ACCEPT
+TASK START: no_contract_to_generator taxi_dedup_001 (61/100 saved)
+TASK DONE: no_contract_to_generator 62/100 taxi_dedup_001 ACCEPT
+TASK START: no_contract_to_generator taxi_dedup_002 (62/100 saved)
+TASK DONE: no_contract_to_generator 63/100 taxi_dedup_002 ACCEPT
+TASK START: no_contract_to_generator taxi_dedup_004 (63/100 saved)
+TASK DONE: no_contract_to_generator 64/100 taxi_dedup_004 ACCEPT
+TASK START: no_contract_to_generator taxi_dedup_005 (64/100 saved)
+TASK DONE: no_contract_to_generator 65/100 taxi_dedup_005 ESCALATE
+TASK START: no_contract_to_generator taxi_filt_001 (65/100 saved)
+TASK DONE: no_contract_to_generator 66/100 taxi_filt_001 ACCEPT
+TASK START: no_contract_to_generator taxi_filt_002 (66/100 saved)
+TASK DONE: no_contract_to_generator 67/100 taxi_filt_002 ACCEPT
+TASK START: no_contract_to_generator taxi_filt_003 (67/100 saved)
+TASK DONE: no_contract_to_generator 68/100 taxi_filt_003 ACCEPT
+TASK START: no_contract_to_generator taxi_filt_004 (68/100 saved)
+TASK DONE: no_contract_to_generator 69/100 taxi_filt_004 REJECT
+TASK START: no_contract_to_generator taxi_filt_005 (69/100 saved)
+TASK DONE: no_contract_to_generator 70/100 taxi_filt_005 ACCEPT
+TASK START: no_contract_to_generator taxi_miss_001 (70/100 saved)
+TASK DONE: no_contract_to_generator 71/100 taxi_miss_001 ACCEPT
+TASK START: no_contract_to_generator taxi_miss_002 (71/100 saved)
+TASK DONE: no_contract_to_generator 72/100 taxi_miss_002 ACCEPT
+TASK START: no_contract_to_generator taxi_miss_003 (72/100 saved)
+TASK DONE: no_contract_to_generator 73/100 taxi_miss_003 ACCEPT
+TASK START: no_contract_to_generator taxi_miss_004 (73/100 saved)
+TASK DONE: no_contract_to_generator 74/100 taxi_miss_004 ESCALATE
+TASK START: no_contract_to_generator taxi_miss_005 (74/100 saved)
+TASK DONE: no_contract_to_generator 75/100 taxi_miss_005 ESCALATE
+TASK START: no_contract_to_generator titanic_col_001 (75/100 saved)
+TASK DONE: no_contract_to_generator 76/100 titanic_col_001 ACCEPT
+TASK START: no_contract_to_generator titanic_col_002 (76/100 saved)
+TASK DONE: no_contract_to_generator 77/100 titanic_col_002 ACCEPT
+TASK START: no_contract_to_generator titanic_col_003 (77/100 saved)
+TASK DONE: no_contract_to_generator 78/100 titanic_col_003 ACCEPT
+TASK START: no_contract_to_generator titanic_col_004 (78/100 saved)
+TASK DONE: no_contract_to_generator 79/100 titanic_col_004 ACCEPT
+TASK START: no_contract_to_generator titanic_col_005 (79/100 saved)
+TASK DONE: no_contract_to_generator 80/100 titanic_col_005 REJECT
+TASK START: no_contract_to_generator titanic_conv_001 (80/100 saved)
+TASK DONE: no_contract_to_generator 81/100 titanic_conv_001 ACCEPT
+TASK START: no_contract_to_generator titanic_conv_002 (81/100 saved)
+TASK DONE: no_contract_to_generator 82/100 titanic_conv_002 ACCEPT
+TASK START: no_contract_to_generator titanic_conv_003 (82/100 saved)
+TASK DONE: no_contract_to_generator 83/100 titanic_conv_003 ACCEPT
+TASK START: no_contract_to_generator titanic_conv_004 (83/100 saved)
+TASK DONE: no_contract_to_generator 84/100 titanic_conv_004 ACCEPT
+TASK START: no_contract_to_generator titanic_conv_005 (84/100 saved)
+TASK DONE: no_contract_to_generator 85/100 titanic_conv_005 ACCEPT
+TASK START: no_contract_to_generator titanic_dedup_001 (85/100 saved)
+TASK DONE: no_contract_to_generator 86/100 titanic_dedup_001 ESCALATE
+TASK START: no_contract_to_generator titanic_dedup_002 (86/100 saved)
+TASK DONE: no_contract_to_generator 87/100 titanic_dedup_002 REJECT
+TASK START: no_contract_to_generator titanic_dedup_003 (87/100 saved)
+TASK DONE: no_contract_to_generator 88/100 titanic_dedup_003 ACCEPT
+TASK START: no_contract_to_generator titanic_dedup_004 (88/100 saved)
+TASK DONE: no_contract_to_generator 89/100 titanic_dedup_004 ACCEPT
+TASK START: no_contract_to_generator titanic_dedup_005 (89/100 saved)
+TASK DONE: no_contract_to_generator 90/100 titanic_dedup_005 ESCALATE
+TASK START: no_contract_to_generator titanic_filt_001 (90/100 saved)
+TASK DONE: no_contract_to_generator 91/100 titanic_filt_001 ACCEPT
+TASK START: no_contract_to_generator titanic_filt_002 (91/100 saved)
+TASK DONE: no_contract_to_generator 92/100 titanic_filt_002 ACCEPT
+TASK START: no_contract_to_generator titanic_filt_003 (92/100 saved)
+TASK DONE: no_contract_to_generator 93/100 titanic_filt_003 ACCEPT
+TASK START: no_contract_to_generator titanic_filt_004 (93/100 saved)
+TASK DONE: no_contract_to_generator 94/100 titanic_filt_004 ACCEPT
+TASK START: no_contract_to_generator titanic_filt_005 (94/100 saved)
+TASK DONE: no_contract_to_generator 95/100 titanic_filt_005 ESCALATE
+TASK START: no_contract_to_generator titanic_miss_001 (95/100 saved)
+TASK DONE: no_contract_to_generator 96/100 titanic_miss_001 ACCEPT
+TASK START: no_contract_to_generator titanic_miss_002 (96/100 saved)
+TASK DONE: no_contract_to_generator 97/100 titanic_miss_002 REJECT
+TASK START: no_contract_to_generator titanic_miss_003 (97/100 saved)
+TASK DONE: no_contract_to_generator 98/100 titanic_miss_003 ACCEPT
+TASK START: no_contract_to_generator titanic_miss_004 (98/100 saved)
+TASK DONE: no_contract_to_generator 99/100 titanic_miss_004 REJECT
+TASK START: no_contract_to_generator titanic_miss_005 (99/100 saved)
+TASK DONE: no_contract_to_generator 100/100 titanic_miss_005 REJECT
+COMPLETE: no_contract_to_generator 100/100 -> /kaggle/working/stage2_06_no_contract_to_generator_bundle.zip
+
+Exit: 0; minutes: 25.70

@@ -1,0 +1,78 @@
+{
+  "record": {
+    "task_id": "titanic_filt_005",
+    "split": "test",
+    "dataset": "titanic",
+    "transformation_type": "filtering",
+    "difficulty": "medium",
+    "seed": 0,
+    "system": "no_contract_to_generator",
+    "preset": "no_contract_to_generator",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "parsed",
+    "generator_contract": false,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "generator_prompt": "b1-v1",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "ok",
+    "stage_ended": "check",
+    "outcome": "ESCALATE",
+    "final_correct": false,
+    "initial_correct": true,
+    "initial_parse_ok": true,
+    "first_check": "UNCERTAIN",
+    "no_repair_outcome": "ESCALATE",
+    "no_repair_correct": false,
+    "final_status": "UNCERTAIN",
+    "attempts": 0,
+    "tool_calls": 0,
+    "llm_calls": 1,
+    "tokens": 595,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": "verifier uncertain",
+    "path": [
+      "PREPARE",
+      "PARSE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "ESCALATED"
+    ],
+    "tool_trace": [],
+    "latency_s": 2.89
+  },
+  "trace": {
+    "task_id": "titanic_filt_005",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    return df[(df['SibSp'] == 0) & (df['Parch'] == 0)]\n```",
+    "initial_code": "def transform(df):\n    return df[(df['SibSp'] == 0) & (df['Parch'] == 0)]",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "ab883e194b70f345"
+      },
+      {
+        "step": 1,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "ab883e194b70f345",
+        "status": "UNCERTAIN",
+        "n_failures": 2,
+        "failed": [
+          "c1",
+          "p1"
+        ]
+      }
+    ]
+  }
+}

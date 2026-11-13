@@ -1,0 +1,269 @@
+{
+  "record": {
+    "task_id": "titanic_filt_003",
+    "split": "test",
+    "dataset": "titanic",
+    "transformation_type": "filtering",
+    "difficulty": "medium",
+    "seed": 0,
+    "system": "baseline2_repair",
+    "preset": "baseline2_repair",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "none",
+    "generator_contract": false,
+    "verifier": "conventional",
+    "repair_mode": "full",
+    "generator_prompt": "b1-v1",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "not_used",
+    "stage_ended": "repair",
+    "outcome": "REJECT",
+    "final_correct": false,
+    "initial_correct": true,
+    "initial_parse_ok": true,
+    "first_check": "VIOLATION",
+    "no_repair_outcome": "REJECT",
+    "no_repair_correct": false,
+    "final_status": "VIOLATION",
+    "attempts": 3,
+    "tool_calls": 4,
+    "llm_calls": 8,
+    "tokens": 14282,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": null,
+    "path": [
+      "PREPARE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REJECTED"
+    ],
+    "tool_trace": [
+      {
+        "tool": "inspect_dataset",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "inspect_dataset",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "run_transformation",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "run_verifier",
+        "ok": true,
+        "error_type": null
+      }
+    ],
+    "latency_s": 33.42
+  },
+  "trace": {
+    "task_id": "titanic_filt_003",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    df = df.copy()\n    df = df[(df['Age'] >= 18) | (np.isnan(df['Age']))]\n    return df\n```",
+    "initial_code": "def transform(df):\n    df = df.copy()\n    df = df[(df['Age'] >= 18) | np.isnan(df['Age'])]\n    return df",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "81332d1fd840c358"
+      },
+      {
+        "step": 1,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "81332d1fd840c358",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "distribution.mean_shift"
+        ]
+      },
+      {
+        "step": 2,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1263,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"inspect_dataset\", \"args\": {\"which\": \"last_output\", \"n_rows\": 5, \"columns\": [\"Age\"]}}"
+      },
+      {
+        "step": 3,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "inspect_dataset",
+        "args": {
+          "which": "last_output",
+          "n_rows": 5,
+          "columns": [
+            "Age"
+          ]
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 4,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1808,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    out = df.copy()\n    out = out[~(out['Age'] < 18)]\n    return out\n```"
+      },
+      {
+        "step": 5,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "679067c28c145e82",
+        "implicit": false
+      },
+      {
+        "step": 6,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "679067c28c145e82",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "distribution.mean_shift"
+        ]
+      },
+      {
+        "step": 7,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1346,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"inspect_dataset\", \"args\": {\"which\": \"last_output\", \"n_rows\": 5, \"columns\": [\"Age\"]}}"
+      },
+      {
+        "step": 8,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "inspect_dataset",
+        "args": {
+          "which": "last_output",
+          "n_rows": 5,
+          "columns": [
+            "Age"
+          ]
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 9,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1891,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    out = df.copy()\n    out = out[~(out['Age'] < 18)]\n    return out\n```"
+      },
+      {
+        "step": 10,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "679067c28c145e82",
+        "implicit": false
+      },
+      {
+        "step": 11,
+        "state": "REPAIR",
+        "event": "repeated_code",
+        "code_hash": "679067c28c145e82",
+        "times": 1
+      },
+      {
+        "step": 12,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2074,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"run_transformation\", \"args\": {\"code\": \"def transform(df):\\n    out = df.copy()\\n    out = out[pd.isna(out['Age']) | (out['Age'] >= 18)]\\n    return out\"}}"
+      },
+      {
+        "step": 13,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "run_transformation",
+        "args": {
+          "code": "e033ff059b3d698b"
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 14,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2565,
+        "cached": false,
+        "reply": "{\"action\": \"run_verifier\"}"
+      },
+      {
+        "step": 15,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "run_verifier",
+        "args": {},
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 16,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2734,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    out = df.copy()\n    out = out[pd.isna(out['Age']) | (out['Age'] >= 18)]\n    return out\n```"
+      },
+      {
+        "step": 17,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "e033ff059b3d698b",
+        "implicit": false
+      },
+      {
+        "step": 18,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "e033ff059b3d698b",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "distribution.mean_shift"
+        ]
+      }
+    ]
+  }
+}

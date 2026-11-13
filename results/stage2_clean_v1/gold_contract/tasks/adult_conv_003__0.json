@@ -1,0 +1,136 @@
+{
+  "record": {
+    "task_id": "adult_conv_003",
+    "split": "test",
+    "dataset": "adult",
+    "transformation_type": "type_conversion",
+    "difficulty": "hard",
+    "seed": 0,
+    "system": "gold_contract",
+    "preset": "gold_contract",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "oracle",
+    "generator_contract": true,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "generator_prompt": "b2-v2",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "ok",
+    "stage_ended": "repair",
+    "outcome": "ACCEPT",
+    "final_correct": true,
+    "initial_correct": false,
+    "initial_parse_ok": true,
+    "first_check": "VIOLATION",
+    "no_repair_outcome": "REJECT",
+    "no_repair_correct": false,
+    "final_status": "PASS",
+    "attempts": 1,
+    "tool_calls": 1,
+    "llm_calls": 3,
+    "tokens": 5567,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": null,
+    "path": [
+      "PREPARE",
+      "PARSE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "ACCEPTED"
+    ],
+    "tool_trace": [
+      {
+        "tool": "inspect_dataset",
+        "ok": true,
+        "error_type": null
+      }
+    ],
+    "latency_s": 19.66
+  },
+  "trace": {
+    "task_id": "adult_conv_003",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    df[\"education\"] = df[\"education\"].astype(\"category\")\n    df[\"education\"].cat.set_categories([\"Preschool\", \"1st-4th\", \"5th-6th\", \"7th-8th\", \"9th\", \"10th\", \"11th\", \"12th\", \"HS-grad\", \"Some-college\", \"Assoc-voc\", \"Assoc-acdm\", \"Bachelors\", \"Masters\", \"Prof-school\", \"Doctorate\"], ordered=True)\n    return df\n```",
+    "initial_code": "def transform(df):\n    df['education'] = df['education'].astype('category')\n    df['education'].cat.set_categories(['Preschool', '1st-4th', '5th-6th', '7th-8th', '9th', '10th', '11th', '12th', 'HS-grad', 'Some-college', 'Assoc-voc', 'Assoc-acdm', 'Bachelors', 'Masters', 'Prof-school', 'Doctorate'], ordered=True)\n    return df",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "6e77a52649bcc570"
+      },
+      {
+        "step": 1,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "6e77a52649bcc570",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "c1"
+        ]
+      },
+      {
+        "step": 2,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1660,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"inspect_dataset\", \"args\": {\"which\": \"last_output\", \"n_rows\": 3, \"columns\": [\"education\"]}}"
+      },
+      {
+        "step": 3,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "inspect_dataset",
+        "args": {
+          "which": "last_output",
+          "n_rows": 3,
+          "columns": [
+            "education"
+          ]
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 4,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2329,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    education_order = ['Preschool', '1st-4th', '5th-6th', '7th-8th', '9th', '10th', '11th', '12th', 'HS-grad', 'Some-college', 'Assoc-voc', 'Assoc-acdm', 'Bachelors', 'Masters', 'Prof-school', 'Doctorate']\n    df['education'] = pd.Categorical(df['education'], categories=education_order, ordered=True)\n    return df\n```"
+      },
+      {
+        "step": 5,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "9a52c80a818702da",
+        "implicit": false
+      },
+      {
+        "step": 6,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "9a52c80a818702da",
+        "status": "PASS",
+        "n_failures": 0,
+        "failed": []
+      }
+    ]
+  }
+}

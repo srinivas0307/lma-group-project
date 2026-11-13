@@ -1,0 +1,26 @@
+{
+  "code_hash": "0cbe8c49316afac2",
+  "code": "def transform(df):\n    out = df.sort_values(by=['Pclass', 'Sex']).drop_duplicates(subset=['Pclass', 'Sex'], keep='first')\n    return out\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": true,
+  "equivalence_reason": "equal",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "predicate",
+        "predicate_id": "p2",
+        "predicate_type": "row_count",
+        "direction": "must_preserve",
+        "target": null,
+        "expected": "== 891 (unchanged)",
+        "observed": 6,
+        "detail": "6 rows after, 891 before",
+        "evidence_rows": []
+      }
+    ],
+    "evidence_rows": []
+  }
+}

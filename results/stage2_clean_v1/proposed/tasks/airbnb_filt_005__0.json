@@ -1,0 +1,242 @@
+{
+  "record": {
+    "task_id": "airbnb_filt_005",
+    "split": "test",
+    "dataset": "airbnb",
+    "transformation_type": "filtering",
+    "difficulty": "medium",
+    "seed": 0,
+    "system": "proposed",
+    "preset": "proposed",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "parsed",
+    "generator_contract": true,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "generator_prompt": "b2-v2",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "ok",
+    "stage_ended": "repair",
+    "outcome": "REJECT",
+    "final_correct": false,
+    "initial_correct": false,
+    "initial_parse_ok": true,
+    "first_check": "VIOLATION",
+    "no_repair_outcome": "REJECT",
+    "no_repair_correct": false,
+    "final_status": "VIOLATION",
+    "attempts": 3,
+    "tool_calls": 3,
+    "llm_calls": 7,
+    "tokens": 12178,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": null,
+    "path": [
+      "PREPARE",
+      "PARSE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REJECTED"
+    ],
+    "tool_trace": [
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      }
+    ],
+    "latency_s": 24.61
+  },
+  "trace": {
+    "task_id": "airbnb_filt_005",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    df = df[df['number_of_reviews'].notnull()].copy()\n    return df\n```",
+    "initial_code": "def transform(df):\n    df = df[df['number_of_reviews'].notnull()].copy()\n    return df",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "64d94986988cd533"
+      },
+      {
+        "step": 1,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "64d94986988cd533",
+        "status": "VIOLATION",
+        "n_failures": 2,
+        "failed": [
+          "c1",
+          "c2"
+        ]
+      },
+      {
+        "step": 2,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1558,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 3,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 4,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1730,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    out = df[df['number_of_reviews'].notnull()].copy()\n    return out\n```"
+      },
+      {
+        "step": 5,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "c6563747edcb2c69",
+        "implicit": false
+      },
+      {
+        "step": 6,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "c6563747edcb2c69",
+        "status": "VIOLATION",
+        "n_failures": 2,
+        "failed": [
+          "c1",
+          "c2"
+        ]
+      },
+      {
+        "step": 7,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1673,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 8,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 9,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1846,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    out = df[df['number_of_reviews'] > 0].copy()\n    return out\n```"
+      },
+      {
+        "step": 10,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "753a5cc3c548c4e4",
+        "implicit": false
+      },
+      {
+        "step": 11,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "753a5cc3c548c4e4",
+        "status": "VIOLATION",
+        "n_failures": 2,
+        "failed": [
+          "c1",
+          "p1"
+        ]
+      },
+      {
+        "step": 12,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1814,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 13,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 14,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2005,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    out = df[df['number_of_reviews'] > 0].copy()\n    return out\n```"
+      },
+      {
+        "step": 15,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "753a5cc3c548c4e4",
+        "implicit": false
+      },
+      {
+        "step": 16,
+        "state": "REPAIR",
+        "event": "repeated_code",
+        "code_hash": "753a5cc3c548c4e4",
+        "times": 1
+      }
+    ]
+  }
+}

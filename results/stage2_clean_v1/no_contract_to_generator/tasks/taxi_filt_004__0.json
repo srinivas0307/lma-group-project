@@ -1,0 +1,401 @@
+{
+  "record": {
+    "task_id": "taxi_filt_004",
+    "split": "test",
+    "dataset": "taxi",
+    "transformation_type": "filtering",
+    "difficulty": "hard",
+    "seed": 0,
+    "system": "no_contract_to_generator",
+    "preset": "no_contract_to_generator",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "parsed",
+    "generator_contract": false,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "generator_prompt": "b1-v1",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "ok",
+    "stage_ended": "repair",
+    "outcome": "REJECT",
+    "final_correct": false,
+    "initial_correct": false,
+    "initial_parse_ok": true,
+    "first_check": "VIOLATION",
+    "no_repair_outcome": "REJECT",
+    "no_repair_correct": false,
+    "final_status": "VIOLATION",
+    "attempts": 3,
+    "tool_calls": 9,
+    "llm_calls": 13,
+    "tokens": 46145,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": null,
+    "path": [
+      "PREPARE",
+      "PARSE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "REJECTED"
+    ],
+    "tool_trace": [
+      {
+        "tool": "inspect_dataset",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "run_transformation",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "run_verifier",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "inspect_dataset",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "run_transformation",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "run_verifier",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "inspect_dataset",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "run_transformation",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      }
+    ],
+    "latency_s": 127.65
+  },
+  "trace": {
+    "task_id": "taxi_filt_004",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])\n    df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])\n    \n    filtered_df = df[(df['tpep_pickup_datetime'] >= '2026-01-01 00:00:00') | (df['tpep_dropoff_datetime'] >= '2026-01-01 00:00:00')]\n    \n    return filtered_df\n```",
+    "initial_code": "def transform(df):\n    df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])\n    df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])\n    filtered_df = df[(df['tpep_pickup_datetime'] >= '2026-01-01 00:00:00') | (df['tpep_dropoff_datetime'] >= '2026-01-01 00:00:00')]\n    return filtered_df",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "d55c3c00bc854cb9"
+      },
+      {
+        "step": 1,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "d55c3c00bc854cb9",
+        "status": "VIOLATION",
+        "n_failures": 2,
+        "failed": [
+          "c1",
+          "p2"
+        ]
+      },
+      {
+        "step": 2,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2019,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"inspect_dataset\", \"args\": {\"which\": \"before\", \"n_rows\": 5, \"columns\": [\"tpep_pickup_datetime\", \"tpep_dropoff_datetime\"]}}"
+      },
+      {
+        "step": 3,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "inspect_dataset",
+        "args": {
+          "which": "before",
+          "n_rows": 5,
+          "columns": [
+            "tpep_pickup_datetime",
+            "tpep_dropoff_datetime"
+          ]
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 4,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 3123,
+        "cached": false,
+        "reply": "{\"action\": \"run_transformation\", \"args\": {\"code\": \"def transform(df):\\n    df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])\\n    df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])\\n    filtered_df = df[df['tpep_pickup_datetime'] >= '2026-01-01']\\n    return filtered_df\"}}"
+      },
+      {
+        "step": 5,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "run_transformation",
+        "args": {
+          "code": "504a00dfee7b9b23"
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 6,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 4066,
+        "cached": false,
+        "reply": "{\"action\": \"run_verifier\", \"args\": {}}"
+      },
+      {
+        "step": 7,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "run_verifier",
+        "args": {},
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 8,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 4428,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])\n    df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])\n    filtered_df = df[df['tpep_pickup_datetime'] >= '2026-01-01']\n    return filtered_df[['VendorID', 'tpep_pickup_datetime', 'tpep_dropoff_datetime', 'passenger_count', 'trip_distance', 'RatecodeID', 'store_and_fwd_flag', 'PULocationID', 'DOLocationID', 'payment_type', 'fare_amount', 'extra', 'mta_tax', 'tip_amount', 'tolls_amount', 'improvement_surcharge', 'total_amount', 'congestion_surcharge', 'Airport_fee', 'cbd_congestion_fee']]\n```"
+      },
+      {
+        "step": 9,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "a4a68c943dccceaf",
+        "implicit": false
+      },
+      {
+        "step": 10,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "a4a68c943dccceaf",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "p2"
+        ]
+      },
+      {
+        "step": 11,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2300,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"inspect_dataset\", \"args\": {\"which\": \"before\", \"n_rows\": 5, \"columns\": [\"tpep_pickup_datetime\", \"tpep_dropoff_datetime\"]}}"
+      },
+      {
+        "step": 12,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "inspect_dataset",
+        "args": {
+          "which": "before",
+          "n_rows": 5,
+          "columns": [
+            "tpep_pickup_datetime",
+            "tpep_dropoff_datetime"
+          ]
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 13,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 3510,
+        "cached": false,
+        "reply": "{\"action\": \"run_transformation\", \"args\": {\"code\": \"def transform(df):\\n    df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])\\n    df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])\\n    filtered_df = df[df['tpep_pickup_datetime'] >= '2026-01-01']\\n    return filtered_df[['VendorID', 'tpep_pickup_datetime', 'tpep_dropoff_datetime', 'passenger_count', 'trip_distance', 'RatecodeID', 'store_and_fwd_flag', 'PULocationID', 'DOLocationID', 'payment_type', 'fare_amount', 'extra', 'mta_tax', 'tip_amount', 'tolls_amount', 'improvement_surcharge', 'total_amount', 'congestion_surcharge', 'Airport_fee', 'cbd_congestion_fee']]\"}}"
+      },
+      {
+        "step": 14,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "run_transformation",
+        "args": {
+          "code": "a4a68c943dccceaf"
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 15,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 4449,
+        "cached": false,
+        "reply": "{\"action\": \"run_verifier\"}"
+      },
+      {
+        "step": 16,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "run_verifier",
+        "args": {},
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 17,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 4706,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])\n    df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])\n    filtered_df = df[df['tpep_pickup_datetime'] >= '2026-01-01']\n    return filtered_df\n```"
+      },
+      {
+        "step": 18,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "504a00dfee7b9b23",
+        "implicit": false
+      },
+      {
+        "step": 19,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "504a00dfee7b9b23",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "p2"
+        ]
+      },
+      {
+        "step": 20,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2475,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"inspect_dataset\", \"args\": {\"which\": \"before\", \"n_rows\": 5, \"columns\": [\"tpep_pickup_datetime\", \"tpep_dropoff_datetime\"]}}"
+      },
+      {
+        "step": 21,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "inspect_dataset",
+        "args": {
+          "which": "before",
+          "n_rows": 5,
+          "columns": [
+            "tpep_pickup_datetime",
+            "tpep_dropoff_datetime"
+          ]
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 22,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 3691,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"run_transformation\", \"args\": {\"code\": \"def transform(df):\\n    df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])\\n    df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])\\n    filtered_df = df[df['tpep_pickup_datetime'] >= '2026-01-01']\\n    return filtered_df[['VendorID', 'tpep_pickup_datetime', 'tpep_dropoff_datetime', 'passenger_count', 'trip_distance', 'RatecodeID', 'store_and_fwd_flag', 'PULocationID', 'DOLocationID', 'payment_type', 'fare_amount', 'extra', 'mta_tax', 'tip_amount', 'tolls_amount', 'improvement_surcharge', 'total_amount', 'congestion_surcharge', 'Airport_fee', 'cbd_congestion_fee']]\"}}"
+      },
+      {
+        "step": 23,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "run_transformation",
+        "args": {
+          "code": "a4a68c943dccceaf"
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 24,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 4645,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 25,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 26,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 5505,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])\n    df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])\n    filtered_df = df[df['tpep_pickup_datetime'] >= '2026-01-01']\n    return filtered_df\n```"
+      },
+      {
+        "step": 27,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "504a00dfee7b9b23",
+        "implicit": false
+      },
+      {
+        "step": 28,
+        "state": "REPAIR",
+        "event": "repeated_code",
+        "code_hash": "504a00dfee7b9b23",
+        "times": 1
+      }
+    ]
+  }
+}

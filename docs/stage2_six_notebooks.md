@@ -2,6 +2,8 @@
 
 Workflow version: **stage2-clean-v1**. This is a new six-system experiment. Each evaluation starts from the frozen research source and produces its own 100-task result bundle. Evaluation notebooks need no previous outputs. The shared runtime is embedded identically in all seven notebooks, so uploading the notebooks is sufficient; no GitHub push or adapter upload is required.
 
+**Completed run:** all six systems and the collector have finished on Kaggle. All 600 records passed validation; the collected archive matches a fresh local collection file-for-file. See [metrics](../results/stage2_clean_v1/stage2_metrics_test.json), [summary](../results/stage2_clean_v1/stage2_summary.csv), and [import verification](../kaggle_outputs/stage2/clean_v1/import_validation.json). Downloaded bundles are stored in `kaggle_outputs/stage2/clean_v1/`, executed notebooks in `notebooks/executed/stage2/clean_v1/`, and extracted results in `results/stage2_clean_v1/`. The instructions below describe reproduction; no rerun is needed for the completed experiment.
+
 ## 1. Download and extract the notebook pack
 
 Get [stage2_six_notebooks.zip](../notebooks/kaggle/stage2_six_notebooks.zip) and extract it on your computer. Upload the `.ipynb` files to Kaggle individually. Keep this guide for the run order.
@@ -61,7 +63,7 @@ Download **`stage2_complete_results.zip`**. It contains every system's results a
 
 Local tests exercise all six evaluator paths with scripted backends, compare their task outcomes and token accounting with the frozen evaluator, check atomic failure/retry handling, test result collection and rejection of mismatches, validate generated notebook syntax and shared payload identity, and test GQA expansion semantics. Scripted outputs are explicitly marked invalid as model-quality results and rejected by the normal collector.
 
-The laptop has no usable local PyTorch/GPU setup for the real Qwen runs. Full T4 completion therefore remains to be verified by notebook 06. The workflow cannot guarantee that Kaggle will never encounter a dependency, network, quota or hardware failure. It detects these failures early where possible and preserves finished work.
+The laptop has no usable local PyTorch/GPU setup for the real Qwen runs. The supplied executed Kaggle notebooks now verify full T4 completion for all six systems, including the previously failing task in notebook 06. The workflow cannot guarantee that Kaggle will never encounter a dependency, network, quota or hardware failure. It detects these failures early where possible and preserves finished work.
 
 Implementation: `eval/stage2_clean/`. Rebuild the notebook pack after any shared-runtime change with:
 

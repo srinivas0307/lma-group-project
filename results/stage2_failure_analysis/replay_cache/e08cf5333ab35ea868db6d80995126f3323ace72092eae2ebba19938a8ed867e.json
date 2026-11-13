@@ -1,0 +1,14 @@
+{
+  "code_hash": "d3465c0889c1de5e",
+  "code": "def transform(df):\n    df['fare_per_mile'] = df['fare_amount'].div(df['trip_distance'], fill_value=np.nan)\n    return df",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": false,
+  "equivalence_reason": "values differ",
+  "checker": {
+    "status": "PASS",
+    "failures": [],
+    "evidence_rows": []
+  }
+}

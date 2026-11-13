@@ -1,0 +1,22 @@
+{
+  "code_hash": "8a097320422f0fb7",
+  "code": "def transform(df):\n    return df[(df['Sex'] != 'male') | (df['Pclass'] != 3)]",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": true,
+  "equivalence_reason": "equal",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "check",
+        "check": "distribution.mean_shift",
+        "value": 0.527757,
+        "threshold": 0.1,
+        "column": "Pclass"
+      }
+    ],
+    "evidence_rows": []
+  }
+}

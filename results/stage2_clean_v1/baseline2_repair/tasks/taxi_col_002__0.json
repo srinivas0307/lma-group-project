@@ -1,0 +1,74 @@
+{
+  "record": {
+    "task_id": "taxi_col_002",
+    "split": "test",
+    "dataset": "taxi",
+    "transformation_type": "column_transformation",
+    "difficulty": "medium",
+    "seed": 0,
+    "system": "baseline2_repair",
+    "preset": "baseline2_repair",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "none",
+    "generator_contract": false,
+    "verifier": "conventional",
+    "repair_mode": "full",
+    "generator_prompt": "b1-v1",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "not_used",
+    "stage_ended": "check",
+    "outcome": "ACCEPT",
+    "final_correct": true,
+    "initial_correct": true,
+    "initial_parse_ok": true,
+    "first_check": "PASS",
+    "no_repair_outcome": "ACCEPT",
+    "no_repair_correct": true,
+    "final_status": "PASS",
+    "attempts": 0,
+    "tool_calls": 0,
+    "llm_calls": 1,
+    "tokens": 1153,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": null,
+    "path": [
+      "PREPARE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "ACCEPTED"
+    ],
+    "tool_trace": [],
+    "latency_s": 5.1
+  },
+  "trace": {
+    "task_id": "taxi_col_002",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    payment_type_map = {1: 'Credit card', 2: 'Cash', 3: 'No charge', 4: 'Dispute'}\n    df['payment_type_name'] = df['payment_type'].map(payment_type_map)\n    return df.drop('payment_type', axis=1).rename(columns={'payment_type_name': 'payment_type'})\n```",
+    "initial_code": "def transform(df):\n    payment_type_map = {1: 'Credit card', 2: 'Cash', 3: 'No charge', 4: 'Dispute'}\n    df['payment_type_name'] = df['payment_type'].map(payment_type_map)\n    return df.drop('payment_type', axis=1).rename(columns={'payment_type_name': 'payment_type'})",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "718bee184968dc91"
+      },
+      {
+        "step": 1,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "718bee184968dc91",
+        "status": "PASS",
+        "n_failures": 0,
+        "failed": []
+      }
+    ]
+  }
+}

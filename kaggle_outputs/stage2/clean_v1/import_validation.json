@@ -1,0 +1,84 @@
+{
+  "experiment": "stage2-clean-v1",
+  "complete": true,
+  "total_records": 600,
+  "distinct_test_tasks": 100,
+  "systems": 6,
+  "notebook_code_matches_templates": true,
+  "notebook_errors": 0,
+  "recorded_generation_or_attention_failures": 0,
+  "collector_files_identical_to_local_recomputation": 657,
+  "imports": [
+    {
+      "original": "stage2_01_baseline1_bundle.zip",
+      "stored": "kaggle_outputs/stage2/clean_v1/stage2_01_baseline1_bundle.zip",
+      "sha256": "f13ff2cc104709d9e873b00856312e08445fdf7377d482dd1c2e9b13d105ed94"
+    },
+    {
+      "original": "stage2-01.ipynb",
+      "stored": "notebooks/executed/stage2/clean_v1/stage2_01_baseline1_executed.ipynb",
+      "sha256": "a7f5d1074b11f6ef506db0c5bcffbf807301029f61e512fb69e67acea7395af4"
+    },
+    {
+      "original": "stage2_02_baseline2_repair_bundle.zip",
+      "stored": "kaggle_outputs/stage2/clean_v1/stage2_02_baseline2_repair_bundle.zip",
+      "sha256": "12fa4d4661f60113e5ec6a0ec59d4cca4c9f70e0a95faa5649591f92b8224ba7"
+    },
+    {
+      "original": "stage2-02.ipynb",
+      "stored": "notebooks/executed/stage2/clean_v1/stage2_02_baseline2_repair_executed.ipynb",
+      "sha256": "913d24d09eb68fa5d397d5120b5a75c8c15bdb8d12e769653a1e455c03d12ef1"
+    },
+    {
+      "original": "stage2_03_baseline3_repair_bundle.zip",
+      "stored": "kaggle_outputs/stage2/clean_v1/stage2_03_baseline3_repair_bundle.zip",
+      "sha256": "75568cd58cf059e97e10fefe447820d4af0aa7b13297abcda5d5f668dc7c622a"
+    },
+    {
+      "original": "stage2-03.ipynb",
+      "stored": "notebooks/executed/stage2/clean_v1/stage2_03_baseline3_repair_executed.ipynb",
+      "sha256": "e5e8d78a3a1595f742eb769be74bc25a63b8324035489bf7405b3dcff86e12f9"
+    },
+    {
+      "original": "stage2_04_gold_contract_bundle.zip",
+      "stored": "kaggle_outputs/stage2/clean_v1/stage2_04_gold_contract_bundle.zip",
+      "sha256": "794895f94a61630d73be8202ff8089f196fbacdc47881eea828ede3e32ed3e94"
+    },
+    {
+      "original": "stage2-04.ipynb",
+      "stored": "notebooks/executed/stage2/clean_v1/stage2_04_gold_contract_executed.ipynb",
+      "sha256": "94dfb44633d069064ded5315f2d579453495e9bcfdd27c0291c8244578e4eaee"
+    },
+    {
+      "original": "stage2_05_proposed_bundle.zip",
+      "stored": "kaggle_outputs/stage2/clean_v1/stage2_05_proposed_bundle.zip",
+      "sha256": "7b0f690b6ad9db7d58d22102897f04039151880864645b76d18fb271dc59caab"
+    },
+    {
+      "original": "stage2-05.ipynb",
+      "stored": "notebooks/executed/stage2/clean_v1/stage2_05_proposed_executed.ipynb",
+      "sha256": "e9b242ef32108982566ddd3965452ede28e0a8c9b10107b771524ae1c3991268"
+    },
+    {
+      "original": "stage2_06_no_contract_to_generator_bundle.zip",
+      "stored": "archive/import_duplicates/stage2_clean_v1/stage2_06_no_contract_to_generator_bundle.zip",
+      "sha256": "db99017969d7197d08b33b0aef404a5814987bd8802c6c38a70f0f8a4b2f19f3"
+    },
+    {
+      "original": "stage2-06.ipynb",
+      "stored": "archive/import_duplicates/stage2_clean_v1/stage2-06.ipynb",
+      "sha256": "b0002e18a39e703abea6b98ad37ea24f7bb4a3fa8679d1193818b8a8886da7a4"
+    },
+    {
+      "original": "stage2_complete_results.zip",
+      "stored": "kaggle_outputs/stage2/clean_v1/stage2_complete_results.zip",
+      "sha256": "0e453cd420dd59beb7c857c1759fc292e6dab8fbfcc872a234a3bcc345b21360"
+    },
+    {
+      "original": "stage2-results.ipynb",
+      "stored": "notebooks/executed/stage2/clean_v1/stage2_collect_results_executed.ipynb",
+      "sha256": "a0f2d0e2efe3604751e5e3021469c0d751f04be6f21439a1033b9a8976789e64"
+    }
+  ],
+  "note": "The second uploaded notebook 06 and bundle were byte-identical to the existing files; duplicate uploads are archived. Raw files are preserved. Metrics and extracted records are copied from an independently validated local collection."
+}

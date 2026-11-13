@@ -1,0 +1,14 @@
+{
+  "code_hash": "d55c3c00bc854cb9",
+  "code": "def transform(df):\n    df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])\n    df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])\n    filtered_df = df[(df['tpep_pickup_datetime'] >= '2026-01-01 00:00:00') | (df['tpep_dropoff_datetime'] >= '2026-01-01 00:00:00')]\n    return filtered_df",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": false,
+  "equivalence_reason": "row count differs (998 vs 997)",
+  "checker": {
+    "status": "PASS",
+    "failures": [],
+    "evidence_rows": []
+  }
+}

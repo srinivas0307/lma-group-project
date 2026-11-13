@@ -1,0 +1,57 @@
+{
+  "n_runs": 100,
+  "n_tasks": 100,
+  "final_accuracy": 0.67,
+  "final_accuracy_ci": [
+    0.573,
+    0.754
+  ],
+  "no_repair_accuracy": 0.61,
+  "repair_gain": 0.06,
+  "initial_code_accuracy": 0.69,
+  "repair_success": 0.333,
+  "unnecessary_retries": 0.116,
+  "accept": 0.7,
+  "reject": 0.11,
+  "escalate": 0.19,
+  "parse_escalations": 13,
+  "silent_error_rate": 0.043,
+  "mean_attempts": 2.55,
+  "tools": {
+    "calls": 64,
+    "valid_call_rate": 1.0,
+    "unknown_tool_calls": 0
+  },
+  "safety": {
+    "runs_with_unsafe_attempt": 0,
+    "initial_code_blocked": 0
+  },
+  "mean_tokens": 3247,
+  "by_type": {
+    "column_transformation": {
+      "n": 20,
+      "final_accuracy": 0.7,
+      "no_repair_accuracy": 0.7
+    },
+    "deduplication": {
+      "n": 20,
+      "final_accuracy": 0.5,
+      "no_repair_accuracy": 0.4
+    },
+    "filtering": {
+      "n": 20,
+      "final_accuracy": 0.7,
+      "no_repair_accuracy": 0.65
+    },
+    "missing_values": {
+      "n": 20,
+      "final_accuracy": 0.8,
+      "no_repair_accuracy": 0.75
+    },
+    "type_conversion": {
+      "n": 20,
+      "final_accuracy": 0.65,
+      "no_repair_accuracy": 0.55
+    }
+  }
+}

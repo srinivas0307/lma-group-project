@@ -1,0 +1,349 @@
+{
+  "record": {
+    "task_id": "titanic_conv_002",
+    "split": "test",
+    "dataset": "titanic",
+    "transformation_type": "type_conversion",
+    "difficulty": "hard",
+    "seed": 0,
+    "system": "proposed",
+    "preset": "proposed",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "parsed",
+    "generator_contract": true,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "generator_prompt": "b2-v2",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "ok",
+    "stage_ended": "repair",
+    "outcome": "REJECT",
+    "final_correct": false,
+    "initial_correct": false,
+    "initial_parse_ok": true,
+    "first_check": "error",
+    "no_repair_outcome": "REJECT",
+    "no_repair_correct": false,
+    "final_status": "VIOLATION",
+    "attempts": 3,
+    "tool_calls": 7,
+    "llm_calls": 11,
+    "tokens": 21782,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": null,
+    "path": [
+      "PREPARE",
+      "PARSE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "REJECTED"
+    ],
+    "tool_trace": [
+      {
+        "tool": "inspect_dataset",
+        "ok": false,
+        "error_type": "tool_error"
+      },
+      {
+        "tool": "run_transformation",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "run_verifier",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "inspect_dataset",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "profile_column",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "inspect_dataset",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "profile_column",
+        "ok": true,
+        "error_type": null
+      }
+    ],
+    "latency_s": 57.44
+  },
+  "trace": {
+    "task_id": "titanic_conv_002",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    df = df.copy()\n    df['Pclass'] = pd.Categorical(df['Pclass'], categories=[1, 3, 2], ordered=True)\n    df['Pclass'] = df['Pclass'].cat.map({1: 1, 3: 2, 2: 3})\n    return df\n```",
+    "initial_code": "def transform(df):\n    df = df.copy()\n    df['Pclass'] = pd.Categorical(df['Pclass'], categories=[1, 3, 2], ordered=True)\n    df['Pclass'] = df['Pclass'].cat.map({1: 1, 3: 2, 2: 3})\n    return df",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "61c21b5b75d2f0c9"
+      },
+      {
+        "step": 1,
+        "state": "EXECUTE",
+        "event": "execute_failed",
+        "code_hash": "61c21b5b75d2f0c9",
+        "status": "error",
+        "error": "AttributeError: 'CategoricalAccessor' object has no attribute 'map'"
+      },
+      {
+        "step": 2,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1456,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"inspect_dataset\", \"args\": {\"which\": \"last_output\", \"n_rows\": 5, \"columns\": [\"Pclass\"]}}"
+      },
+      {
+        "step": 3,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "inspect_dataset",
+        "args": {
+          "which": "last_output",
+          "n_rows": 5,
+          "columns": [
+            "Pclass"
+          ]
+        },
+        "ok": false,
+        "error_type": "tool_error"
+      },
+      {
+        "step": 4,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1636,
+        "cached": false,
+        "reply": "{\"action\": \"run_transformation\", \"args\": {\"code\": \"def transform(df):\\n    df = df.copy()\\n    df['Pclass'] = pd.Categorical(df['Pclass'], categories=[1, 3, 2], ordered=True)\\n    df['Pclass'] = df['Pclass'].cat.reorder_categories([1, 3, 2], ordered=True)\\n    return df\"}}"
+      },
+      {
+        "step": 5,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "run_transformation",
+        "args": {
+          "code": "42352cf91e9831b0"
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 6,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2132,
+        "cached": false,
+        "reply": "{\"action\": \"run_verifier\", \"args\": {}}"
+      },
+      {
+        "step": 7,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "run_verifier",
+        "args": {},
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 8,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2376,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df = df.copy()\n    df['Pclass'] = pd.Categorical(df['Pclass'], categories=[1, 3, 2], ordered=True)\n    df['Pclass'] = df['Pclass'].cat.set_categories([1, 3, 2], ordered=True)\n    return df\n```"
+      },
+      {
+        "step": 9,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "ab500b63cbbd26b2",
+        "implicit": false
+      },
+      {
+        "step": 10,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "ab500b63cbbd26b2",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "c2"
+        ]
+      },
+      {
+        "step": 11,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1617,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"inspect_dataset\", \"args\": {\"which\": \"last_output\", \"n_rows\": 5, \"columns\": [\"Pclass\"]}}"
+      },
+      {
+        "step": 12,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "inspect_dataset",
+        "args": {
+          "which": "last_output",
+          "n_rows": 5,
+          "columns": [
+            "Pclass"
+          ]
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 13,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2144,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"profile_column\", \"args\": {\"column\": \"Pclass\", \"which\": \"last_output\", \"top\": 3}}"
+      },
+      {
+        "step": 14,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "profile_column",
+        "args": {
+          "column": "Pclass",
+          "which": "last_output",
+          "top": 3
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 15,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2405,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df = df.copy()\n    df['Pclass'] = pd.Categorical(df['Pclass'], categories=[1, 3, 2], ordered=True)\n    df['Pclass'] = df['Pclass'].cat.rename_categories({1: 1, 3: 2, 2: 3})\n    return df\n```"
+      },
+      {
+        "step": 16,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "5bc67f206382d8af",
+        "implicit": false
+      },
+      {
+        "step": 17,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "5bc67f206382d8af",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "c1"
+        ]
+      },
+      {
+        "step": 18,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1758,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"inspect_dataset\", \"args\": {\"which\": \"before\", \"n_rows\": 5, \"columns\": [\"Pclass\"]}}"
+      },
+      {
+        "step": 19,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "inspect_dataset",
+        "args": {
+          "which": "before",
+          "n_rows": 5,
+          "columns": [
+            "Pclass"
+          ]
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 20,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2285,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"profile_column\", \"args\": {\"column\": \"Pclass\", \"which\": \"before\", \"top\": 3}}"
+      },
+      {
+        "step": 21,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "profile_column",
+        "args": {
+          "column": "Pclass",
+          "which": "before",
+          "top": 3
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 22,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2562,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df = df.copy()\n    df['Pclass'] = pd.Categorical(df['Pclass'], categories=[1, 3, 2], ordered=True)\n    df['Pclass'] = df['Pclass'].cat.rename_categories({1: 1, 3: 2, 2: 3})\n    return df\n```"
+      },
+      {
+        "step": 23,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "5bc67f206382d8af",
+        "implicit": false
+      },
+      {
+        "step": 24,
+        "state": "REPAIR",
+        "event": "repeated_code",
+        "code_hash": "5bc67f206382d8af",
+        "times": 1
+      }
+    ]
+  }
+}

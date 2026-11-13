@@ -1,0 +1,337 @@
+{
+  "record": {
+    "task_id": "taxi_dedup_003",
+    "split": "test",
+    "dataset": "taxi",
+    "transformation_type": "deduplication",
+    "difficulty": "hard",
+    "seed": 0,
+    "system": "baseline3_repair",
+    "preset": "baseline3_repair",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "parsed",
+    "generator_contract": false,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "generator_prompt": "b1-v1",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "ok",
+    "stage_ended": "repair",
+    "outcome": "REJECT",
+    "final_correct": false,
+    "initial_correct": false,
+    "initial_parse_ok": true,
+    "first_check": "VIOLATION",
+    "no_repair_outcome": "REJECT",
+    "no_repair_correct": false,
+    "final_status": "VIOLATION",
+    "attempts": 3,
+    "tool_calls": 6,
+    "llm_calls": 10,
+    "tokens": 33880,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": null,
+    "path": [
+      "PREPARE",
+      "PARSE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REJECTED"
+    ],
+    "tool_trace": [
+      {
+        "tool": "inspect_dataset",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "profile_column",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "profile_column",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      }
+    ],
+    "latency_s": 100.44
+  },
+  "trace": {
+    "task_id": "taxi_dedup_003",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])\n    df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])\n    df.sort_values(by=['VendorID', 'tpep_pickup_datetime', 'tpep_dropoff_datetime'], inplace=True)\n    df.drop_duplicates(subset=['VendorID', 'tpep_pickup_datetime', 'tpep_dropoff_datetime', 'PULocationID', 'DOLocationID'], keep='first', inplace=True)\n    return df\n```",
+    "initial_code": "def transform(df):\n    df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])\n    df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])\n    df.sort_values(by=['VendorID', 'tpep_pickup_datetime', 'tpep_dropoff_datetime'], inplace=True)\n    df.drop_duplicates(subset=['VendorID', 'tpep_pickup_datetime', 'tpep_dropoff_datetime', 'PULocationID', 'DOLocationID'], keep='first', inplace=True)\n    return df",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "61dd23d50720bb66"
+      },
+      {
+        "step": 1,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "61dd23d50720bb66",
+        "status": "VIOLATION",
+        "n_failures": 2,
+        "failed": [
+          "c1",
+          "p1"
+        ]
+      },
+      {
+        "step": 2,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2096,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"inspect_dataset\", \"args\": {\"which\": \"before\", \"n_rows\": 5, \"columns\": [\"VendorID\", \"tpep_pickup_datetime\", \"tpep_dropoff_datetime\", \"fare_amount\", \"extra\", \"mta_tax\", \"tip_amount\", \"tolls_amount\", \"improvement_surcharge\", \"total_amount\", \"congestion_surcharge\", \"Airport_fee\", \"cbd_congestion_fee\"]}}"
+      },
+      {
+        "step": 3,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "inspect_dataset",
+        "args": {
+          "which": "before",
+          "n_rows": 5,
+          "columns": [
+            "VendorID",
+            "tpep_pickup_datetime",
+            "tpep_dropoff_datetime",
+            "fare_amount",
+            "extra",
+            "mta_tax",
+            "tip_amount",
+            "tolls_amount",
+            "improvement_surcharge",
+            "total_amount",
+            "congestion_surcharge",
+            "Airport_fee",
+            "cbd_congestion_fee"
+          ]
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 4,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 3676,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 5,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 6,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 4510,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"profile_column\", \"args\": {\"column\": \"tpep_pickup_datetime\", \"which\": \"before\", \"top\": 5}}"
+      },
+      {
+        "step": 7,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "profile_column",
+        "args": {
+          "column": "tpep_pickup_datetime",
+          "which": "before",
+          "top": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 8,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 4821,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"profile_column\", \"args\": {\"column\": \"tpep_dropoff_datetime\", \"which\": \"before\", \"top\": 5}}"
+      },
+      {
+        "step": 9,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "profile_column",
+        "args": {
+          "column": "tpep_dropoff_datetime",
+          "which": "before",
+          "top": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 10,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 5256,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])\n    df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])\n    df.sort_values(by=['VendorID', 'tpep_pickup_datetime', 'tpep_dropoff_datetime'], inplace=True)\n    df.drop_duplicates(subset=['VendorID', 'tpep_pickup_datetime', 'tpep_dropoff_datetime', 'PULocationID', 'DOLocationID', 'passenger_count', 'trip_distance', 'RatecodeID', 'store_and_fwd_flag', 'payment_type'], keep='first', inplace=True)\n    return df\n```"
+      },
+      {
+        "step": 11,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "3a83f07c6e0583fc",
+        "implicit": false
+      },
+      {
+        "step": 12,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "3a83f07c6e0583fc",
+        "status": "VIOLATION",
+        "n_failures": 2,
+        "failed": [
+          "c1",
+          "p1"
+        ]
+      },
+      {
+        "step": 13,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2372,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 14,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 15,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 3380,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])\n    df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])\n    df.sort_values(by=['VendorID', 'tpep_pickup_datetime', 'tpep_dropoff_datetime'], inplace=True)\n    df.drop_duplicates(subset=['VendorID', 'tpep_pickup_datetime', 'tpep_dropoff_datetime', 'PULocationID', 'DOLocationID', 'passenger_count', 'trip_distance', 'RatecodeID', 'store_and_fwd_flag', 'payment_type', 'fare_amount', 'extra', 'mta_tax', 'tip_amount', 'tolls_amount', 'improvement_surcharge', 'total_amount', 'congestion_surcharge', 'Airport_fee', 'cbd_congestion_fee'], keep='first', inplace=True)\n    return df\n```"
+      },
+      {
+        "step": 16,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "fa6e3ba23a8be2ac",
+        "implicit": false
+      },
+      {
+        "step": 17,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "fa6e3ba23a8be2ac",
+        "status": "VIOLATION",
+        "n_failures": 2,
+        "failed": [
+          "c1",
+          "p1"
+        ]
+      },
+      {
+        "step": 18,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2778,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 19,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 20,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 3766,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])\n    df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])\n    df.sort_values(by=['VendorID', 'tpep_pickup_datetime', 'tpep_dropoff_datetime'], inplace=True)\n    df.drop_duplicates(subset=['VendorID', 'tpep_pickup_datetime', 'tpep_dropoff_datetime', 'PULocationID', 'DOLocationID', 'passenger_count', 'trip_distance', 'RatecodeID', 'store_and_fwd_flag', 'payment_type', 'fare_amount', 'extra', 'mta_tax', 'tip_amount', 'tolls_amount', 'improvement_surcharge', 'total_amount', 'congestion_surcharge', 'Airport_fee', 'cbd_congestion_fee'], keep='first', inplace=True)\n    return df\n```"
+      },
+      {
+        "step": 21,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "fa6e3ba23a8be2ac",
+        "implicit": false
+      },
+      {
+        "step": 22,
+        "state": "REPAIR",
+        "event": "repeated_code",
+        "code_hash": "fa6e3ba23a8be2ac",
+        "times": 1
+      }
+    ]
+  }
+}

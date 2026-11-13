@@ -1,0 +1,38 @@
+{
+  "code_hash": "5cfbb9be30bdab2f",
+  "code": "def transform(df):\n    education_order = ['Preschool', 'Elementary School', 'Middle School', 'High School', 'Some College', 'College', 'Graduate']\n    df['education'] = pd.Categorical(df['education'], categories=education_order, ordered=True)\n    return df\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": false,
+  "equivalence_reason": "category order differs in education",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "predicate",
+        "predicate_id": "c2",
+        "predicate_type": "column_value_relation",
+        "direction": "must_change",
+        "target": "education",
+        "expected": "education = map(...)",
+        "observed": "1000 of 1000 rows differ",
+        "detail": "e.g. row 0: expected 'Bachelors', got nan",
+        "evidence_rows": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ],
+    "evidence_rows": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  }
+}

@@ -1,0 +1,2455 @@
+{
+  "kind": "automated_draft_validation",
+  "human_reviewed": false,
+  "valid": true,
+  "rows": [
+    {
+      "task_id": "warehouse_filter_0",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "filter_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "warehouse_filter_1",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "filter_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "warehouse_filter_2",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "filter_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "warehouse_filter_3",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "filter_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "warehouse_dedup_0",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "dedup_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "warehouse_dedup_1",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "dedup_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "warehouse_dedup_2",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "dedup_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "warehouse_dedup_3",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "dedup_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "warehouse_fill_0",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "fill_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "warehouse_fill_1",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "fill_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "warehouse_fill_2",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "fill_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "warehouse_fill_3",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "fill_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "warehouse_convert_0",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "convert_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "warehouse_convert_1",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "convert_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "warehouse_convert_2",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "convert_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "warehouse_convert_3",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "convert_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "warehouse_edit_0",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "edit_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "warehouse_edit_1",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "edit_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "warehouse_edit_2",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "edit_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "warehouse_edit_3",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "edit_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "solar_filter_0",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "filter_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "solar_filter_1",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "filter_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "solar_filter_2",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "filter_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "solar_filter_3",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "filter_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "solar_dedup_0",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "dedup_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "solar_dedup_1",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "dedup_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "solar_dedup_2",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "dedup_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "solar_dedup_3",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "dedup_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "solar_fill_0",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "fill_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "solar_fill_1",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "fill_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "solar_fill_2",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "fill_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "solar_fill_3",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "fill_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "solar_convert_0",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "convert_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "solar_convert_1",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "convert_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "solar_convert_2",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "convert_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "solar_convert_3",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "convert_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "solar_edit_0",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "edit_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "solar_edit_1",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "edit_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "solar_edit_2",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "edit_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "solar_edit_3",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "edit_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "courier_filter_0",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "filter_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "courier_filter_1",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "filter_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "courier_filter_2",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "filter_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "courier_filter_3",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "filter_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "courier_dedup_0",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "dedup_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "courier_dedup_1",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "dedup_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "courier_dedup_2",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "dedup_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "courier_dedup_3",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "dedup_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "courier_fill_0",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "fill_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "courier_fill_1",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "fill_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "courier_fill_2",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "fill_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "courier_fill_3",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "fill_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "courier_convert_0",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "convert_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "courier_convert_1",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "convert_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "courier_convert_2",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "convert_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "courier_convert_3",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "convert_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "courier_edit_0",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "edit_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "courier_edit_1",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "edit_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "courier_edit_2",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "edit_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "courier_edit_3",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "edit_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "nursery_filter_0",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "filter_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "nursery_filter_1",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "filter_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "nursery_filter_2",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "filter_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "nursery_filter_3",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "filter_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "nursery_dedup_0",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "dedup_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "nursery_dedup_1",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "dedup_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "nursery_dedup_2",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "dedup_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "nursery_dedup_3",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "dedup_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "nursery_fill_0",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "fill_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "nursery_fill_1",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "fill_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "nursery_fill_2",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "fill_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "nursery_fill_3",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "fill_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "nursery_convert_0",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "convert_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "nursery_convert_1",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "convert_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "nursery_convert_2",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "convert_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "nursery_convert_3",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "convert_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "nursery_edit_0",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "edit_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "nursery_edit_1",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "edit_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "nursery_edit_2",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "edit_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "nursery_edit_3",
+      "split": "dev",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "edit_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "reservoir_filter_0",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "filter_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "reservoir_filter_1",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "filter_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "reservoir_filter_2",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "filter_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "reservoir_filter_3",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "filter_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "reservoir_dedup_0",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "dedup_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "reservoir_dedup_1",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "dedup_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "reservoir_dedup_2",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "dedup_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "reservoir_dedup_3",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "dedup_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "reservoir_fill_0",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "fill_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "reservoir_fill_1",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "fill_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "reservoir_fill_2",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "fill_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "reservoir_fill_3",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "fill_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "reservoir_convert_0",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "convert_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "reservoir_convert_1",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "convert_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "reservoir_convert_2",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "convert_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "reservoir_convert_3",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "convert_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "reservoir_edit_0",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "edit_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "reservoir_edit_1",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "edit_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "reservoir_edit_2",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "edit_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "reservoir_edit_3",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "edit_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "fabrication_filter_0",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "filter_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "fabrication_filter_1",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "filter_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "fabrication_filter_2",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "filter_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "fabrication_filter_3",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "filter_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "fabrication_dedup_0",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "dedup_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "fabrication_dedup_1",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "dedup_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "fabrication_dedup_2",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "dedup_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "fabrication_dedup_3",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS",
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "dedup_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "fabrication_fill_0",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "fill_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "fabrication_fill_1",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "fill_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "fabrication_fill_2",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "fill_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "fabrication_fill_3",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "fill_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "fabrication_convert_0",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "convert_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "fabrication_convert_1",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "convert_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "fabrication_convert_2",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "convert_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "fabrication_convert_3",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "convert_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "fabrication_edit_0",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "edit_0",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "fabrication_edit_1",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "edit_1",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "fabrication_edit_2",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "edit_2",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    },
+    {
+      "task_id": "fabrication_edit_3",
+      "split": "selection",
+      "positive_statuses": [
+        "PASS"
+      ],
+      "negative_statuses": [
+        {
+          "family": "edit_3",
+          "status": "VIOLATION"
+        },
+        {
+          "family": "no_op",
+          "status": "VIOLATION"
+        }
+      ],
+      "all_correct_accepted": true,
+      "any_wrong_accepted": false,
+      "valid": true
+    }
+  ]
+}

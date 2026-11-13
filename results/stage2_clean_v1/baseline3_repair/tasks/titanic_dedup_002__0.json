@@ -1,0 +1,214 @@
+{
+  "record": {
+    "task_id": "titanic_dedup_002",
+    "split": "test",
+    "dataset": "titanic",
+    "transformation_type": "deduplication",
+    "difficulty": "hard",
+    "seed": 0,
+    "system": "baseline3_repair",
+    "preset": "baseline3_repair",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "parsed",
+    "generator_contract": false,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "generator_prompt": "b1-v1",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "ok",
+    "stage_ended": "repair",
+    "outcome": "REJECT",
+    "final_correct": false,
+    "initial_correct": false,
+    "initial_parse_ok": true,
+    "first_check": "VIOLATION",
+    "no_repair_outcome": "REJECT",
+    "no_repair_correct": false,
+    "final_status": "VIOLATION",
+    "attempts": 3,
+    "tool_calls": 2,
+    "llm_calls": 6,
+    "tokens": 8890,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": null,
+    "path": [
+      "PREPARE",
+      "PARSE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REJECTED"
+    ],
+    "tool_trace": [
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      }
+    ],
+    "latency_s": 27.87
+  },
+  "trace": {
+    "task_id": "titanic_dedup_002",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    df['Ticket'] = df['Ticket'].str.replace('\\W+', '', regex=True)  # Remove non-alphanumeric characters from tickets\n    grouped = df.groupby('Ticket').last()  # Keep the last occurrence of each ticket\n    return grouped.reset_index()\n```",
+    "initial_code": "def transform(df):\n    df['Ticket'] = df['Ticket'].str.replace('\\\\W+', '', regex=True)\n    grouped = df.groupby('Ticket').last()\n    return grouped.reset_index()",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "1b25f4cf58063845"
+      },
+      {
+        "step": 1,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "1b25f4cf58063845",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "c1"
+        ]
+      },
+      {
+        "step": 2,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1402,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 3,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 4,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1611,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df['Ticket'] = df['Ticket'].str.replace(r'\\W+', '', regex=True)\n    grouped = df.groupby('Ticket', sort=False).last().reset_index()\n    return grouped\n```"
+      },
+      {
+        "step": 5,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "f1b4eab21671a180",
+        "implicit": false
+      },
+      {
+        "step": 6,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "f1b4eab21671a180",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "c1"
+        ]
+      },
+      {
+        "step": 7,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1543,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 8,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 9,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1752,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df['Ticket'] = df['Ticket'].str.replace(r'\\W+', '', regex=True)\n    grouped = df.groupby('Ticket', sort=False).last().reset_index()\n    return grouped\n```"
+      },
+      {
+        "step": 10,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "f1b4eab21671a180",
+        "implicit": false
+      },
+      {
+        "step": 11,
+        "state": "REPAIR",
+        "event": "repeated_code",
+        "code_hash": "f1b4eab21671a180",
+        "times": 1
+      },
+      {
+        "step": 12,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1955,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df['Ticket'] = df['Ticket'].str.replace(r'\\W+', '', regex=True)\n    grouped = df.sort_values(by='PassengerId', ascending=False).groupby('Ticket', sort=False).last().reset_index()\n    return grouped\n```"
+      },
+      {
+        "step": 13,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "52ee2ae376d008e7",
+        "implicit": false
+      },
+      {
+        "step": 14,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "52ee2ae376d008e7",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "c1"
+        ]
+      }
+    ]
+  }
+}

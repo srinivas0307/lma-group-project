@@ -1,0 +1,38 @@
+{
+  "code_hash": "a23f0ccde7f5b6a7",
+  "code": "def transform(df):\n    return df.assign(Fare=df['Fare'].round(2))",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": true,
+  "equivalence_reason": "equal",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "predicate",
+        "predicate_id": "p2",
+        "predicate_type": "column_values_unchanged",
+        "direction": "must_preserve",
+        "target": "Fare",
+        "expected": "values unchanged",
+        "observed": "400 changed cells in ['Fare']",
+        "detail": "Fare: 400 rows changed",
+        "evidence_rows": [
+          1,
+          2,
+          5,
+          6,
+          7
+        ]
+      }
+    ],
+    "evidence_rows": [
+      1,
+      2,
+      5,
+      6,
+      7
+    ]
+  }
+}

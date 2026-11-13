@@ -1,0 +1,14 @@
+{
+  "code_hash": "1dea25a3f9390699",
+  "code": "def transform(df):\n    df['pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])\n    df['dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])\n    return df.drop_duplicates(subset=['VendorID', 'pickup_datetime', 'dropoff_datetime'], keep='last').reset_index(drop=True)",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": false,
+  "equivalence_reason": "columns differ (extra=['dropoff_datetime', 'pickup_datetime'], missing=[])",
+  "checker": {
+    "status": "PASS",
+    "failures": [],
+    "evidence_rows": []
+  }
+}

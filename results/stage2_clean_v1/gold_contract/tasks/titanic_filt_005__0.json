@@ -1,0 +1,133 @@
+{
+  "record": {
+    "task_id": "titanic_filt_005",
+    "split": "test",
+    "dataset": "titanic",
+    "transformation_type": "filtering",
+    "difficulty": "medium",
+    "seed": 0,
+    "system": "gold_contract",
+    "preset": "gold_contract",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "oracle",
+    "generator_contract": true,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "generator_prompt": "b2-v2",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "ok",
+    "stage_ended": "repair",
+    "outcome": "ACCEPT",
+    "final_correct": true,
+    "initial_correct": false,
+    "initial_parse_ok": true,
+    "first_check": "error",
+    "no_repair_outcome": "REJECT",
+    "no_repair_correct": false,
+    "final_status": "PASS",
+    "attempts": 1,
+    "tool_calls": 1,
+    "llm_calls": 3,
+    "tokens": 4949,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": null,
+    "path": [
+      "PREPARE",
+      "PARSE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "ACCEPTED"
+    ],
+    "tool_trace": [
+      {
+        "tool": "inspect_dataset",
+        "ok": true,
+        "error_type": null
+      }
+    ],
+    "latency_s": 11.84
+  },
+  "trace": {
+    "task_id": "titanic_filt_005",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    # Keep only passengers who travelled alone (SibSp == 0 and Parch == 0)\n    filtered_df = df[df['SibSp'] == 0 & df['Parch'] == 0]\n    \n    return filtered_df\n```",
+    "initial_code": "def transform(df):\n    filtered_df = df[df['SibSp'] == 0 & df['Parch'] == 0]\n    return filtered_df",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "6752e4402064ef50"
+      },
+      {
+        "step": 1,
+        "state": "EXECUTE",
+        "event": "execute_failed",
+        "code_hash": "6752e4402064ef50",
+        "status": "error",
+        "error": "ValueError: The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all()."
+      },
+      {
+        "step": 2,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1479,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"inspect_dataset\", \"args\": {\"which\": \"before\", \"n_rows\": 5, \"columns\": [\"SibSp\", \"Parch\"]}}"
+      },
+      {
+        "step": 3,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "inspect_dataset",
+        "args": {
+          "which": "before",
+          "n_rows": 5,
+          "columns": [
+            "SibSp",
+            "Parch"
+          ]
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 4,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2059,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    filtered_df = df[(df['SibSp'] == 0) & (df['Parch'] == 0)]\n    return filtered_df\n```"
+      },
+      {
+        "step": 5,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "8be666bad631bc90",
+        "implicit": false
+      },
+      {
+        "step": 6,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "8be666bad631bc90",
+        "status": "PASS",
+        "n_failures": 0,
+        "failed": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "code_hash": "8ab3fbc325fc84ab",
+  "code": "def transform(df):\n    out = df.copy()\n    out = out[~((out['education'] == 'Self-emp-not-inc') & (out['age'] > 60))]\n    return out\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": false,
+  "equivalence_reason": "row count differs (1000 vs 986)",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "uncertain",
+        "reason": "predicate_not_evaluable",
+        "detail": "condition matches 0 rows in the input",
+        "predicate_id": "c1"
+      },
+      {
+        "kind": "predicate",
+        "predicate_id": "c2",
+        "predicate_type": "row_count",
+        "direction": "must_change",
+        "target": null,
+        "expected": "< 1000 (decreased)",
+        "observed": 1000,
+        "detail": "1000 rows after, 1000 before",
+        "evidence_rows": []
+      }
+    ],
+    "evidence_rows": []
+  }
+}

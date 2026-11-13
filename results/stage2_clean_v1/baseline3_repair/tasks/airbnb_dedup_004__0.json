@@ -1,0 +1,308 @@
+{
+  "record": {
+    "task_id": "airbnb_dedup_004",
+    "split": "test",
+    "dataset": "airbnb",
+    "transformation_type": "deduplication",
+    "difficulty": "hard",
+    "seed": 0,
+    "system": "baseline3_repair",
+    "preset": "baseline3_repair",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "parsed",
+    "generator_contract": false,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "generator_prompt": "b1-v1",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "ok",
+    "stage_ended": "repair",
+    "outcome": "REJECT",
+    "final_correct": false,
+    "initial_correct": false,
+    "initial_parse_ok": true,
+    "first_check": "VIOLATION",
+    "no_repair_outcome": "REJECT",
+    "no_repair_correct": false,
+    "final_status": "VIOLATION",
+    "attempts": 3,
+    "tool_calls": 5,
+    "llm_calls": 9,
+    "tokens": 18184,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": null,
+    "path": [
+      "PREPARE",
+      "PARSE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REJECTED"
+    ],
+    "tool_trace": [
+      {
+        "tool": "inspect_dataset",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "inspect_dataset",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      }
+    ],
+    "latency_s": 46.12
+  },
+  "trace": {
+    "task_id": "airbnb_dedup_004",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    df['last_row'] = df.groupby('host_name')['host_name'].transform(max).eq(df['host_name'])\n    return df[df['last_row']].drop(columns=['last_row'])\n```",
+    "initial_code": "def transform(df):\n    df['last_row'] = df.groupby('host_name')['host_name'].transform(max).eq(df['host_name'])\n    return df[df['last_row']].drop(columns=['last_row'])",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "9208936313c1da7d"
+      },
+      {
+        "step": 1,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "9208936313c1da7d",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "c1"
+        ]
+      },
+      {
+        "step": 2,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1567,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"inspect_dataset\", \"args\": {\"which\": \"before\", \"n_rows\": 5, \"columns\": [\"host_id\", \"room_type\"]}}"
+      },
+      {
+        "step": 3,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "inspect_dataset",
+        "args": {
+          "which": "before",
+          "n_rows": 5,
+          "columns": [
+            "host_id",
+            "room_type"
+          ]
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 4,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2262,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 5,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 6,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2465,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df_sorted = df.sort_values(by=['host_id', 'last_review'], ascending=[True, False])\n    out = df_sorted.drop_duplicates(subset=['host_id', 'room_type'], keep='first')\n    return out\n```"
+      },
+      {
+        "step": 7,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "5e5fd51bcb774455",
+        "implicit": false
+      },
+      {
+        "step": 8,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "5e5fd51bcb774455",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "c1"
+        ]
+      },
+      {
+        "step": 9,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1705,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 10,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 11,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1925,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df_sorted = df.sort_values(by=['host_id', 'last_review'], ascending=[True, False])\n    out = df_sorted.drop_duplicates(subset=['host_id', 'room_type'], keep='last')\n    return out\n```"
+      },
+      {
+        "step": 12,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "517b2ec8ca780f22",
+        "implicit": false
+      },
+      {
+        "step": 13,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "517b2ec8ca780f22",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "c1"
+        ]
+      },
+      {
+        "step": 14,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1886,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"inspect_dataset\", \"args\": {\"which\": \"last_output\", \"n_rows\": 5, \"columns\": [\"host_id\", \"room_type\", \"last_review\"]}}"
+      },
+      {
+        "step": 15,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "inspect_dataset",
+        "args": {
+          "which": "last_output",
+          "n_rows": 5,
+          "columns": [
+            "host_id",
+            "room_type",
+            "last_review"
+          ]
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 16,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2652,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 17,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 18,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2877,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df_sorted = df.sort_values(by=['host_id', 'last_review'], ascending=[True, False])\n    out = df_sorted.drop_duplicates(subset=['host_id', 'room_type'], keep='last').reset_index(drop=True)\n    return out\n```"
+      },
+      {
+        "step": 19,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "5d8520a39a10db81",
+        "implicit": false
+      },
+      {
+        "step": 20,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "5d8520a39a10db81",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "c1"
+        ]
+      }
+    ]
+  }
+}

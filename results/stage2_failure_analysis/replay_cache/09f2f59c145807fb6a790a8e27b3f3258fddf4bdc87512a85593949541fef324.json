@@ -1,0 +1,8 @@
+{
+  "code_hash": "c8e480efe6712b10",
+  "code": "def transform(df):\n    df_no_fnlwgt = df.drop(columns=['fnlwgt'])\n    grouped = df_no_fnlwgt.groupby(list(df_no_fnlwgt.columns), dropna=False)\n    last_occurrences = grouped.last()\n    result = pd.concat([df['fnlwgt'], last_occurrences]).reset_index(drop=True)\n    result.columns = df.columns\n    return result",
+  "ran_ok": false,
+  "execution_status": "error",
+  "error": "ValueError: Length mismatch: Expected axis has 1 elements, new values have 15 elements",
+  "correct": false
+}

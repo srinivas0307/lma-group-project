@@ -1,0 +1,8 @@
+{
+  "system": "no_contract_to_generator",
+  "experiment": "stage2-clean-v1",
+  "plan_hash": "abe3b1ed29c505d172c2cb6ba99e42c7fbf9f53d654bcd6513bd2413d0be980d",
+  "valid_result": true,
+  "n_runs": 100,
+  "complete": true
+}

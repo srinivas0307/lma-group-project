@@ -1,0 +1,255 @@
+{
+  "record": {
+    "task_id": "adult_dedup_001",
+    "split": "test",
+    "dataset": "adult",
+    "transformation_type": "deduplication",
+    "difficulty": "medium",
+    "seed": 0,
+    "system": "gold_contract",
+    "preset": "gold_contract",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "oracle",
+    "generator_contract": true,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "generator_prompt": "b2-v2",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "ok",
+    "stage_ended": "repair",
+    "outcome": "REJECT",
+    "final_correct": false,
+    "initial_correct": false,
+    "initial_parse_ok": true,
+    "first_check": "VIOLATION",
+    "no_repair_outcome": "REJECT",
+    "no_repair_correct": false,
+    "final_status": "VIOLATION",
+    "attempts": 3,
+    "tool_calls": 3,
+    "llm_calls": 7,
+    "tokens": 19027,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": null,
+    "path": [
+      "PREPARE",
+      "PARSE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REJECTED"
+    ],
+    "tool_trace": [
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      }
+    ],
+    "latency_s": 38.25
+  },
+  "trace": {
+    "task_id": "adult_dedup_001",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    df_no_fnlwgt = df.drop(columns=[\"fnlwgt\"])\n    dedupped_df = df_no_fnlwgt.drop_duplicates(subset=df_no_fnlwgt.columns.tolist(), keep=\"first\")\n    dedupped_with_fnlwgt = pd.concat([dedupped_df, df[[\"fnlwgt\"]]], axis=1)\n    return dedupped_with_fnlwgt\n```",
+    "initial_code": "def transform(df):\n    df_no_fnlwgt = df.drop(columns=['fnlwgt'])\n    dedupped_df = df_no_fnlwgt.drop_duplicates(subset=df_no_fnlwgt.columns.tolist(), keep='first')\n    dedupped_with_fnlwgt = pd.concat([dedupped_df, df[['fnlwgt']]], axis=1)\n    return dedupped_with_fnlwgt",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "7bd8a2982bdf7f23"
+      },
+      {
+        "step": 1,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "7bd8a2982bdf7f23",
+        "status": "VIOLATION",
+        "n_failures": 3,
+        "failed": [
+          "c1",
+          "c2",
+          "p1"
+        ]
+      },
+      {
+        "step": 2,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1673,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 3,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 4,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 3605,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    out = df.drop(columns=['fnlwgt']).drop_duplicates(subset=df.columns.difference(['fnlwgt']), keep='first')\n    out = pd.concat([out, df[['fnlwgt']]], axis=1)\n    return out\n```"
+      },
+      {
+        "step": 5,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "a9303b3c74b81bdf",
+        "implicit": false
+      },
+      {
+        "step": 6,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "a9303b3c74b81bdf",
+        "status": "VIOLATION",
+        "n_failures": 3,
+        "failed": [
+          "c1",
+          "c2",
+          "p1"
+        ]
+      },
+      {
+        "step": 7,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1964,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 8,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 9,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 3896,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    out = df.drop(columns=['fnlwgt']).drop_duplicates(keep='first', subset=df.columns.difference(['fnlwgt']))\n    out = pd.concat([out, df[['fnlwgt']]], axis=1)\n    return out\n```"
+      },
+      {
+        "step": 10,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "3adf473fdf62a1b6",
+        "implicit": false
+      },
+      {
+        "step": 11,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "3adf473fdf62a1b6",
+        "status": "VIOLATION",
+        "n_failures": 3,
+        "failed": [
+          "c1",
+          "c2",
+          "p1"
+        ]
+      },
+      {
+        "step": 12,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2255,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 13,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 14,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 4195,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    out = df.drop(columns=['fnlwgt']).drop_duplicates(subset=df.columns.difference(['fnlwgt']), keep='first')\n    out = pd.concat([out.reset_index(drop=True), df[['fnlwgt']].reset_index(drop=True)], axis=1)\n    return out\n```"
+      },
+      {
+        "step": 15,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "1701dab963763174",
+        "implicit": false
+      },
+      {
+        "step": 16,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "1701dab963763174",
+        "status": "VIOLATION",
+        "n_failures": 3,
+        "failed": [
+          "c1",
+          "c2",
+          "p1"
+        ]
+      }
+    ]
+  }
+}

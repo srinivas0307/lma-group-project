@@ -1,0 +1,22 @@
+{
+  "code_hash": "6aea4ba5e2c31744",
+  "code": "def transform(df):\n    out = df[df['availability_365'] > 0].copy()\n    return out\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": true,
+  "equivalence_reason": "equal",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "check",
+        "check": "distribution.mean_shift",
+        "value": 0.311568,
+        "threshold": 0.1,
+        "column": "availability_365"
+      }
+    ],
+    "evidence_rows": []
+  }
+}

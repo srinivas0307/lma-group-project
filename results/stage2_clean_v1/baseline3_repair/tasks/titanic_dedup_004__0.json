@@ -1,0 +1,206 @@
+{
+  "record": {
+    "task_id": "titanic_dedup_004",
+    "split": "test",
+    "dataset": "titanic",
+    "transformation_type": "deduplication",
+    "difficulty": "medium",
+    "seed": 0,
+    "system": "baseline3_repair",
+    "preset": "baseline3_repair",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "parsed",
+    "generator_contract": false,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "generator_prompt": "b1-v1",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "ok",
+    "stage_ended": "repair",
+    "outcome": "ESCALATE",
+    "final_correct": false,
+    "initial_correct": true,
+    "initial_parse_ok": true,
+    "first_check": "VIOLATION",
+    "no_repair_outcome": "REJECT",
+    "no_repair_correct": false,
+    "final_status": "VIOLATION",
+    "attempts": 3,
+    "tool_calls": 2,
+    "llm_calls": 6,
+    "tokens": 8633,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": "identical code proposed twice",
+    "path": [
+      "PREPARE",
+      "PARSE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "ESCALATED"
+    ],
+    "tool_trace": [
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      }
+    ],
+    "latency_s": 24.11
+  },
+  "trace": {
+    "task_id": "titanic_dedup_004",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    df['combined_key'] = df[['Pclass', 'Sex']].apply(lambda x: '|'.join(x.astype(str)), axis=1)\n    df = df.drop_duplicates(subset='combined_key', keep='first').drop('combined_key', axis=1)\n    return df\n```",
+    "initial_code": "def transform(df):\n    df['combined_key'] = df[['Pclass', 'Sex']].apply(lambda x: '|'.join(x.astype(str)), axis=1)\n    df = df.drop_duplicates(subset='combined_key', keep='first').drop('combined_key', axis=1)\n    return df",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "6da6c1544df050ab"
+      },
+      {
+        "step": 1,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "6da6c1544df050ab",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "p2"
+        ]
+      },
+      {
+        "step": 2,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1387,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 3,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 4,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1585,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    out = df.sort_values(by=['Pclass', 'Sex']).drop_duplicates(subset=['Pclass', 'Sex'], keep='first')\n    return out\n```"
+      },
+      {
+        "step": 5,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "0cbe8c49316afac2",
+        "implicit": false
+      },
+      {
+        "step": 6,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "0cbe8c49316afac2",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "p2"
+        ]
+      },
+      {
+        "step": 7,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1487,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 8,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 9,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1685,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    out = df.sort_values(by=['Pclass', 'Sex']).drop_duplicates(subset=['Pclass', 'Sex'], keep='first')\n    return out\n```"
+      },
+      {
+        "step": 10,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "0cbe8c49316afac2",
+        "implicit": false
+      },
+      {
+        "step": 11,
+        "state": "REPAIR",
+        "event": "repeated_code",
+        "code_hash": "0cbe8c49316afac2",
+        "times": 1
+      },
+      {
+        "step": 12,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1862,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    out = df.sort_values(by=['Pclass', 'Sex']).drop_duplicates(subset=['Pclass', 'Sex'], keep='first')\n    return out\n```"
+      },
+      {
+        "step": 13,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "0cbe8c49316afac2",
+        "implicit": false
+      },
+      {
+        "step": 14,
+        "state": "REPAIR",
+        "event": "repeated_code",
+        "code_hash": "0cbe8c49316afac2",
+        "times": 2
+      }
+    ]
+  }
+}

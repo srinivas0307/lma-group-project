@@ -1,0 +1,238 @@
+Command: ["/usr/bin/python3", "-m", "stage2_clean.runner", "--preset", "baseline1", "--repo", "/kaggle/working/repo_stage2_clean_v1", "--out", "/kaggle/working/stage2_clean_v1", "--packages", "/kaggle/working/stage2_clean_packages"]
+GPU: {"task_id": null, "time": 1794569336.2717192, "event": "kernel_self_test_passed", "device": "cuda:0", "case": "causal_prefill", "max_absolute_error": 0.001953125, "rtol": 0.005, "atol": 0.005}
+GPU: {"task_id": null, "time": 1794569336.2944136, "event": "kernel_self_test_passed", "device": "cuda:0", "case": "decode", "max_absolute_error": 0.00048828125, "rtol": 0.005, "atol": 0.005}
+GPU: {"task_id": null, "time": 1794569336.2966213, "event": "kernel_self_test_passed", "device": "cuda:0", "case": "masked_prefill", "max_absolute_error": 0.0009765625, "rtol": 0.005, "atol": 0.005}
+GPU: {"task_id": null, "time": 1794569336.5259056, "event": "kernel_self_test_passed", "device": "cuda:1", "case": "causal_prefill", "max_absolute_error": 0.001953125, "rtol": 0.005, "atol": 0.005}
+GPU: {"task_id": null, "time": 1794569336.52906, "event": "kernel_self_test_passed", "device": "cuda:1", "case": "decode", "max_absolute_error": 0.00048828125, "rtol": 0.005, "atol": 0.005}
+GPU: {"task_id": null, "time": 1794569336.530997, "event": "kernel_self_test_passed", "device": "cuda:1", "case": "masked_prefill", "max_absolute_error": 0.0009765625, "rtol": 0.005, "atol": 0.005}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]
+Fetching 2 files:  50%|█████     | 1/2 [00:33<00:33, 33.19s/it]
+Fetching 2 files: 100%|██████████| 2/2 [00:33<00:00, 16.60s/it]
+
+Loading weights:   0%|          | 0/434 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/434 [00:00<06:13,  1.16it/s]
+Loading weights:  18%|█▊        | 76/434 [00:00<00:03, 105.56it/s]
+Loading weights:  27%|██▋       | 116/434 [00:01<00:02, 117.51it/s]
+Loading weights:  33%|███▎      | 144/434 [00:01<00:02, 132.85it/s]
+Loading weights:  39%|███▉      | 169/434 [00:01<00:01, 136.08it/s]
+Loading weights:  44%|████▍     | 190/434 [00:01<00:01, 126.76it/s]
+Loading weights:  48%|████▊     | 208/434 [00:01<00:01, 126.23it/s]
+Loading weights:  52%|█████▏    | 224/434 [00:02<00:01, 121.95it/s]
+Loading weights:  55%|█████▌    | 239/434 [00:02<00:01, 125.45it/s]
+Loading weights:  59%|█████▉    | 255/434 [00:02<00:01, 128.68it/s]
+Loading weights:  62%|██████▏   | 270/434 [00:02<00:01, 126.23it/s]
+Loading weights:  67%|██████▋   | 291/434 [00:02<00:01, 137.42it/s]
+Loading weights:  71%|███████   | 306/434 [00:02<00:01, 126.53it/s]
+Loading weights:  75%|███████▌  | 327/434 [00:02<00:00, 137.37it/s]
+Loading weights:  79%|███████▉  | 342/434 [00:02<00:00, 136.83it/s]
+Loading weights:  82%|████████▏ | 356/434 [00:03<00:00, 127.16it/s]
+Loading weights:  87%|████████▋ | 376/434 [00:03<00:00, 126.33it/s]
+Loading weights:  92%|█████████▏| 399/434 [00:03<00:00, 136.57it/s]
+Loading weights:  96%|█████████▌| 415/434 [00:03<00:00, 142.04it/s]
+Loading weights: 100%|██████████| 434/434 [00:03<00:00, 122.21it/s]
+GPU: {"task_id": null, "time": 1794569398.4882016, "event": "model_loaded", "role": "generator", "model": "Qwen/Qwen2.5-3B-Instruct", "revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1", "device": "cuda:1", "four_bit": false, "quantized_parameters": 0, "allocated_bytes": 6180398080}
+TASK START: baseline1 taxi_dedup_003 (0/100 saved)
+TASK DONE: baseline1 1/100 taxi_dedup_003 ACCEPT
+TASK START: baseline1 adult_col_001 (1/100 saved)
+TASK DONE: baseline1 2/100 adult_col_001 ACCEPT
+TASK START: baseline1 adult_col_002 (2/100 saved)
+TASK DONE: baseline1 3/100 adult_col_002 ACCEPT
+TASK START: baseline1 adult_col_003 (3/100 saved)
+TASK DONE: baseline1 4/100 adult_col_003 ACCEPT
+TASK START: baseline1 adult_col_004 (4/100 saved)
+TASK DONE: baseline1 5/100 adult_col_004 ACCEPT
+TASK START: baseline1 adult_col_005 (5/100 saved)
+TASK DONE: baseline1 6/100 adult_col_005 ACCEPT
+TASK START: baseline1 adult_conv_001 (6/100 saved)
+TASK DONE: baseline1 7/100 adult_conv_001 ACCEPT
+TASK START: baseline1 adult_conv_002 (7/100 saved)
+TASK DONE: baseline1 8/100 adult_conv_002 ACCEPT
+TASK START: baseline1 adult_conv_003 (8/100 saved)
+TASK DONE: baseline1 9/100 adult_conv_003 ACCEPT
+TASK START: baseline1 adult_conv_004 (9/100 saved)
+TASK DONE: baseline1 10/100 adult_conv_004 ACCEPT
+TASK START: baseline1 adult_conv_005 (10/100 saved)
+TASK DONE: baseline1 11/100 adult_conv_005 ACCEPT
+TASK START: baseline1 adult_dedup_001 (11/100 saved)
+TASK DONE: baseline1 12/100 adult_dedup_001 ACCEPT
+TASK START: baseline1 adult_dedup_002 (12/100 saved)
+TASK DONE: baseline1 13/100 adult_dedup_002 ACCEPT
+TASK START: baseline1 adult_dedup_003 (13/100 saved)
+TASK DONE: baseline1 14/100 adult_dedup_003 ACCEPT
+TASK START: baseline1 adult_dedup_004 (14/100 saved)
+TASK DONE: baseline1 15/100 adult_dedup_004 ACCEPT
+TASK START: baseline1 adult_dedup_005 (15/100 saved)
+TASK DONE: baseline1 16/100 adult_dedup_005 ACCEPT
+TASK START: baseline1 adult_filt_001 (16/100 saved)
+TASK DONE: baseline1 17/100 adult_filt_001 ACCEPT
+TASK START: baseline1 adult_filt_002 (17/100 saved)
+TASK DONE: baseline1 18/100 adult_filt_002 ACCEPT
+TASK START: baseline1 adult_filt_003 (18/100 saved)
+TASK DONE: baseline1 19/100 adult_filt_003 ACCEPT
+TASK START: baseline1 adult_filt_004 (19/100 saved)
+TASK DONE: baseline1 20/100 adult_filt_004 ACCEPT
+TASK START: baseline1 adult_filt_005 (20/100 saved)
+TASK DONE: baseline1 21/100 adult_filt_005 ACCEPT
+TASK START: baseline1 adult_miss_001 (21/100 saved)
+TASK DONE: baseline1 22/100 adult_miss_001 ACCEPT
+TASK START: baseline1 adult_miss_002 (22/100 saved)
+TASK DONE: baseline1 23/100 adult_miss_002 ACCEPT
+TASK START: baseline1 adult_miss_003 (23/100 saved)
+TASK DONE: baseline1 24/100 adult_miss_003 ACCEPT
+TASK START: baseline1 adult_miss_004 (24/100 saved)
+TASK DONE: baseline1 25/100 adult_miss_004 ACCEPT
+TASK START: baseline1 adult_miss_005 (25/100 saved)
+TASK DONE: baseline1 26/100 adult_miss_005 ACCEPT
+TASK START: baseline1 airbnb_col_001 (26/100 saved)
+TASK DONE: baseline1 27/100 airbnb_col_001 ACCEPT
+TASK START: baseline1 airbnb_col_002 (27/100 saved)
+TASK DONE: baseline1 28/100 airbnb_col_002 ACCEPT
+TASK START: baseline1 airbnb_col_003 (28/100 saved)
+TASK DONE: baseline1 29/100 airbnb_col_003 ACCEPT
+TASK START: baseline1 airbnb_col_004 (29/100 saved)
+TASK DONE: baseline1 30/100 airbnb_col_004 ACCEPT
+TASK START: baseline1 airbnb_col_005 (30/100 saved)
+TASK DONE: baseline1 31/100 airbnb_col_005 ACCEPT
+TASK START: baseline1 airbnb_conv_001 (31/100 saved)
+TASK DONE: baseline1 32/100 airbnb_conv_001 ACCEPT
+TASK START: baseline1 airbnb_conv_002 (32/100 saved)
+TASK DONE: baseline1 33/100 airbnb_conv_002 ACCEPT
+TASK START: baseline1 airbnb_conv_003 (33/100 saved)
+TASK DONE: baseline1 34/100 airbnb_conv_003 ACCEPT
+TASK START: baseline1 airbnb_conv_004 (34/100 saved)
+TASK DONE: baseline1 35/100 airbnb_conv_004 ACCEPT
+TASK START: baseline1 airbnb_conv_005 (35/100 saved)
+TASK DONE: baseline1 36/100 airbnb_conv_005 ACCEPT
+TASK START: baseline1 airbnb_dedup_001 (36/100 saved)
+TASK DONE: baseline1 37/100 airbnb_dedup_001 ACCEPT
+TASK START: baseline1 airbnb_dedup_002 (37/100 saved)
+TASK DONE: baseline1 38/100 airbnb_dedup_002 REJECT
+TASK START: baseline1 airbnb_dedup_003 (38/100 saved)
+TASK DONE: baseline1 39/100 airbnb_dedup_003 ACCEPT
+TASK START: baseline1 airbnb_dedup_004 (39/100 saved)
+TASK DONE: baseline1 40/100 airbnb_dedup_004 ACCEPT
+TASK START: baseline1 airbnb_dedup_005 (40/100 saved)
+TASK DONE: baseline1 41/100 airbnb_dedup_005 ACCEPT
+TASK START: baseline1 airbnb_filt_001 (41/100 saved)
+TASK DONE: baseline1 42/100 airbnb_filt_001 ACCEPT
+TASK START: baseline1 airbnb_filt_002 (42/100 saved)
+TASK DONE: baseline1 43/100 airbnb_filt_002 ACCEPT
+TASK START: baseline1 airbnb_filt_003 (43/100 saved)
+TASK DONE: baseline1 44/100 airbnb_filt_003 ACCEPT
+TASK START: baseline1 airbnb_filt_004 (44/100 saved)
+TASK DONE: baseline1 45/100 airbnb_filt_004 ACCEPT
+TASK START: baseline1 airbnb_filt_005 (45/100 saved)
+TASK DONE: baseline1 46/100 airbnb_filt_005 ACCEPT
+TASK START: baseline1 airbnb_miss_001 (46/100 saved)
+TASK DONE: baseline1 47/100 airbnb_miss_001 ACCEPT
+TASK START: baseline1 airbnb_miss_002 (47/100 saved)
+TASK DONE: baseline1 48/100 airbnb_miss_002 ACCEPT
+TASK START: baseline1 airbnb_miss_003 (48/100 saved)
+TASK DONE: baseline1 49/100 airbnb_miss_003 ACCEPT
+TASK START: baseline1 airbnb_miss_004 (49/100 saved)
+TASK DONE: baseline1 50/100 airbnb_miss_004 ACCEPT
+TASK START: baseline1 airbnb_miss_005 (50/100 saved)
+TASK DONE: baseline1 51/100 airbnb_miss_005 ACCEPT
+TASK START: baseline1 taxi_col_001 (51/100 saved)
+TASK DONE: baseline1 52/100 taxi_col_001 ACCEPT
+TASK START: baseline1 taxi_col_002 (52/100 saved)
+TASK DONE: baseline1 53/100 taxi_col_002 ACCEPT
+TASK START: baseline1 taxi_col_003 (53/100 saved)
+TASK DONE: baseline1 54/100 taxi_col_003 ACCEPT
+TASK START: baseline1 taxi_col_004 (54/100 saved)
+TASK DONE: baseline1 55/100 taxi_col_004 ACCEPT
+TASK START: baseline1 taxi_col_005 (55/100 saved)
+TASK DONE: baseline1 56/100 taxi_col_005 ACCEPT
+TASK START: baseline1 taxi_conv_001 (56/100 saved)
+TASK DONE: baseline1 57/100 taxi_conv_001 ACCEPT
+TASK START: baseline1 taxi_conv_002 (57/100 saved)
+TASK DONE: baseline1 58/100 taxi_conv_002 ACCEPT
+TASK START: baseline1 taxi_conv_003 (58/100 saved)
+TASK DONE: baseline1 59/100 taxi_conv_003 ACCEPT
+TASK START: baseline1 taxi_conv_004 (59/100 saved)
+TASK DONE: baseline1 60/100 taxi_conv_004 ACCEPT
+TASK START: baseline1 taxi_conv_005 (60/100 saved)
+TASK DONE: baseline1 61/100 taxi_conv_005 ACCEPT
+TASK START: baseline1 taxi_dedup_001 (61/100 saved)
+TASK DONE: baseline1 62/100 taxi_dedup_001 ACCEPT
+TASK START: baseline1 taxi_dedup_002 (62/100 saved)
+TASK DONE: baseline1 63/100 taxi_dedup_002 ACCEPT
+TASK START: baseline1 taxi_dedup_004 (63/100 saved)
+TASK DONE: baseline1 64/100 taxi_dedup_004 ACCEPT
+TASK START: baseline1 taxi_dedup_005 (64/100 saved)
+TASK DONE: baseline1 65/100 taxi_dedup_005 ACCEPT
+TASK START: baseline1 taxi_filt_001 (65/100 saved)
+TASK DONE: baseline1 66/100 taxi_filt_001 ACCEPT
+TASK START: baseline1 taxi_filt_002 (66/100 saved)
+TASK DONE: baseline1 67/100 taxi_filt_002 ACCEPT
+TASK START: baseline1 taxi_filt_003 (67/100 saved)
+TASK DONE: baseline1 68/100 taxi_filt_003 ACCEPT
+TASK START: baseline1 taxi_filt_004 (68/100 saved)
+TASK DONE: baseline1 69/100 taxi_filt_004 ACCEPT
+TASK START: baseline1 taxi_filt_005 (69/100 saved)
+TASK DONE: baseline1 70/100 taxi_filt_005 ACCEPT
+TASK START: baseline1 taxi_miss_001 (70/100 saved)
+TASK DONE: baseline1 71/100 taxi_miss_001 ACCEPT
+TASK START: baseline1 taxi_miss_002 (71/100 saved)
+TASK DONE: baseline1 72/100 taxi_miss_002 ACCEPT
+TASK START: baseline1 taxi_miss_003 (72/100 saved)
+TASK DONE: baseline1 73/100 taxi_miss_003 ACCEPT
+TASK START: baseline1 taxi_miss_004 (73/100 saved)
+TASK DONE: baseline1 74/100 taxi_miss_004 ACCEPT
+TASK START: baseline1 taxi_miss_005 (74/100 saved)
+TASK DONE: baseline1 75/100 taxi_miss_005 ACCEPT
+TASK START: baseline1 titanic_col_001 (75/100 saved)
+TASK DONE: baseline1 76/100 titanic_col_001 ACCEPT
+TASK START: baseline1 titanic_col_002 (76/100 saved)
+TASK DONE: baseline1 77/100 titanic_col_002 ACCEPT
+TASK START: baseline1 titanic_col_003 (77/100 saved)
+TASK DONE: baseline1 78/100 titanic_col_003 ACCEPT
+TASK START: baseline1 titanic_col_004 (78/100 saved)
+TASK DONE: baseline1 79/100 titanic_col_004 ACCEPT
+TASK START: baseline1 titanic_col_005 (79/100 saved)
+TASK DONE: baseline1 80/100 titanic_col_005 ACCEPT
+TASK START: baseline1 titanic_conv_001 (80/100 saved)
+TASK DONE: baseline1 81/100 titanic_conv_001 ACCEPT
+TASK START: baseline1 titanic_conv_002 (81/100 saved)
+TASK DONE: baseline1 82/100 titanic_conv_002 ACCEPT
+TASK START: baseline1 titanic_conv_003 (82/100 saved)
+TASK DONE: baseline1 83/100 titanic_conv_003 ACCEPT
+TASK START: baseline1 titanic_conv_004 (83/100 saved)
+TASK DONE: baseline1 84/100 titanic_conv_004 ACCEPT
+TASK START: baseline1 titanic_conv_005 (84/100 saved)
+TASK DONE: baseline1 85/100 titanic_conv_005 ACCEPT
+TASK START: baseline1 titanic_dedup_001 (85/100 saved)
+TASK DONE: baseline1 86/100 titanic_dedup_001 ACCEPT
+TASK START: baseline1 titanic_dedup_002 (86/100 saved)
+TASK DONE: baseline1 87/100 titanic_dedup_002 ACCEPT
+TASK START: baseline1 titanic_dedup_003 (87/100 saved)
+TASK DONE: baseline1 88/100 titanic_dedup_003 ACCEPT
+TASK START: baseline1 titanic_dedup_004 (88/100 saved)
+TASK DONE: baseline1 89/100 titanic_dedup_004 ACCEPT
+TASK START: baseline1 titanic_dedup_005 (89/100 saved)
+TASK DONE: baseline1 90/100 titanic_dedup_005 ACCEPT
+TASK START: baseline1 titanic_filt_001 (90/100 saved)
+TASK DONE: baseline1 91/100 titanic_filt_001 ACCEPT
+TASK START: baseline1 titanic_filt_002 (91/100 saved)
+TASK DONE: baseline1 92/100 titanic_filt_002 ACCEPT
+TASK START: baseline1 titanic_filt_003 (92/100 saved)
+TASK DONE: baseline1 93/100 titanic_filt_003 ACCEPT
+TASK START: baseline1 titanic_filt_004 (93/100 saved)
+TASK DONE: baseline1 94/100 titanic_filt_004 ACCEPT
+TASK START: baseline1 titanic_filt_005 (94/100 saved)
+TASK DONE: baseline1 95/100 titanic_filt_005 ACCEPT
+TASK START: baseline1 titanic_miss_001 (95/100 saved)
+TASK DONE: baseline1 96/100 titanic_miss_001 ACCEPT
+TASK START: baseline1 titanic_miss_002 (96/100 saved)
+TASK DONE: baseline1 97/100 titanic_miss_002 REJECT
+TASK START: baseline1 titanic_miss_003 (97/100 saved)
+TASK DONE: baseline1 98/100 titanic_miss_003 ACCEPT
+TASK START: baseline1 titanic_miss_004 (98/100 saved)
+TASK DONE: baseline1 99/100 titanic_miss_004 ACCEPT
+TASK START: baseline1 titanic_miss_005 (99/100 saved)
+TASK DONE: baseline1 100/100 titanic_miss_005 ACCEPT
+COMPLETE: baseline1 100/100 -> /kaggle/working/stage2_01_baseline1_bundle.zip
+
+Exit: 0; minutes: 7.56

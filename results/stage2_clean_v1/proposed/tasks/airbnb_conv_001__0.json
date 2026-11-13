@@ -1,0 +1,134 @@
+{
+  "record": {
+    "task_id": "airbnb_conv_001",
+    "split": "test",
+    "dataset": "airbnb",
+    "transformation_type": "type_conversion",
+    "difficulty": "medium",
+    "seed": 0,
+    "system": "proposed",
+    "preset": "proposed",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "parsed",
+    "generator_contract": true,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "generator_prompt": "b2-v2",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "ok",
+    "stage_ended": "repair",
+    "outcome": "ACCEPT",
+    "final_correct": true,
+    "initial_correct": false,
+    "initial_parse_ok": true,
+    "first_check": "error",
+    "no_repair_outcome": "REJECT",
+    "no_repair_correct": false,
+    "final_status": "PASS",
+    "attempts": 1,
+    "tool_calls": 1,
+    "llm_calls": 3,
+    "tokens": 5518,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": null,
+    "path": [
+      "PREPARE",
+      "PARSE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "ACCEPTED"
+    ],
+    "tool_trace": [
+      {
+        "tool": "inspect_dataset",
+        "ok": true,
+        "error_type": null
+      }
+    ],
+    "latency_s": 14.38
+  },
+  "trace": {
+    "task_id": "airbnb_conv_001",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    df['last_review'] = pd.to_datetime(df['last_review'], format='%Y-%m-%d')\n    df.rename(columns={'last_review': 'date_last_review'}, inplace=True)\n    return df.drop(columns=['last_review']).rename(columns={'date_last_review': 'last_review'})\n```",
+    "initial_code": "def transform(df):\n    df['last_review'] = pd.to_datetime(df['last_review'], format='%Y-%m-%d')\n    df.rename(columns={'last_review': 'date_last_review'}, inplace=True)\n    return df.drop(columns=['last_review']).rename(columns={'date_last_review': 'last_review'})",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "4d0722f376cc247d"
+      },
+      {
+        "step": 1,
+        "state": "EXECUTE",
+        "event": "execute_failed",
+        "code_hash": "4d0722f376cc247d",
+        "status": "error",
+        "error": "KeyError: \"['last_review'] not found in axis\""
+      },
+      {
+        "step": 2,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1591,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"inspect_dataset\", \"args\": {\"which\": \"before\", \"n_rows\": 3, \"columns\": [\"id\", \"name\", \"last_review\"]}}"
+      },
+      {
+        "step": 3,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "inspect_dataset",
+        "args": {
+          "which": "before",
+          "n_rows": 3,
+          "columns": [
+            "id",
+            "name",
+            "last_review"
+          ]
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 4,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2306,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df['last_review'] = pd.to_datetime(df['last_review'], format='%Y-%m-%d', errors='coerce')\n    return df\n```"
+      },
+      {
+        "step": 5,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "f3af32076ec02f70",
+        "implicit": false
+      },
+      {
+        "step": 6,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "f3af32076ec02f70",
+        "status": "PASS",
+        "n_failures": 0,
+        "failed": []
+      }
+    ]
+  }
+}

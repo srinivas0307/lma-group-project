@@ -1,5 +1,7 @@
 # Full QLoRA fine-tuning results and analysis
 
+**Follow-up audit:** [training, data, and validation audit](FINETUNE_AUDIT.md) confirms intact adapters and completed runs, but identifies inaccessible statistic targets, missing validation patterns, sparse difficult examples, and reproducibility gaps.
+
 Analysis and artifact import: **2026-11-11**. These results come from the uploaded full Kaggle run, not the earlier smoke notebook.
 
 Both Qwen2.5 adapters completed training and generated contracts for all 120 evaluation tasks. Fine-tuning substantially improves contract validity and Stage 1 verification compared with the prompted 7B baseline. It does not yet establish end-to-end Stage 2 generation-and-repair performance.

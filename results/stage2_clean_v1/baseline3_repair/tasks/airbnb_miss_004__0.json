@@ -1,0 +1,258 @@
+{
+  "record": {
+    "task_id": "airbnb_miss_004",
+    "split": "test",
+    "dataset": "airbnb",
+    "transformation_type": "missing_values",
+    "difficulty": "medium",
+    "seed": 0,
+    "system": "baseline3_repair",
+    "preset": "baseline3_repair",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "parsed",
+    "generator_contract": false,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "generator_prompt": "b1-v1",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "ok",
+    "stage_ended": "repair",
+    "outcome": "ESCALATE",
+    "final_correct": false,
+    "initial_correct": true,
+    "initial_parse_ok": true,
+    "first_check": "VIOLATION",
+    "no_repair_outcome": "REJECT",
+    "no_repair_correct": false,
+    "final_status": "VIOLATION",
+    "attempts": 3,
+    "tool_calls": 4,
+    "llm_calls": 8,
+    "tokens": 16687,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": "identical code proposed twice",
+    "path": [
+      "PREPARE",
+      "PARSE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "ESCALATED"
+    ],
+    "tool_trace": [
+      {
+        "tool": "profile_column",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "profile_column",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "run_transformation",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "run_verifier",
+        "ok": true,
+        "error_type": null
+      }
+    ],
+    "latency_s": 39.42
+  },
+  "trace": {
+    "task_id": "airbnb_miss_004",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    df['reviews_per_month'].fillna(df['reviews_per_month'].median(), inplace=True)\n    return df\n```",
+    "initial_code": "def transform(df):\n    df['reviews_per_month'].fillna(df['reviews_per_month'].median(), inplace=True)\n    return df",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "6b0688b057d16621"
+      },
+      {
+        "step": 1,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "6b0688b057d16621",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "c1"
+        ]
+      },
+      {
+        "step": 2,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1611,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"profile_column\", \"args\": {\"column\": \"reviews_per_month\", \"which\": \"before\", \"top\": 5}}"
+      },
+      {
+        "step": 3,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "profile_column",
+        "args": {
+          "column": "reviews_per_month",
+          "which": "before",
+          "top": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 4,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1896,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    median = df['reviews_per_month'].median()\n    df['reviews_per_month'].fillna(median, inplace=True)\n    return df\n```"
+      },
+      {
+        "step": 5,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "3ddd21ef751e2fa6",
+        "implicit": false
+      },
+      {
+        "step": 6,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "3ddd21ef751e2fa6",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "c1"
+        ]
+      },
+      {
+        "step": 7,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1746,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"profile_column\", \"args\": {\"column\": \"reviews_per_month\", \"which\": \"before\", \"top\": 10}}"
+      },
+      {
+        "step": 8,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "profile_column",
+        "args": {
+          "column": "reviews_per_month",
+          "which": "before",
+          "top": 10
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 9,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2110,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    median = df['reviews_per_month'].median()\n    df['reviews_per_month'].fillna(median, inplace=True)\n    return df\n```"
+      },
+      {
+        "step": 10,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "3ddd21ef751e2fa6",
+        "implicit": false
+      },
+      {
+        "step": 11,
+        "state": "REPAIR",
+        "event": "repeated_code",
+        "code_hash": "3ddd21ef751e2fa6",
+        "times": 1
+      },
+      {
+        "step": 12,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2301,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"run_transformation\", \"args\": {\"code\": \"def transform(df):\\n    import numpy as np\\n    median = np.median(df['reviews_per_month'].dropna())\\n    df['reviews_per_month'].fillna(median, inplace=True)\\n    return df\"}}"
+      },
+      {
+        "step": 13,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "run_transformation",
+        "args": {
+          "code": "2d3bd7d8ba10d02e"
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 14,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2992,
+        "cached": false,
+        "reply": "{\"action\": \"run_verifier\"}"
+      },
+      {
+        "step": 15,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "run_verifier",
+        "args": {},
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 16,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 3209,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    median = df['reviews_per_month'].median()\n    df['reviews_per_month'].fillna(median, inplace=True)\n    return df\n```"
+      },
+      {
+        "step": 17,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "3ddd21ef751e2fa6",
+        "implicit": false
+      },
+      {
+        "step": 18,
+        "state": "REPAIR",
+        "event": "repeated_code",
+        "code_hash": "3ddd21ef751e2fa6",
+        "times": 2
+      }
+    ]
+  }
+}

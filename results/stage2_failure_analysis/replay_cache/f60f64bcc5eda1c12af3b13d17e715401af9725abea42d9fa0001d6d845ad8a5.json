@@ -1,0 +1,22 @@
+{
+  "code_hash": "679067c28c145e82",
+  "code": "def transform(df):\n    out = df.copy()\n    out = out[~(out['Age'] < 18)]\n    return out\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": true,
+  "equivalence_reason": "equal",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "check",
+        "check": "distribution.mean_shift",
+        "value": 0.267566,
+        "threshold": 0.1,
+        "column": "Age"
+      }
+    ],
+    "evidence_rows": []
+  }
+}

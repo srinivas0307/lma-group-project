@@ -1,0 +1,7 @@
+system,n_runs,final_accuracy,no_repair_accuracy,repair_gain,repair_success,silent_error_rate,escalate,parse_escalations,mean_tokens
+baseline1,100,0.78,0.78,0.0,0.0,0.204,0.0,0,802
+baseline2_repair,100,0.72,0.7,0.02,0.091,0.153,0.03,0,2641
+baseline3_repair,100,0.67,0.61,0.06,0.333,0.043,0.19,13,3247
+gold_contract,100,0.94,0.77,0.17,0.739,0.0,0.01,0,3180
+proposed,100,0.76,0.66,0.1,0.385,0.026,0.09,2,5042
+no_contract_to_generator,100,0.73,0.66,0.07,0.318,0.027,0.1,2,4797

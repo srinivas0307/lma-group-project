@@ -1,0 +1,318 @@
+Command: ["/usr/bin/python3", "-m", "stage2_clean.runner", "--preset", "baseline2_repair", "--repo", "/kaggle/working/repo_stage2_clean_v1", "--out", "/kaggle/working/stage2_clean_v1", "--packages", "/kaggle/working/stage2_clean_packages"]
+GPU: {"task_id": null, "time": 1794568019.2305057, "event": "kernel_self_test_passed", "device": "cuda:0", "case": "causal_prefill", "max_absolute_error": 0.001953125, "rtol": 0.005, "atol": 0.005}
+GPU: {"task_id": null, "time": 1794568019.262326, "event": "kernel_self_test_passed", "device": "cuda:0", "case": "decode", "max_absolute_error": 0.00048828125, "rtol": 0.005, "atol": 0.005}
+GPU: {"task_id": null, "time": 1794568019.2643528, "event": "kernel_self_test_passed", "device": "cuda:0", "case": "masked_prefill", "max_absolute_error": 0.0009765625, "rtol": 0.005, "atol": 0.005}
+GPU: {"task_id": null, "time": 1794568019.4822075, "event": "kernel_self_test_passed", "device": "cuda:1", "case": "causal_prefill", "max_absolute_error": 0.001953125, "rtol": 0.005, "atol": 0.005}
+GPU: {"task_id": null, "time": 1794568019.4850013, "event": "kernel_self_test_passed", "device": "cuda:1", "case": "decode", "max_absolute_error": 0.00048828125, "rtol": 0.005, "atol": 0.005}
+GPU: {"task_id": null, "time": 1794568019.4867814, "event": "kernel_self_test_passed", "device": "cuda:1", "case": "masked_prefill", "max_absolute_error": 0.0009765625, "rtol": 0.005, "atol": 0.005}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]
+Fetching 2 files:  50%|█████     | 1/2 [00:31<00:31, 31.91s/it]
+Fetching 2 files: 100%|██████████| 2/2 [00:31<00:00, 15.96s/it]
+
+Loading weights:   0%|          | 0/434 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/434 [00:00<06:34,  1.10it/s]
+Loading weights:  17%|█▋        | 75/434 [00:01<00:03, 97.06it/s]
+Loading weights:  25%|██▍       | 108/434 [00:01<00:02, 117.97it/s]
+Loading weights:  31%|███       | 135/434 [00:01<00:02, 125.40it/s]
+Loading weights:  36%|███▌      | 157/434 [00:01<00:02, 126.19it/s]
+Loading weights:  41%|████      | 176/434 [00:01<00:02, 123.75it/s]
+Loading weights:  45%|████▍     | 195/434 [00:01<00:01, 120.43it/s]
+Loading weights:  50%|█████     | 219/434 [00:02<00:01, 131.31it/s]
+Loading weights:  54%|█████▍    | 235/434 [00:02<00:01, 129.12it/s]
+Loading weights:  59%|█████▉    | 255/434 [00:02<00:01, 124.02it/s]
+Loading weights:  64%|██████▍   | 279/434 [00:02<00:01, 142.17it/s]
+Loading weights:  70%|██████▉   | 303/434 [00:02<00:00, 135.82it/s]
+Loading weights:  73%|███████▎  | 318/434 [00:02<00:00, 136.15it/s]
+Loading weights:  78%|███████▊  | 339/434 [00:02<00:00, 128.28it/s]
+Loading weights:  84%|████████▎ | 363/434 [00:03<00:00, 143.98it/s]
+Loading weights:  87%|████████▋ | 379/434 [00:03<00:00, 130.14it/s]
+Loading weights:  92%|█████████▏| 399/434 [00:03<00:00, 138.25it/s]
+Loading weights:  97%|█████████▋| 423/434 [00:03<00:00, 144.09it/s]
+Loading weights: 100%|██████████| 434/434 [00:03<00:00, 121.91it/s]
+GPU: {"task_id": null, "time": 1794568080.1772172, "event": "model_loaded", "role": "generator", "model": "Qwen/Qwen2.5-3B-Instruct", "revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1", "device": "cuda:1", "four_bit": false, "quantized_parameters": 0, "allocated_bytes": 6180398080}
+
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]
+Fetching 4 files:  25%|██▌       | 1/4 [01:11<03:33, 71.29s/it]
+Fetching 4 files:  75%|███████▌  | 3/4 [01:11<00:18, 18.68s/it]
+Fetching 4 files: 100%|██████████| 4/4 [01:11<00:00, 17.96s/it]
+
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:00<05:30,  1.02it/s]
+Loading weights:   1%|          | 2/339 [00:02<06:47,  1.21s/it]
+Loading weights:   1%|          | 4/339 [00:03<03:57,  1.41it/s]
+Loading weights:   1%|▏         | 5/339 [00:03<03:21,  1.66it/s]
+Loading weights:   2%|▏         | 6/339 [00:03<02:36,  2.13it/s]
+Loading weights:   5%|▍         | 16/339 [00:03<00:34,  9.34it/s]
+Loading weights:   5%|▌         | 18/339 [00:04<00:38,  8.43it/s]
+Loading weights:   8%|▊         | 28/339 [00:04<00:18, 16.42it/s]
+Loading weights:   9%|▉         | 31/339 [00:04<00:20, 15.24it/s]
+Loading weights:  12%|█▏        | 40/339 [00:04<00:13, 22.73it/s]
+Loading weights:  13%|█▎        | 44/339 [00:05<00:14, 20.74it/s]
+Loading weights:  15%|█▌        | 52/339 [00:05<00:10, 26.76it/s]
+Loading weights:  17%|█▋        | 56/339 [00:05<00:12, 23.24it/s]
+Loading weights:  19%|█▉        | 64/339 [00:05<00:09, 29.20it/s]
+Loading weights:  20%|██        | 68/339 [00:05<00:10, 24.76it/s]
+Loading weights:  22%|██▏       | 76/339 [00:06<00:13, 19.72it/s]
+Loading weights:  23%|██▎       | 79/339 [00:07<00:26,  9.79it/s]
+Loading weights:  26%|██▌       | 88/339 [00:08<00:20, 12.30it/s]
+Loading weights:  27%|██▋       | 90/339 [00:08<00:26,  9.47it/s]
+Loading weights:  29%|██▉       | 100/339 [00:08<00:16, 14.66it/s]
+Loading weights:  30%|███       | 103/339 [00:09<00:17, 13.30it/s]
+Loading weights:  33%|███▎      | 112/339 [00:09<00:12, 18.23it/s]
+Loading weights:  34%|███▍      | 115/339 [00:09<00:14, 15.78it/s]
+Loading weights:  37%|███▋      | 124/339 [00:09<00:09, 22.36it/s]
+Loading weights:  38%|███▊      | 128/339 [00:10<00:10, 20.58it/s]
+Loading weights:  40%|████      | 136/339 [00:10<00:07, 26.24it/s]
+Loading weights:  41%|████▏     | 140/339 [00:10<00:08, 23.06it/s]
+Loading weights:  44%|████▎     | 148/339 [00:10<00:06, 28.26it/s]
+Loading weights:  45%|████▍     | 152/339 [00:11<00:14, 12.63it/s]
+Loading weights:  46%|████▌     | 156/339 [00:11<00:13, 14.02it/s]
+Loading weights:  47%|████▋     | 160/339 [00:12<00:16, 11.06it/s]
+Loading weights:  48%|████▊     | 162/339 [00:13<00:24,  7.16it/s]
+Loading weights:  50%|████▉     | 168/339 [00:13<00:16, 10.40it/s]
+Loading weights:  51%|█████     | 172/339 [00:13<00:13, 12.58it/s]
+Loading weights:  52%|█████▏    | 175/339 [00:14<00:17,  9.50it/s]
+Loading weights:  53%|█████▎    | 180/339 [00:14<00:12, 12.37it/s]
+Loading weights:  54%|█████▍    | 184/339 [00:14<00:10, 14.72it/s]
+Loading weights:  55%|█████▌    | 187/339 [00:14<00:10, 13.97it/s]
+Loading weights:  58%|█████▊    | 196/339 [00:14<00:06, 22.23it/s]
+Loading weights:  59%|█████▊    | 199/339 [00:15<00:13, 10.34it/s]
+Loading weights:  60%|██████    | 204/339 [00:16<00:10, 12.88it/s]
+Loading weights:  61%|██████▏   | 208/339 [00:16<00:12, 10.42it/s]
+Loading weights:  62%|██████▏   | 210/339 [00:17<00:19,  6.58it/s]
+Loading weights:  64%|██████▎   | 216/339 [00:17<00:12,  9.93it/s]
+Loading weights:  65%|██████▍   | 220/339 [00:18<00:12,  9.65it/s]
+Loading weights:  65%|██████▌   | 222/339 [00:19<00:19,  6.02it/s]
+Loading weights:  67%|██████▋   | 228/339 [00:19<00:12,  9.18it/s]
+Loading weights:  68%|██████▊   | 232/339 [00:19<00:12,  8.52it/s]
+Loading weights:  69%|██████▉   | 234/339 [00:20<00:16,  6.30it/s]
+Loading weights:  70%|███████   | 238/339 [00:20<00:11,  8.63it/s]
+Loading weights:  72%|███████▏  | 244/339 [00:20<00:08, 11.68it/s]
+Loading weights:  73%|███████▎  | 247/339 [00:21<00:08, 11.01it/s]
+Loading weights:  76%|███████▌  | 256/339 [00:21<00:04, 17.41it/s]
+Loading weights:  76%|███████▋  | 259/339 [00:21<00:05, 14.85it/s]
+Loading weights:  79%|███████▉  | 268/339 [00:22<00:04, 15.36it/s]
+Loading weights:  80%|███████▉  | 270/339 [00:22<00:05, 13.10it/s]
+Loading weights:  83%|████████▎ | 280/339 [00:23<00:03, 15.24it/s]
+Loading weights:  83%|████████▎ | 282/339 [00:24<00:06,  8.22it/s]
+Loading weights:  85%|████████▍ | 288/339 [00:24<00:04, 10.99it/s]
+Loading weights:  86%|████████▌ | 292/339 [00:25<00:04,  9.55it/s]
+Loading weights:  87%|████████▋ | 294/339 [00:26<00:07,  5.92it/s]
+Loading weights:  88%|████████▊ | 300/339 [00:26<00:04,  8.69it/s]
+Loading weights:  90%|████████▉ | 304/339 [00:26<00:04,  8.07it/s]
+Loading weights:  90%|█████████ | 306/339 [00:27<00:06,  5.24it/s]
+Loading weights:  91%|█████████▏| 310/339 [00:28<00:04,  7.23it/s]
+Loading weights:  93%|█████████▎| 316/339 [00:28<00:02,  7.96it/s]
+Loading weights:  94%|█████████▍| 318/339 [00:29<00:04,  5.25it/s]
+Loading weights:  95%|█████████▍| 322/339 [00:29<00:02,  7.21it/s]
+Loading weights:  96%|█████████▌| 326/339 [00:29<00:01,  9.65it/s]
+Loading weights:  97%|█████████▋| 329/339 [00:31<00:01,  5.99it/s]
+Loading weights:  98%|█████████▊| 331/339 [00:31<00:01,  5.30it/s]
+Loading weights:  99%|█████████▉| 336/339 [00:31<00:00,  7.91it/s]
+Loading weights: 100%|██████████| 339/339 [00:31<00:00, 10.66it/s]
+GPU: {"task_id": null, "time": 1794568189.462623, "event": "model_loaded", "role": "agent", "model": "Qwen/Qwen2.5-7B-Instruct", "revision": "a09a35458c702b33eeacc393d103063234e8bc28", "device": "cuda:0", "four_bit": true, "quantized_parameters": 196, "allocated_bytes": 5860898816}
+TASK START: baseline2_repair taxi_dedup_003 (0/100 saved)
+TASK DONE: baseline2_repair 1/100 taxi_dedup_003 ACCEPT
+TASK START: baseline2_repair adult_col_001 (1/100 saved)
+TASK DONE: baseline2_repair 2/100 adult_col_001 ACCEPT
+TASK START: baseline2_repair adult_col_002 (2/100 saved)
+TASK DONE: baseline2_repair 3/100 adult_col_002 ACCEPT
+TASK START: baseline2_repair adult_col_003 (3/100 saved)
+TASK DONE: baseline2_repair 4/100 adult_col_003 ACCEPT
+TASK START: baseline2_repair adult_col_004 (4/100 saved)
+TASK DONE: baseline2_repair 5/100 adult_col_004 ACCEPT
+TASK START: baseline2_repair adult_col_005 (5/100 saved)
+TASK DONE: baseline2_repair 6/100 adult_col_005 ACCEPT
+TASK START: baseline2_repair adult_conv_001 (6/100 saved)
+TASK DONE: baseline2_repair 7/100 adult_conv_001 ACCEPT
+TASK START: baseline2_repair adult_conv_002 (7/100 saved)
+TASK DONE: baseline2_repair 8/100 adult_conv_002 ACCEPT
+TASK START: baseline2_repair adult_conv_003 (8/100 saved)
+TASK DONE: baseline2_repair 9/100 adult_conv_003 ACCEPT
+TASK START: baseline2_repair adult_conv_004 (9/100 saved)
+TASK DONE: baseline2_repair 10/100 adult_conv_004 ACCEPT
+TASK START: baseline2_repair adult_conv_005 (10/100 saved)
+TASK DONE: baseline2_repair 11/100 adult_conv_005 ACCEPT
+TASK START: baseline2_repair adult_dedup_001 (11/100 saved)
+TASK DONE: baseline2_repair 12/100 adult_dedup_001 ACCEPT
+TASK START: baseline2_repair adult_dedup_002 (12/100 saved)
+TASK DONE: baseline2_repair 13/100 adult_dedup_002 ACCEPT
+TASK START: baseline2_repair adult_dedup_003 (13/100 saved)
+TASK DONE: baseline2_repair 14/100 adult_dedup_003 ACCEPT
+TASK START: baseline2_repair adult_dedup_004 (14/100 saved)
+TASK DONE: baseline2_repair 15/100 adult_dedup_004 ACCEPT
+TASK START: baseline2_repair adult_dedup_005 (15/100 saved)
+TASK DONE: baseline2_repair 16/100 adult_dedup_005 ACCEPT
+TASK START: baseline2_repair adult_filt_001 (16/100 saved)
+TASK DONE: baseline2_repair 17/100 adult_filt_001 ACCEPT
+TASK START: baseline2_repair adult_filt_002 (17/100 saved)
+TASK DONE: baseline2_repair 18/100 adult_filt_002 ACCEPT
+TASK START: baseline2_repair adult_filt_003 (18/100 saved)
+TASK DONE: baseline2_repair 19/100 adult_filt_003 ACCEPT
+TASK START: baseline2_repair adult_filt_004 (19/100 saved)
+TASK DONE: baseline2_repair 20/100 adult_filt_004 ACCEPT
+TASK START: baseline2_repair adult_filt_005 (20/100 saved)
+TASK DONE: baseline2_repair 21/100 adult_filt_005 ACCEPT
+TASK START: baseline2_repair adult_miss_001 (21/100 saved)
+TASK DONE: baseline2_repair 22/100 adult_miss_001 ACCEPT
+TASK START: baseline2_repair adult_miss_002 (22/100 saved)
+TASK DONE: baseline2_repair 23/100 adult_miss_002 ACCEPT
+TASK START: baseline2_repair adult_miss_003 (23/100 saved)
+TASK DONE: baseline2_repair 24/100 adult_miss_003 ACCEPT
+TASK START: baseline2_repair adult_miss_004 (24/100 saved)
+TASK DONE: baseline2_repair 25/100 adult_miss_004 ACCEPT
+TASK START: baseline2_repair adult_miss_005 (25/100 saved)
+TASK DONE: baseline2_repair 26/100 adult_miss_005 ACCEPT
+TASK START: baseline2_repair airbnb_col_001 (26/100 saved)
+TASK DONE: baseline2_repair 27/100 airbnb_col_001 ACCEPT
+TASK START: baseline2_repair airbnb_col_002 (27/100 saved)
+TASK DONE: baseline2_repair 28/100 airbnb_col_002 ACCEPT
+TASK START: baseline2_repair airbnb_col_003 (28/100 saved)
+TASK DONE: baseline2_repair 29/100 airbnb_col_003 ACCEPT
+TASK START: baseline2_repair airbnb_col_004 (29/100 saved)
+TASK DONE: baseline2_repair 30/100 airbnb_col_004 ACCEPT
+TASK START: baseline2_repair airbnb_col_005 (30/100 saved)
+TASK DONE: baseline2_repair 31/100 airbnb_col_005 ACCEPT
+TASK START: baseline2_repair airbnb_conv_001 (31/100 saved)
+TASK DONE: baseline2_repair 32/100 airbnb_conv_001 ACCEPT
+TASK START: baseline2_repair airbnb_conv_002 (32/100 saved)
+TASK DONE: baseline2_repair 33/100 airbnb_conv_002 ACCEPT
+TASK START: baseline2_repair airbnb_conv_003 (33/100 saved)
+TASK DONE: baseline2_repair 34/100 airbnb_conv_003 ACCEPT
+TASK START: baseline2_repair airbnb_conv_004 (34/100 saved)
+TASK DONE: baseline2_repair 35/100 airbnb_conv_004 ACCEPT
+TASK START: baseline2_repair airbnb_conv_005 (35/100 saved)
+TASK DONE: baseline2_repair 36/100 airbnb_conv_005 ACCEPT
+TASK START: baseline2_repair airbnb_dedup_001 (36/100 saved)
+TASK DONE: baseline2_repair 37/100 airbnb_dedup_001 REJECT
+TASK START: baseline2_repair airbnb_dedup_002 (37/100 saved)
+TASK DONE: baseline2_repair 38/100 airbnb_dedup_002 REJECT
+TASK START: baseline2_repair airbnb_dedup_003 (38/100 saved)
+TASK DONE: baseline2_repair 39/100 airbnb_dedup_003 REJECT
+TASK START: baseline2_repair airbnb_dedup_004 (39/100 saved)
+TASK DONE: baseline2_repair 40/100 airbnb_dedup_004 ACCEPT
+TASK START: baseline2_repair airbnb_dedup_005 (40/100 saved)
+TASK DONE: baseline2_repair 41/100 airbnb_dedup_005 ACCEPT
+TASK START: baseline2_repair airbnb_filt_001 (41/100 saved)
+TASK DONE: baseline2_repair 42/100 airbnb_filt_001 REJECT
+TASK START: baseline2_repair airbnb_filt_002 (42/100 saved)
+TASK DONE: baseline2_repair 43/100 airbnb_filt_002 ACCEPT
+TASK START: baseline2_repair airbnb_filt_003 (43/100 saved)
+TASK DONE: baseline2_repair 44/100 airbnb_filt_003 ACCEPT
+TASK START: baseline2_repair airbnb_filt_004 (44/100 saved)
+TASK DONE: baseline2_repair 45/100 airbnb_filt_004 REJECT
+TASK START: baseline2_repair airbnb_filt_005 (45/100 saved)
+TASK DONE: baseline2_repair 46/100 airbnb_filt_005 ACCEPT
+TASK START: baseline2_repair airbnb_miss_001 (46/100 saved)
+TASK DONE: baseline2_repair 47/100 airbnb_miss_001 ACCEPT
+TASK START: baseline2_repair airbnb_miss_002 (47/100 saved)
+TASK DONE: baseline2_repair 48/100 airbnb_miss_002 ACCEPT
+TASK START: baseline2_repair airbnb_miss_003 (48/100 saved)
+TASK DONE: baseline2_repair 49/100 airbnb_miss_003 ACCEPT
+TASK START: baseline2_repair airbnb_miss_004 (49/100 saved)
+TASK DONE: baseline2_repair 50/100 airbnb_miss_004 ACCEPT
+TASK START: baseline2_repair airbnb_miss_005 (50/100 saved)
+TASK DONE: baseline2_repair 51/100 airbnb_miss_005 ACCEPT
+TASK START: baseline2_repair taxi_col_001 (51/100 saved)
+TASK DONE: baseline2_repair 52/100 taxi_col_001 ACCEPT
+TASK START: baseline2_repair taxi_col_002 (52/100 saved)
+TASK DONE: baseline2_repair 53/100 taxi_col_002 ACCEPT
+TASK START: baseline2_repair taxi_col_003 (53/100 saved)
+TASK DONE: baseline2_repair 54/100 taxi_col_003 ACCEPT
+TASK START: baseline2_repair taxi_col_004 (54/100 saved)
+TASK DONE: baseline2_repair 55/100 taxi_col_004 ACCEPT
+TASK START: baseline2_repair taxi_col_005 (55/100 saved)
+TASK DONE: baseline2_repair 56/100 taxi_col_005 ACCEPT
+TASK START: baseline2_repair taxi_conv_001 (56/100 saved)
+TASK DONE: baseline2_repair 57/100 taxi_conv_001 ACCEPT
+TASK START: baseline2_repair taxi_conv_002 (57/100 saved)
+TASK DONE: baseline2_repair 58/100 taxi_conv_002 ACCEPT
+TASK START: baseline2_repair taxi_conv_003 (58/100 saved)
+TASK DONE: baseline2_repair 59/100 taxi_conv_003 ACCEPT
+TASK START: baseline2_repair taxi_conv_004 (59/100 saved)
+TASK DONE: baseline2_repair 60/100 taxi_conv_004 ACCEPT
+TASK START: baseline2_repair taxi_conv_005 (60/100 saved)
+TASK DONE: baseline2_repair 61/100 taxi_conv_005 ACCEPT
+TASK START: baseline2_repair taxi_dedup_001 (61/100 saved)
+TASK DONE: baseline2_repair 62/100 taxi_dedup_001 ACCEPT
+TASK START: baseline2_repair taxi_dedup_002 (62/100 saved)
+TASK DONE: baseline2_repair 63/100 taxi_dedup_002 ACCEPT
+TASK START: baseline2_repair taxi_dedup_004 (63/100 saved)
+TASK DONE: baseline2_repair 64/100 taxi_dedup_004 ACCEPT
+TASK START: baseline2_repair taxi_dedup_005 (64/100 saved)
+TASK DONE: baseline2_repair 65/100 taxi_dedup_005 REJECT
+TASK START: baseline2_repair taxi_filt_001 (65/100 saved)
+TASK DONE: baseline2_repair 66/100 taxi_filt_001 ACCEPT
+TASK START: baseline2_repair taxi_filt_002 (66/100 saved)
+TASK DONE: baseline2_repair 67/100 taxi_filt_002 ACCEPT
+TASK START: baseline2_repair taxi_filt_003 (67/100 saved)
+TASK DONE: baseline2_repair 68/100 taxi_filt_003 ACCEPT
+TASK START: baseline2_repair taxi_filt_004 (68/100 saved)
+TASK DONE: baseline2_repair 69/100 taxi_filt_004 ACCEPT
+TASK START: baseline2_repair taxi_filt_005 (69/100 saved)
+TASK DONE: baseline2_repair 70/100 taxi_filt_005 REJECT
+TASK START: baseline2_repair taxi_miss_001 (70/100 saved)
+TASK DONE: baseline2_repair 71/100 taxi_miss_001 ACCEPT
+TASK START: baseline2_repair taxi_miss_002 (71/100 saved)
+TASK DONE: baseline2_repair 72/100 taxi_miss_002 ACCEPT
+TASK START: baseline2_repair taxi_miss_003 (72/100 saved)
+TASK DONE: baseline2_repair 73/100 taxi_miss_003 ACCEPT
+TASK START: baseline2_repair taxi_miss_004 (73/100 saved)
+TASK DONE: baseline2_repair 74/100 taxi_miss_004 ACCEPT
+TASK START: baseline2_repair taxi_miss_005 (74/100 saved)
+TASK DONE: baseline2_repair 75/100 taxi_miss_005 ACCEPT
+TASK START: baseline2_repair titanic_col_001 (75/100 saved)
+TASK DONE: baseline2_repair 76/100 titanic_col_001 ACCEPT
+TASK START: baseline2_repair titanic_col_002 (76/100 saved)
+TASK DONE: baseline2_repair 77/100 titanic_col_002 ACCEPT
+TASK START: baseline2_repair titanic_col_003 (77/100 saved)
+TASK DONE: baseline2_repair 78/100 titanic_col_003 ACCEPT
+TASK START: baseline2_repair titanic_col_004 (78/100 saved)
+TASK DONE: baseline2_repair 79/100 titanic_col_004 ACCEPT
+TASK START: baseline2_repair titanic_col_005 (79/100 saved)
+TASK DONE: baseline2_repair 80/100 titanic_col_005 ACCEPT
+TASK START: baseline2_repair titanic_conv_001 (80/100 saved)
+TASK DONE: baseline2_repair 81/100 titanic_conv_001 ACCEPT
+TASK START: baseline2_repair titanic_conv_002 (81/100 saved)
+TASK DONE: baseline2_repair 82/100 titanic_conv_002 ACCEPT
+TASK START: baseline2_repair titanic_conv_003 (82/100 saved)
+TASK DONE: baseline2_repair 83/100 titanic_conv_003 ACCEPT
+TASK START: baseline2_repair titanic_conv_004 (83/100 saved)
+TASK DONE: baseline2_repair 84/100 titanic_conv_004 ACCEPT
+TASK START: baseline2_repair titanic_conv_005 (84/100 saved)
+TASK DONE: baseline2_repair 85/100 titanic_conv_005 ACCEPT
+TASK START: baseline2_repair titanic_dedup_001 (85/100 saved)
+TASK DONE: baseline2_repair 86/100 titanic_dedup_001 ESCALATE
+TASK START: baseline2_repair titanic_dedup_002 (86/100 saved)
+TASK DONE: baseline2_repair 87/100 titanic_dedup_002 REJECT
+TASK START: baseline2_repair titanic_dedup_003 (87/100 saved)
+TASK DONE: baseline2_repair 88/100 titanic_dedup_003 REJECT
+TASK START: baseline2_repair titanic_dedup_004 (88/100 saved)
+TASK DONE: baseline2_repair 89/100 titanic_dedup_004 ESCALATE
+TASK START: baseline2_repair titanic_dedup_005 (89/100 saved)
+TASK DONE: baseline2_repair 90/100 titanic_dedup_005 REJECT
+TASK START: baseline2_repair titanic_filt_001 (90/100 saved)
+TASK DONE: baseline2_repair 91/100 titanic_filt_001 ACCEPT
+TASK START: baseline2_repair titanic_filt_002 (91/100 saved)
+TASK DONE: baseline2_repair 92/100 titanic_filt_002 ACCEPT
+TASK START: baseline2_repair titanic_filt_003 (92/100 saved)
+TASK DONE: baseline2_repair 93/100 titanic_filt_003 REJECT
+TASK START: baseline2_repair titanic_filt_004 (93/100 saved)
+TASK DONE: baseline2_repair 94/100 titanic_filt_004 REJECT
+TASK START: baseline2_repair titanic_filt_005 (94/100 saved)
+TASK DONE: baseline2_repair 95/100 titanic_filt_005 ESCALATE
+TASK START: baseline2_repair titanic_miss_001 (95/100 saved)
+TASK DONE: baseline2_repair 96/100 titanic_miss_001 ACCEPT
+TASK START: baseline2_repair titanic_miss_002 (96/100 saved)
+TASK DONE: baseline2_repair 97/100 titanic_miss_002 ACCEPT
+TASK START: baseline2_repair titanic_miss_003 (97/100 saved)
+TASK DONE: baseline2_repair 98/100 titanic_miss_003 ACCEPT
+TASK START: baseline2_repair titanic_miss_004 (98/100 saved)
+TASK DONE: baseline2_repair 99/100 titanic_miss_004 ACCEPT
+TASK START: baseline2_repair titanic_miss_005 (99/100 saved)
+TASK DONE: baseline2_repair 100/100 titanic_miss_005 ACCEPT
+COMPLETE: baseline2_repair 100/100 -> /kaggle/working/stage2_02_baseline2_repair_bundle.zip
+
+Exit: 0; minutes: 16.53

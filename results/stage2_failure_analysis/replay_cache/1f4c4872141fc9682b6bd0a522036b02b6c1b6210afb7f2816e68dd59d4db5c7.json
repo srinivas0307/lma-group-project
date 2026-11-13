@@ -1,0 +1,8 @@
+{
+  "code_hash": "44750b25a338970e",
+  "code": "def transform(df):\n    df['education'] = df['education'].astype('category', ordered=True)\n    df['education'] = df['education'].cat.set_categories(['Preschool', 'Elementary School', 'Middle School', 'High School', 'Some College', 'College', 'Graduate'])\n    df['education'] = df['education'].cat.reorder_categories(['Preschool', 'Elementary School', 'Middle School', 'High School', 'Some College', 'College', 'Graduate'], ordered=True)\n    df['education'] = df['education'].cat.codes\n    return df",
+  "ran_ok": false,
+  "execution_status": "error",
+  "error": "TypeError: NDFrame.astype() got an unexpected keyword argument 'ordered'",
+  "correct": false
+}

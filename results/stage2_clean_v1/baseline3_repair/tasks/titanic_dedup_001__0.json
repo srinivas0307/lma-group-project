@@ -1,0 +1,242 @@
+{
+  "record": {
+    "task_id": "titanic_dedup_001",
+    "split": "test",
+    "dataset": "titanic",
+    "transformation_type": "deduplication",
+    "difficulty": "medium",
+    "seed": 0,
+    "system": "baseline3_repair",
+    "preset": "baseline3_repair",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "parsed",
+    "generator_contract": false,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "generator_prompt": "b1-v1",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "ok",
+    "stage_ended": "repair",
+    "outcome": "REJECT",
+    "final_correct": false,
+    "initial_correct": false,
+    "initial_parse_ok": true,
+    "first_check": "VIOLATION",
+    "no_repair_outcome": "REJECT",
+    "no_repair_correct": false,
+    "final_status": "VIOLATION",
+    "attempts": 3,
+    "tool_calls": 3,
+    "llm_calls": 7,
+    "tokens": 11251,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": null,
+    "path": [
+      "PREPARE",
+      "PARSE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REJECTED"
+    ],
+    "tool_trace": [
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      }
+    ],
+    "latency_s": 30.09
+  },
+  "trace": {
+    "task_id": "titanic_dedup_001",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    df['Ticket'] = df['Ticket'].str.replace('\\W+', '', regex=True)  # Remove non-alphanumeric characters from tickets\n    grouped = df.groupby('Ticket').head(1)  # Keep the first occurrence of each ticket\n    return grouped\n```",
+    "initial_code": "def transform(df):\n    df['Ticket'] = df['Ticket'].str.replace('\\\\W+', '', regex=True)\n    grouped = df.groupby('Ticket').head(1)\n    return grouped",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "10dfc5a10d615bf0"
+      },
+      {
+        "step": 1,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "10dfc5a10d615bf0",
+        "status": "VIOLATION",
+        "n_failures": 2,
+        "failed": [
+          "p1",
+          "p2"
+        ]
+      },
+      {
+        "step": 2,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1429,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 3,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 4,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1823,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df['Ticket'] = df['Ticket'].str.replace(r'\\W+', '', regex=True)\n    grouped = df.drop_duplicates(subset='Ticket', keep='first')\n    return grouped\n```"
+      },
+      {
+        "step": 5,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "eebf51e6fd3b8394",
+        "implicit": false
+      },
+      {
+        "step": 6,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "eebf51e6fd3b8394",
+        "status": "VIOLATION",
+        "n_failures": 2,
+        "failed": [
+          "p1",
+          "p2"
+        ]
+      },
+      {
+        "step": 7,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1598,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 8,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 9,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1997,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df['Ticket'] = df['Ticket'].str.replace(r'\\W+', '', regex=True)\n    grouped = df.drop_duplicates(subset='Ticket', keep='first').reset_index(drop=True)\n    return grouped\n```"
+      },
+      {
+        "step": 10,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "d91ab27b9b7b07f5",
+        "implicit": false
+      },
+      {
+        "step": 11,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "d91ab27b9b7b07f5",
+        "status": "VIOLATION",
+        "n_failures": 2,
+        "failed": [
+          "c1",
+          "p2"
+        ]
+      },
+      {
+        "step": 12,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1784,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 13,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 14,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1994,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df['Ticket'] = df['Ticket'].str.replace(r'\\W+', '', regex=True)\n    grouped = df.drop_duplicates(subset='Ticket', keep='first')\n    return grouped\n```"
+      },
+      {
+        "step": 15,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "eebf51e6fd3b8394",
+        "implicit": false
+      },
+      {
+        "step": 16,
+        "state": "REPAIR",
+        "event": "repeated_code",
+        "code_hash": "eebf51e6fd3b8394",
+        "times": 1
+      }
+    ]
+  }
+}

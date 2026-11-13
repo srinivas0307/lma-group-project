@@ -1,0 +1,22 @@
+{
+  "code_hash": "de00669d45455e22",
+  "code": "def transform(df):\n    out = df.drop_duplicates(subset=['Ticket', 'Pclass', 'Embarked'], keep='first')\n    return out\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": true,
+  "equivalence_reason": "equal",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "check",
+        "check": "distribution.mean_shift",
+        "value": 0.226123,
+        "threshold": 0.1,
+        "column": "SibSp"
+      }
+    ],
+    "evidence_rows": []
+  }
+}

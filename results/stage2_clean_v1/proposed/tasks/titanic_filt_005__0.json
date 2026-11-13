@@ -1,0 +1,196 @@
+{
+  "record": {
+    "task_id": "titanic_filt_005",
+    "split": "test",
+    "dataset": "titanic",
+    "transformation_type": "filtering",
+    "difficulty": "medium",
+    "seed": 0,
+    "system": "proposed",
+    "preset": "proposed",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "parsed",
+    "generator_contract": true,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "generator_prompt": "b2-v2",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "ok",
+    "stage_ended": "repair",
+    "outcome": "ESCALATE",
+    "final_correct": false,
+    "initial_correct": false,
+    "initial_parse_ok": true,
+    "first_check": "error",
+    "no_repair_outcome": "REJECT",
+    "no_repair_correct": false,
+    "final_status": "UNCERTAIN",
+    "attempts": 1,
+    "tool_calls": 3,
+    "llm_calls": 5,
+    "tokens": 11720,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": "verifier uncertain",
+    "path": [
+      "PREPARE",
+      "PARSE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "ESCALATED"
+    ],
+    "tool_trace": [
+      {
+        "tool": "inspect_dataset",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "diff_datasets",
+        "ok": false,
+        "error_type": "tool_error"
+      },
+      {
+        "tool": "run_transformation",
+        "ok": true,
+        "error_type": null
+      }
+    ],
+    "latency_s": 34.67
+  },
+  "trace": {
+    "task_id": "titanic_filt_005",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    # Deduplicate based on the condition of having no siblings/spouses, parents/children, and no cabin/ticket\n    df_deduped = df.drop_duplicates(subset=[col for col in ['SibSp', 'Parch', 'Cabin', 'Ticket'] if col != 'PassengerId'], keep='first')\n    \n    # Filter to keep only those who travelled alone (SibSp=0, Parch=0, Cabin='', Ticket='')\n    df_filtered = df_deduped[df_deduped['SibSp'] == 0 & df_deduped['Parch'] == 0 & df_deduped['Cabin'].isnull() & df_deduped['Ticket'].str.len() == 0]\n    \n    return df_filtered\n```",
+    "initial_code": "def transform(df):\n    df_deduped = df.drop_duplicates(subset=[col for col in ['SibSp', 'Parch', 'Cabin', 'Ticket'] if col != 'PassengerId'], keep='first')\n    df_filtered = df_deduped[df_deduped['SibSp'] == 0 & df_deduped['Parch'] == 0 & df_deduped['Cabin'].isnull() & df_deduped['Ticket'].str.len() == 0]\n    return df_filtered",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "65be0c414edfdd31"
+      },
+      {
+        "step": 1,
+        "state": "EXECUTE",
+        "event": "execute_failed",
+        "code_hash": "65be0c414edfdd31",
+        "status": "error",
+        "error": "ValueError: The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all()."
+      },
+      {
+        "step": 2,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1643,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"inspect_dataset\", \"args\": {\"which\": \"before\", \"n_rows\": 5, \"columns\": [\"PassengerId\", \"Survived\", \"Pclass\", \"Name\", \"Sex\", \"Age\", \"SibSp\", \"Parch\", \"Ticket\", \"Fare\", \"Cabin\", \"Embarked\"]}}"
+      },
+      {
+        "step": 3,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "inspect_dataset",
+        "args": {
+          "which": "before",
+          "n_rows": 5,
+          "columns": [
+            "PassengerId",
+            "Survived",
+            "Pclass",
+            "Name",
+            "Sex",
+            "Age",
+            "SibSp",
+            "Parch",
+            "Ticket",
+            "Fare",
+            "Cabin",
+            "Embarked"
+          ]
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 4,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2650,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 5,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": false,
+        "error_type": "tool_error"
+      },
+      {
+        "step": 6,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2812,
+        "cached": false,
+        "reply": "{\"action\": \"run_transformation\", \"args\": {\"code\": \"def transform(df):\\n    out = df[(df['SibSp'] == 0) & (df['Parch'] == 0) & df['Cabin'].isnull() & (df['Ticket'].str.len() == 0)]\\n    return out\"}}"
+      },
+      {
+        "step": 7,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "run_transformation",
+        "args": {
+          "code": "b98fbac1e26a0356"
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 8,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 3019,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    out = df[(df['SibSp'] == 0) & (df['Parch'] == 0) & df['Cabin'].isnull() & (df['Ticket'].str.len() == 0)]\n    return out\n```"
+      },
+      {
+        "step": 9,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "b98fbac1e26a0356",
+        "implicit": false
+      },
+      {
+        "step": 10,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "b98fbac1e26a0356",
+        "status": "UNCERTAIN",
+        "n_failures": 2,
+        "failed": [
+          "c1",
+          "p1"
+        ]
+      }
+    ]
+  }
+}

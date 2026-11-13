@@ -1,0 +1,14 @@
+{
+  "code_hash": "4d1a490c44070880",
+  "code": "def transform(df):\n    df['income'] = df['income'].map({'<=50K': 0, '>50K': 1})\n    return df",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": false,
+  "equivalence_reason": "dtype family differs in income (int vs category)",
+  "checker": {
+    "status": "PASS",
+    "failures": [],
+    "evidence_rows": []
+  }
+}

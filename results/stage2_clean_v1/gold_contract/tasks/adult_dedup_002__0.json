@@ -1,0 +1,209 @@
+{
+  "record": {
+    "task_id": "adult_dedup_002",
+    "split": "test",
+    "dataset": "adult",
+    "transformation_type": "deduplication",
+    "difficulty": "hard",
+    "seed": 0,
+    "system": "gold_contract",
+    "preset": "gold_contract",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "oracle",
+    "generator_contract": true,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "generator_prompt": "b2-v2",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "ok",
+    "stage_ended": "repair",
+    "outcome": "ACCEPT",
+    "final_correct": true,
+    "initial_correct": false,
+    "initial_parse_ok": true,
+    "first_check": "error",
+    "no_repair_outcome": "REJECT",
+    "no_repair_correct": false,
+    "final_status": "PASS",
+    "attempts": 2,
+    "tool_calls": 3,
+    "llm_calls": 6,
+    "tokens": 9990,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": null,
+    "path": [
+      "PREPARE",
+      "PARSE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "ACCEPTED"
+    ],
+    "tool_trace": [
+      {
+        "tool": "diff_datasets",
+        "ok": false,
+        "error_type": "tool_error"
+      },
+      {
+        "tool": "run_transformation",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      }
+    ],
+    "latency_s": 31.3
+  },
+  "trace": {
+    "task_id": "adult_dedup_002",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    df_no_fnlwgt = df.drop(columns=['fnlwgt'])\n    grouped = df_no_fnlwgt.groupby(df_no_fnlwgt.columns.tolist(), dropna=False)\n    last_occurrences = grouped.last()\n    result_df = pd.concat([df['fnlwgt'], last_occurrences]).reset_index(drop=True)\n    result_df.columns = df.columns\n    return result_df\n```",
+    "initial_code": "def transform(df):\n    df_no_fnlwgt = df.drop(columns=['fnlwgt'])\n    grouped = df_no_fnlwgt.groupby(df_no_fnlwgt.columns.tolist(), dropna=False)\n    last_occurrences = grouped.last()\n    result_df = pd.concat([df['fnlwgt'], last_occurrences]).reset_index(drop=True)\n    result_df.columns = df.columns\n    return result_df",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "cf3146844a61cbd0"
+      },
+      {
+        "step": 1,
+        "state": "EXECUTE",
+        "event": "execute_failed",
+        "code_hash": "cf3146844a61cbd0",
+        "status": "error",
+        "error": "ValueError: Length mismatch: Expected axis has 1 elements, new values have 15 elements"
+      },
+      {
+        "step": 2,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1478,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 3,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": false,
+        "error_type": "tool_error"
+      },
+      {
+        "step": 4,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1670,
+        "cached": false,
+        "reply": "{\"action\": \"run_transformation\", \"args\": {\"code\": \"def transform(df):\\n    df_no_fnlwgt = df.drop(columns=['fnlwgt'])\\n    grouped = df_no_fnlwgt.groupby(df_no_fnlwgt.columns.tolist(), dropna=False)\\n    last_occurrences = grouped.last()\\n    result_df = pd.concat([df['fnlwgt'], last_occurrences]).reset_index(drop=True)\\n    result_df.columns = df.columns\\n    return result_df\"}}"
+      },
+      {
+        "step": 5,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "run_transformation",
+        "args": {
+          "code": "cf3146844a61cbd0"
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 6,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1851,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df_no_fnlwgt = df.drop(columns=['fnlwgt'])\n    grouped = df_no_fnlwgt.groupby(df_no_fnlwgt.columns.tolist(), dropna=False)\n    last_occurrences = grouped.last().reset_index()\n    last_occurrences['fnlwgt'] = df['fnlwgt']\n    return last_occurrences\n```"
+      },
+      {
+        "step": 7,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "c38179b5886b7398",
+        "implicit": false
+      },
+      {
+        "step": 8,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "c38179b5886b7398",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "c1"
+        ]
+      },
+      {
+        "step": 9,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1655,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 10,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 11,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1902,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df_no_fnlwgt = df.drop(columns=['fnlwgt'])\n    last_occurrences = df_no_fnlwgt.drop_duplicates(subset=df_no_fnlwgt.columns.difference(['fnlwgt']), keep='last')\n    last_occurrences['fnlwgt'] = df[df.index.isin(last_occurrences.index)]['fnlwgt']\n    return last_occurrences\n```"
+      },
+      {
+        "step": 12,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "1fe452364a577abf",
+        "implicit": false
+      },
+      {
+        "step": 13,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "1fe452364a577abf",
+        "status": "PASS",
+        "n_failures": 0,
+        "failed": []
+      }
+    ]
+  }
+}

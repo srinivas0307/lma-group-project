@@ -1,0 +1,27 @@
+{
+  "version": "cq-draft-v1",
+  "seed": 719,
+  "status": "synthetic_draft",
+  "counts": {
+    "dev": 80,
+    "selection": 40,
+    "unsupported": 6
+  },
+  "limitations": [
+    "Shared transformation templates across dataset-disjoint splits; not an independent benchmark.",
+    "Alternate positive may repeat reference code; independent implementations are not available for every pattern.",
+    "Multi-edit, keep-none, tied modes and numeric-text conversion remain coverage gaps."
+  ],
+  "sha256": {
+    "adapters.json": "9ef7c2960c89c3341a408bed943cd8638210ab08b6c4d56e27cd84f848478a12",
+    "data/courier.csv": "4de1fffacfb4db30fd965c83b1fcd8b41c36296fe3880bff1724df3221fc1414",
+    "data/fabrication.csv": "417fd5ad961b97fd19ed28d47c7c53b02d0d721b1836477e63f38e1d204c969a",
+    "data/nursery.csv": "b6c6d1d5a51592c28ce353d68d66add630000ce5a8f0fa72d95187a6fb6bbcb0",
+    "data/reservoir.csv": "f101d965c7fe805cf9868d504ddebaced09a0b5d6d318b1231213bf0bf287906",
+    "data/solar.csv": "6f07142f311f26d8144d315d5c8d453bffbb99a4c905e5b2e47a0076af838040",
+    "data/warehouse.csv": "9c87680621cc2557a63b5d6868b30269421c614161df5a2ae083eb904cfec29d",
+    "dev.jsonl": "6c3031e0a86896e46d9d6999f7e843a49cb5c4d7b226066cc4d3d8ebf3e86d8d",
+    "selection.jsonl": "f8b1a15eb84b482bb0ea71d119dea1da9f01cfead04f11f199c6b5d5a627b099",
+    "unsupported.jsonl": "35fd569bce04d666aa1445a281697923fbae984fbc77fc9019e448c988db2497"
+  }
+}

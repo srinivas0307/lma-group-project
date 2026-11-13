@@ -1,0 +1,43 @@
+{
+  "code_hash": "7a17b55009cc0f7d",
+  "code": "def transform(df):\n    df.drop_duplicates(subset=['host_id'], keep='first', inplace=True)\n    return df\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": true,
+  "equivalence_reason": "equal",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "predicate",
+        "predicate_id": "c1",
+        "predicate_type": "duplicate_count",
+        "direction": "must_change",
+        "target": {
+          "cols": "*",
+          "except": [
+            "host_id"
+          ]
+        },
+        "expected": "one row per key group, the first one",
+        "observed": "157 groups wrong",
+        "detail": "157 of 1000 key groups don't keep exactly their first row",
+        "evidence_rows": [
+          22,
+          23,
+          33,
+          35,
+          39
+        ]
+      }
+    ],
+    "evidence_rows": [
+      22,
+      23,
+      33,
+      35,
+      39
+    ]
+  }
+}

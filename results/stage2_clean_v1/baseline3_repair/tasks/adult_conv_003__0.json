@@ -1,0 +1,274 @@
+{
+  "record": {
+    "task_id": "adult_conv_003",
+    "split": "test",
+    "dataset": "adult",
+    "transformation_type": "type_conversion",
+    "difficulty": "hard",
+    "seed": 0,
+    "system": "baseline3_repair",
+    "preset": "baseline3_repair",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "parsed",
+    "generator_contract": false,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "generator_prompt": "b1-v1",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "ok",
+    "stage_ended": "repair",
+    "outcome": "REJECT",
+    "final_correct": false,
+    "initial_correct": false,
+    "initial_parse_ok": true,
+    "first_check": "VIOLATION",
+    "no_repair_outcome": "REJECT",
+    "no_repair_correct": false,
+    "final_status": "VIOLATION",
+    "attempts": 3,
+    "tool_calls": 4,
+    "llm_calls": 8,
+    "tokens": 17105,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": null,
+    "path": [
+      "PREPARE",
+      "PARSE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REJECTED"
+    ],
+    "tool_trace": [
+      {
+        "tool": "profile_column",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "profile_column",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "inspect_dataset",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "profile_column",
+        "ok": true,
+        "error_type": null
+      }
+    ],
+    "latency_s": 55.19
+  },
+  "trace": {
+    "task_id": "adult_conv_003",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    cat_vars = ['education']\n    df[cat_vars] = df[cat_vars].apply(lambda x: pd.Categorical(x, categories=x.unique(), ordered=True))\n    return df\n```",
+    "initial_code": "def transform(df):\n    cat_vars = ['education']\n    df[cat_vars] = df[cat_vars].apply(lambda x: pd.Categorical(x, categories=x.unique(), ordered=True))\n    return df",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "6846bae2a29649b9"
+      },
+      {
+        "step": 1,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "6846bae2a29649b9",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "c1"
+        ]
+      },
+      {
+        "step": 2,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1593,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"profile_column\", \"args\": {\"column\": \"education\", \"which\": \"before\", \"top\": 20}}"
+      },
+      {
+        "step": 3,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "profile_column",
+        "args": {
+          "column": "education",
+          "which": "before",
+          "top": 20
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 4,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1986,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"profile_column\", \"args\": {\"column\": \"education-num\", \"which\": \"before\", \"top\": 20}}"
+      },
+      {
+        "step": 5,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "profile_column",
+        "args": {
+          "column": "education-num",
+          "which": "before",
+          "top": 20
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 6,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2473,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    cat_order = [\"Preschool\", \"1st-4th\", \"5th-6th\", \"7th-8th\", \"9th\", \"10th\", \"11th\", \"12th\", \"HS-grad\", \"Some-college\", \"Assoc-voc\", \"Assoc-acdm\", \"Bachelors\", \"Masters\", \"Doctorate\"]\n    df['education'] = pd.Categorical(df['education'], categories=cat_order, ordered=True)\n    return df\n```"
+      },
+      {
+        "step": 7,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "e13ff91b2ab58233",
+        "implicit": false
+      },
+      {
+        "step": 8,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "e13ff91b2ab58233",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "c1"
+        ]
+      },
+      {
+        "step": 9,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1837,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"inspect_dataset\", \"args\": {\"which\": \"before\", \"n_rows\": 3, \"columns\": [\"education\"]}}"
+      },
+      {
+        "step": 10,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "inspect_dataset",
+        "args": {
+          "which": "before",
+          "n_rows": 3,
+          "columns": [
+            "education"
+          ]
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 11,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2414,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"profile_column\", \"args\": {\"column\": \"education\", \"which\": \"before\", \"top\": 20}}"
+      },
+      {
+        "step": 12,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "profile_column",
+        "args": {
+          "column": "education",
+          "which": "before",
+          "top": 20
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 13,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2893,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    cat_order = [\"Preschool\", \"1st-4th\", \"5th-6th\", \"7th-8th\", \"9th\", \"10th\", \"11th\", \"12th\", \"HS-grad\", \"Some-college\", \"Assoc-voc\", \"Assoc-acdm\", \"Bachelors\", \"Masters\", \"Doctorate\"]\n    df['education'] = pd.Categorical(df['education'], categories=cat_order, ordered=True)\n    return df\n```"
+      },
+      {
+        "step": 14,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "e13ff91b2ab58233",
+        "implicit": false
+      },
+      {
+        "step": 15,
+        "state": "REPAIR",
+        "event": "repeated_code",
+        "code_hash": "e13ff91b2ab58233",
+        "times": 1
+      },
+      {
+        "step": 16,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 3220,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    cat_order = [\"Preschool\", \"1st-4th\", \"5th-6th\", \"7th-8th\", \"9th\", \"10th\", \"11th\", \"12th\", \"HS-grad\", \"Some-college\", \"Assoc-voc\", \"Assoc-acdm\", \"Bachelors\", \"Masters\", \"Doctorate\"]\n    df['education'] = pd.Categorical(df['education'], categories=cat_order, ordered=True, dtype='category')\n    return df\n```"
+      },
+      {
+        "step": 17,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "0bf6734cd8706b57",
+        "implicit": false
+      },
+      {
+        "step": 18,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "0bf6734cd8706b57",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "c1"
+        ]
+      }
+    ]
+  }
+}

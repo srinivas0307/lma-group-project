@@ -1,0 +1,75 @@
+{
+  "record": {
+    "task_id": "taxi_dedup_002",
+    "split": "test",
+    "dataset": "taxi",
+    "transformation_type": "deduplication",
+    "difficulty": "hard",
+    "seed": 0,
+    "system": "gold_contract",
+    "preset": "gold_contract",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "oracle",
+    "generator_contract": true,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "generator_prompt": "b2-v2",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "ok",
+    "stage_ended": "check",
+    "outcome": "ACCEPT",
+    "final_correct": true,
+    "initial_correct": true,
+    "initial_parse_ok": true,
+    "first_check": "PASS",
+    "no_repair_outcome": "ACCEPT",
+    "no_repair_correct": true,
+    "final_status": "PASS",
+    "attempts": 0,
+    "tool_calls": 0,
+    "llm_calls": 1,
+    "tokens": 1857,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": null,
+    "path": [
+      "PREPARE",
+      "PARSE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "ACCEPTED"
+    ],
+    "tool_trace": [],
+    "latency_s": 5.03
+  },
+  "trace": {
+    "task_id": "taxi_dedup_002",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    df['combined_key'] = df['VendorID'].astype(str) + '_' + df['tpep_pickup_datetime'].astype(str) + '_' + df['tpep_dropoff_datetime'].astype(str)\n    grouped = df.groupby('combined_key').tail(1).drop(columns='combined_key')\n    return grouped\n```",
+    "initial_code": "def transform(df):\n    df['combined_key'] = df['VendorID'].astype(str) + '_' + df['tpep_pickup_datetime'].astype(str) + '_' + df['tpep_dropoff_datetime'].astype(str)\n    grouped = df.groupby('combined_key').tail(1).drop(columns='combined_key')\n    return grouped",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "699cf40ee55a3d71"
+      },
+      {
+        "step": 1,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "699cf40ee55a3d71",
+        "status": "PASS",
+        "n_failures": 0,
+        "failed": []
+      }
+    ]
+  }
+}

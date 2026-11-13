@@ -1,0 +1,38 @@
+{
+  "code_hash": "cad262b1dc050e17",
+  "code": "def transform(df):\n    df['income'] = df['income'].map({'<=50K': 0, '>50K': 1})\n    df['income'] = df['income'].astype(int)\n    return df",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": true,
+  "equivalence_reason": "equal",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "predicate",
+        "predicate_id": "c2",
+        "predicate_type": "column_value_relation",
+        "direction": "must_change",
+        "target": "income",
+        "expected": "income = map(...)",
+        "observed": "768 of 1000 rows differ",
+        "detail": "e.g. row 0: expected '<=50K', got 0",
+        "evidence_rows": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ],
+    "evidence_rows": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  }
+}

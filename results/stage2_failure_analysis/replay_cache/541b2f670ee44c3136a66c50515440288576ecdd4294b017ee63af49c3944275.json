@@ -1,0 +1,14 @@
+{
+  "code_hash": "6846bae2a29649b9",
+  "code": "def transform(df):\n    cat_vars = ['education']\n    df[cat_vars] = df[cat_vars].apply(lambda x: pd.Categorical(x, categories=x.unique(), ordered=True))\n    return df",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": false,
+  "equivalence_reason": "category order differs in education",
+  "checker": {
+    "status": "PASS",
+    "failures": [],
+    "evidence_rows": []
+  }
+}

@@ -1,0 +1,285 @@
+{
+  "record": {
+    "task_id": "titanic_dedup_001",
+    "split": "test",
+    "dataset": "titanic",
+    "transformation_type": "deduplication",
+    "difficulty": "medium",
+    "seed": 0,
+    "system": "baseline2_repair",
+    "preset": "baseline2_repair",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "none",
+    "generator_contract": false,
+    "verifier": "conventional",
+    "repair_mode": "full",
+    "generator_prompt": "b1-v1",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "not_used",
+    "stage_ended": "repair",
+    "outcome": "ESCALATE",
+    "final_correct": false,
+    "initial_correct": false,
+    "initial_parse_ok": true,
+    "first_check": "VIOLATION",
+    "no_repair_outcome": "REJECT",
+    "no_repair_correct": false,
+    "final_status": "VIOLATION",
+    "attempts": 3,
+    "tool_calls": 4,
+    "llm_calls": 8,
+    "tokens": 15269,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": "identical code proposed twice",
+    "path": [
+      "PREPARE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "ESCALATED"
+    ],
+    "tool_trace": [
+      {
+        "tool": "inspect_dataset",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "run_transformation",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "inspect_dataset",
+        "ok": true,
+        "error_type": null
+      }
+    ],
+    "latency_s": 41.11
+  },
+  "trace": {
+    "task_id": "titanic_dedup_001",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    df['Ticket'] = df['Ticket'].str.replace('\\W+', '', regex=True)  # Remove non-alphanumeric characters from tickets\n    grouped = df.groupby('Ticket').head(1)  # Keep the first occurrence of each ticket\n    return grouped\n```",
+    "initial_code": "def transform(df):\n    df['Ticket'] = df['Ticket'].str.replace('\\\\W+', '', regex=True)\n    grouped = df.groupby('Ticket').head(1)\n    return grouped",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "10dfc5a10d615bf0"
+      },
+      {
+        "step": 1,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "10dfc5a10d615bf0",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "distribution.mean_shift"
+        ]
+      },
+      {
+        "step": 2,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1313,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"inspect_dataset\", \"args\": {\"which\": \"before\", \"n_rows\": 5, \"columns\": [\"PassengerId\", \"Survived\", \"Pclass\", \"Name\", \"Sex\", \"Age\", \"SibSp\", \"Parch\", \"Ticket\", \"Fare\", \"Cabin\", \"Embarked\"]}}"
+      },
+      {
+        "step": 3,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "inspect_dataset",
+        "args": {
+          "which": "before",
+          "n_rows": 5,
+          "columns": [
+            "PassengerId",
+            "Survived",
+            "Pclass",
+            "Name",
+            "Sex",
+            "Age",
+            "SibSp",
+            "Parch",
+            "Ticket",
+            "Fare",
+            "Cabin",
+            "Embarked"
+          ]
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 4,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2367,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"run_transformation\", \"args\": {\"code\": \"def transform(df):\\n    df['Ticket'] = df['Ticket'].str.replace(r'[\\\\W]+', '', regex=True)\\n    grouped = df.drop_duplicates(subset='Ticket', keep='first')\\n    return grouped\"}}"
+      },
+      {
+        "step": 5,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "run_transformation",
+        "args": {
+          "code": "d8c491b890a2c895"
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 6,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2899,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df['Ticket'] = df['Ticket'].str.replace(r'\\W+', '', regex=True)\n    out = df.drop_duplicates(subset='Ticket', keep='first')\n    return out\n```"
+      },
+      {
+        "step": 7,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "db2151d57a0765df",
+        "implicit": false
+      },
+      {
+        "step": 8,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "db2151d57a0765df",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "distribution.mean_shift"
+        ]
+      },
+      {
+        "step": 9,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1355,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 10,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 11,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1749,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df['Ticket'] = df['Ticket'].str.replace(r'\\W+', '', regex=True)\n    out = df.drop_duplicates(subset='Ticket', keep='first')\n    return out\n```"
+      },
+      {
+        "step": 12,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "db2151d57a0765df",
+        "implicit": false
+      },
+      {
+        "step": 13,
+        "state": "REPAIR",
+        "event": "repeated_code",
+        "code_hash": "db2151d57a0765df",
+        "times": 1
+      },
+      {
+        "step": 14,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1963,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"inspect_dataset\", \"args\": {\"which\": \"last_output\", \"n_rows\": 5, \"columns\": [\"PassengerId\", \"Survived\", \"Pclass\", \"Name\", \"Sex\", \"Age\", \"SibSp\", \"Parch\", \"Ticket\", \"Fare\", \"Cabin\", \"Embarked\"]}}"
+      },
+      {
+        "step": 15,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "inspect_dataset",
+        "args": {
+          "which": "last_output",
+          "n_rows": 5,
+          "columns": [
+            "PassengerId",
+            "Survived",
+            "Pclass",
+            "Name",
+            "Sex",
+            "Age",
+            "SibSp",
+            "Parch",
+            "Ticket",
+            "Fare",
+            "Cabin",
+            "Embarked"
+          ]
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 16,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2997,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df['Ticket'] = df['Ticket'].str.replace(r'\\W+', '', regex=True)\n    out = df.drop_duplicates(subset='Ticket', keep='first')\n    return out\n```"
+      },
+      {
+        "step": 17,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "db2151d57a0765df",
+        "implicit": false
+      },
+      {
+        "step": 18,
+        "state": "REPAIR",
+        "event": "repeated_code",
+        "code_hash": "db2151d57a0765df",
+        "times": 2
+      }
+    ]
+  }
+}

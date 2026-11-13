@@ -1,0 +1,22 @@
+{
+  "code_hash": "81332d1fd840c358",
+  "code": "def transform(df):\n    df = df.copy()\n    df = df[(df['Age'] >= 18) | np.isnan(df['Age'])]\n    return df",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": true,
+  "equivalence_reason": "equal",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "check",
+        "check": "distribution.mean_shift",
+        "value": 0.267566,
+        "threshold": 0.1,
+        "column": "Age"
+      }
+    ],
+    "evidence_rows": []
+  }
+}

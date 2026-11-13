@@ -1,0 +1,14 @@
+{
+  "code_hash": "ca08be4436c231e6",
+  "code": "def transform(df):\n    df = df[(df['age'] <= 60) | (df['workclass'] != 'Self-emp-not-inc')].copy()\n    return df",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": false,
+  "equivalence_reason": "row count differs (989 vs 986)",
+  "checker": {
+    "status": "PASS",
+    "failures": [],
+    "evidence_rows": []
+  }
+}

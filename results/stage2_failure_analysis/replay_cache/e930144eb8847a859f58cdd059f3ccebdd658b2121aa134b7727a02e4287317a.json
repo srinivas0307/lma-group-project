@@ -1,0 +1,32 @@
+{
+  "code_hash": "dda492c5b49ce355",
+  "code": "def transform(df):\n    embarked_mode = df['Embarked'].mode()[0]\n    df['Embarked'].fillna(embarked_mode, inplace=True)\n    return df\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": true,
+  "equivalence_reason": "equal",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "predicate",
+        "predicate_id": "c1",
+        "predicate_type": "column_value_relation",
+        "direction": "must_change",
+        "target": "Embarked",
+        "expected": "Embarked = const(...) where condition",
+        "observed": "2 of 2 rows differ",
+        "detail": "e.g. row 61: expected 'C', got 'S'",
+        "evidence_rows": [
+          61,
+          829
+        ]
+      }
+    ],
+    "evidence_rows": [
+      61,
+      829
+    ]
+  }
+}

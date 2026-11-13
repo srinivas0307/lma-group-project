@@ -1,0 +1,40 @@
+{
+  "code_hash": "9f7c828d8dc18511",
+  "code": "def transform(df):\n    df.drop_duplicates(subset=['host_id', 'room_type'], keep='last', inplace=True)\n    df.sort_values(by=['host_id', 'room_type'], ascending=[True, False], inplace=True)\n    df.drop_duplicates(subset=['host_id'], keep='first', inplace=True)\n    return df",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": false,
+  "equivalence_reason": "row count differs (843 vs 868)",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "predicate",
+        "predicate_id": "c1",
+        "predicate_type": "duplicate_count",
+        "direction": "must_change",
+        "target": [
+          "room_type"
+        ],
+        "expected": "eq 0",
+        "observed": 840,
+        "detail": "840 rows still duplicate an earlier row on ['room_type']",
+        "evidence_rows": [
+          650,
+          69,
+          2,
+          3,
+          4
+        ]
+      }
+    ],
+    "evidence_rows": [
+      650,
+      69,
+      2,
+      3,
+      4
+    ]
+  }
+}

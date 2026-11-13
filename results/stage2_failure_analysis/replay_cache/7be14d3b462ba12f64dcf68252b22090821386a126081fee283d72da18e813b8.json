@@ -1,0 +1,14 @@
+{
+  "code_hash": "2eb0bc7ec6e0d99e",
+  "code": "def transform(df):\n    df['Sex'] = df['Sex'].map({'male': 0, 'female': 1})\n    return df",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": false,
+  "equivalence_reason": "dtype family differs in Sex (int vs category)",
+  "checker": {
+    "status": "PASS",
+    "failures": [],
+    "evidence_rows": []
+  }
+}

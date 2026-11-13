@@ -1,0 +1,60 @@
+{
+  "code_hash": "bb0d70574e4d70f2",
+  "code": "def transform(df):\n    education_order = ['Preschool', '1st-4th', '5th-6th', '7th-8th', '9th', '10th', '11th', '12th', 'HS-grad', 'Some-college', 'Assoc-acdm', 'Assoc-voc', 'Bachelors', 'Masters', 'Prof-school', 'Doctorate']\n    df['education'] = pd.Categorical(df['education'], categories=education_order, ordered=True)\n    return df\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": false,
+  "equivalence_reason": "category order differs in education",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "predicate",
+        "predicate_id": "c1",
+        "predicate_type": "column_dtype",
+        "direction": "must_change",
+        "target": "education",
+        "expected": "category, ordered=True, categories given",
+        "observed": [
+          "Preschool",
+          "1st-4th",
+          "5th-6th",
+          "7th-8th",
+          "9th",
+          "10th",
+          "11th",
+          "12th",
+          "HS-grad",
+          "Some-college",
+          "Assoc-acdm",
+          "Assoc-voc",
+          "Bachelors",
+          "Masters",
+          "Prof-school",
+          "Doctorate"
+        ],
+        "detail": "education categories differ (order matters: True)",
+        "evidence_rows": []
+      },
+      {
+        "kind": "predicate",
+        "predicate_id": "c2",
+        "predicate_type": "column_value_relation",
+        "direction": "must_change",
+        "target": "education",
+        "expected": "education = map(...)",
+        "observed": "2 of 1000 rows differ",
+        "detail": "e.g. row 224: expected 0, got 'Preschool'",
+        "evidence_rows": [
+          224,
+          932
+        ]
+      }
+    ],
+    "evidence_rows": [
+      224,
+      932
+    ]
+  }
+}

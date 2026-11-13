@@ -1,0 +1,41 @@
+{
+  "code_hash": "b8302b4459aae903",
+  "code": "def transform(df):\n    df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])\n    df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])\n    return df\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": true,
+  "equivalence_reason": "equal",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "predicate",
+        "predicate_id": "p1",
+        "predicate_type": "column_values_unchanged",
+        "direction": "must_preserve",
+        "target": [
+          "tpep_pickup_datetime",
+          "tpep_dropoff_datetime"
+        ],
+        "expected": "values unchanged",
+        "observed": "2000 changed cells in ['tpep_dropoff_datetime', 'tpep_pickup_datetime']",
+        "detail": "tpep_pickup_datetime: 1000 rows changed; tpep_dropoff_datetime: 1000 rows changed",
+        "evidence_rows": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ],
+    "evidence_rows": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  }
+}

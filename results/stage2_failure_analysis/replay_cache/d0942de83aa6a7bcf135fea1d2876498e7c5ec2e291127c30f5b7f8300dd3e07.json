@@ -1,0 +1,57 @@
+{
+  "code_hash": "5ad3b7968fbf4b21",
+  "code": "def transform(df):\n    median_age = df['Age'].median()\n    df.loc[df['Age'].isnull(), 'Age'] = median_age\n    return df.fillna(median_age)",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": false,
+  "equivalence_reason": "dtype family differs in Cabin (object vs string)",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "predicate",
+        "predicate_id": "c1",
+        "predicate_type": "column_value_relation",
+        "direction": "must_change",
+        "target": "Age",
+        "expected": "Age = const(...) where condition",
+        "observed": "177 of 177 rows differ",
+        "detail": "e.g. row 5: expected 37, got 28.0",
+        "evidence_rows": [
+          5,
+          17,
+          19,
+          26,
+          28
+        ]
+      },
+      {
+        "kind": "predicate",
+        "predicate_id": "p2",
+        "predicate_type": "columns_unchanged",
+        "direction": "must_preserve",
+        "target": {
+          "cols": "*",
+          "except": [
+            "Age"
+          ]
+        },
+        "expected": "same dtype family",
+        "observed": {
+          "Cabin": "string->object",
+          "Embarked": "string->object"
+        },
+        "detail": "dtype family changed in ['Cabin', 'Embarked']",
+        "evidence_rows": []
+      }
+    ],
+    "evidence_rows": [
+      5,
+      17,
+      19,
+      26,
+      28
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "code_hash": "bf7fc832402c6bd2",
+  "code": "def transform(df):\n    out = df.drop(columns=['fnlwgt']).drop_duplicates(subset=out.columns.difference(['fnlwgt']), keep='first')\n    out = pd.concat([out, df[['fnlwgt']]], axis=1)\n    return out\n",
+  "ran_ok": false,
+  "execution_status": "error",
+  "error": "UnboundLocalError: cannot access local variable 'out' where it is not associated with a value",
+  "correct": false
+}

@@ -1,0 +1,38 @@
+{
+  "code_hash": "c70456b943c07795",
+  "code": "def transform(df):\n    median_age = df['Age'].median()\n    df['Age'].fillna(median_age, inplace=True)\n    return df\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": true,
+  "equivalence_reason": "equal",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "predicate",
+        "predicate_id": "c1",
+        "predicate_type": "column_value_relation",
+        "direction": "must_change",
+        "target": "Age",
+        "expected": "Age = const(...) where condition",
+        "observed": "177 of 177 rows differ",
+        "detail": "e.g. row 5: expected 37, got 28.0",
+        "evidence_rows": [
+          5,
+          17,
+          19,
+          26,
+          28
+        ]
+      }
+    ],
+    "evidence_rows": [
+      5,
+      17,
+      19,
+      26,
+      28
+    ]
+  }
+}

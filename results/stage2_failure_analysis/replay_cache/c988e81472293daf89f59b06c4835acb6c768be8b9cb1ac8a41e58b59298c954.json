@@ -1,0 +1,14 @@
+{
+  "code_hash": "a68b88773d80fbc7",
+  "code": "def transform(df):\n    df['Pclass'] = pd.Categorical(df['Pclass'], categories=[1, 2, 3], ordered=True)\n    mapping = {1: 1, 2: 3, 3: 2}\n    df['Pclass'] = df['Pclass'].cat.rename_categories(mapping)\n    return df\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": false,
+  "equivalence_reason": "category order differs in Pclass",
+  "checker": {
+    "status": "PASS",
+    "failures": [],
+    "evidence_rows": []
+  }
+}

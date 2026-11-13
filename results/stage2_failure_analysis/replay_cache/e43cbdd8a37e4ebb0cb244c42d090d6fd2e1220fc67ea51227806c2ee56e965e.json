@@ -1,0 +1,28 @@
+{
+  "code_hash": "c4fbf8f5430df05f",
+  "code": "def transform(df):\n    df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])\n    df = df[df['tpep_pickup_datetime'] >= '2026-01-01']\n    return df",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": false,
+  "equivalence_reason": "dtype family differs in tpep_pickup_datetime (datetime vs string)",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "predicate",
+        "predicate_id": "p2",
+        "predicate_type": "columns_unchanged",
+        "direction": "must_preserve",
+        "target": "*",
+        "expected": "same dtype family",
+        "observed": {
+          "tpep_pickup_datetime": "string->datetime"
+        },
+        "detail": "dtype family changed in ['tpep_pickup_datetime']",
+        "evidence_rows": []
+      }
+    ],
+    "evidence_rows": []
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "code_hash": "e4f7d0eff15d7046",
+  "code": "def transform(df):\n    df['Fare'] = df['Fare'].clip(lower=None, upper=200)\n    df['Age'] = df['Age'].apply(lambda x: min(x + 1, 100))\n    return df",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": false,
+  "equivalence_reason": "values differ",
+  "checker": {
+    "status": "PASS",
+    "failures": [],
+    "evidence_rows": []
+  }
+}

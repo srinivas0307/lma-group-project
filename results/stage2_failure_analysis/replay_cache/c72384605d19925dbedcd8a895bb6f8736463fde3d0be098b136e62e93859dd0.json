@@ -1,0 +1,22 @@
+{
+  "code_hash": "e7fcb6d3bf26c389",
+  "code": "def transform(df):\n    out = df[(df[\"minimum_nights\"] <= 30) & (df[\"minimum_nights\"].notna())]\n    return out\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": true,
+  "equivalence_reason": "equal",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "check",
+        "check": "distribution.mean_shift",
+        "value": 0.127367,
+        "threshold": 0.1,
+        "column": "minimum_nights"
+      }
+    ],
+    "evidence_rows": []
+  }
+}

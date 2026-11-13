@@ -1,0 +1,240 @@
+{
+  "record": {
+    "task_id": "titanic_miss_005",
+    "split": "test",
+    "dataset": "titanic",
+    "transformation_type": "missing_values",
+    "difficulty": "hard",
+    "seed": 0,
+    "system": "proposed",
+    "preset": "proposed",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "parsed",
+    "generator_contract": true,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "generator_prompt": "b2-v2",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "ok",
+    "stage_ended": "repair",
+    "outcome": "REJECT",
+    "final_correct": false,
+    "initial_correct": false,
+    "initial_parse_ok": true,
+    "first_check": "error",
+    "no_repair_outcome": "REJECT",
+    "no_repair_correct": false,
+    "final_status": "VIOLATION",
+    "attempts": 3,
+    "tool_calls": 3,
+    "llm_calls": 7,
+    "tokens": 12517,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": null,
+    "path": [
+      "PREPARE",
+      "PARSE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REJECTED"
+    ],
+    "tool_trace": [
+      {
+        "tool": "inspect_dataset",
+        "ok": false,
+        "error_type": "tool_error"
+      },
+      {
+        "tool": "run_transformation",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      }
+    ],
+    "latency_s": 44.95
+  },
+  "trace": {
+    "task_id": "titanic_miss_005",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    medians_by_pclass_age = df.groupby('Pclass')['Age'].median()\n    \n    def fill_age(row):\n        pclass = row['Pclass']\n        if pd.isnull(row['Age']):\n            return medians_by_pclass_age[pclass]\n        return row['Age']\n    \n    df['Age'] = df.apply(fill_age, axis=1)\n    \n    # Fill NaN with median for each Pclass\n    df['Age'] = df.groupby('Pclass')['Age'].apply(lambda x: x.fillna(x.median()))\n    \n    return df\n```",
+    "initial_code": "def transform(df):\n    medians_by_pclass_age = df.groupby('Pclass')['Age'].median()\n\n    def fill_age(row):\n        pclass = row['Pclass']\n        if pd.isnull(row['Age']):\n            return medians_by_pclass_age[pclass]\n        return row['Age']\n    df['Age'] = df.apply(fill_age, axis=1)\n    df['Age'] = df.groupby('Pclass')['Age'].apply(lambda x: x.fillna(x.median()))\n    return df",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "c19a4e537caae567"
+      },
+      {
+        "step": 1,
+        "state": "EXECUTE",
+        "event": "execute_failed",
+        "code_hash": "c19a4e537caae567",
+        "status": "error",
+        "error": "TypeError: incompatible index of inserted column with frame index"
+      },
+      {
+        "step": 2,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1496,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"inspect_dataset\", \"args\": {\"which\": \"last_output\", \"n_rows\": 5, \"columns\": [\"Pclass\", \"Age\"]}}"
+      },
+      {
+        "step": 3,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "inspect_dataset",
+        "args": {
+          "which": "last_output",
+          "n_rows": 5,
+          "columns": [
+            "Pclass",
+            "Age"
+          ]
+        },
+        "ok": false,
+        "error_type": "tool_error"
+      },
+      {
+        "step": 4,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1722,
+        "cached": false,
+        "reply": "{\"action\": \"run_transformation\", \"args\": {\"code\": \"def transform(df):\\n    medians_by_pclass_age = df.groupby('Pclass')['Age'].median()\\n\\n    def fill_age(row):\\n        pclass = row['Pclass']\\n        if pd.isnull(row['Age']):\\n            return medians_by_pclass_age[pclass]\\n        return row['Age']\\n    df['Age'] = df.apply(fill_age, axis=1)\\n    df['Age'] = df.groupby('Pclass')['Age'].apply(lambda x: x.fillna(x.median()))\\n    return df\"}}"
+      },
+      {
+        "step": 5,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "run_transformation",
+        "args": {
+          "code": "c19a4e537caae567"
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 6,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1902,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    medians_by_pclass_age = df.groupby('Pclass')['Age'].median()\n\n    def fill_age(row):\n        pclass = row['Pclass']\n        if pd.isnull(row['Age']):\n            return medians_by_pclass_age[pclass]\n        return row['Age']\n\n    df['Age'] = df.apply(fill_age, axis=1)\n    return df\n```"
+      },
+      {
+        "step": 7,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "e9c6e0e82be76fb1",
+        "implicit": false
+      },
+      {
+        "step": 8,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "e9c6e0e82be76fb1",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "c1"
+        ]
+      },
+      {
+        "step": 9,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1663,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 10,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 11,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2017,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    medians_by_pclass_age = df.groupby('Pclass')['Age'].median()\n\n    def fill_age(row):\n        pclass = row['Pclass']\n        if pd.isnull(row['Age']):\n            return medians_by_pclass_age[pclass]\n        return row['Age']\n\n    df['Age'] = df.apply(fill_age, axis=1)\n    return df\n```"
+      },
+      {
+        "step": 12,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "e9c6e0e82be76fb1",
+        "implicit": false
+      },
+      {
+        "step": 13,
+        "state": "REPAIR",
+        "event": "repeated_code",
+        "code_hash": "e9c6e0e82be76fb1",
+        "times": 1
+      },
+      {
+        "step": 14,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2250,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    medians_by_pclass_age = df.groupby('Pclass')['Age'].transform('median')\n    df['Age'] = df['Age'].combine_first(medians_by_pclass_age)\n    return df\n```"
+      },
+      {
+        "step": 15,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "5920b6a5e0b00e78",
+        "implicit": false
+      },
+      {
+        "step": 16,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "5920b6a5e0b00e78",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "c1"
+        ]
+      }
+    ]
+  }
+}

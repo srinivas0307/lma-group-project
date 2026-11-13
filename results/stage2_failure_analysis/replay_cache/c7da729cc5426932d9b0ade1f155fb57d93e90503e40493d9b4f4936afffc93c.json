@@ -1,0 +1,22 @@
+{
+  "code_hash": "20aa4ef120e6f4c8",
+  "code": "def transform(df):\n    df.drop_duplicates(subset='name', keep='first', inplace=True)\n    return df",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": true,
+  "equivalence_reason": "equal",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "check",
+        "check": "distribution.mean_shift",
+        "value": 0.106766,
+        "threshold": 0.1,
+        "column": "calculated_host_listings_count"
+      }
+    ],
+    "evidence_rows": []
+  }
+}

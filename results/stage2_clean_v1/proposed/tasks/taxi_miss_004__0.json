@@ -1,0 +1,206 @@
+{
+  "record": {
+    "task_id": "taxi_miss_004",
+    "split": "test",
+    "dataset": "taxi",
+    "transformation_type": "missing_values",
+    "difficulty": "medium",
+    "seed": 0,
+    "system": "proposed",
+    "preset": "proposed",
+    "experiment": "stage2-clean-v1",
+    "contract_source": "parsed",
+    "generator_contract": true,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "generator_prompt": "b2-v2",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_prompt_version": "a1-v4",
+    "contract_status": "ok",
+    "stage_ended": "repair",
+    "outcome": "ESCALATE",
+    "final_correct": false,
+    "initial_correct": true,
+    "initial_parse_ok": true,
+    "first_check": "VIOLATION",
+    "no_repair_outcome": "REJECT",
+    "no_repair_correct": false,
+    "final_status": "VIOLATION",
+    "attempts": 3,
+    "tool_calls": 2,
+    "llm_calls": 6,
+    "tokens": 12083,
+    "invalid_actions": 0,
+    "unsafe_attempts": 0,
+    "unknown_tool_calls": 0,
+    "initial_blocked": false,
+    "escalate_reason": "identical code proposed twice",
+    "path": [
+      "PREPARE",
+      "PARSE",
+      "PREPARE",
+      "GENERATE",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "REPAIR",
+      "SAFETY_CHECK",
+      "EXECUTE",
+      "VERIFY",
+      "FAILED",
+      "REPAIR",
+      "REPAIR",
+      "ESCALATED"
+    ],
+    "tool_trace": [
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "tool": "diff_datasets",
+        "ok": true,
+        "error_type": null
+      }
+    ],
+    "latency_s": 25.22
+  },
+  "trace": {
+    "task_id": "taxi_miss_004",
+    "seed": 0,
+    "generator_reply": "```python\ndef transform(df):\n    df = df.copy()\n    df.loc[df['RatecodeID'] == 99, 'RatecodeID'] = 1\n    return df\n```",
+    "initial_code": "def transform(df):\n    df = df.copy()\n    df.loc[df['RatecodeID'] == 99, 'RatecodeID'] = 1\n    return df",
+    "trace": [
+      {
+        "step": 0,
+        "state": "GENERATE",
+        "event": "initial_code",
+        "code_hash": "e02f51ea678d82cf"
+      },
+      {
+        "step": 1,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "e02f51ea678d82cf",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "c1"
+        ]
+      },
+      {
+        "step": 2,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1772,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 3,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 4,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2052,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df = df.copy()\n    df.loc[df['RatecodeID'] == 99, 'RatecodeID'] = 1\n    return df\n```"
+      },
+      {
+        "step": 5,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "e02f51ea678d82cf",
+        "implicit": false
+      },
+      {
+        "step": 6,
+        "state": "REPAIR",
+        "event": "repeated_code",
+        "code_hash": "e02f51ea678d82cf",
+        "times": 1
+      },
+      {
+        "step": 7,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2224,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df = df.copy()\n    df['RatecodeID'].replace(99, 1, inplace=True)\n    return df\n```"
+      },
+      {
+        "step": 8,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "deec3bb0cdb1bd67",
+        "implicit": false
+      },
+      {
+        "step": 9,
+        "state": "VERIFY",
+        "event": "verified",
+        "code_hash": "deec3bb0cdb1bd67",
+        "status": "VIOLATION",
+        "n_failures": 1,
+        "failed": [
+          "c1"
+        ]
+      },
+      {
+        "step": 10,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 1973,
+        "cached": false,
+        "reply": "{\"action\": \"tool\", \"tool\": \"diff_datasets\", \"args\": {\"max_examples\": 5}}"
+      },
+      {
+        "step": 11,
+        "state": "REPAIR",
+        "event": "tool",
+        "tool": "diff_datasets",
+        "args": {
+          "max_examples": 5
+        },
+        "ok": true,
+        "error_type": null
+      },
+      {
+        "step": 12,
+        "state": "REPAIR",
+        "event": "llm",
+        "tokens": 2253,
+        "cached": false,
+        "reply": "{\"action\": \"propose_fix\"}\n```python\ndef transform(df):\n    df = df.copy()\n    df.loc[df['RatecodeID'] == 99, 'RatecodeID'] = 1\n    return df\n```"
+      },
+      {
+        "step": 13,
+        "state": "REPAIR",
+        "event": "propose_fix",
+        "code_hash": "e02f51ea678d82cf",
+        "implicit": false
+      },
+      {
+        "step": 14,
+        "state": "REPAIR",
+        "event": "repeated_code",
+        "code_hash": "e02f51ea678d82cf",
+        "times": 2
+      }
+    ]
+  }
+}

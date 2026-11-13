@@ -1,0 +1,57 @@
+{
+  "code_hash": "bb6ff9dce4122424",
+  "code": "def transform(df):\n    education_order = ['Preschool', 'Elementary School', 'Middle School', 'High School', 'Some College', 'College', 'Graduate']\n    df['education'] = pd.Categorical(df['education'], categories=education_order, ordered=True)\n    df['education'] = df['education'].cat.rename_categories({'Preschool': 0, 'Elementary School': 1, 'Middle School': 2, 'High School': 3, 'Some College': 4, 'College': 5, 'Graduate': 6})\n    return df\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": false,
+  "equivalence_reason": "category order differs in education",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "predicate",
+        "predicate_id": "c1",
+        "predicate_type": "column_dtype",
+        "direction": "must_change",
+        "target": "education",
+        "expected": "category, ordered=True, categories given",
+        "observed": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "detail": "education categories differ (order matters: True)",
+        "evidence_rows": []
+      },
+      {
+        "kind": "predicate",
+        "predicate_id": "c2",
+        "predicate_type": "column_value_relation",
+        "direction": "must_change",
+        "target": "education",
+        "expected": "education = map(...)",
+        "observed": "998 of 1000 rows differ",
+        "detail": "e.g. row 0: expected 'Bachelors', got nan",
+        "evidence_rows": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ],
+    "evidence_rows": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  }
+}

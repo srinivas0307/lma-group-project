@@ -1,0 +1,38 @@
+{
+  "code_hash": "bd6e2deb0c9b6630",
+  "code": "def transform(df):\n    df.loc[df['RatecodeID'] == 99, 'RatecodeID'] = 1\n    return df\n",
+  "ran_ok": true,
+  "execution_status": "ok",
+  "error": null,
+  "correct": true,
+  "equivalence_reason": "equal",
+  "checker": {
+    "status": "VIOLATION",
+    "failures": [
+      {
+        "kind": "predicate",
+        "predicate_id": "c1",
+        "predicate_type": "column_value_relation",
+        "direction": "must_change",
+        "target": "RatecodeID",
+        "expected": "RatecodeID = const(...)",
+        "observed": "18 of 1000 rows differ",
+        "detail": "e.g. row 39: expected 1, got 4.0",
+        "evidence_rows": [
+          39,
+          51,
+          149,
+          333,
+          355
+        ]
+      }
+    ],
+    "evidence_rows": [
+      39,
+      51,
+      149,
+      333,
+      355
+    ]
+  }
+}
