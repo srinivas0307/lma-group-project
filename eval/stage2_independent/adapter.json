@@ -1,0 +1,8 @@
+{
+  "model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "sha256": {
+    "adapter_config.json": "595d275c11f8d5f21d6c54e4850b8527646fe2f409777e876664a5f1f05b5d3b",
+    "adapter_model.safetensors": "53c3edd79ee610e5a050faa5dbe9af08637be3637cf99f763e7475e989723b53",
+    "igt_prompt_version.txt": "d8f76b1d76cdfde23865bbb49754e42b55f1e1ff9d73e1ca9f394a1c2ccf4449"
+  }
+}

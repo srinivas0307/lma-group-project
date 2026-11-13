@@ -1,6 +1,7 @@
 """Sandboxed suite validation and semantic parser scoring; selection requires explicit opt-in."""
 import argparse
 import collections
+import dataclasses
 import hashlib
 import json
 import sys
@@ -44,9 +45,10 @@ def prepare(task,suite=SUITE):
 
 def probe(contract, prepared):
     before,positives,negatives=prepared
-    pos=[verify(contract,before,p)[0].status for p in positives]
+    verdicts=[verify(contract,before,p)[0] for p in positives]
+    pos=[v.status for v in verdicts]
     neg=[dict(family=f,status=verify(contract,before,n)[0].status) for f,n in negatives]
-    return dict(positive_statuses=pos,negative_statuses=neg,all_correct_accepted=all(s=='PASS' for s in pos),
+    return dict(positive_statuses=pos,positive_verdicts=[dataclasses.asdict(v) for v in verdicts],negative_statuses=neg,all_correct_accepted=all(s=='PASS' for s in pos),
                 any_wrong_accepted=any(n['status']=='PASS' for n in neg))
 
 def validate(suite=SUITE):
@@ -69,11 +71,14 @@ def score(records,suite=SUITE):
         if key in seen or tid not in tasks:raise ValueError(f'Duplicate or unexpected record {key}')
         seen.add(key)
         parsed=extract_contract(record['raw_output'])
-        result=dict(task_id=tid,family=tasks[tid]['family'],parse_status=parsed['status'])
+        result=dict(task_id=tid,family=tasks[tid]['family'],request=tasks[tid]['request'],parse_status=parsed['status'],parse_error=parsed.get('error'),predicted_contract=parsed.get('contract'))
         if parsed['status']=='ok':
-            if tid not in prepared:prepared[tid]=prepare(tasks[tid],suite)
+            if tid not in prepared:
+                prepared[tid]=prepare(tasks[tid],suite)
+                if len(prepared)%20==0:print(f'Semantic probes prepared: {len(prepared)}/{len(tasks)} tasks',flush=True)
             result.update(probe(parsed['contract'],prepared[tid]))
         else:result.update(all_correct_accepted=False,any_wrong_accepted=False)
+        result['seconds']=record.get('seconds',0)
         result['prompt_tokens']=record.get('prompt_tokens',0);result['output_tokens']=record.get('output_tokens',0)
         groups[variant].append(result)
     summary={}
@@ -82,6 +87,9 @@ def score(records,suite=SUITE):
             correct_accepted=sum(r['all_correct_accepted'] for r in rows),
             tasks_with_wrong_acceptance=sum(r['any_wrong_accepted'] for r in rows),
             invalid=sum(r['parse_status']!='ok' for r in rows),
+            correct_output_withheld=sum(not r['all_correct_accepted'] for r in rows),
+            valid_contract_withholds_correct=sum(r['parse_status']=='ok' and not r['all_correct_accepted'] for r in rows),
+            inference_seconds=sum(r['seconds'] for r in rows),
             joint_success=sum(r['all_correct_accepted'] and not r['any_wrong_accepted'] for r in rows),
             tokens=sum(r['prompt_tokens']+r['output_tokens'] for r in rows))
     paired={}

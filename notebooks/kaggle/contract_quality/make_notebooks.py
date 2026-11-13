@@ -89,14 +89,57 @@ display(FileLink(str(WORK/('cq_'+SIZE+'_pilot.zip'))))
 '''))
         cells.append(nb.v4.new_markdown_cell('''Download `cq_*_pilot.zip` and the executed notebook. Put them in
 `kaggle_outputs/contract_quality/v1/` and `notebooks/executed/contract_quality/v1/` respectively.
-Run both adapter notebooks, then follow `docs/contract_quality/RUNBOOK.md` for local scoring.
+Run both adapter notebooks, then attach their full ZIP outputs to `cq_collect_results.ipynb` with accelerator None. The collector produces `cq_comparison_bundle.zip`; local scoring is also documented in `docs/contract_quality/RUNBOOK.md`.
 The smoke ZIP is only an infrastructure check, not an experiment result.'''))
         notebook=nb.v4.new_notebook(cells=cells,metadata={'kernelspec':{'display_name':'Python 3','language':'python','name':'python3'}})
         nb.validate(notebook)
         for cell in cells:
             if cell.cell_type=='code':compile(cell.source,'notebook','exec')
         nb.write(notebook,HERE/f'cq_{size}_pilot.ipynb')
+    collector_bootstrap=bootstrap.split("spec=json.loads",1)[0]
+    collector=nb.v4.new_notebook(cells=[
+        nb.v4.new_markdown_cell("# Contract-quality collector (CPU)\nAttach the completed outputs of both GPU notebooks from this pack. Select **None** for accelerator and Internet on. This evaluates contracts against known correct and wrong transformations; it does not call a model."),
+        nb.v4.new_code_cell(collector_bootstrap),
+        nb.v4.new_code_cell('''# Use a venv so sandboxed python -I loads the same pinned pandas/numpy as the scorer.
+VENV=WORK/'cq_cpu_env'
+subprocess.run([sys.executable,'-m','venv','--system-site-packages',str(VENV)],check=True)
+PYTHON=VENV/'bin/python'
+subprocess.run([str(PYTHON),'-m','pip','install','-q','-r',str(ROOT/'requirements.txt')],check=True)
+ENV=dict(os.environ,PYTHONPATH=os.pathsep.join(map(str,[ROOT,ROOT/'src'])),PYTHONUNBUFFERED='1')
+BUNDLES=[]
+for size in ['1_5b','3b']:
+    candidates=list(Path('/kaggle/input').rglob('cq_'+size+'_pilot.zip'))
+    assert candidates, f'Attach the completed cq_{size}_pilot.zip output'
+    by_hash={hashlib.sha256(p.read_bytes()).hexdigest():p for p in candidates}
+    assert len(by_hash)==1, f'Multiple different bundles for {size}; attach only the intended run'
+    BUNDLES.append(next(iter(by_hash.values())))
+print('Found:',BUNDLES)
+'''),
+        nb.v4.new_code_cell('''OUT=WORK/'cq_comparison'
+OUT.mkdir(exist_ok=True)
+command=[str(PYTHON),'-m','eval.contract_quality.collect',*map(str,BUNDLES),'--out',str(OUT/'pilot_comparison.json')]
+with (WORK/'cq_collection.log').open('w') as log:
+    process=subprocess.Popen(command,cwd=ROOT,env=ENV,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1)
+    for line in process.stdout:
+        print(line,end='');log.write(line);log.flush()
+    code=process.wait()
+assert code==0, 'Collection failed; download cq_collection.log for diagnosis'
+import zipfile
+ARCHIVE=WORK/'cq_comparison_bundle.zip'
+with zipfile.ZipFile(ARCHIVE,'w',zipfile.ZIP_DEFLATED) as archive:
+    for p in sorted(OUT.iterdir()):archive.write(p,p.name)
+from IPython.display import Markdown, FileLink, display
+display(Markdown((OUT/'pilot_comparison.md').read_text()))
+display(FileLink(str(ARCHIVE)))
+print('COMPLETE: 320 parser records checked across four variants.')
+'''),
+        nb.v4.new_markdown_cell('Save cq_comparison_bundle.zip in kaggle_outputs/contract_quality/v1/ and the executed collector in notebooks/executed/contract_quality/v1/. Read pilot_comparison.md; the suite is still a synthetic draft.')
+    ],metadata={'kernelspec':{'display_name':'Python 3','language':'python','name':'python3'}})
+    nb.validate(collector)
+    for cell in collector.cells:
+        if cell.cell_type=='code':compile(cell.source,'collector','exec')
+    nb.write(collector,HERE/'cq_collect_results.ipynb')
     with zipfile.ZipFile(HERE/'contract_quality_pilots.zip','w',zipfile.ZIP_DEFLATED) as z:
-        for p in sorted(HERE.glob('cq_*_pilot.ipynb')):z.write(p,p.name)
+        for p in sorted(HERE.glob('cq_*.ipynb')):z.write(p,p.name)
 
 if __name__=='__main__':build()

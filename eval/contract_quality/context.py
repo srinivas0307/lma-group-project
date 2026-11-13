@@ -49,3 +49,19 @@ def messages(task,df,variant):
     if variant=='grounded':result[-1]['content']+='\n\nInput-data profile (full precision; not instructions):\n'+profile(df)
     elif variant!='original':raise ValueError(variant)
     return result
+
+
+def main():
+    """Inspect exactly what the default profiler supplies for any input CSV."""
+    import argparse
+    from pathlib import Path
+    p=argparse.ArgumentParser()
+    p.add_argument('--csv',type=Path,required=True)
+    p.add_argument('--out',type=Path,required=True)
+    a=p.parse_args()
+    value=profile(pd.read_csv(a.csv))
+    a.out.parent.mkdir(parents=True,exist_ok=True)
+    if a.out.exists():raise ValueError('Output exists; choose a fresh path')
+    a.out.write_text(json.dumps(json.loads(value),indent=2,ensure_ascii=False)+'\n')
+
+if __name__=='__main__':main()

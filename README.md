@@ -19,7 +19,9 @@ To reproduce the completed GPU experiment:
 
 Follow the [complete Kaggle instructions](docs/stage2_six_notebooks.md). The notebooks embed their shared runtime; no new GitHub push, adapter upload, old checkpoint, or separate resume notebook is required. All six supplied Kaggle runs completed without recorded generation or attention failures.
 
-The active next phase follows the [contract-quality improvement plan](docs/contract_quality_improvement_plan.md). A CPU-validated synthetic draft suite and two Kaggle adapter-comparison notebooks are ready. Follow the [pilot runbook](docs/contract_quality/RUNBOOK.md) and download the [two-notebook pack](notebooks/kaggle/contract_quality/contract_quality_pilots.zip). GPU pilot results and independent task review are still pending; retraining follows the grounding decision.
+The active next phase follows the [contract-quality improvement plan](docs/contract_quality_improvement_plan.md). A CPU-validated synthetic draft suite and two Kaggle adapter-comparison notebooks and a CPU results collector are ready. Follow the [pilot runbook](docs/contract_quality/RUNBOOK.md) and download the [three-notebook pack](notebooks/kaggle/contract_quality/contract_quality_pilots.zip). GPU pilot results and independent task review are still pending; retraining follows the grounding decision.
+
+The [independent Stage 2 workflow](docs/stage2_independent.md) now runs directly from raw datasets and requests, generating its own enriched-input contracts inside each job. Download the [six-system notebook pack plus collector](notebooks/kaggle/stage2_independent/stage2_independent_notebooks.zip). It requires model weights but no earlier experiment outputs or parser-pilot run. Start with notebook 05 for the proposed system. This new workflow is CPU-tested; its GPU results are pending.
 
 ## Setup and local checks
 

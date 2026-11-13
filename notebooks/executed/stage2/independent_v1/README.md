@@ -1,0 +1,1 @@
+Store the executed independent Stage 2 notebooks here, retaining system names and adding `_executed` before `.ipynb`. The templates are in `notebooks/kaggle/stage2_independent/`. See `docs/stage2_independent.md`.

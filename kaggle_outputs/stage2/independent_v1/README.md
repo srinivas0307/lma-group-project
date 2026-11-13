@@ -1,0 +1,1 @@
+Store the six full `stage2_independent_<system>.zip` files and `stage2_independent_summary.zip` here. These fresh runs are separate from the frozen experiment and do not need any previous experiment output. See `docs/stage2_independent.md`.

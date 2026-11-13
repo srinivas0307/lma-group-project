@@ -5,9 +5,9 @@ Status: CPU-validated implementation; **GPU runs have not been executed here**. 
 ## What is ready
 
 - `benchmark/contract_quality_v1/`: 80 open-development tasks, 40 selection tasks, six separate ambiguous-request examples, six generated CSVs, file hashes and a review sheet.
-- `eval/contract_quality/`: deterministic builder, bounded input profiles, sandboxed validation/scoring, GPU pilot and two-bundle collector.
+- `eval/contract_quality/`: deterministic builder, bounded input profiles, sandboxed validation/scoring, GPU pilot and two-bundle collector with a readable failure report.
 - `results/contract_quality_v1/suite_validation.json`: all 120 supported tasks passed automated gold-contract checks. Each task has two wrong candidates, including a no-op; all 240 were rejected. Some alternate positive programs repeat the reference and are deduplicated in scoring.
-- `notebooks/kaggle/contract_quality/contract_quality_pilots.zip`: two self-contained notebooks, one per saved adapter.
+- `notebooks/kaggle/contract_quality/contract_quality_pilots.zip`: three self-contained notebooks: two GPU pilots (one per saved adapter) and a CPU collector. Use the freshly rebuilt pack for experiment `cq-profile-check-v2`; the task suite remains `cq-draft-v1`. Older pilot bundles are rejected by this collector to prevent mixing different methods.
 
 No existing parser, training data, adapter, frozen runner, original notebook, or Stage 2 result was changed.
 
@@ -32,7 +32,10 @@ The selection file is accessible to maintainers for annotation. Its lock is proc
 4. Wait for `160/160` and successful completion of the final cell. Download `cq_1_5b_pilot.zip` and the executed notebook. An interrupted or failed job can leave a partial ZIP; it is not a complete experiment and the collector rejects it. Save the log if any setup/runtime failure occurs.
 5. Run `cq_3b_pilot.ipynb` in another fresh session with the same settings and dataset. Download `cq_3b_pilot.zip` and its executed notebook.
 6. Store the two full ZIPs in `kaggle_outputs/contract_quality/v1/`. Store executed notebooks in `notebooks/executed/contract_quality/v1/`, named `cq_1_5b_pilot_executed.ipynb` and `cq_3b_pilot_executed.ipynb`. Keep template notebooks unchanged.
-7. From the repository root, score both bundles locally:
+7. Upload `cq_collect_results.ipynb` to Kaggle. Select **None** for accelerator, turn Internet on, and attach the completed outputs of both pilot notebooks (the files `cq_1_5b_pilot.zip` and `cq_3b_pilot.zip` must be available under `/kaggle/input`). Run all cells. The collector uses a separate CPU environment so its sandbox and scorer load the same pandas/numpy versions. Wait for **COMPLETE: 320 parser records checked across four variants.**
+8. Download `cq_comparison_bundle.zip`, containing `pilot_comparison.json` and the readable `pilot_comparison.md`. Place the ZIP in `kaggle_outputs/contract_quality/v1/` and save the executed notebook as `notebooks/executed/contract_quality/v1/cq_collect_results_executed.ipynb`. Send those outputs back for analysis. The report lists correct outputs withheld, wrong outputs accepted and failed predicates for each task.
+
+Alternatively, from the repository root, score both bundles locally:
 
 ```bash
 .venv/bin/python -m eval.contract_quality.collect \
@@ -41,9 +44,9 @@ The selection file is accessible to maintainers for annotation. Its lock is proc
   --out results/contract_quality_v1/pilot_comparison.json
 ```
 
-The collector requires both adapters, the correct suite/adapter hashes and all 160 records per run. It refuses smoke, incomplete, mixed-inventory and duplicate task/variant records. It runs candidate programs through the existing sandbox, never executes generated model text, and refuses to overwrite an existing report.
+The collector requires both adapters, the correct suite/adapter/runtime hashes, matching decoding settings, reproducible input-message hashes and all 160 records per run. It refuses smoke, incomplete, mixed-inventory and duplicate task/variant records. It runs candidate programs through the existing sandbox, never executes generated model text, and refuses to overwrite an existing report.
 
-No GitHub push is needed: the notebook contains the relevant source and draft suite. Model weights are deliberately excluded. Inference uses the existing p1-v2 system prompt, zero-shot greedy generation, FP16 and 1,024 maximum output tokens for both input variants. The richer variant appends a deterministic full-precision input-data profile, never gold labels or reference outputs. Context overflow fails visibly rather than silently truncating information.
+No GitHub push is needed: the notebook contains the relevant source and draft suite. Model weights are deliberately excluded. Inference uses the existing p1-v2 system prompt, zero-shot greedy generation, FP16 and 1,024 maximum output tokens for both input variants. The richer variant appends a deterministic full-precision input-data profile, never gold labels or reference outputs. Every prompt is checked before model weights are loaded. Context overflow fails visibly rather than silently truncating information. Each GPU ZIP includes `input_contexts.jsonl`, containing the exact request/schema/profile messages supplied to the parser, so the information track is directly inspectable.
 
 The runtime uses package versions from the successful Stage 2 environment. It checks Kaggle's installed torch version before loading models. If Kaggle changes its base image, share the setup error rather than silently changing packages. The historical adapters lack a pinned base revision: each pilot resolves and records a model commit for its run; historical revision reproducibility remains a limitation. GPU execution has not been tested locally, so error-free execution cannot be guaranteed.
 
@@ -64,3 +67,21 @@ The predeclared eventual screening criterion remains: improve correct-output acc
 ```
 
 The builder does not overwrite an existing review sheet. Changing suite data requires a new version, regenerated manifest/notebooks and fresh run directories. Existing frozen Stage 2 data must stay unchanged.
+
+## The two parallel tracks
+
+**Track A: provide information.** The current implementation supplies the computed profile by default in the `grounded` variant. The `original` variant remains its paired comparison. There are no parser tool calls in this experiment. All information is computed from the input CSV; gold contracts and reference programs never enter model messages. The package records the exact messages and checks their provenance when collecting results.
+
+You can inspect the profiler on a CSV without a GPU:
+
+```bash
+.venv/bin/python -m eval.contract_quality.context \
+  --csv benchmark/contract_quality_v1/data/warehouse.csv \
+  --out /tmp/warehouse_parser_profile.json
+```
+
+**Track B: check contract meaning.** While the GPU runs execute, an independent teammate can review the draft task annotations in `benchmark/contract_quality_v1/review.csv`. Review whether the request is unambiguous, the gold contract represents it, the reference and alternate programs are correct, and the wrong programs are actually wrong. Record reviewer and notes; leave uncertain rows as draft. This review does not require GPU outputs. The collector then tests generated contracts against those outputs and explains failures.
+
+The report's *correct output withheld* is a diagnostic probe: a known-correct program did not pass the predicted contract. It is not the Stage 2 withheld count, because this pilot does not run generation/repair. Wrong-output acceptance can coexist with correct-output withholding on the same task. Invalid contracts count as withheld; they are not credited as successful semantic rejection.
+
+Next, use the profile comparisons and reviewed failures to decide which information must be supplied during fine-tuning. Build a bounded read-only tool only for queries the default profile cannot answer, then evaluate a separately versioned hybrid variant. Existing tool-training experiments elsewhere in the repository are not automatically enabled by these notebooks. No new fine-tuning has been performed in this phase.

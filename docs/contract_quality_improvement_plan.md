@@ -1,6 +1,8 @@
 # Contract-quality improvement plan
 
-Status: initial synthetic draft suite, CPU semantic harness and two existing-adapter pilot notebooks implemented. See the [pilot runbook](contract_quality/RUNBOOK.md). All 120 supported draft tasks pass automated checks. Independent review, coverage expansion, GPU pilots and retraining remain pending; no new model-quality results are claimed.
+Status: initial synthetic draft suite, CPU semantic harness and two existing-adapter pilot notebooks and a CPU collector implemented. The default-profile and semantic-checking tracks now run together as `cq-profile-check-v2`, with exact input capture, prompt preflight, provenance validation and readable rejection explanations. See the [pilot runbook](contract_quality/RUNBOOK.md). All 120 supported draft tasks pass automated checks. Independent review, coverage expansion, GPU pilots and retraining remain pending; no new model-quality results are claimed.
+
+The later integration is now available as the [independent Stage 2 workflow](stage2_independent.md): it generates contracts from raw data inside each job, includes parser cost, and needs no earlier evaluation outputs. Its GPU runs remain pending. The parser pilot is optional rather than a prerequisite for this workflow.
 
 ## Objective and evidence
 
