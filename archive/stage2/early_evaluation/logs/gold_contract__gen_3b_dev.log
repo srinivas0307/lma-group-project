@@ -1,0 +1,123 @@
+$ python eval/runner_stage2.py --preset gold_contract --system gold_contract__gen_3b --backend hf --generator-model Qwen/Qwen2.5-3B-Instruct --agent-model Qwen/Qwen2.5-7B-Instruct --splits dev --seeds 0 --temperature 0.0 --cache-dir /kaggle/working/llm_cache --out /kaggle/working/results/stage2 --agent-4bit
+--- stdout ---
+[seed 0] 1/20 adult_col_006 first=PASS -> ACCEPT correct=True attempts=0 (6s)
+[seed 0] 2/20 adult_conv_006 first=PASS -> ACCEPT correct=True attempts=0 (9s)
+[seed 0] 3/20 adult_dedup_006 first=VIOLATION -> ACCEPT correct=True attempts=1 (30s)
+[seed 0] 4/20 adult_filt_006 first=error -> REJECT correct=False attempts=3 (124s)
+[seed 0] 5/20 adult_miss_006 first=PASS -> ACCEPT correct=True attempts=0 (126s)
+[seed 0] 6/20 airbnb_col_006 first=PASS -> ACCEPT correct=True attempts=0 (130s)
+[seed 0] 7/20 airbnb_conv_006 first=PASS -> ACCEPT correct=True attempts=0 (133s)
+[seed 0] 8/20 airbnb_dedup_006 first=PASS -> ACCEPT correct=True attempts=0 (138s)
+[seed 0] 9/20 airbnb_filt_006 first=VIOLATION -> ESCALATE correct=False attempts=3 (179s)
+[seed 0] 10/20 airbnb_miss_006 first=VIOLATION -> ACCEPT correct=True attempts=1 (198s)
+[seed 0] 11/20 taxi_col_006 first=PASS -> ACCEPT correct=True attempts=0 (202s)
+[seed 0] 12/20 taxi_conv_006 first=PASS -> ACCEPT correct=True attempts=0 (206s)
+[seed 0] 13/20 taxi_dedup_006 first=VIOLATION -> ESCALATE correct=False attempts=2 (237s)
+[seed 0] 14/20 taxi_filt_006 first=error -> ACCEPT correct=True attempts=1 (254s)
+[seed 0] 15/20 taxi_miss_006 first=VIOLATION -> ESCALATE correct=False attempts=0 (297s)
+[seed 0] 16/20 titanic_col_006 first=PASS -> ACCEPT correct=True attempts=0 (301s)
+[seed 0] 17/20 titanic_conv_006 first=PASS -> ACCEPT correct=True attempts=0 (305s)
+[seed 0] 18/20 titanic_dedup_006 first=VIOLATION -> ACCEPT correct=False attempts=1 (323s)
+[seed 0] 19/20 titanic_filt_006 first=VIOLATION -> REJECT correct=False attempts=3 (358s)
+[seed 0] 20/20 titanic_miss_006 first=PASS -> ACCEPT correct=True attempts=0 (361s)
+runs in /kaggle/working/results/stage2/gold_contract__gen_3b/runs.jsonl
+
+--- stderr ---
+
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:03<19:26,  3.45s/it]
+Loading weights:   1%|          | 2/339 [00:06<17:19,  3.08s/it]
+Loading weights:   1%|          | 4/339 [00:06<06:46,  1.21s/it]
+Loading weights:   1%|▏         | 5/339 [00:06<04:52,  1.14it/s]
+Loading weights:   2%|▏         | 6/339 [00:06<03:35,  1.55it/s]
+Loading weights:   5%|▍         | 16/339 [00:06<00:43,  7.44it/s]
+Loading weights:   6%|▌         | 19/339 [00:07<00:39,  8.14it/s]
+Loading weights:   8%|▊         | 28/339 [00:07<00:21, 14.80it/s]
+Loading weights:   9%|▉         | 32/339 [00:07<00:20, 15.13it/s]
+Loading weights:  12%|█▏        | 40/339 [00:07<00:13, 21.46it/s]
+Loading weights:  13%|█▎        | 44/339 [00:07<00:14, 19.97it/s]
+Loading weights:  15%|█▌        | 52/339 [00:08<00:10, 26.28it/s]
+Loading weights:  17%|█▋        | 56/339 [00:08<00:12, 23.21it/s]
+Loading weights:  19%|█▉        | 64/339 [00:08<00:09, 29.22it/s]
+Loading weights:  20%|██        | 68/339 [00:08<00:10, 24.83it/s]
+Loading weights:  22%|██▏       | 76/339 [00:09<00:13, 19.70it/s]
+Loading weights:  23%|██▎       | 79/339 [00:10<00:26,  9.65it/s]
+Loading weights:  26%|██▌       | 88/339 [00:10<00:21, 11.72it/s]
+Loading weights:  27%|██▋       | 90/339 [00:12<00:35,  7.10it/s]
+Loading weights:  28%|██▊       | 94/339 [00:12<00:27,  8.93it/s]
+Loading weights:  29%|██▉       | 100/339 [00:12<00:26,  9.12it/s]
+Loading weights:  30%|███       | 102/339 [00:13<00:41,  5.76it/s]
+Loading weights:  31%|███▏      | 106/339 [00:14<00:30,  7.56it/s]
+Loading weights:  32%|███▏      | 110/339 [00:14<00:23,  9.88it/s]
+Loading weights:  33%|███▎      | 113/339 [00:14<00:29,  7.76it/s]
+Loading weights:  34%|███▍      | 115/339 [00:14<00:26,  8.58it/s]
+Loading weights:  37%|███▋      | 124/339 [00:15<00:17, 12.12it/s]
+Loading weights:  37%|███▋      | 126/339 [00:16<00:29,  7.25it/s]
+Loading weights:  38%|███▊      | 130/339 [00:16<00:21,  9.56it/s]
+Loading weights:  40%|███▉      | 134/339 [00:16<00:16, 12.34it/s]
+Loading weights:  40%|████      | 137/339 [00:17<00:25,  8.05it/s]
+Loading weights:  41%|████      | 139/339 [00:17<00:23,  8.61it/s]
+Loading weights:  44%|████▎     | 148/339 [00:17<00:12, 15.23it/s]
+Loading weights:  45%|████▍     | 151/339 [00:18<00:21,  8.63it/s]
+Loading weights:  45%|████▌     | 154/339 [00:18<00:18, 10.27it/s]
+Loading weights:  47%|████▋     | 158/339 [00:18<00:13, 13.11it/s]
+Loading weights:  47%|████▋     | 161/339 [00:19<00:25,  6.96it/s]
+Loading weights:  48%|████▊     | 163/339 [00:20<00:27,  6.33it/s]
+Loading weights:  51%|█████     | 172/339 [00:20<00:16, 10.08it/s]
+Loading weights:  51%|█████▏    | 174/339 [00:21<00:21,  7.77it/s]
+Loading weights:  54%|█████▍    | 184/339 [00:21<00:13, 11.41it/s]
+Loading weights:  55%|█████▍    | 186/339 [00:22<00:21,  7.16it/s]
+Loading weights:  56%|█████▌    | 190/339 [00:22<00:16,  9.13it/s]
+Loading weights:  57%|█████▋    | 194/339 [00:23<00:12, 11.56it/s]
+Loading weights:  58%|█████▊    | 197/339 [00:23<00:18,  7.57it/s]
+Loading weights:  59%|█████▊    | 199/339 [00:24<00:21,  6.59it/s]
+Loading weights:  60%|██████    | 204/339 [00:24<00:13,  9.75it/s]
+Loading weights:  61%|██████▏   | 208/339 [00:24<00:11, 11.82it/s]
+Loading weights:  62%|██████▏   | 211/339 [00:25<00:11, 10.99it/s]
+Loading weights:  65%|██████▍   | 220/339 [00:25<00:06, 17.47it/s]
+Loading weights:  66%|██████▌   | 223/339 [00:25<00:09, 12.43it/s]
+Loading weights:  67%|██████▋   | 226/339 [00:25<00:07, 14.21it/s]
+Loading weights:  68%|██████▊   | 230/339 [00:26<00:06, 17.30it/s]
+Loading weights:  69%|██████▊   | 233/339 [00:27<00:13,  7.82it/s]
+Loading weights:  69%|██████▉   | 235/339 [00:27<00:15,  6.61it/s]
+Loading weights:  71%|███████   | 239/339 [00:27<00:10,  9.31it/s]
+Loading weights:  71%|███████▏  | 242/339 [00:27<00:08, 11.44it/s]
+Loading weights:  72%|███████▏  | 245/339 [00:28<00:15,  6.20it/s]
+Loading weights:  73%|███████▎  | 247/339 [00:29<00:14,  6.33it/s]
+Loading weights:  74%|███████▍  | 252/339 [00:29<00:08, 10.02it/s]
+Loading weights:  76%|███████▌  | 256/339 [00:29<00:06, 12.79it/s]
+Loading weights:  76%|███████▋  | 259/339 [00:30<00:11,  6.84it/s]
+Loading weights:  77%|███████▋  | 262/339 [00:30<00:09,  8.54it/s]
+Loading weights:  78%|███████▊  | 266/339 [00:30<00:06, 11.66it/s]
+Loading weights:  79%|███████▉  | 269/339 [00:31<00:11,  6.34it/s]
+Loading weights:  80%|███████▉  | 271/339 [00:32<00:12,  5.54it/s]
+Loading weights:  81%|████████  | 274/339 [00:32<00:08,  7.31it/s]
+Loading weights:  83%|████████▎ | 280/339 [00:32<00:07,  8.34it/s]
+Loading weights:  83%|████████▎ | 282/339 [00:33<00:10,  5.25it/s]
+Loading weights:  85%|████████▍ | 288/339 [00:34<00:06,  8.32it/s]
+Loading weights:  86%|████████▌ | 292/339 [00:34<00:05,  8.19it/s]
+Loading weights:  87%|████████▋ | 294/339 [00:35<00:06,  7.21it/s]
+Loading weights:  90%|████████▉ | 304/339 [00:35<00:02, 13.72it/s]
+Loading weights:  91%|█████████ | 307/339 [00:35<00:02, 12.50it/s]
+Loading weights:  93%|█████████▎| 316/339 [00:35<00:01, 19.27it/s]
+Loading weights:  94%|█████████▍| 320/339 [00:35<00:01, 18.51it/s]
+Loading weights:  97%|█████████▋| 328/339 [00:36<00:00, 24.11it/s]
+Loading weights:  98%|█████████▊| 332/339 [00:36<00:00, 21.82it/s]
+Loading weights: 100%|██████████| 339/339 [00:36<00:00,  9.30it/s]
+
+Loading weights:   0%|          | 0/434 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/434 [00:02<18:40,  2.59s/it]
+Loading weights:  31%|███       | 135/434 [00:02<00:04, 69.78it/s]
+Loading weights:  47%|████▋     | 202/434 [00:03<00:02, 90.51it/s]
+Loading weights:  57%|█████▋    | 246/434 [00:03<00:02, 85.10it/s]
+Loading weights:  64%|██████▎   | 276/434 [00:04<00:01, 89.74it/s]
+Loading weights:  69%|██████▉   | 299/434 [00:04<00:01, 92.56it/s]
+Loading weights:  73%|███████▎  | 318/434 [00:04<00:01, 95.80it/s]
+Loading weights:  77%|███████▋  | 335/434 [00:04<00:00, 101.88it/s]
+Loading weights:  81%|████████  | 351/434 [00:04<00:00, 100.71it/s]
+Loading weights:  86%|████████▋ | 375/434 [00:04<00:00, 113.47it/s]
+Loading weights:  92%|█████████▏| 399/434 [00:04<00:00, 120.28it/s]
+Loading weights:  95%|█████████▌| 414/434 [00:05<00:00, 124.18it/s]
+Loading weights: 100%|██████████| 434/434 [00:05<00:00, 84.00it/s] 
+
+--- exit 0, 7.2 min ---

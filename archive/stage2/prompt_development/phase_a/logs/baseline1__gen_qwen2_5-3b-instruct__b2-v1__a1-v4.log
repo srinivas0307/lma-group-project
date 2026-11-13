@@ -1,0 +1,128 @@
+Command: ["/usr/bin/python3", "eval/runner_stage2_prompts.py", "--preset", "baseline1", "--system", "baseline1__gen_qwen2_5-3b-instruct", "--splits", "dev", "--backend", "hf", "--generator-prompt", "b2-v1", "--agent-prompt", "a1-v4", "--generator-model", "Qwen/Qwen2.5-3B-Instruct", "--agent-model", "Qwen/Qwen2.5-7B-Instruct", "--seeds", "0", "--temperature", "0.0", "--max-attempts", "3", "--max-tool-calls", "8", "--token-budget", "60000", "--sandbox-packages", "/kaggle/working/stage2_prompt_evalpkgs", "--cache-dir", "/kaggle/working/stage2_prompt_cache/c7a54bd6fbc3", "--out", "/kaggle/working/results/stage2_prompt_dev", "--agent-4bit"]
+Verified sandbox: {"executable": "/usr/bin/python3", "numpy": "2.1.3", "numpy_file": "/kaggle/working/stage2_prompt_evalpkgs/numpy/__init__.py", "package_root": "/kaggle/working/stage2_prompt_evalpkgs", "pandas": "2.3.3", "pandas_file": "/kaggle/working/stage2_prompt_evalpkgs/pandas/__init__.py", "python": "3.13.16", "version": "sb1"}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]
+Fetching 4 files:  25%|██▌       | 1/4 [01:14<03:42, 74.28s/it]
+Fetching 4 files: 100%|██████████| 4/4 [01:14<00:00, 18.57s/it]
+
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/339 [00:03<19:31,  3.47s/it]
+Loading weights:   1%|          | 2/339 [00:06<18:32,  3.30s/it]
+Loading weights:   1%|          | 4/339 [00:06<07:14,  1.30s/it]
+Loading weights:   1%|▏         | 5/339 [00:06<05:11,  1.07it/s]
+Loading weights:   2%|▏         | 6/339 [00:07<03:48,  1.46it/s]
+Loading weights:   5%|▍         | 16/339 [00:07<00:45,  7.07it/s]
+Loading weights:   6%|▌         | 19/339 [00:07<00:40,  7.92it/s]
+Loading weights:   8%|▊         | 28/339 [00:07<00:21, 14.48it/s]
+Loading weights:   9%|▉         | 32/339 [00:07<00:20, 14.87it/s]
+Loading weights:  12%|█▏        | 40/339 [00:08<00:14, 21.06it/s]
+Loading weights:  13%|█▎        | 44/339 [00:08<00:15, 19.66it/s]
+Loading weights:  15%|█▌        | 52/339 [00:08<00:11, 25.89it/s]
+Loading weights:  17%|█▋        | 56/339 [00:08<00:12, 22.93it/s]
+Loading weights:  19%|█▉        | 64/339 [00:08<00:09, 29.04it/s]
+Loading weights:  20%|██        | 68/339 [00:09<00:10, 24.76it/s]
+Loading weights:  22%|██▏       | 76/339 [00:09<00:08, 30.73it/s]
+Loading weights:  24%|██▎       | 80/339 [00:09<00:10, 25.67it/s]
+Loading weights:  26%|██▌       | 88/339 [00:09<00:07, 31.54it/s]
+Loading weights:  27%|██▋       | 92/339 [00:09<00:09, 26.14it/s]
+Loading weights:  29%|██▉       | 100/339 [00:10<00:07, 32.00it/s]
+Loading weights:  31%|███       | 104/339 [00:10<00:08, 26.45it/s]
+Loading weights:  33%|███▎      | 112/339 [00:10<00:07, 32.13it/s]
+Loading weights:  34%|███▍      | 116/339 [00:10<00:08, 26.62it/s]
+Loading weights:  37%|███▋      | 124/339 [00:11<00:10, 20.59it/s]
+Loading weights:  37%|███▋      | 127/339 [00:12<00:21, 10.05it/s]
+Loading weights:  39%|███▉      | 132/339 [00:12<00:16, 12.30it/s]
+Loading weights:  40%|████      | 136/339 [00:13<00:19, 10.28it/s]
+Loading weights:  41%|████      | 138/339 [00:14<00:33,  5.98it/s]
+Loading weights:  42%|████▏     | 142/339 [00:14<00:24,  7.94it/s]
+Loading weights:  43%|████▎     | 146/339 [00:14<00:18, 10.42it/s]
+Loading weights:  44%|████▍     | 149/339 [00:15<00:26,  7.09it/s]
+Loading weights:  45%|████▍     | 151/339 [00:15<00:24,  7.66it/s]
+Loading weights:  47%|████▋     | 160/339 [00:15<00:12, 13.84it/s]
+Loading weights:  48%|████▊     | 163/339 [00:16<00:14, 12.53it/s]
+Loading weights:  51%|█████     | 172/339 [00:16<00:11, 14.02it/s]
+Loading weights:  51%|█████▏    | 174/339 [00:17<00:17,  9.36it/s]
+Loading weights:  54%|█████▍    | 184/339 [00:17<00:12, 12.41it/s]
+Loading weights:  55%|█████▍    | 186/339 [00:18<00:20,  7.51it/s]
+Loading weights:  57%|█████▋    | 192/339 [00:19<00:14, 10.19it/s]
+Loading weights:  58%|█████▊    | 196/339 [00:19<00:15,  8.95it/s]
+Loading weights:  58%|█████▊    | 198/339 [00:20<00:24,  5.75it/s]
+Loading weights:  60%|█████▉    | 202/339 [00:20<00:17,  7.66it/s]
+Loading weights:  61%|██████    | 206/339 [00:20<00:13, 10.09it/s]
+Loading weights:  62%|██████▏   | 209/339 [00:22<00:21,  6.10it/s]
+Loading weights:  62%|██████▏   | 211/339 [00:22<00:23,  5.45it/s]
+Loading weights:  63%|██████▎   | 214/339 [00:22<00:17,  7.09it/s]
+Loading weights:  65%|██████▍   | 220/339 [00:22<00:10, 10.95it/s]
+Loading weights:  66%|██████▌   | 223/339 [00:23<00:10, 10.59it/s]
+Loading weights:  68%|██████▊   | 232/339 [00:23<00:06, 17.21it/s]
+Loading weights:  69%|██████▉   | 235/339 [00:23<00:07, 14.82it/s]
+Loading weights:  72%|███████▏  | 244/339 [00:23<00:04, 21.67it/s]
+Loading weights:  73%|███████▎  | 247/339 [00:24<00:04, 19.07it/s]
+Loading weights:  76%|███████▌  | 256/339 [00:24<00:03, 26.80it/s]
+Loading weights:  77%|███████▋  | 260/339 [00:24<00:03, 23.53it/s]
+Loading weights:  79%|███████▉  | 268/339 [00:25<00:03, 19.16it/s]
+Loading weights:  80%|███████▉  | 271/339 [00:25<00:03, 17.54it/s]
+Loading weights:  83%|████████▎ | 280/339 [00:25<00:03, 17.22it/s]
+Loading weights:  83%|████████▎ | 282/339 [00:26<00:06,  8.71it/s]
+Loading weights:  85%|████████▍ | 288/339 [00:27<00:04, 11.56it/s]
+Loading weights:  86%|████████▌ | 292/339 [00:27<00:04,  9.87it/s]
+Loading weights:  87%|████████▋ | 294/339 [00:28<00:07,  6.04it/s]
+Loading weights:  88%|████████▊ | 298/339 [00:28<00:05,  8.04it/s]
+Loading weights:  90%|████████▉ | 304/339 [00:29<00:04,  8.29it/s]
+Loading weights:  90%|█████████ | 306/339 [00:30<00:06,  5.39it/s]
+Loading weights:  91%|█████████▏| 310/339 [00:30<00:04,  7.22it/s]
+Loading weights:  93%|█████████▎| 314/339 [00:30<00:02,  9.57it/s]
+Loading weights:  94%|█████████▎| 317/339 [00:31<00:03,  6.05it/s]
+Loading weights:  94%|█████████▍| 319/339 [00:32<00:03,  6.27it/s]
+Loading weights:  97%|█████████▋| 328/339 [00:32<00:00, 11.71it/s]
+Loading weights:  98%|█████████▊| 331/339 [00:32<00:00, 11.08it/s]
+Loading weights: 100%|██████████| 339/339 [00:32<00:00, 10.34it/s]
+
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]
+Fetching 2 files:  50%|█████     | 1/2 [00:21<00:21, 21.98s/it]
+Fetching 2 files: 100%|██████████| 2/2 [00:33<00:00, 16.04s/it]
+Fetching 2 files: 100%|██████████| 2/2 [00:33<00:00, 16.93s/it]
+
+Loading weights:   0%|          | 0/434 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/434 [00:00<06:33,  1.10it/s]
+Loading weights:  18%|█▊        | 76/434 [00:01<00:03, 102.69it/s]
+Loading weights:  28%|██▊       | 120/434 [00:01<00:02, 119.62it/s]
+Loading weights:  35%|███▍      | 151/434 [00:01<00:02, 123.32it/s]
+Loading weights:  40%|████      | 175/434 [00:01<00:02, 124.86it/s]
+Loading weights:  45%|████▍     | 195/434 [00:01<00:01, 135.44it/s]
+Loading weights:  50%|████▉     | 215/434 [00:01<00:01, 136.16it/s]
+Loading weights:  54%|█████▎    | 233/434 [00:02<00:01, 133.64it/s]
+Loading weights:  58%|█████▊    | 250/434 [00:02<00:01, 134.55it/s]
+Loading weights:  62%|██████▏   | 267/434 [00:02<00:01, 136.63it/s]
+Loading weights:  67%|██████▋   | 291/434 [00:02<00:01, 129.74it/s]
+Loading weights:  73%|███████▎  | 315/434 [00:02<00:00, 140.03it/s]
+Loading weights:  76%|███████▌  | 330/434 [00:02<00:00, 138.75it/s]
+Loading weights:  81%|████████  | 351/434 [00:03<00:00, 127.73it/s]
+Loading weights:  86%|████████▋ | 375/434 [00:03<00:00, 131.74it/s]
+Loading weights:  92%|█████████▏| 399/434 [00:03<00:00, 149.43it/s]
+Loading weights:  96%|█████████▌| 415/434 [00:03<00:00, 134.21it/s]
+Loading weights: 100%|██████████| 434/434 [00:03<00:00, 124.28it/s]
+[seed 0] 1/20 adult_col_006 first=PASS -> ACCEPT correct=True attempts=0 (5s)
+[seed 0] 2/20 adult_conv_006 first=PASS -> ACCEPT correct=True attempts=0 (8s)
+[seed 0] 3/20 adult_dedup_006 first=PASS -> ACCEPT correct=True attempts=0 (12s)
+[seed 0] 4/20 adult_filt_006 first=PASS -> ACCEPT correct=True attempts=0 (15s)
+[seed 0] 5/20 adult_miss_006 first=PASS -> ACCEPT correct=True attempts=0 (18s)
+[seed 0] 6/20 airbnb_col_006 first=PASS -> ACCEPT correct=True attempts=0 (21s)
+[seed 0] 7/20 airbnb_conv_006 first=PASS -> ACCEPT correct=True attempts=0 (24s)
+[seed 0] 8/20 airbnb_dedup_006 first=PASS -> ACCEPT correct=False attempts=0 (28s)
+[seed 0] 9/20 airbnb_filt_006 first=PASS -> ACCEPT correct=False attempts=0 (34s)
+[seed 0] 10/20 airbnb_miss_006 first=PASS -> ACCEPT correct=True attempts=0 (38s)
+[seed 0] 11/20 taxi_col_006 first=PASS -> ACCEPT correct=True attempts=0 (41s)
+[seed 0] 12/20 taxi_conv_006 first=PASS -> ACCEPT correct=True attempts=0 (45s)
+[seed 0] 13/20 taxi_dedup_006 first=PASS -> ACCEPT correct=False attempts=0 (51s)
+[seed 0] 14/20 taxi_filt_006 first=PASS -> ACCEPT correct=True attempts=0 (55s)
+[seed 0] 15/20 taxi_miss_006 first=PASS -> ACCEPT correct=True attempts=0 (58s)
+[seed 0] 16/20 titanic_col_006 first=PASS -> ACCEPT correct=True attempts=0 (61s)
+[seed 0] 17/20 titanic_conv_006 first=PASS -> ACCEPT correct=True attempts=0 (65s)
+[seed 0] 18/20 titanic_dedup_006 first=PASS -> ACCEPT correct=True attempts=0 (69s)
+[seed 0] 19/20 titanic_filt_006 first=PASS -> ACCEPT correct=False attempts=0 (73s)
+[seed 0] 20/20 titanic_miss_006 first=PASS -> ACCEPT correct=True attempts=0 (75s)
+runs in /kaggle/working/results/stage2_prompt_dev/baseline1__gen_qwen2_5-3b-instruct__b1v1__a1v4__sb1/runs.jsonl
+
+Exit: 0; minutes: 4.44

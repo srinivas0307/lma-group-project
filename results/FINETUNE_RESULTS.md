@@ -6,14 +6,14 @@ Both Qwen2.5 adapters completed training and generated contracts for all 120 eva
 
 ## Artifact locations
 
-- Executed full-run notebook: [finetune_qlora_full.ipynb](../notebooks/executed/finetune_qlora_full.ipynb).
+- Executed full-run notebook: [finetune_qlora_full.ipynb](../archive/notebooks/executed/training/finetune_qlora_full.ipynb).
 - Training logs, adapters, and tokenizers: `finetune/runs/qwen25_1_5b/` and `finetune/runs/qwen25_3b/`.
-- Downloaded parser outputs: [ft_1_5b](../kaggle_outputs/parsing/ft_1_5b/) and [ft_3b](../kaggle_outputs/parsing/ft_3b/).
-- Contract metrics, full/change-only/preserve-only verdicts, and portable training metadata: [intent_ft_1_5b](stage1/finetuned/intent_ft_1_5b/) and [intent_ft_3b](stage1/finetuned/intent_ft_3b/).
+- Downloaded parser outputs: [ft_1_5b](../kaggle_outputs/parsing/ft_1_5b) and [ft_3b](../kaggle_outputs/parsing/ft_3b).
+- Contract metrics, full/change-only/preserve-only verdicts, and portable training metadata: [intent_ft_1_5b](stage1/finetuned/intent_ft_1_5b) and [intent_ft_3b](stage1/finetuned/intent_ft_3b).
 - Shared comparisons: [contract_summary.json](stage1/summary/contract_summary.json) and [metrics_stage1.json](stage1/summary/metrics_stage1.json).
 - Original-to-current path mapping and SHA-256 checksums: [artifact_manifest.json](stage1/finetuned/artifact_manifest.json).
 
-The original `finetune_outputs/` directories were moved into the locations above, and the root notebook was moved into `notebooks/executed/`. All 29 supplied files were verified byte-for-byte after moving. Small training metadata files are also copied under each results folder's `training/` directory so they remain available independently of the large adapters. `finetune/runs/` is intentionally git-ignored; moving adapters there does not add them to version control.
+The original `finetune_outputs/` directories were moved into the locations above, and the root notebook was moved into `archive/notebooks/executed/`. All 29 supplied files were verified byte-for-byte after moving. Small training metadata files are also copied under each results folder's `training/` directory so they remain available independently of the large adapters. `finetune/runs/` is intentionally git-ignored; moving adapters there does not add them to version control.
 
 ## Training evidence
 

@@ -1,0 +1,475 @@
+{
+  "import_date": "2026-11-12",
+  "description": "Original Stage 2 development and independent Phase A/B prompt snapshots. Raw files moved without changing contents. Canonical result files copied/extracted byte-for-byte; historical metadata paths are preserved.",
+  "moved_files": [
+    {
+      "original_path": "stage-2_updated.ipynb",
+      "path": "notebooks/executed/stage2_prompt_dev_phase_a.ipynb",
+      "bytes": 26431,
+      "sha256": "3d50325de06bbd1644187358100368008aee969060da3cbfd584d5bc3fd74c23"
+    },
+    {
+      "original_path": "stage-2(1).ipynb",
+      "path": "notebooks/executed/stage2_prompt_dev_phase_b.ipynb",
+      "bytes": 29008,
+      "sha256": "5b3ca2b386341171f392a89441b3395feb36efc5b2136f642173581883a9b4a4"
+    },
+    {
+      "original_path": "stage2_prompt_dev_bundle.zip",
+      "path": "kaggle_outputs/stage2/dev/prompt_phase_a.zip",
+      "bytes": 38365,
+      "sha256": "e8c166976b39872cf7e957becf850f3014e47c72eda7a32ae2e12756a1120c36"
+    },
+    {
+      "original_path": "stage2_prompt_dev_bundle(1).zip",
+      "path": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "bytes": 46892,
+      "sha256": "b14612b2e2437d5aba55d417dfbbcb088f67ed191a062fec8768f320a74d17dc"
+    },
+    {
+      "original_path": "stage2_bundle_dev/results/stage2/baseline1__gen_3b/git_commit.txt",
+      "path": "kaggle_outputs/stage2/dev/original/results/stage2/baseline1__gen_3b/git_commit.txt",
+      "bytes": 40,
+      "sha256": "3044627154e7689562468c4c02d192bb11c2c0c3624a732d62b1ff28f3d8068a"
+    },
+    {
+      "original_path": "stage2_bundle_dev/results/stage2/baseline1__gen_3b/run_info.json",
+      "path": "kaggle_outputs/stage2/dev/original/results/stage2/baseline1__gen_3b/run_info.json",
+      "bytes": 965,
+      "sha256": "0081216ae23dea19c962743f67af6fd4c401c66dea87d066cbd281f0e08541ce"
+    },
+    {
+      "original_path": "stage2_bundle_dev/results/stage2/baseline1__gen_3b/runs.jsonl",
+      "path": "kaggle_outputs/stage2/dev/original/results/stage2/baseline1__gen_3b/runs.jsonl",
+      "bytes": 20321,
+      "sha256": "7a7155ddd698836f4522b9b954d2bd4fd4ff521307b5694bde9409b425fbd6c1"
+    },
+    {
+      "original_path": "stage2_bundle_dev/results/stage2/baseline1__gen_3b/traces.jsonl",
+      "path": "kaggle_outputs/stage2/dev/original/results/stage2/baseline1__gen_3b/traces.jsonl",
+      "bytes": 11544,
+      "sha256": "7497c12958b0cae7bd57c0610d6857ba332252b85ae508fd01890cfbb27ee334"
+    },
+    {
+      "original_path": "stage2_bundle_dev/results/stage2/bundle_info.json",
+      "path": "kaggle_outputs/stage2/dev/original/results/stage2/bundle_info.json",
+      "bytes": 511,
+      "sha256": "b37a66ab9d5a2aed6018332e229719bae96fe0ad13487df72647cba58ea0c57d"
+    },
+    {
+      "original_path": "stage2_bundle_dev/results/stage2/gold_contract__gen_3b/git_commit.txt",
+      "path": "kaggle_outputs/stage2/dev/original/results/stage2/gold_contract__gen_3b/git_commit.txt",
+      "bytes": 40,
+      "sha256": "3044627154e7689562468c4c02d192bb11c2c0c3624a732d62b1ff28f3d8068a"
+    },
+    {
+      "original_path": "stage2_bundle_dev/results/stage2/gold_contract__gen_3b/run_info.json",
+      "path": "kaggle_outputs/stage2/dev/original/results/stage2/gold_contract__gen_3b/run_info.json",
+      "bytes": 976,
+      "sha256": "72599705a7d67062e132c8b9408cfa17058edca1e2749d7183e030e3bf15e477"
+    },
+    {
+      "original_path": "stage2_bundle_dev/results/stage2/gold_contract__gen_3b/runs.jsonl",
+      "path": "kaggle_outputs/stage2/dev/original/results/stage2/gold_contract__gen_3b/runs.jsonl",
+      "bytes": 23147,
+      "sha256": "fcf1a7041d71429b94507d0191cc96556acb504f5e54085fbfb3e0d9451e48df"
+    },
+    {
+      "original_path": "stage2_bundle_dev/results/stage2/gold_contract__gen_3b/traces.jsonl",
+      "path": "kaggle_outputs/stage2/dev/original/results/stage2/gold_contract__gen_3b/traces.jsonl",
+      "bytes": 30006,
+      "sha256": "a6823be0ff249aab632281b72e1a856deba013129160811d7a73940cf03b7531"
+    },
+    {
+      "original_path": "stage2_bundle_dev/results/stage2/logs/baseline1__gen_3b_dev.log",
+      "path": "kaggle_outputs/stage2/dev/original/results/stage2/logs/baseline1__gen_3b_dev.log",
+      "bytes": 10002,
+      "sha256": "e46490b898cc436f8f9ff239161c36ccb48f732355c072cb160c69fd31c8e37a"
+    },
+    {
+      "original_path": "stage2_bundle_dev/results/stage2/logs/gold_contract__gen_3b_dev.log",
+      "path": "kaggle_outputs/stage2/dev/original/results/stage2/logs/gold_contract__gen_3b_dev.log",
+      "bytes": 9415,
+      "sha256": "1a8bafb4b43d29bd33583bb56efdc612e32b3857127fbd32823b3034e7d8236a"
+    },
+    {
+      "original_path": "stage2_bundle_dev/results/stage2/metrics_dev.txt",
+      "path": "kaggle_outputs/stage2/dev/original/results/stage2/metrics_dev.txt",
+      "bytes": 340,
+      "sha256": "6eaaee11e21e1ae6e4d2aa268d635f07c49e7a8ac2648859b0038f8763186ffd"
+    },
+    {
+      "original_path": "stage2_bundle_dev/results/stage2/stage2_metrics_dev.json",
+      "path": "kaggle_outputs/stage2/dev/original/results/stage2/stage2_metrics_dev.json",
+      "bytes": 3312,
+      "sha256": "aeb15dac1e69ce9ee1335df7dc137a6be00ea6a3d90f5a72301ef2debad927db"
+    }
+  ],
+  "result_files": [
+    {
+      "path": "results/stage2/baseline1__gen_3b/git_commit.txt",
+      "source": "kaggle_outputs/stage2/dev/original/results/stage2/baseline1__gen_3b/git_commit.txt",
+      "sha256": "3044627154e7689562468c4c02d192bb11c2c0c3624a732d62b1ff28f3d8068a"
+    },
+    {
+      "path": "results/stage2/baseline1__gen_3b/run_info.json",
+      "source": "kaggle_outputs/stage2/dev/original/results/stage2/baseline1__gen_3b/run_info.json",
+      "sha256": "0081216ae23dea19c962743f67af6fd4c401c66dea87d066cbd281f0e08541ce"
+    },
+    {
+      "path": "results/stage2/baseline1__gen_3b/runs.jsonl",
+      "source": "kaggle_outputs/stage2/dev/original/results/stage2/baseline1__gen_3b/runs.jsonl",
+      "sha256": "7a7155ddd698836f4522b9b954d2bd4fd4ff521307b5694bde9409b425fbd6c1"
+    },
+    {
+      "path": "results/stage2/baseline1__gen_3b/traces.jsonl",
+      "source": "kaggle_outputs/stage2/dev/original/results/stage2/baseline1__gen_3b/traces.jsonl",
+      "sha256": "7497c12958b0cae7bd57c0610d6857ba332252b85ae508fd01890cfbb27ee334"
+    },
+    {
+      "path": "results/stage2/bundle_info.json",
+      "source": "kaggle_outputs/stage2/dev/original/results/stage2/bundle_info.json",
+      "sha256": "b37a66ab9d5a2aed6018332e229719bae96fe0ad13487df72647cba58ea0c57d"
+    },
+    {
+      "path": "results/stage2/gold_contract__gen_3b/git_commit.txt",
+      "source": "kaggle_outputs/stage2/dev/original/results/stage2/gold_contract__gen_3b/git_commit.txt",
+      "sha256": "3044627154e7689562468c4c02d192bb11c2c0c3624a732d62b1ff28f3d8068a"
+    },
+    {
+      "path": "results/stage2/gold_contract__gen_3b/run_info.json",
+      "source": "kaggle_outputs/stage2/dev/original/results/stage2/gold_contract__gen_3b/run_info.json",
+      "sha256": "72599705a7d67062e132c8b9408cfa17058edca1e2749d7183e030e3bf15e477"
+    },
+    {
+      "path": "results/stage2/gold_contract__gen_3b/runs.jsonl",
+      "source": "kaggle_outputs/stage2/dev/original/results/stage2/gold_contract__gen_3b/runs.jsonl",
+      "sha256": "fcf1a7041d71429b94507d0191cc96556acb504f5e54085fbfb3e0d9451e48df"
+    },
+    {
+      "path": "results/stage2/gold_contract__gen_3b/traces.jsonl",
+      "source": "kaggle_outputs/stage2/dev/original/results/stage2/gold_contract__gen_3b/traces.jsonl",
+      "sha256": "a6823be0ff249aab632281b72e1a856deba013129160811d7a73940cf03b7531"
+    },
+    {
+      "path": "results/stage2/logs/baseline1__gen_3b_dev.log",
+      "source": "kaggle_outputs/stage2/dev/original/results/stage2/logs/baseline1__gen_3b_dev.log",
+      "sha256": "e46490b898cc436f8f9ff239161c36ccb48f732355c072cb160c69fd31c8e37a"
+    },
+    {
+      "path": "results/stage2/logs/gold_contract__gen_3b_dev.log",
+      "source": "kaggle_outputs/stage2/dev/original/results/stage2/logs/gold_contract__gen_3b_dev.log",
+      "sha256": "1a8bafb4b43d29bd33583bb56efdc612e32b3857127fbd32823b3034e7d8236a"
+    },
+    {
+      "path": "results/stage2/metrics_dev.txt",
+      "source": "kaggle_outputs/stage2/dev/original/results/stage2/metrics_dev.txt",
+      "sha256": "6eaaee11e21e1ae6e4d2aa268d635f07c49e7a8ac2648859b0038f8763186ffd"
+    },
+    {
+      "path": "results/stage2/stage2_metrics_dev.json",
+      "source": "kaggle_outputs/stage2/dev/original/results/stage2/stage2_metrics_dev.json",
+      "sha256": "aeb15dac1e69ce9ee1335df7dc137a6be00ea6a3d90f5a72301ef2debad927db"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_a/baseline1__gen_qwen2_5-3b-instruct__b1v1__a1v4__sb1/git_commit.txt",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_a.zip",
+      "archive_member": "results/stage2_prompt_dev/baseline1__gen_qwen2_5-3b-instruct__b1v1__a1v4__sb1/git_commit.txt",
+      "sha256": "cda79a3a2e7e34637cfa8e7f3a0f4d2015565a4abe04c39c31a8e03b341e2dc4"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_a/baseline1__gen_qwen2_5-3b-instruct__b1v1__a1v4__sb1/prompt_run_info.json",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_a.zip",
+      "archive_member": "results/stage2_prompt_dev/baseline1__gen_qwen2_5-3b-instruct__b1v1__a1v4__sb1/prompt_run_info.json",
+      "sha256": "6b325817e51e5e880edce749b507c98dba39307a4e26b30460298b02328a9442"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_a/baseline1__gen_qwen2_5-3b-instruct__b1v1__a1v4__sb1/run_info.json",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_a.zip",
+      "archive_member": "results/stage2_prompt_dev/baseline1__gen_qwen2_5-3b-instruct__b1v1__a1v4__sb1/run_info.json",
+      "sha256": "7c5d1d501767f9003a8063bc9ded2b67d13a76371c5caa9361d205db8e9cb12f"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_a/baseline1__gen_qwen2_5-3b-instruct__b1v1__a1v4__sb1/runs.jsonl",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_a.zip",
+      "archive_member": "results/stage2_prompt_dev/baseline1__gen_qwen2_5-3b-instruct__b1v1__a1v4__sb1/runs.jsonl",
+      "sha256": "11d6fd1a29541f1682da1c5480e20fdb82869424d4f1c0f4cefc5131e69d8806"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_a/baseline1__gen_qwen2_5-3b-instruct__b1v1__a1v4__sb1/traces.jsonl",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_a.zip",
+      "archive_member": "results/stage2_prompt_dev/baseline1__gen_qwen2_5-3b-instruct__b1v1__a1v4__sb1/traces.jsonl",
+      "sha256": "7497c12958b0cae7bd57c0610d6857ba332252b85ae508fd01890cfbb27ee334"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_a/bundle_info.json",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_a.zip",
+      "archive_member": "results/stage2_prompt_dev/bundle_info.json",
+      "sha256": "4cb929b4945d06fc85c4c86f34419ed272b1a7f15cccd0752f105b0e6515fcb6"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_a/gold_contract__gen_qwen2_5-3b-instruct__b2v1__a1v4__sb1/git_commit.txt",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_a.zip",
+      "archive_member": "results/stage2_prompt_dev/gold_contract__gen_qwen2_5-3b-instruct__b2v1__a1v4__sb1/git_commit.txt",
+      "sha256": "cda79a3a2e7e34637cfa8e7f3a0f4d2015565a4abe04c39c31a8e03b341e2dc4"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_a/gold_contract__gen_qwen2_5-3b-instruct__b2v1__a1v4__sb1/prompt_run_info.json",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_a.zip",
+      "archive_member": "results/stage2_prompt_dev/gold_contract__gen_qwen2_5-3b-instruct__b2v1__a1v4__sb1/prompt_run_info.json",
+      "sha256": "34f1b3b6616a799b807b7b55567865b76e68e54a1fe1dc2b4c88d8ad77a5911e"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_a/gold_contract__gen_qwen2_5-3b-instruct__b2v1__a1v4__sb1/run_info.json",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_a.zip",
+      "archive_member": "results/stage2_prompt_dev/gold_contract__gen_qwen2_5-3b-instruct__b2v1__a1v4__sb1/run_info.json",
+      "sha256": "6e51c2b47622423d35d24dfd5d9fe4f9ff09bc16b03fa8c363eb1df210f1c009"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_a/gold_contract__gen_qwen2_5-3b-instruct__b2v1__a1v4__sb1/runs.jsonl",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_a.zip",
+      "archive_member": "results/stage2_prompt_dev/gold_contract__gen_qwen2_5-3b-instruct__b2v1__a1v4__sb1/runs.jsonl",
+      "sha256": "a28cfdef50802e3e7cab51b2a8b5abf2ff2b4cce92e4991c6081f030f0c5bfca"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_a/gold_contract__gen_qwen2_5-3b-instruct__b2v1__a1v4__sb1/traces.jsonl",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_a.zip",
+      "archive_member": "results/stage2_prompt_dev/gold_contract__gen_qwen2_5-3b-instruct__b2v1__a1v4__sb1/traces.jsonl",
+      "sha256": "a6823be0ff249aab632281b72e1a856deba013129160811d7a73940cf03b7531"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_a/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v4__sb1/git_commit.txt",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_a.zip",
+      "archive_member": "results/stage2_prompt_dev/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v4__sb1/git_commit.txt",
+      "sha256": "cda79a3a2e7e34637cfa8e7f3a0f4d2015565a4abe04c39c31a8e03b341e2dc4"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_a/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v4__sb1/prompt_run_info.json",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_a.zip",
+      "archive_member": "results/stage2_prompt_dev/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v4__sb1/prompt_run_info.json",
+      "sha256": "f16fffef4fb263731fcdcc0022e3d783e893d852c329d44d3c638a0957bbda22"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_a/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v4__sb1/run_info.json",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_a.zip",
+      "archive_member": "results/stage2_prompt_dev/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v4__sb1/run_info.json",
+      "sha256": "8363507a665fc947c237317b087ead039133fe5966dc954e78c4d9f9ac448767"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_a/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v4__sb1/runs.jsonl",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_a.zip",
+      "archive_member": "results/stage2_prompt_dev/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v4__sb1/runs.jsonl",
+      "sha256": "b13b2efcec3d6aa9b8ea50eda3d9678bdd2d7370e1ed57807d2e752307d2135e"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_a/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v4__sb1/traces.jsonl",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_a.zip",
+      "archive_member": "results/stage2_prompt_dev/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v4__sb1/traces.jsonl",
+      "sha256": "2d682befc235e9dd300a8e6c2450b4a5f542205ef735a0ced78afd50885756f6"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_a/logs/baseline1__gen_qwen2_5-3b-instruct__b2-v1__a1-v4.log",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_a.zip",
+      "archive_member": "results/stage2_prompt_dev/logs/baseline1__gen_qwen2_5-3b-instruct__b2-v1__a1-v4.log",
+      "sha256": "1ee9d9c6d062f88afe8a5e993c8c7e4cfaa27e2ce713fe53b307774a29178db4"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_a/logs/gold_contract__gen_qwen2_5-3b-instruct__b2-v1__a1-v4.log",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_a.zip",
+      "archive_member": "results/stage2_prompt_dev/logs/gold_contract__gen_qwen2_5-3b-instruct__b2-v1__a1-v4.log",
+      "sha256": "3ed920ea481c4373907e2ccd490574f99460e448045e582f479f9c106fae7a31"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_a/logs/gold_contract__gen_qwen2_5-3b-instruct__b2-v2__a1-v4.log",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_a.zip",
+      "archive_member": "results/stage2_prompt_dev/logs/gold_contract__gen_qwen2_5-3b-instruct__b2-v2__a1-v4.log",
+      "sha256": "21118c62216810454aa3c812e4013889a97d42fc1e6cbc5d236dc472e69d1b06"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_a/metrics_dev.txt",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_a.zip",
+      "archive_member": "results/stage2_prompt_dev/metrics_dev.txt",
+      "sha256": "af8233e4dce67da24929121c7dbf1636f74e4b7ce375022d530df248e0d6f95b"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_a/source_manifest.json",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_a.zip",
+      "archive_member": "results/stage2_prompt_dev/source_manifest.json",
+      "sha256": "e28856abd5671789e42d9c5c3030f1b207550519e1a7156cb2154df3cb4b2e89"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_a/stage2_metrics_dev.json",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_a.zip",
+      "archive_member": "results/stage2_prompt_dev/stage2_metrics_dev.json",
+      "sha256": "524f625c85e079d26987b1b8eac1b1d88ee882839b2cfeb0412479044c0e38c8"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/baseline1__gen_qwen2_5-3b-instruct__b1v1__a1v4__sb1/git_commit.txt",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/baseline1__gen_qwen2_5-3b-instruct__b1v1__a1v4__sb1/git_commit.txt",
+      "sha256": "cda79a3a2e7e34637cfa8e7f3a0f4d2015565a4abe04c39c31a8e03b341e2dc4"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/baseline1__gen_qwen2_5-3b-instruct__b1v1__a1v4__sb1/prompt_run_info.json",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/baseline1__gen_qwen2_5-3b-instruct__b1v1__a1v4__sb1/prompt_run_info.json",
+      "sha256": "6b325817e51e5e880edce749b507c98dba39307a4e26b30460298b02328a9442"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/baseline1__gen_qwen2_5-3b-instruct__b1v1__a1v4__sb1/run_info.json",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/baseline1__gen_qwen2_5-3b-instruct__b1v1__a1v4__sb1/run_info.json",
+      "sha256": "7c5d1d501767f9003a8063bc9ded2b67d13a76371c5caa9361d205db8e9cb12f"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/baseline1__gen_qwen2_5-3b-instruct__b1v1__a1v4__sb1/runs.jsonl",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/baseline1__gen_qwen2_5-3b-instruct__b1v1__a1v4__sb1/runs.jsonl",
+      "sha256": "7205275b2bb88eb0a6fb4afad63f9dd2fafb2e451792638b4c9904ab761ac193"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/baseline1__gen_qwen2_5-3b-instruct__b1v1__a1v4__sb1/traces.jsonl",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/baseline1__gen_qwen2_5-3b-instruct__b1v1__a1v4__sb1/traces.jsonl",
+      "sha256": "7497c12958b0cae7bd57c0610d6857ba332252b85ae508fd01890cfbb27ee334"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/bundle_info.json",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/bundle_info.json",
+      "sha256": "922097e6bdfbcb10bfcd98590fc45229284902204a6479a553daf11483e0aad1"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/gold_contract__gen_qwen2_5-3b-instruct__b2v1__a1v4__sb1/git_commit.txt",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/gold_contract__gen_qwen2_5-3b-instruct__b2v1__a1v4__sb1/git_commit.txt",
+      "sha256": "cda79a3a2e7e34637cfa8e7f3a0f4d2015565a4abe04c39c31a8e03b341e2dc4"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/gold_contract__gen_qwen2_5-3b-instruct__b2v1__a1v4__sb1/prompt_run_info.json",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/gold_contract__gen_qwen2_5-3b-instruct__b2v1__a1v4__sb1/prompt_run_info.json",
+      "sha256": "34f1b3b6616a799b807b7b55567865b76e68e54a1fe1dc2b4c88d8ad77a5911e"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/gold_contract__gen_qwen2_5-3b-instruct__b2v1__a1v4__sb1/run_info.json",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/gold_contract__gen_qwen2_5-3b-instruct__b2v1__a1v4__sb1/run_info.json",
+      "sha256": "6e51c2b47622423d35d24dfd5d9fe4f9ff09bc16b03fa8c363eb1df210f1c009"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/gold_contract__gen_qwen2_5-3b-instruct__b2v1__a1v4__sb1/runs.jsonl",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/gold_contract__gen_qwen2_5-3b-instruct__b2v1__a1v4__sb1/runs.jsonl",
+      "sha256": "a6aea51152222301e02f013fd1939830366c1de877c98b3e7e125e86e9a4f7c3"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/gold_contract__gen_qwen2_5-3b-instruct__b2v1__a1v4__sb1/traces.jsonl",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/gold_contract__gen_qwen2_5-3b-instruct__b2v1__a1v4__sb1/traces.jsonl",
+      "sha256": "a6823be0ff249aab632281b72e1a856deba013129160811d7a73940cf03b7531"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v4__sb1/git_commit.txt",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v4__sb1/git_commit.txt",
+      "sha256": "cda79a3a2e7e34637cfa8e7f3a0f4d2015565a4abe04c39c31a8e03b341e2dc4"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v4__sb1/prompt_run_info.json",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v4__sb1/prompt_run_info.json",
+      "sha256": "f16fffef4fb263731fcdcc0022e3d783e893d852c329d44d3c638a0957bbda22"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v4__sb1/run_info.json",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v4__sb1/run_info.json",
+      "sha256": "8363507a665fc947c237317b087ead039133fe5966dc954e78c4d9f9ac448767"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v4__sb1/runs.jsonl",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v4__sb1/runs.jsonl",
+      "sha256": "cb932d267bdbe5f50f9e3c4801c9ab6ef5e0caee0b3bffb8c18fabaf9ee02780"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v4__sb1/traces.jsonl",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v4__sb1/traces.jsonl",
+      "sha256": "2d682befc235e9dd300a8e6c2450b4a5f542205ef735a0ced78afd50885756f6"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v5__sb1/git_commit.txt",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v5__sb1/git_commit.txt",
+      "sha256": "cda79a3a2e7e34637cfa8e7f3a0f4d2015565a4abe04c39c31a8e03b341e2dc4"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v5__sb1/prompt_run_info.json",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v5__sb1/prompt_run_info.json",
+      "sha256": "4e5c6ac6f3a2e733c52835d81a2544b7af192e15073f95e19aaa87dcb7739974"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v5__sb1/run_info.json",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v5__sb1/run_info.json",
+      "sha256": "13b5a7f31922cac16d0aefa10e32261c8e72977e12522961aa2fad03928ce12b"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v5__sb1/runs.jsonl",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v5__sb1/runs.jsonl",
+      "sha256": "d08ab951648f7ea2f5f6fc68d93b42f845d21a51e134ec25e1c6fdaa503265f7"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v5__sb1/traces.jsonl",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/gold_contract__gen_qwen2_5-3b-instruct__b2v2__a1v5__sb1/traces.jsonl",
+      "sha256": "136fd9e1799abdf6ec80248d07d1b0bbf361d72ebf573c3ed478f8d0617e467a"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/logs/baseline1__gen_qwen2_5-3b-instruct__b2-v1__a1-v4.log",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/logs/baseline1__gen_qwen2_5-3b-instruct__b2-v1__a1-v4.log",
+      "sha256": "a965771985d4fea677b67fa2cb7046c4538b4f3a884cc13d350cb7232e2fe65f"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/logs/gold_contract__gen_qwen2_5-3b-instruct__b2-v1__a1-v4.log",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/logs/gold_contract__gen_qwen2_5-3b-instruct__b2-v1__a1-v4.log",
+      "sha256": "1c5ba44da8c1f486aa646a5924181600a43b0de37d844f74e5bed7dd02f980da"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/logs/gold_contract__gen_qwen2_5-3b-instruct__b2-v2__a1-v4.log",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/logs/gold_contract__gen_qwen2_5-3b-instruct__b2-v2__a1-v4.log",
+      "sha256": "8bd3a70e4814e02dd8a48052c7066b3cf273868a35e2790d9f4762a34483213a"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/logs/gold_contract__gen_qwen2_5-3b-instruct__b2-v2__a1-v5.log",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/logs/gold_contract__gen_qwen2_5-3b-instruct__b2-v2__a1-v5.log",
+      "sha256": "cd9cf7539a74ea67c8b0571eec9d16d40a9ffe6d3410282151cc7c9c33d30f5d"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/metrics_dev.txt",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/metrics_dev.txt",
+      "sha256": "42184c6646962e76de7f958d7bb27b1dbd9fcda9b4e701938de230046b6b1767"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/source_manifest.json",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/source_manifest.json",
+      "sha256": "e28856abd5671789e42d9c5c3030f1b207550519e1a7156cb2154df3cb4b2e89"
+    },
+    {
+      "path": "results/stage2_prompt_dev/phase_b/stage2_metrics_dev.json",
+      "source_archive": "kaggle_outputs/stage2/dev/prompt_phase_b.zip",
+      "archive_member": "results/stage2_prompt_dev/stage2_metrics_dev.json",
+      "sha256": "c351f2f5af03ddf45c1cbbae19fa8088f6f5baa249546ebdc45fe11c7c0a3887"
+    }
+  ]
+}

@@ -29,8 +29,8 @@ Regenerate pool v4 (CPU, about 20 min):
 ## Pool v4: the main Stage 1 table (2026-10-30)
 
 Pool v4 (`benchmark/pool/`) is built from **one all-task Baseline 1 run per generator**: 3B
-(`kaggle_outputs/generation/3b_all_tasks/`, notebook `notebooks/executed/baseline-1_all-tasks_ran-notebook.ipynb`) and
-1.5B (`kaggle_outputs/generation/1_5b_all_tasks/`, notebook `notebooks/executed/baseline-1_1.5B_all-tasks_ran-notebook.ipynb`).
+(`kaggle_outputs/generation/3b_all_tasks/`, notebook `archive/notebooks/executed/stage1/baseline-1_all-tasks_ran-notebook.ipynb`) and
+1.5B (`kaggle_outputs/generation/1_5b_all_tasks/`, notebook `archive/notebooks/executed/stage1/baseline-1_1.5B_all-tasks_ran-notebook.ipynb`).
 Same prompt (`ebbe8bceae71`), seeds, sampling and pinned pandas as pool v3; the prompt schema is identical to the frozen one.
 Reason for the switch: one Baseline 1 run per model over all 120 tasks, instead of four partial runs.
 
@@ -310,7 +310,7 @@ Test split, 25 tasks per dataset. Greedy = one temperature-0 output per task; sa
 | Silent error rate (unique candidates) | 48/154 (0.312) | 50/141 (0.355) | 66/176 (0.375) | 50/160 (0.312) | 214/631 (0.339) |
 
 **Baseline 1 notebook rerun on all four datasets (2026-10-30).** The Baseline 1 notebook was rerun in one go for 3B
-on all 120 tasks (`notebooks/executed/baseline-1_all-tasks_ran-notebook.ipynb`, outputs in
+on all 120 tasks (`archive/notebooks/executed/stage1/baseline-1_all-tasks_ran-notebook.ipynb`, outputs in
 `kaggle_outputs/generation/3b_all_tasks_rerun/`; the first adult + airbnb-only run is in `archive/notebooks/`). Same
 prompt (`ebbe8bceae71`), seeds, sampling and pinned pandas; the prompt schema is identical to the frozen one.
 **719 of 720 generations are identical** (same text, same label) to the 3B generations in pool v3. The one difference

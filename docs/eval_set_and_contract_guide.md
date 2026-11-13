@@ -1,7 +1,7 @@
 # Guide: Evaluation Set and Intent-Contract Schema
 
 **Owner:** evaluation-set / contract-schema workstream
-**Covers roadmap:** Phase 1 (contract schema, task 1: predicate spec) and Phase 2 (task set, request-based agent scenarios). See `README.md` §6.
+**Covers roadmap:** Phase 1 (contract schema, task 1: predicate spec) and Phase 2 (task set, request-based agent scenarios). See `docs/history/implementation_roadmap.md` §6.
 **Status:** v0.2 draft. The contract vocabulary becomes **v1.0 (frozen)** after the pilot in Step 3.
 
 This guide is self-contained: you can build the whole evaluation set by following it, without waiting for the verifier or any LLM code. Everything you produce here is a plain YAML file that the rest of the team's code reads later.

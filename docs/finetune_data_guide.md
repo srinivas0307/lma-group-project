@@ -180,7 +180,7 @@ Status 2026-10-31 (built with the scripts below; numbers from `finetune/data/che
 
 ```
 finetune/
-├── datasets/            <name>.csv + README.md (sources, licences, sha256)        <- prepare_datasets.py (done)
+├── datasets/            <name>.csv + docs/history/implementation_roadmap.md (sources, licences, sha256)        <- prepare_datasets.py (done)
 ├── data_gen/
 │   ├── prepare_datasets.py  snapshots + documented injected dirt (§3)             <- done
 │   ├── generate_examples.py 40 patterns as Python functions (§4-5)                <- done

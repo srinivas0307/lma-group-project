@@ -1,0 +1,44 @@
+{
+  "system": "gold_contract__gen_3b",
+  "config": {
+    "preset": "gold_contract",
+    "contract": "oracle",
+    "parses": null,
+    "generator_contract": true,
+    "verifier": "intent",
+    "repair_mode": "full",
+    "backend": "hf",
+    "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+    "generator_4bit": false,
+    "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+    "agent_4bit": true,
+    "temperature": 0.0,
+    "generator_prompt": {
+      "version": "b2-v1",
+      "hash": "243a463f9777"
+    },
+    "agent_prompt_version": "a1-v4",
+    "max_attempts": 3,
+    "max_tool_calls": 8,
+    "token_budget": 60000
+  },
+  "valid_result": true,
+  "splits": [
+    "dev"
+  ],
+  "seeds": [
+    0
+  ],
+  "n_runs": 20,
+  "limits": {
+    "max_attempts": 3,
+    "max_tool_calls_per_attempt": 8,
+    "max_invalid_actions": 3,
+    "sandbox_timeout_s": 30.0,
+    "sandbox_mem_gb": 2.0,
+    "sandbox_cpu_s": 20,
+    "token_budget": 60000,
+    "max_new_tokens": 768
+  },
+  "python": "3.13.16"
+}

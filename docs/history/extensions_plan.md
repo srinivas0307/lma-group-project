@@ -15,12 +15,12 @@ each one independently; none of them changes an existing system, prompt, result 
    their name (`intent_prompted_7b_p1v3_rq1`, `agent_full_np1`), and runs record it in `run_info.json` / `env.json`.
    The runners already refuse to mix versions in one results folder; the same check covers the new ids.
 3. **Own output folders.** Stage 1 variants go to `results/stage1/extensions/<system>/`; agent variants to
-   `results/stage2_agent/<system>/`; Stage 2 variants to `results/stage2/<system>/`. Existing folders are never written.
+   `results/stage2_agent/<system>/`; Stage 2 variants to `archive/stage2/early_evaluation/<system>/`. Existing folders are never written.
 4. **Existing notebooks and prompts are frozen.** No existing notebook is edited; extensions get their own notebooks. The current prompt hashes (`b1-v1`, `b2-v1`, `p1-v1..v3`, `a1-v4`, `t1-v1`) stay
    pinned in tests. An extension that needs a different prompt gets a new prompt version.
 5. **Proof of no collision, per extension:** the full test suite passes and `./reproduce_all.sh` still reports
    `results/stage1/` identical.
-6. **One registry:** `docs/extensions.md` (written during implementation) lists every extension, its id, how to
+6. **One registry:** `docs/history/extensions.md` (written during implementation) lists every extension, its id, how to
    switch it on, what it needs (CPU / GPU), and where its results go.
 
 ## 1. Overview
@@ -127,7 +127,7 @@ each one independently; none of them changes an existing system, prompt, result 
 - **Why:** the comparison reviewers usually ask for: does a contract add anything over asking a model "is this right?"
 - **How:** `src/igt/baselines/llm_verifier.py` (versioned prompt `lv1`), `eval/run_llm_verifier.py` over the frozen
   pool (803 candidates), writing verdicts in the standard format, so `eval/metrics.py` scores it with recall, FRR,
-  McNemar against Baselines 2 and 3; `notebooks/kaggle/llm_verifier_kaggle.ipynb`. Model: the Baseline 3 7B.
+  McNemar against Baselines 2 and 3; `archive/notebooks/extensions/llm_verifier_kaggle.ipynb`. Model: the Baseline 3 7B.
 - **Validation (H20):** the answer key is the ground truth for the verdicts, so no human labels are needed for this
   baseline; its reasons are logged for the failure analysis.
 - **Tests:** scripted model; diff summary on a known candidate; malformed reply = ESCALATE.
@@ -141,7 +141,7 @@ each one independently; none of them changes an existing system, prompt, result 
   code, the intent verifier vs conventional checks, the answer key), **Replay** tab (pick a recorded run, see its
   steps), **Live** tab (upload a CSV and type a request; needs a GPU, disabled otherwise).
 - **How:** `app/demo_app.py` with Gradio; `requirements-demo.txt` (not a core dependency); a Kaggle notebook
-  `notebooks/kaggle/demo_ui_kaggle.ipynb` that loads the models and launches the app with a share link. The demo
+  `archive/notebooks/extensions/demo_ui_kaggle.ipynb` that loads the models and launches the app with a share link. The demo
   functions return structured data as well as printing, so the CLI and the UI share them.
 - **Tests:** the shared functions; the app module imports without a GPU.
 
@@ -171,7 +171,7 @@ each one independently; none of them changes an existing system, prompt, result 
   - **Parsing:** `eval/parse_contracts_tools.py --adapter` (zero-shot, the adapter's prompt version).
   - **Checks:** the existing 7 data checks plus "the tool results in each example match the data"; a hand-review sample.
 - **Systems:** `intent_ft_tools_1_5b`, `intent_ft_tools_3b` in `results/stage1/extensions/`.
-- **Notebooks: both sizes.** `notebooks/kaggle/finetune_tools_kaggle.ipynb` with a `SIZE = "1_5b" | "3b"` switch (one
+- **Notebooks: both sizes.** `archive/notebooks/extensions/finetune_tools_kaggle.ipynb` with a `SIZE = "1_5b" | "3b"` switch (one
   size per session: training then parsing the 120 tasks with tools), and a smoke mode as in the current fine-tuning
   notebook. Configs `finetune/configs/qwen25_1_5b_tools.yaml`, `qwen25_3b_tools.yaml` (same settings as the current
   ones: 1 epoch, batch 1 x 16). You can run 1.5B only, 3B only, or both.
@@ -180,7 +180,7 @@ each one independently; none of them changes an existing system, prompt, result 
 
 ## 3. Order of implementation (one go, after your confirmation)
 
-1. Shared pieces: `docs/extensions.md` registry, output folder rule, version ids, the "no collision" test.
+1. Shared pieces: `docs/history/extensions.md` registry, output folder rule, version ids, the "no collision" test.
 2. CPU-evaluable first: **9** (pre-check), **11** (no-progress stop, with offline replay for *k* = 1, 2, 3), then
    **8** (re-ask), **12** (feasibility step).
 3. Infrastructure: **1** (configs, including every extension), **7** (vLLM), **5** (Docker).
@@ -195,13 +195,13 @@ and are not run by me.
 
 | Notebook | Extensions | What you set |
 |---|---|---|
-| `notebooks/kaggle/reask_kaggle.ipynb` | 8, 9 (pc1+rq1) | which parse folders to re-ask; pre-check on/off |
-| `notebooks/kaggle/agent_extensions_kaggle.ipynb` (new; same layout as the agent notebook) | 11, 12, 7 | `NO_PROGRESS_K` (default 3); the `np1` / `fs1` systems; backend |
-| `notebooks/kaggle/stage2_extensions_kaggle.ipynb` (new; same layout as the Stage 2 notebook) | 11, 12, 7, 8, 9 | `NO_PROGRESS_K`, feasibility on/off, re-ask / pre-check on/off, backend |
-| `notebooks/kaggle/llm_verifier_kaggle.ipynb` | 3 | model |
-| `notebooks/kaggle/demo_ui_kaggle.ipynb` | 6 | models, adapter |
-| `notebooks/kaggle/finetune_tools_kaggle.ipynb` | 13 | `SIZE = "1_5b"` or `"3b"`, smoke mode |
-| `notebooks/kaggle/vllm_check_kaggle.ipynb` | 7 | compares 5 prompts between vLLM and transformers |
+| `archive/notebooks/extensions/reask_kaggle.ipynb` | 8, 9 (pc1+rq1) | which parse folders to re-ask; pre-check on/off |
+| `archive/notebooks/extensions/agent_extensions_kaggle.ipynb` (new; same layout as the agent notebook) | 11, 12, 7 | `NO_PROGRESS_K` (default 3); the `np1` / `fs1` systems; backend |
+| `archive/notebooks/extensions/stage2_extensions_kaggle.ipynb` (new; same layout as the Stage 2 notebook) | 11, 12, 7, 8, 9 | `NO_PROGRESS_K`, feasibility on/off, re-ask / pre-check on/off, backend |
+| `archive/notebooks/extensions/llm_verifier_kaggle.ipynb` | 3 | model |
+| `archive/notebooks/extensions/demo_ui_kaggle.ipynb` | 6 | models, adapter |
+| `archive/notebooks/extensions/finetune_tools_kaggle.ipynb` | 13 | `SIZE = "1_5b"` or `"3b"`, smoke mode |
+| `archive/notebooks/extensions/vllm_check_kaggle.ipynb` | 7 | compares 5 prompts between vLLM and transformers |
 
 **Existing notebooks are not edited:** `agent_eval_kaggle.ipynb`, `stage2_kaggle.ipynb`, `finetune_qlora_kaggle.ipynb`,
 `tool_parser_kaggle.ipynb` and the others stay exactly as they are; every extension gets its own notebook.

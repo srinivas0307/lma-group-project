@@ -398,6 +398,192 @@
         }
       }
     },
+    "fine-tuned 1.5B": {
+      "overall": 0.944,
+      "by_kind": {
+        "wrong_target_values": {
+          "caught": 27,
+          "n": 27
+        },
+        "wrong_target_type": {
+          "caught": 19,
+          "n": 23
+        },
+        "removes_too_many_rows": {
+          "caught": 22,
+          "n": 22
+        },
+        "unrequested_change": {
+          "caught": 20,
+          "n": 20
+        },
+        "order_changed_before_keep": {
+          "caught": 17,
+          "n": 17
+        },
+        "helper_column_left": {
+          "caught": 9,
+          "n": 16
+        },
+        "wrong_category_order": {
+          "caught": 14,
+          "n": 14
+        },
+        "removes_too_few_rows": {
+          "caught": 11,
+          "n": 11
+        },
+        "wrong_column": {
+          "caught": 10,
+          "n": 11
+        },
+        "inverted_selection": {
+          "caught": 10,
+          "n": 10
+        },
+        "groupby_first_mixes_rows": {
+          "caught": 8,
+          "n": 8
+        },
+        "wrong_output_column": {
+          "caught": 6,
+          "n": 6
+        },
+        "broken_logic": {
+          "caught": 6,
+          "n": 6
+        },
+        "incomplete_key": {
+          "caught": 5,
+          "n": 5
+        },
+        "removes_all_copies": {
+          "caught": 4,
+          "n": 4
+        },
+        "wrong_key": {
+          "caught": 3,
+          "n": 3
+        },
+        "wrong_proxy_condition": {
+          "caught": 3,
+          "n": 3
+        },
+        "wrong_null_handling": {
+          "caught": 2,
+          "n": 2
+        },
+        "wrong_keep_rule": {
+          "caught": 2,
+          "n": 2
+        },
+        "hardcoded_value_list": {
+          "caught": 1,
+          "n": 1
+        },
+        "incomplete_condition": {
+          "caught": 1,
+          "n": 1
+        },
+        "wrong_boolean_logic": {
+          "caught": 1,
+          "n": 1
+        }
+      }
+    },
+    "fine-tuned 3B": {
+      "overall": 0.915,
+      "by_kind": {
+        "wrong_target_values": {
+          "caught": 24,
+          "n": 27
+        },
+        "wrong_target_type": {
+          "caught": 18,
+          "n": 23
+        },
+        "removes_too_many_rows": {
+          "caught": 22,
+          "n": 22
+        },
+        "unrequested_change": {
+          "caught": 20,
+          "n": 20
+        },
+        "order_changed_before_keep": {
+          "caught": 17,
+          "n": 17
+        },
+        "helper_column_left": {
+          "caught": 12,
+          "n": 16
+        },
+        "wrong_category_order": {
+          "caught": 9,
+          "n": 14
+        },
+        "removes_too_few_rows": {
+          "caught": 11,
+          "n": 11
+        },
+        "wrong_column": {
+          "caught": 11,
+          "n": 11
+        },
+        "inverted_selection": {
+          "caught": 10,
+          "n": 10
+        },
+        "groupby_first_mixes_rows": {
+          "caught": 8,
+          "n": 8
+        },
+        "wrong_output_column": {
+          "caught": 6,
+          "n": 6
+        },
+        "broken_logic": {
+          "caught": 6,
+          "n": 6
+        },
+        "incomplete_key": {
+          "caught": 5,
+          "n": 5
+        },
+        "removes_all_copies": {
+          "caught": 4,
+          "n": 4
+        },
+        "wrong_key": {
+          "caught": 3,
+          "n": 3
+        },
+        "wrong_proxy_condition": {
+          "caught": 3,
+          "n": 3
+        },
+        "wrong_null_handling": {
+          "caught": 2,
+          "n": 2
+        },
+        "wrong_keep_rule": {
+          "caught": 2,
+          "n": 2
+        },
+        "hardcoded_value_list": {
+          "caught": 1,
+          "n": 1
+        },
+        "incomplete_condition": {
+          "caught": 0,
+          "n": 1
+        },
+        "wrong_boolean_logic": {
+          "caught": 1,
+          "n": 1
+        }
+      }
+    },
     "Oracle (gold contract)": {
       "overall": 0.944,
       "by_kind": {

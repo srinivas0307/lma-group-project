@@ -1,12 +1,12 @@
 # Fine-tuning the intent parser (Phase 7)
 
-**Full runs imported and scored (2026-11-11):** both 1.5B and 3B adapters completed two epochs and parsed all 120 evaluation tasks. See [the analysis and results](../results/FINETUNE_RESULTS.md) and [the executed notebook](../notebooks/executed/finetune_qlora_full.ipynb).
+**Full runs imported and scored (2026-11-11):** both 1.5B and 3B adapters completed two epochs and parsed all 120 evaluation tasks. See [the analysis and results](../results/FINETUNE_RESULTS.md) and [the executed notebook](../archive/notebooks/executed/training/finetune_qlora_full.ipynb).
 
 Adapters and original training artifacts are in `finetune/runs/qwen25_1_5b/` and `finetune/runs/qwen25_3b/` (git-ignored). Parser outputs are in `kaggle_outputs/parsing/ft_1_5b/` and `ft_3b/`. Scored results and copies of portable training metadata are in `results/stage1/finetuned/intent_ft_1_5b/` and `intent_ft_3b/`.
 
 ```
 data (laptop)                           training (Kaggle GPU)                           scoring (laptop)
-prepare_datasets.py -> datasets/*.csv   notebooks/kaggle/finetune_qlora_kaggle.ipynb    eval/score_parsers.py
+prepare_datasets.py -> datasets/*.csv   notebooks/training/finetune_qlora_kaggle.ipynb    eval/score_parsers.py
 generate_examples.py -> raw/*.jsonl     finetune/train_qlora.py  -> adapter             contract metrics + verdicts
 check_examples.py -> checked.jsonl      eval/parse_contracts.py --adapter               + Stage 1 table
 build_sft.py -> sft_train/val.jsonl       -> parse_ft_<model>/ (system.txt)
@@ -22,7 +22,7 @@ review_sample.py -> review.csv (hand review)
    .venv/bin/python finetune/data_gen/review_sample.py        # 100 examples to hand-check -> finetune/data/review.csv
    ```
    Result: `finetune/data/sft_train.jsonl`, `sft_val.jsonl`. The `student` dataset is validation only.
-2. **Smoke run on Kaggle:** `notebooks/kaggle/finetune_qlora_kaggle.ipynb` with `SMOKE = True` (50 steps per model).
+2. **Smoke run on Kaggle:** `notebooks/training/finetune_qlora_kaggle.ipynb` with `SMOKE = True` (50 steps per model).
    Check that memory fits and the loss falls (`ft_<model>_smoke.zip` → `train_log.jsonl`, `run_info.json`).
 3. **Full run:** `SMOKE = False`. Trains 1.5B and 3B, then parses all evaluation tasks with each adapter
    (zero-shot, the format it was trained on). Unzip `parse_ft_qwen25_1_5b.zip` and `parse_ft_qwen25_3b.zip`

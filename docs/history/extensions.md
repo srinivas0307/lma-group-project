@@ -1,4 +1,4 @@
-# Optional extensions: registry (implemented 2026-11-01; plan: docs/extensions_plan.md v2)
+# Optional extensions: registry (implemented 2026-11-01; plan: docs/history/extensions_plan.md v2)
 
 Ten opt-in extensions. Each is a separate version with its own id, its own files and its own output folder. None
 changes an existing system, prompt, default, result or notebook: `eval/runner_agent.py`, `eval/runner_stage2.py`,
@@ -13,13 +13,13 @@ and pass every other flag through. Nothing in the existing runners changed.
 | # | Extension | Id | Switch it on | Needs | Results go to | Status |
 |---|---|---|---|---|---|---|
 | 9 | Contract pre-check against the data | `pc1` | `eval/ext_precheck.py <parse folders>` | CPU | `results/stage1/extensions/<parser>_pc1/` | **computed** (7B, 3B, 1.5B) |
-| 11 | Stop after *k* no-progress attempts (default *k* = 3) | `np1` | `eval/runner_agent_ext.py` / `runner_stage2_ext.py` (`--stop-after-no-progress K`, 0 = off); offline: `eval/ext_replay_no_progress.py` | GPU (replay: CPU) | `results/stage2_agent/<system>_np1_k<K>/`, replay: `results/stage2_agent_ext/np1_replay/` | **replay computed**; real run: notebook |
+| 11 | Stop after *k* no-progress attempts (default *k* = 3) | `np1` | `eval/runner_agent_ext.py` / `runner_stage2_ext.py` (`--stop-after-no-progress K`, 0 = off); offline: `eval/ext_replay_no_progress.py` | GPU (replay: CPU) | `results/stage2_agent/<system>_np1_k<K>/`, replay: `archive/extensions/results/stage2_agent_ext/np1_replay/` | **replay computed**; real run: notebook |
 | 8 | Re-ask once on an invalid contract | `rq1` | `eval/ext_reask.py <parse folder>` | GPU | `results/stage1/extensions/<parser>_rq1/` | notebook |
 | 9+8 | Pre-check, then re-ask | `pc1rq1` | `eval/ext_reask.py <parse folder> --precheck` | GPU | `.../<parser>_pc1rq1/` | notebook |
 | 12 | "Can this be done?" step before repair | `fs1` (prompt `a1-v4-fs1`) | `--feasibility-check` on the extension runners | GPU | `.../<system>_fs1/` | notebook |
 | 1 | Config file per system | `cfg` | `eval/run_config.py configs/systems/<x>.yaml [--run] [-- extra flags]` | – | (the system's own folder) | done (35 configs) |
 | 7 | vLLM backend | `vllm` | `--backend vllm` on the extension runners, `ext_reask.py`, `run_llm_verifier.py`, `parse_contracts_tools_ft.py` | GPU | system name gets `_vllm` | notebook (`vllm_check`) |
-| 5 | Docker sandbox | `docker` | `eval/with_sandbox.py --sandbox docker <script> ...` or `IGT_SANDBOX=docker`; check: `eval/ext_docker_check.py` | Docker | `results/safety_ext/docker_check.md` | **computed** |
+| 5 | Docker sandbox | `docker` | `eval/with_sandbox.py --sandbox docker <script> ...` or `IGT_SANDBOX=docker`; check: `eval/ext_docker_check.py` | Docker | `archive/extensions/results/safety_ext/docker_check.md` | **computed** |
 | 3 | LLM-as-verifier baseline | `lv1` | `eval/run_llm_verifier.py` | GPU | `results/stage1/extensions/llm_verifier_<size>_lv1/` | notebook |
 | 6 | Demo UI (Gradio) | `ui` | `python app/demo_app.py [--share]` | CPU (Live tab: GPU) | – | done |
 | 13 | Tool-using fine-tuned parser | `ft-t1` (data `v3-tools`) | `build_tools_data.py` → `train_qlora_tools.py` → `parse_contracts_tools_ft.py` | GPU | `results/stage1/extensions/intent_ft_tools_<size>/` | data built; training: notebook |
@@ -33,15 +33,15 @@ Baseline 2, Baseline 3 and the oracle). It never writes `results/stage1/summary/
 
 | Notebook | Extensions | What you set |
 |---|---|---|
-| `notebooks/kaggle/agent_extensions_kaggle.ipynb` | 11, 12, 7 | `NO_PROGRESS_K` (3), `FEASIBILITY`, `BACKEND`, `SYSTEMS` |
-| `notebooks/kaggle/stage2_extensions_kaggle.ipynb` | 11, 12, 7, 8, 9 | `NO_PROGRESS_K`, `FEASIBILITY`, `BACKEND`, `RUNS` = (preset, extension parses) |
-| `notebooks/kaggle/reask_kaggle.ipynb` | 8, 9+8 | `RUNS` (parse folders, model, adapter), `MODES` (`rq1`, `pc1rq1`) |
-| `notebooks/kaggle/llm_verifier_kaggle.ipynb` | 3 | `MODEL_ID`, `LIMIT` |
-| `notebooks/kaggle/demo_ui_kaggle.ipynb` | 6 | parser / generator / agent models, `ADAPTER` |
-| `notebooks/kaggle/finetune_tools_kaggle.ipynb` | 13 | `SIZE = "1_5b"` or `"3b"`, `SMOKE` |
-| `notebooks/kaggle/vllm_check_kaggle.ipynb` | 7 | `MODEL_ID`, `N` (5 prompts) |
+| `archive/notebooks/extensions/agent_extensions_kaggle.ipynb` | 11, 12, 7 | `NO_PROGRESS_K` (3), `FEASIBILITY`, `BACKEND`, `SYSTEMS` |
+| `archive/notebooks/extensions/stage2_extensions_kaggle.ipynb` | 11, 12, 7, 8, 9 | `NO_PROGRESS_K`, `FEASIBILITY`, `BACKEND`, `RUNS` = (preset, extension parses) |
+| `archive/notebooks/extensions/reask_kaggle.ipynb` | 8, 9+8 | `RUNS` (parse folders, model, adapter), `MODES` (`rq1`, `pc1rq1`) |
+| `archive/notebooks/extensions/llm_verifier_kaggle.ipynb` | 3 | `MODEL_ID`, `LIMIT` |
+| `archive/notebooks/extensions/demo_ui_kaggle.ipynb` | 6 | parser / generator / agent models, `ADAPTER` |
+| `archive/notebooks/extensions/finetune_tools_kaggle.ipynb` | 13 | `SIZE = "1_5b"` or `"3b"`, `SMOKE` |
+| `archive/notebooks/extensions/vllm_check_kaggle.ipynb` | 7 | `MODEL_ID`, `N` (5 prompts) |
 
-They are generated by `notebooks/kaggle/make_extension_notebooks.py` (rerun it after editing; it doesn't touch the
+They are generated by `archive/notebooks/extensions/make_extension_notebooks.py` (rerun it after editing; it doesn't touch the
 existing notebooks). Each ends with one zip that unzips at the project root into the folders above.
 
 ## Version ids recorded in the runs
@@ -70,7 +70,7 @@ every candidate of their task (REJECT), and pc1 turns those into ESCALATE, which
 not accepted. pc1 on its own makes the outcome honest (the system says "I can't check this" instead of "wrong");
 it can only improve recall / FRR together with the re-ask (pc1rq1, GPU).
 
-### #11 np1 offline replay (`results/stage2_agent_ext/np1_replay/replay.md`; exact under greedy decoding)
+### #11 np1 offline replay (`archive/extensions/results/stage2_agent_ext/np1_replay/replay.md`; exact under greedy decoding)
 
 | System | *k* | Runs stopped | Repairs lost | R repaired | E escalated | LLM calls | Tokens saved |
 |---|---|---|---|---|---|---|---|
@@ -86,7 +86,7 @@ which raises escalation on E from 8/12 to 12/12; it saves no calls, because `max
 the 58 repairs and saves 12% of the tokens; *k* = 1 loses 5 repairs. agent_naive: its 45 stops at *k* = 1 are all
 runs it already escalated (repeated code).
 
-### #5 Docker (`results/safety_ext/docker_check.md`)
+### #5 Docker (`archive/extensions/results/safety_ext/docker_check.md`)
 
 Red-team set 27/27 blocked or contained; same status and output as the subprocess sandbox on 40/40 items (10
 reference solutions, 30 pool candidates). Probes with the AST guard bypassed: reading a host file, opening a network

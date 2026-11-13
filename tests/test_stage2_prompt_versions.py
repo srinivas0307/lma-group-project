@@ -101,7 +101,7 @@ def test_wrapper_versions_resume_and_in_process_restoration(tmp_path):
 
 
 def test_development_notebook_has_no_saved_outputs_and_all_code_compiles():
-    notebook = json.loads((ROOT / "notebooks/kaggle/stage2_prompt_dev_kaggle.ipynb").read_text())
+    notebook = json.loads((ROOT / "archive/notebooks/core/stage2_prompt_dev_kaggle.ipynb").read_text())
     for i, cell in enumerate(notebook["cells"]):
         if cell["cell_type"] == "code":
             assert cell["execution_count"] is None and cell["outputs"] == []

@@ -1,0 +1,22 @@
+{
+  "stage": "dev",
+  "commit": "8ea400a7c3b8c9937c44e1b6cb99383ce2a74474",
+  "generator_model": "Qwen/Qwen2.5-3B-Instruct",
+  "generator_4bit": false,
+  "agent_model": "Qwen/Qwen2.5-7B-Instruct",
+  "agent_4bit": true,
+  "ft_parses": "kaggle_outputs/parsing/ft_1_5b/parses.jsonl",
+  "seeds": [
+    0
+  ],
+  "backend": "hf",
+  "systems": [
+    "baseline1__gen_3b",
+    "gold_contract__gen_3b"
+  ],
+  "created": "2026-11-11T17:46:06",
+  "runs": {
+    "baseline1__gen_3b": 20,
+    "gold_contract__gen_3b": 20
+  }
+}

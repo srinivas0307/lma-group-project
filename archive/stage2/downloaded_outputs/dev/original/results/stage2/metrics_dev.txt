@@ -1,0 +1,4 @@
+system                        final no rep   gain rep succ  unnec silent   esc parse esc attempts tool ok unsafe
+baseline1__gen_3b             0.800  0.800  0.000    0.000  0.000  0.200 0.000         0      -       -        0
+gold_contract__gen_3b         0.700  0.550  0.150    0.333  0.000  0.067 0.150         0    1.880   0.952      0
+

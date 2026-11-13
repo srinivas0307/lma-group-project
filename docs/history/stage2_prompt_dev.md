@@ -2,6 +2,8 @@
 
 The first real Stage 2 development run used commit `8ea400a`, generator b2-v1 and agent a1-v4. Direct generation was correct on 16/20 tasks; the gold-contract system was initially correct on 11/20 and finally correct on 14/20. Preserve that run unchanged. Its 20-task final-accuracy comparison is not statistically significant (paired McNemar p = 0.625).
 
+**Executed comparisons are now organized:** [artifact index](../../results/STAGE2_DEV_RESULTS.md), [Phase A notebook](../../archive/notebooks/executed/stage2_dev/stage2_prompt_dev_phase_a.ipynb), and [Phase B notebook](../../archive/notebooks/executed/stage2_dev/stage2_prompt_dev_phase_b.ipynb). Result snapshots are in `archive/stage2/prompt_development/phase_a/` and `phase_b/`; raw downloads are in `archive/stage2/downloaded_outputs/dev/`. The original run is available under `archive/stage2/early_evaluation/`. Development selected b2-v2 / a1-v4 / sb1 for the final test workflow.
+
 Local replay of 58 recorded code snippets reproduced the initial accuracies under pandas 2.3.3. Failures included invented column identifiers, unnecessary dtype conversions, incorrect complements of compound filters, incompatible pandas APIs, repeated ineffective repairs, and a correct tool-tested candidate that was never submitted. The accepted-wrong Titanic repair retained a helper column: the existing contract vocabulary does not forbid extra columns.
 
 ## New, opt-in versions
@@ -15,7 +17,7 @@ The old runner, agent, generator prompts, sandbox executor and existing notebook
 
 ## Kaggle development workflow
 
-Use `notebooks/kaggle/stage2_prompt_dev_kaggle.ipynb`. Push these new files to the repository first; its defaults clone branch `extra`. It runs only the 20 development tasks and uses real HF inference by default.
+Use `archive/notebooks/core/stage2_prompt_dev_kaggle.ipynb`. Push these new files to the repository first; its defaults clone branch `extra`. It runs only the 20 development tasks and uses real HF inference by default.
 
 Phase A runs three systems under the same verified environment and budgets:
 

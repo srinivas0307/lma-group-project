@@ -282,7 +282,7 @@ It measures the problem itself: how often an LLM produces code that runs but is 
 ### 3.3 Implementation
 
 - Prompt `b1-v1` (`src/igt/agents/code_generator.py`). The system prompt asks for a single `transform(df)` function using only pandas and numpy, with no file or network access. The user message contains the row and column counts, each column's name, dtype and missing count, the first 5 rows as CSV, and the request. The schema text comes from a frozen file (`benchmark/prompts/schema_b1-v1.json`) so prompts are byte-identical across runs.
-- Run on Kaggle (T4) with Qwen2.5-3B-Instruct and Qwen2.5-1.5B-Instruct (`notebooks/kaggle/gate1_generate_kaggle.ipynb`; executed copies in `notebooks/executed/`).
+- Run on Kaggle (T4) with Qwen2.5-3B-Instruct and Qwen2.5-1.5B-Instruct (`archive/notebooks/core/gate1_generate_kaggle.ipynb`; executed copies in `archive/notebooks/executed/`).
 - The code block is extracted from the reply, checked by the AST safety guard (only pandas/numpy imports; blocks `open`, `eval`, `exec`, `os`, `sys`, `subprocess`, `socket`, dunder access), then run in a separate process with CPU, memory, file-size and time limits (`src/igt/sandbox/`).
 
 **Architecture (Baseline 1):**
@@ -419,7 +419,7 @@ The full intent-gated pipeline, with the contract written by a **general-purpose
 
 ### 5.3 Implementation
 
-`src/igt/agents/intent_parser.py`, `eval/parse_contracts.py` (GPU, Kaggle notebook `notebooks/kaggle/baseline3_parse_kaggle.ipynb`), `eval/score_parsers.py` (scoring, CPU).
+`src/igt/agents/intent_parser.py`, `eval/parse_contracts.py` (GPU, Kaggle notebook `archive/notebooks/core/baseline3_parse_kaggle.ipynb`), `eval/score_parsers.py` (scoring, CPU).
 
 **Model and decoding.** Qwen2.5-7B-Instruct, 4-bit, fp16 compute, **greedy** decoding, max 1,024 new tokens, Kaggle T4. Decision : every LLM parser uses the same plain greedy generation, then JSON extraction from the reply and strict pydantic validation. No constrained decoding, no output repair, no lenient parsing. Invalid outputs are counted and escalated.
 
