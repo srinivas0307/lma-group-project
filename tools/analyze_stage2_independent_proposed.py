@@ -36,8 +36,8 @@ def counts(rows):
 
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--bundle',type=Path,default=ROOT/'stage2_independent_proposed.zip')
-    p.add_argument('--notebook',type=Path,default=ROOT/'stage2-independent-05.ipynb')
+    p=argparse.ArgumentParser();p.add_argument('--bundle',type=Path,default=ROOT/'kaggle_outputs/stage2/independent_v1/stage2_independent_proposed.zip')
+    p.add_argument('--notebook',type=Path,default=ROOT/'notebooks/executed/stage2/independent_v1/stage2_independent_05_proposed_executed.ipynb')
     p.add_argument('--out',type=Path,default=ROOT/'results/stage2_independent_analysis/proposed_v1');a=p.parse_args()
     plan,rows=read_bundle(a.bundle)
     a.out.mkdir(parents=True,exist_ok=True);cache=Path(tempfile.gettempdir())/('igt_stage2_audit_'+hashlib.sha256(a.bundle.read_bytes()).hexdigest()[:12]);cache.mkdir(exist_ok=True)

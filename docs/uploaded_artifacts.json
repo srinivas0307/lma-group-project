@@ -1,0 +1,35 @@
+{
+  "note": "User uploads moved from the repository root; file contents unchanged.",
+  "files": [
+    {
+      "original": "stage2-independent-05.ipynb",
+      "current": "notebooks/executed/stage2/independent_v2/stage2_parser_diagnostic_executed.ipynb",
+      "sha256": "dd078fb4e17e2aea5839113ecc53aaf92d921099509c16c2ca48335f694ddb76"
+    },
+    {
+      "original": "stage2_parser_diagnostic.zip",
+      "current": "kaggle_outputs/stage2/independent_v2/stage2_parser_diagnostic.zip",
+      "sha256": "984cc066cc3f826920b113d2461af194ee67dba7308f1dc8907670b0c2f777ba"
+    },
+    {
+      "original": "stage2-selective.ipynb",
+      "current": "notebooks/executed/training/selective_facts_v1/selective_facts_train_executed.ipynb",
+      "sha256": "b5532bceb4fa95eb0356e97a75788c38668b173adbc6688ba74af598e7f4a458"
+    },
+    {
+      "original": "selective_facts_1_5b.zip",
+      "current": "kaggle_outputs/training/selective_facts_v1/selective_facts_1_5b.zip",
+      "sha256": "386a88a66b9788838d8d9d9d9a9cebeaef28da817964fa5affa65d45eed25fd2"
+    },
+    {
+      "original": "stage2-tool.ipynb",
+      "current": "notebooks/executed/stage2/tools_v1/stage2_tools_05_proposed_executed.ipynb",
+      "sha256": "afba7a06cb35a5ad57d707863409c9f3b3447cf563a1772a28186354673ee227"
+    },
+    {
+      "original": "stage2_tools_proposed.zip",
+      "current": "kaggle_outputs/stage2/tools_v1/stage2_tools_proposed.zip",
+      "sha256": "ae730bc61d17f7f212d6c80bb6ed111318a49fb454e30659dd3eb15c6c7bb038"
+    }
+  ]
+}

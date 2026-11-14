@@ -29,7 +29,7 @@ def members(source):
 
 
 def main():
-    path=ROOT/'stage2_parser_diagnostic.zip';files=members(path)
+    path=ROOT/'kaggle_outputs/stage2/independent_v2/stage2_parser_diagnostic.zip';files=members(path)
     with tempfile.TemporaryDirectory(prefix='igt_parser_diagnostic_') as temp:
         for arm in ARMS: (Path(temp)/(arm+'.zip')).write_bytes(files[arm+'.zip'])
         summarize(temp)  # Checks method, current source/input hashes, full dev coverage and controlled settings.
@@ -38,7 +38,7 @@ def main():
     if supplied!=regenerated:raise ValueError('Supplied summary differs from validated arm data')
     expected_adapter=json.loads((ROOT/'eval/stage2_independent_v2/adapter.json').read_text())['sha256']
     if any(p['adapter_hashes']!=expected_adapter for p in supplied['plans']):raise ValueError('Wrong adapter provenance')
-    notebook=json.loads((ROOT/'stage2-independent-05.ipynb').read_text())
+    notebook=json.loads((ROOT/'notebooks/executed/stage2/independent_v2/stage2_parser_diagnostic_executed.ipynb').read_text())
     template=json.loads((ROOT/'notebooks/kaggle/stage2_independent_v2/stage2_parser_diagnostic.ipynb').read_text())
     src=lambda c:''.join(c.get('source',[]))
     errors=[dict(cell=i,error=o.get('evalue')) for i,c in enumerate(notebook['cells']) for o in c.get('outputs',[]) if o.get('output_type')=='error']

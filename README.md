@@ -88,3 +88,9 @@ Tool-protocol GPU run: [validated analysis](results/stage2_tools_analysis/propos
 ### New: base-model tools and tool-use training
 
 The isolated `parser-tools-v2` workflows support Qwen2.5 **1.5B or 3B** with no adapter, or a newly trained tool-use adapter. Start with [the run instructions](docs/tool_use_v2.md) and [the Kaggle notebooks](notebooks/kaggle/tool_use_v2/). These are parser-development workflows; existing Stage 2 and selective-facts runs remain separate.
+
+### Selective-facts scope correction: reuse the trained adapter
+
+After the completed SF1 training run, use the [inference-only scope-fix notebook](notebooks/kaggle/selective_facts_scopefix/selective_facts_scopefix_eval.ipynb) with its new source ZIP and the existing `selective_facts_1_5b.zip`. [Run instructions](docs/selective_facts_scopefix.md). This fixes the 12 blocked development routes and evaluates the same epoch-2 weights without retraining.
+
+Uploaded executed notebooks and result ZIPs are organized by workflow. See [the upload locations index](docs/uploaded_artifacts.md) for exact paths and original names.

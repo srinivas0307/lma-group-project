@@ -1,0 +1,13 @@
+{
+  "source_bundle_sha256": "386a88a66b9788838d8d9d9d9a9cebeaef28da817964fa5affa65d45eed25fd2",
+  "selected": "epoch_000502",
+  "sha256": {
+    "adapter_config.json": "8922a1dd81a915384171da4afe32cdf2a9fe472757b58ada1538981bad9c6959",
+    "adapter_model.safetensors": "b1adae381d17e95d1eb9abafedcac2d42b1aff57bfe2681b834060901a1826e7",
+    "igt_prompt_version.txt": "9a6035f2130877009af3d9d33e7282080c3662029d26dc05686cb89b204f35f9",
+    "input_protocol.json": "40c46eea57cfc6da3c364135d86eadd739e253852af6969cc0b772bdf0941feb",
+    "selection.json": "622a0259c312768673efe5faa164fe72781b2e8a0278edc6e8f6b07c7ae4e88c",
+    "tokenizer.json": "3fd169731d2cbde95e10bf356d66d5997fd885dd8dbb6fb4684da3f23b2585d8",
+    "tokenizer_config.json": "04b1682c59acbd057f4c9072297faa73d56fc9de053094c659cdb4c464f58f86"
+  }
+}

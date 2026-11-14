@@ -1,0 +1,1447 @@
+{
+  "original": {
+    "summary": {
+      "synthetic": {
+        "tasks": 80,
+        "correct_accepted": 52,
+        "wrong_accepted": 4,
+        "joint_success": 52,
+        "invalid": 4,
+        "tokens": 119026
+      },
+      "original": {
+        "tasks": 20,
+        "correct_accepted": 16,
+        "wrong_accepted": 0,
+        "joint_success": 16,
+        "invalid": 0,
+        "tokens": 34076
+      }
+    },
+    "records": {
+      "adult_col_006": {
+        "cohort": "original",
+        "request": "Rename the education-num column to education_years.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "adult_conv_006": {
+        "cohort": "original",
+        "request": "Make workclass a categorical column. Missing workclass values should stay missing.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "adult_dedup_006": {
+        "cohort": "original",
+        "request": "Remove records that are identical in every column except fnlwgt and income, keeping the first.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "adult_filt_006": {
+        "cohort": "original",
+        "request": "Remove private-sector workers who work fewer than 20 hours a week.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "adult_miss_006": {
+        "cohort": "original",
+        "request": "Drop every record that has any missing value.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "airbnb_col_006": {
+        "cohort": "original",
+        "request": "Rename the reviews_per_month column to monthly_reviews.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "airbnb_conv_006": {
+        "cohort": "original",
+        "request": "Store the listing id as text rather than as a number.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "airbnb_dedup_006": {
+        "cohort": "original",
+        "request": "Remove repeat listings from the same host that have the same room type and the same price. Keep the first one.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "airbnb_filt_006": {
+        "cohort": "original",
+        "request": "Remove private rooms in Manhattan that cost less than $60 a night.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "airbnb_miss_006": {
+        "cohort": "original",
+        "request": "Where the host name is missing, use the listing's name instead.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "taxi_col_006": {
+        "cohort": "original",
+        "request": "Rename the Airport_fee column to airport_fee.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "taxi_conv_006": {
+        "cohort": "original",
+        "request": "Store RatecodeID as an integer instead of a float.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "taxi_dedup_006": {
+        "cohort": "original",
+        "request": "Trips from the same vendor (VendorID) with the same pickup time are duplicates. Keep the last one of each.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "taxi_filt_006": {
+        "cohort": "original",
+        "request": "Keep only the trips that carried between 1 and 4 passengers, inclusive.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "taxi_miss_006": {
+        "cohort": "original",
+        "request": "A trip_distance of 0 means the distance was not recorded. Mark those values as missing.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "titanic_col_006": {
+        "cohort": "original",
+        "request": "Rename the Pclass column to passenger_class.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "titanic_conv_006": {
+        "cohort": "original",
+        "request": "Store SibSp and Parch as floating-point numbers.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "titanic_dedup_006": {
+        "cohort": "original",
+        "request": "Passengers with the same ticket and the same fare belong to one booking. Keep only the first passenger of each booking.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "titanic_filt_006": {
+        "cohort": "original",
+        "request": "Remove the first-class passengers who paid a fare of less than 30.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "titanic_miss_006": {
+        "cohort": "original",
+        "request": "Drop the passengers whose age is missing.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "courier_convert_0": {
+        "cohort": "synthetic",
+        "request": "Convert courier_priority to an ordered category with order low < mid < high. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "courier_convert_1": {
+        "cohort": "synthetic",
+        "request": "Convert courier_date to datetime using format %d/%m/%Y. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "invalid_contract",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "courier_convert_2": {
+        "cohort": "synthetic",
+        "request": "Convert courier_batch to float. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "courier_convert_3": {
+        "cohort": "synthetic",
+        "request": "Convert courier_unit to string. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "courier_dedup_0": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['courier_batch'], retaining the first row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "courier_dedup_1": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['courier_batch'], retaining the last row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "courier_dedup_2": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['courier_batch', 'courier_unit'], retaining the first row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "courier_dedup_3": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['courier_batch', 'courier_unit'], retaining the last row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "courier_edit_0": {
+        "cohort": "synthetic",
+        "request": "Clip courier_reading to [20,60]. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "courier_edit_1": {
+        "cohort": "synthetic",
+        "request": "Map courier_priority: low to 1, mid to 2, high to 3; preserve missing cells. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "courier_edit_2": {
+        "cohort": "synthetic",
+        "request": "Add 4 to courier_reading_backup. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "courier_edit_3": {
+        "cohort": "synthetic",
+        "request": "Double courier_reading_backup only for rows with courier_zone = west. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": true
+      },
+      "courier_fill_0": {
+        "cohort": "synthetic",
+        "request": "Fill missing courier_reading with the full-column median. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "courier_fill_1": {
+        "cohort": "synthetic",
+        "request": "Fill missing courier_reading with the full-column mean. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "courier_fill_2": {
+        "cohort": "synthetic",
+        "request": "Fill missing courier_priority with the unique most frequent nonmissing value. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "courier_fill_3": {
+        "cohort": "synthetic",
+        "request": "Fill missing courier_reading only in courier_zone = east with the median of courier_reading among rows with courier_zone = east. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "courier_filter_0": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where courier_reading > 32; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "courier_filter_1": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where courier_reading >= 32; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "courier_filter_2": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where courier_reading < 32; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "courier_filter_3": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where courier_reading <= 32; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "nursery_convert_0": {
+        "cohort": "synthetic",
+        "request": "Convert nursery_priority to an ordered category with order low < mid < high. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "nursery_convert_1": {
+        "cohort": "synthetic",
+        "request": "Convert nursery_date to datetime using format %d/%m/%Y. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "invalid_contract",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "nursery_convert_2": {
+        "cohort": "synthetic",
+        "request": "Convert nursery_batch to float. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "nursery_convert_3": {
+        "cohort": "synthetic",
+        "request": "Convert nursery_unit to string. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "nursery_dedup_0": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['nursery_batch'], retaining the first row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "nursery_dedup_1": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['nursery_batch'], retaining the last row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "nursery_dedup_2": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['nursery_batch', 'nursery_unit'], retaining the first row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "nursery_dedup_3": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['nursery_batch', 'nursery_unit'], retaining the last row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "nursery_edit_0": {
+        "cohort": "synthetic",
+        "request": "Clip nursery_reading to [20,60]. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "nursery_edit_1": {
+        "cohort": "synthetic",
+        "request": "Map nursery_priority: low to 1, mid to 2, high to 3; preserve missing cells. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "nursery_edit_2": {
+        "cohort": "synthetic",
+        "request": "Add 5 to nursery_reading_backup. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "nursery_edit_3": {
+        "cohort": "synthetic",
+        "request": "Double nursery_reading_backup only for rows with nursery_zone = west. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": true
+      },
+      "nursery_fill_0": {
+        "cohort": "synthetic",
+        "request": "Fill missing nursery_reading with the full-column median. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "nursery_fill_1": {
+        "cohort": "synthetic",
+        "request": "Fill missing nursery_reading with the full-column mean. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "nursery_fill_2": {
+        "cohort": "synthetic",
+        "request": "Fill missing nursery_priority with the unique most frequent nonmissing value. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "nursery_fill_3": {
+        "cohort": "synthetic",
+        "request": "Fill missing nursery_reading only in nursery_zone = east with the median of nursery_reading among rows with nursery_zone = east. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "nursery_filter_0": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where nursery_reading > 33; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "nursery_filter_1": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where nursery_reading >= 33; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "nursery_filter_2": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where nursery_reading < 33; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "nursery_filter_3": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where nursery_reading <= 33; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_convert_0": {
+        "cohort": "synthetic",
+        "request": "Convert solar_priority to an ordered category with order low < mid < high. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_convert_1": {
+        "cohort": "synthetic",
+        "request": "Convert solar_date to datetime using format %d/%m/%Y. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "invalid_contract",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "solar_convert_2": {
+        "cohort": "synthetic",
+        "request": "Convert solar_batch to float. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_convert_3": {
+        "cohort": "synthetic",
+        "request": "Convert solar_unit to string. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_dedup_0": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['solar_batch'], retaining the first row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_dedup_1": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['solar_batch'], retaining the last row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_dedup_2": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['solar_batch', 'solar_unit'], retaining the first row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_dedup_3": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['solar_batch', 'solar_unit'], retaining the last row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_edit_0": {
+        "cohort": "synthetic",
+        "request": "Clip solar_reading to [20,60]. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_edit_1": {
+        "cohort": "synthetic",
+        "request": "Map solar_priority: low to 1, mid to 2, high to 3; preserve missing cells. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_edit_2": {
+        "cohort": "synthetic",
+        "request": "Add 3 to solar_reading_backup. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "solar_edit_3": {
+        "cohort": "synthetic",
+        "request": "Double solar_reading_backup only for rows with solar_zone = west. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": true
+      },
+      "solar_fill_0": {
+        "cohort": "synthetic",
+        "request": "Fill missing solar_reading with the full-column median. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "solar_fill_1": {
+        "cohort": "synthetic",
+        "request": "Fill missing solar_reading with the full-column mean. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "solar_fill_2": {
+        "cohort": "synthetic",
+        "request": "Fill missing solar_priority with the unique most frequent nonmissing value. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "solar_fill_3": {
+        "cohort": "synthetic",
+        "request": "Fill missing solar_reading only in solar_zone = east with the median of solar_reading among rows with solar_zone = east. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "solar_filter_0": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where solar_reading > 31; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_filter_1": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where solar_reading >= 31; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_filter_2": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where solar_reading < 31; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_filter_3": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where solar_reading <= 31; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "warehouse_convert_0": {
+        "cohort": "synthetic",
+        "request": "Convert warehouse_priority to an ordered category with order low < mid < high. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "warehouse_convert_1": {
+        "cohort": "synthetic",
+        "request": "Convert warehouse_date to datetime using format %d/%m/%Y. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "invalid_contract",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "warehouse_convert_2": {
+        "cohort": "synthetic",
+        "request": "Convert warehouse_batch to float. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "warehouse_convert_3": {
+        "cohort": "synthetic",
+        "request": "Convert warehouse_unit to string. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "warehouse_dedup_0": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['warehouse_batch'], retaining the first row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "warehouse_dedup_1": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['warehouse_batch'], retaining the last row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "warehouse_dedup_2": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['warehouse_batch', 'warehouse_unit'], retaining the first row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "warehouse_dedup_3": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['warehouse_batch', 'warehouse_unit'], retaining the last row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "warehouse_edit_0": {
+        "cohort": "synthetic",
+        "request": "Clip warehouse_reading to [20,60]. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "warehouse_edit_1": {
+        "cohort": "synthetic",
+        "request": "Map warehouse_priority: low to 1, mid to 2, high to 3; preserve missing cells. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "warehouse_edit_2": {
+        "cohort": "synthetic",
+        "request": "Add 2 to warehouse_reading_backup. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "warehouse_edit_3": {
+        "cohort": "synthetic",
+        "request": "Double warehouse_reading_backup only for rows with warehouse_zone = west. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": true
+      },
+      "warehouse_fill_0": {
+        "cohort": "synthetic",
+        "request": "Fill missing warehouse_reading with the full-column median. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "warehouse_fill_1": {
+        "cohort": "synthetic",
+        "request": "Fill missing warehouse_reading with the full-column mean. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "warehouse_fill_2": {
+        "cohort": "synthetic",
+        "request": "Fill missing warehouse_priority with the unique most frequent nonmissing value. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "warehouse_fill_3": {
+        "cohort": "synthetic",
+        "request": "Fill missing warehouse_reading only in warehouse_zone = east with the median of warehouse_reading among rows with warehouse_zone = east. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "warehouse_filter_0": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where warehouse_reading > 30; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "warehouse_filter_1": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where warehouse_reading >= 30; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "warehouse_filter_2": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where warehouse_reading < 30; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "warehouse_filter_3": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where warehouse_reading <= 30; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      }
+    }
+  },
+  "sf1": {
+    "summary": {
+      "synthetic": {
+        "tasks": 80,
+        "correct_accepted": 56,
+        "wrong_accepted": 0,
+        "joint_success": 56,
+        "invalid": 17,
+        "tokens": 109046
+      },
+      "original": {
+        "tasks": 20,
+        "correct_accepted": 17,
+        "wrong_accepted": 0,
+        "joint_success": 17,
+        "invalid": 1,
+        "tokens": 36450
+      }
+    },
+    "records": {
+      "adult_col_006": {
+        "cohort": "original",
+        "request": "Rename the education-num column to education_years.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "adult_conv_006": {
+        "cohort": "original",
+        "request": "Make workclass a categorical column. Missing workclass values should stay missing.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "adult_dedup_006": {
+        "cohort": "original",
+        "request": "Remove records that are identical in every column except fnlwgt and income, keeping the first.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "adult_filt_006": {
+        "cohort": "original",
+        "request": "Remove private-sector workers who work fewer than 20 hours a week.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "adult_miss_006": {
+        "cohort": "original",
+        "request": "Drop every record that has any missing value.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "airbnb_col_006": {
+        "cohort": "original",
+        "request": "Rename the reviews_per_month column to monthly_reviews.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "airbnb_conv_006": {
+        "cohort": "original",
+        "request": "Store the listing id as text rather than as a number.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "airbnb_dedup_006": {
+        "cohort": "original",
+        "request": "Remove repeat listings from the same host that have the same room type and the same price. Keep the first one.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "airbnb_filt_006": {
+        "cohort": "original",
+        "request": "Remove private rooms in Manhattan that cost less than $60 a night.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "airbnb_miss_006": {
+        "cohort": "original",
+        "request": "Where the host name is missing, use the listing's name instead.\n",
+        "parse_status": "invalid_contract",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "taxi_col_006": {
+        "cohort": "original",
+        "request": "Rename the Airport_fee column to airport_fee.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "taxi_conv_006": {
+        "cohort": "original",
+        "request": "Store RatecodeID as an integer instead of a float.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "taxi_dedup_006": {
+        "cohort": "original",
+        "request": "Trips from the same vendor (VendorID) with the same pickup time are duplicates. Keep the last one of each.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "taxi_filt_006": {
+        "cohort": "original",
+        "request": "Keep only the trips that carried between 1 and 4 passengers, inclusive.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "taxi_miss_006": {
+        "cohort": "original",
+        "request": "A trip_distance of 0 means the distance was not recorded. Mark those values as missing.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "titanic_col_006": {
+        "cohort": "original",
+        "request": "Rename the Pclass column to passenger_class.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "titanic_conv_006": {
+        "cohort": "original",
+        "request": "Store SibSp and Parch as floating-point numbers.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "titanic_dedup_006": {
+        "cohort": "original",
+        "request": "Passengers with the same ticket and the same fare belong to one booking. Keep only the first passenger of each booking.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "titanic_filt_006": {
+        "cohort": "original",
+        "request": "Remove the first-class passengers who paid a fare of less than 30.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "titanic_miss_006": {
+        "cohort": "original",
+        "request": "Drop the passengers whose age is missing.\n",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "courier_convert_0": {
+        "cohort": "synthetic",
+        "request": "Convert courier_priority to an ordered category with order low < mid < high. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "courier_convert_1": {
+        "cohort": "synthetic",
+        "request": "Convert courier_date to datetime using format %d/%m/%Y. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "courier_convert_2": {
+        "cohort": "synthetic",
+        "request": "Convert courier_batch to float. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "courier_convert_3": {
+        "cohort": "synthetic",
+        "request": "Convert courier_unit to string. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "courier_dedup_0": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['courier_batch'], retaining the first row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "courier_dedup_1": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['courier_batch'], retaining the last row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "courier_dedup_2": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['courier_batch', 'courier_unit'], retaining the first row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "courier_dedup_3": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['courier_batch', 'courier_unit'], retaining the last row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "courier_edit_0": {
+        "cohort": "synthetic",
+        "request": "Clip courier_reading to [20,60]. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "courier_edit_1": {
+        "cohort": "synthetic",
+        "request": "Map courier_priority: low to 1, mid to 2, high to 3; preserve missing cells. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "courier_edit_2": {
+        "cohort": "synthetic",
+        "request": "Add 4 to courier_reading_backup. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "courier_edit_3": {
+        "cohort": "synthetic",
+        "request": "Double courier_reading_backup only for rows with courier_zone = west. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "courier_fill_0": {
+        "cohort": "synthetic",
+        "request": "Fill missing courier_reading with the full-column median. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "fact_unavailable",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "courier_fill_1": {
+        "cohort": "synthetic",
+        "request": "Fill missing courier_reading with the full-column mean. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "fact_unavailable",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "courier_fill_2": {
+        "cohort": "synthetic",
+        "request": "Fill missing courier_priority with the unique most frequent nonmissing value. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "fact_unavailable",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "courier_fill_3": {
+        "cohort": "synthetic",
+        "request": "Fill missing courier_reading only in courier_zone = east with the median of courier_reading among rows with courier_zone = east. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "courier_filter_0": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where courier_reading > 32; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "invalid_contract",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "courier_filter_1": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where courier_reading >= 32; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "courier_filter_2": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where courier_reading < 32; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "courier_filter_3": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where courier_reading <= 32; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "nursery_convert_0": {
+        "cohort": "synthetic",
+        "request": "Convert nursery_priority to an ordered category with order low < mid < high. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "nursery_convert_1": {
+        "cohort": "synthetic",
+        "request": "Convert nursery_date to datetime using format %d/%m/%Y. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "nursery_convert_2": {
+        "cohort": "synthetic",
+        "request": "Convert nursery_batch to float. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "nursery_convert_3": {
+        "cohort": "synthetic",
+        "request": "Convert nursery_unit to string. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "nursery_dedup_0": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['nursery_batch'], retaining the first row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "nursery_dedup_1": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['nursery_batch'], retaining the last row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "nursery_dedup_2": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['nursery_batch', 'nursery_unit'], retaining the first row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "nursery_dedup_3": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['nursery_batch', 'nursery_unit'], retaining the last row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "nursery_edit_0": {
+        "cohort": "synthetic",
+        "request": "Clip nursery_reading to [20,60]. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "nursery_edit_1": {
+        "cohort": "synthetic",
+        "request": "Map nursery_priority: low to 1, mid to 2, high to 3; preserve missing cells. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "nursery_edit_2": {
+        "cohort": "synthetic",
+        "request": "Add 5 to nursery_reading_backup. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "nursery_edit_3": {
+        "cohort": "synthetic",
+        "request": "Double nursery_reading_backup only for rows with nursery_zone = west. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "nursery_fill_0": {
+        "cohort": "synthetic",
+        "request": "Fill missing nursery_reading with the full-column median. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "fact_unavailable",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "nursery_fill_1": {
+        "cohort": "synthetic",
+        "request": "Fill missing nursery_reading with the full-column mean. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "fact_unavailable",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "nursery_fill_2": {
+        "cohort": "synthetic",
+        "request": "Fill missing nursery_priority with the unique most frequent nonmissing value. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "fact_unavailable",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "nursery_fill_3": {
+        "cohort": "synthetic",
+        "request": "Fill missing nursery_reading only in nursery_zone = east with the median of nursery_reading among rows with nursery_zone = east. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "nursery_filter_0": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where nursery_reading > 33; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "invalid_contract",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "nursery_filter_1": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where nursery_reading >= 33; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "nursery_filter_2": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where nursery_reading < 33; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "nursery_filter_3": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where nursery_reading <= 33; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_convert_0": {
+        "cohort": "synthetic",
+        "request": "Convert solar_priority to an ordered category with order low < mid < high. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_convert_1": {
+        "cohort": "synthetic",
+        "request": "Convert solar_date to datetime using format %d/%m/%Y. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_convert_2": {
+        "cohort": "synthetic",
+        "request": "Convert solar_batch to float. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_convert_3": {
+        "cohort": "synthetic",
+        "request": "Convert solar_unit to string. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_dedup_0": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['solar_batch'], retaining the first row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_dedup_1": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['solar_batch'], retaining the last row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_dedup_2": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['solar_batch', 'solar_unit'], retaining the first row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_dedup_3": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['solar_batch', 'solar_unit'], retaining the last row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_edit_0": {
+        "cohort": "synthetic",
+        "request": "Clip solar_reading to [20,60]. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_edit_1": {
+        "cohort": "synthetic",
+        "request": "Map solar_priority: low to 1, mid to 2, high to 3; preserve missing cells. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "solar_edit_2": {
+        "cohort": "synthetic",
+        "request": "Add 3 to solar_reading_backup. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "invalid_contract",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "solar_edit_3": {
+        "cohort": "synthetic",
+        "request": "Double solar_reading_backup only for rows with solar_zone = west. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_fill_0": {
+        "cohort": "synthetic",
+        "request": "Fill missing solar_reading with the full-column median. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "fact_unavailable",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "solar_fill_1": {
+        "cohort": "synthetic",
+        "request": "Fill missing solar_reading with the full-column mean. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "fact_unavailable",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "solar_fill_2": {
+        "cohort": "synthetic",
+        "request": "Fill missing solar_priority with the unique most frequent nonmissing value. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "fact_unavailable",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "solar_fill_3": {
+        "cohort": "synthetic",
+        "request": "Fill missing solar_reading only in solar_zone = east with the median of solar_reading among rows with solar_zone = east. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_filter_0": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where solar_reading > 31; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_filter_1": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where solar_reading >= 31; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_filter_2": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where solar_reading < 31; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "solar_filter_3": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where solar_reading <= 31; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "warehouse_convert_0": {
+        "cohort": "synthetic",
+        "request": "Convert warehouse_priority to an ordered category with order low < mid < high. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "warehouse_convert_1": {
+        "cohort": "synthetic",
+        "request": "Convert warehouse_date to datetime using format %d/%m/%Y. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "invalid_contract",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "warehouse_convert_2": {
+        "cohort": "synthetic",
+        "request": "Convert warehouse_batch to float. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "warehouse_convert_3": {
+        "cohort": "synthetic",
+        "request": "Convert warehouse_unit to string. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "warehouse_dedup_0": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['warehouse_batch'], retaining the first row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "warehouse_dedup_1": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['warehouse_batch'], retaining the last row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "warehouse_dedup_2": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['warehouse_batch', 'warehouse_unit'], retaining the first row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "warehouse_dedup_3": {
+        "cohort": "synthetic",
+        "request": "Remove duplicates by ['warehouse_batch', 'warehouse_unit'], retaining the last row of each group in input order. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "warehouse_edit_0": {
+        "cohort": "synthetic",
+        "request": "Clip warehouse_reading to [20,60]. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "warehouse_edit_1": {
+        "cohort": "synthetic",
+        "request": "Map warehouse_priority: low to 1, mid to 2, high to 3; preserve missing cells. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "warehouse_edit_2": {
+        "cohort": "synthetic",
+        "request": "Add 2 to warehouse_reading_backup. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "warehouse_edit_3": {
+        "cohort": "synthetic",
+        "request": "Double warehouse_reading_backup only for rows with warehouse_zone = west. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "warehouse_fill_0": {
+        "cohort": "synthetic",
+        "request": "Fill missing warehouse_reading with the full-column median. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "fact_unavailable",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "warehouse_fill_1": {
+        "cohort": "synthetic",
+        "request": "Fill missing warehouse_reading with the full-column mean. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "fact_unavailable",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "warehouse_fill_2": {
+        "cohort": "synthetic",
+        "request": "Fill missing warehouse_priority with the unique most frequent nonmissing value. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "fact_unavailable",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "warehouse_fill_3": {
+        "cohort": "synthetic",
+        "request": "Fill missing warehouse_reading only in warehouse_zone = east with the median of warehouse_reading among rows with warehouse_zone = east. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "warehouse_filter_0": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where warehouse_reading > 30; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "invalid_contract",
+        "all_correct_accepted": false,
+        "any_wrong_accepted": false
+      },
+      "warehouse_filter_1": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where warehouse_reading >= 30; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "warehouse_filter_2": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where warehouse_reading < 30; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      },
+      "warehouse_filter_3": {
+        "cohort": "synthetic",
+        "request": "Keep only rows where warehouse_reading <= 30; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+        "parse_status": "ok",
+        "all_correct_accepted": true,
+        "any_wrong_accepted": false
+      }
+    }
+  },
+  "note": "Historical development results from the supplied sealed training run; not fresh independent baseline runs."
+}

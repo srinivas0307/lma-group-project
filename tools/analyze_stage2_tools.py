@@ -38,8 +38,8 @@ def summary(rows):
 
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--bundle',type=Path,default=ROOT/'stage2_tools_proposed.zip')
-    p.add_argument('--notebook',type=Path,default=ROOT/'stage2-tool.ipynb');p.add_argument('--out',type=Path,default=ROOT/'results/stage2_tools_analysis/proposed_v1');args=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--bundle',type=Path,default=ROOT/'kaggle_outputs/stage2/tools_v1/stage2_tools_proposed.zip')
+    p.add_argument('--notebook',type=Path,default=ROOT/'notebooks/executed/stage2/tools_v1/stage2_tools_05_proposed_executed.ipynb');p.add_argument('--out',type=Path,default=ROOT/'results/stage2_tools_analysis/proposed_v1');args=p.parse_args()
     plan,rows=read_bundle(args.bundle)
     with zipfile.ZipFile(args.bundle) as z:
         if z.testzip() is not None:raise ValueError('CRC failure')
