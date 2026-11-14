@@ -94,3 +94,11 @@ The isolated `parser-tools-v2` workflows support Qwen2.5 **1.5B or 3B** with no 
 After the completed SF1 training run, use the [inference-only scope-fix notebook](notebooks/kaggle/selective_facts_scopefix/selective_facts_scopefix_eval.ipynb) with its new source ZIP and the existing `selective_facts_1_5b.zip`. [Run instructions](docs/selective_facts_scopefix.md). This fixes the 12 blocked development routes and evaluates the same epoch-2 weights without retraining.
 
 Uploaded executed notebooks and result ZIPs are organized by workflow. See [the upload locations index](docs/uploaded_artifacts.md) for exact paths and original names.
+
+### Existing-adapter development: normalization and one correction
+
+The [inference-only correction workflow](docs/selective_facts_correction.md) compares fresh scope-fixed control, operator normalization and one input-diagnostic-guided correction. [Colab notebook](notebooks/colab/selective_facts_correction/selective_facts_correction_colab.ipynb) · [Kaggle notebook](notebooks/kaggle/selective_facts_correction/selective_facts_correction_kaggle.ipynb). It uses the existing epoch-2 adapter without retraining. Offline normalization of saved outputs recovered three cases (85 → 88); fresh correction results remain pending.
+
+### Stage 2: selective facts versus trained tools
+
+The [two independent Stage 2 workflows](docs/stage2_dual.md) use the existing selected 1.5B adapters with operator normalization, a shared 3B generator and 7B repair agent. [Colab notebooks](notebooks/colab/stage2_dual/) · [Kaggle notebooks and source ZIP](notebooks/kaggle/stage2_dual/). Start with the selective proposed run, then the tool proposed run, then the CPU collector. No retraining or previous evaluation outputs are required.

@@ -1,0 +1,1020 @@
+{
+  "method": "Offline normalization replay and correction-trigger diagnosis only; no new model inference or correction score.",
+  "source_bundle_sha256": "6445971cef4a22250dbcd9f17934104cdcc906372f6fd411621b48eb48ce2b41",
+  "checks_sha256": "7e25035c67206195f7a40c1a721f43fefc086256fd6887da53596462507ab420",
+  "before_correct": 85,
+  "after_normalization_correct": 88,
+  "after_normalization_wrong": 0,
+  "normalization_tasks": [
+    "warehouse_filter_0",
+    "courier_filter_0",
+    "nursery_filter_0"
+  ],
+  "correction_tasks": [
+    "warehouse_convert_1",
+    "warehouse_edit_1",
+    "solar_edit_1",
+    "solar_edit_2",
+    "courier_edit_1",
+    "courier_edit_2",
+    "nursery_edit_1",
+    "nursery_edit_2",
+    "adult_col_006",
+    "airbnb_miss_006"
+  ],
+  "passing_tasks_flagged": [],
+  "remaining_unflagged_failures": [
+    "warehouse_edit_2",
+    "airbnb_filt_006"
+  ],
+  "synthetic_gold_flags": [],
+  "cases": {
+    "warehouse_filter_0": {
+      "original_correct": false,
+      "original_wrong": false,
+      "normalization": [
+        {
+          "path": "must_change[0].condition.not.op",
+          "before": "> ",
+          "after": ">"
+        },
+        {
+          "path": "must_preserve[0].condition.op",
+          "before": "> ",
+          "after": ">"
+        }
+      ],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "warehouse_filter_1": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "warehouse_filter_2": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "warehouse_filter_3": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "warehouse_dedup_0": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "warehouse_dedup_1": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "warehouse_dedup_2": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "warehouse_dedup_3": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "warehouse_fill_0": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "warehouse_fill_1": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "warehouse_fill_2": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "warehouse_fill_3": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "warehouse_convert_0": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "warehouse_convert_1": {
+      "original_correct": false,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": false,
+      "normalized_wrong": false,
+      "issues": [
+        {
+          "code": "schema",
+          "detail": "invalid contract: must_change.0.column_dtype.format: Extra inputs are not permitted"
+        }
+      ],
+      "correction_would_run": true
+    },
+    "warehouse_convert_2": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "warehouse_convert_3": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "warehouse_edit_0": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "warehouse_edit_1": {
+      "original_correct": false,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": false,
+      "normalized_wrong": false,
+      "issues": [
+        {
+          "code": "change_preserve_conflict",
+          "detail": "c1 requires changed values in 'warehouse_priority', but p3 requires those same cells unchanged on retained rows. Reconcile the conditions with the request; do not simply remove preservation."
+        }
+      ],
+      "correction_would_run": true
+    },
+    "warehouse_edit_2": {
+      "original_correct": false,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": false,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "warehouse_edit_3": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "solar_filter_0": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "solar_filter_1": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "solar_filter_2": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "solar_filter_3": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "solar_dedup_0": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "solar_dedup_1": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "solar_dedup_2": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "solar_dedup_3": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "solar_fill_0": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "solar_fill_1": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "solar_fill_2": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "solar_fill_3": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "solar_convert_0": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "solar_convert_1": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "solar_convert_2": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "solar_convert_3": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "solar_edit_0": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "solar_edit_1": {
+      "original_correct": false,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": false,
+      "normalized_wrong": false,
+      "issues": [
+        {
+          "code": "change_preserve_conflict",
+          "detail": "c1 requires changed values in 'solar_priority', but p3 requires those same cells unchanged on retained rows. Reconcile the conditions with the request; do not simply remove preservation."
+        }
+      ],
+      "correction_would_run": true
+    },
+    "solar_edit_2": {
+      "original_correct": false,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": false,
+      "normalized_wrong": false,
+      "issues": [
+        {
+          "code": "schema",
+          "detail": "invalid contract: must_change.0.columns_added.target.1: Input should be a valid string"
+        }
+      ],
+      "correction_would_run": true
+    },
+    "solar_edit_3": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "courier_filter_0": {
+      "original_correct": false,
+      "original_wrong": false,
+      "normalization": [
+        {
+          "path": "must_change[0].condition.not.op",
+          "before": "> ",
+          "after": ">"
+        },
+        {
+          "path": "must_preserve[0].condition.op",
+          "before": "> ",
+          "after": ">"
+        }
+      ],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "courier_filter_1": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "courier_filter_2": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "courier_filter_3": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "courier_dedup_0": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "courier_dedup_1": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "courier_dedup_2": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "courier_dedup_3": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "courier_fill_0": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "courier_fill_1": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "courier_fill_2": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "courier_fill_3": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "courier_convert_0": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "courier_convert_1": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "courier_convert_2": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "courier_convert_3": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "courier_edit_0": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "courier_edit_1": {
+      "original_correct": false,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": false,
+      "normalized_wrong": false,
+      "issues": [
+        {
+          "code": "change_preserve_conflict",
+          "detail": "c1 requires changed values in 'courier_priority', but p3 requires those same cells unchanged on retained rows. Reconcile the conditions with the request; do not simply remove preservation."
+        }
+      ],
+      "correction_would_run": true
+    },
+    "courier_edit_2": {
+      "original_correct": false,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": false,
+      "normalized_wrong": false,
+      "issues": [
+        {
+          "code": "existing_column_added",
+          "detail": "c1: columns_added declares existing input columns ['courier_reading_backup'] as new. An edit of an existing column is not a column addition."
+        }
+      ],
+      "correction_would_run": true
+    },
+    "courier_edit_3": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "nursery_filter_0": {
+      "original_correct": false,
+      "original_wrong": false,
+      "normalization": [
+        {
+          "path": "must_change[0].condition.not.op",
+          "before": "> ",
+          "after": ">"
+        },
+        {
+          "path": "must_preserve[0].condition.op",
+          "before": "> ",
+          "after": ">"
+        }
+      ],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "nursery_filter_1": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "nursery_filter_2": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "nursery_filter_3": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "nursery_dedup_0": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "nursery_dedup_1": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "nursery_dedup_2": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "nursery_dedup_3": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "nursery_fill_0": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "nursery_fill_1": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "nursery_fill_2": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "nursery_fill_3": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "nursery_convert_0": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "nursery_convert_1": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "nursery_convert_2": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "nursery_convert_3": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "nursery_edit_0": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "nursery_edit_1": {
+      "original_correct": false,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": false,
+      "normalized_wrong": false,
+      "issues": [
+        {
+          "code": "change_preserve_conflict",
+          "detail": "c1 requires changed values in 'nursery_priority', but p3 requires those same cells unchanged on retained rows. Reconcile the conditions with the request; do not simply remove preservation."
+        }
+      ],
+      "correction_would_run": true
+    },
+    "nursery_edit_2": {
+      "original_correct": false,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": false,
+      "normalized_wrong": false,
+      "issues": [
+        {
+          "code": "existing_column_added",
+          "detail": "c1: columns_added declares existing input columns ['nursery_reading_backup'] as new. An edit of an existing column is not a column addition."
+        }
+      ],
+      "correction_would_run": true
+    },
+    "nursery_edit_3": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "adult_col_006": {
+      "original_correct": false,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": false,
+      "normalized_wrong": false,
+      "issues": [
+        {
+          "code": "unknown_column",
+          "detail": "c2: input column 'education_num' does not exist. Similar input names (suggestions, not automatic replacements): ['education-num', 'education', 'occupation']."
+        },
+        {
+          "code": "unknown_column",
+          "detail": "c3: input column 'education_num' does not exist. Similar input names (suggestions, not automatic replacements): ['education-num', 'education', 'occupation']."
+        }
+      ],
+      "correction_would_run": true
+    },
+    "adult_conv_006": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "adult_dedup_006": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "adult_filt_006": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "adult_miss_006": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "airbnb_col_006": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "airbnb_conv_006": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "airbnb_dedup_006": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "airbnb_filt_006": {
+      "original_correct": false,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": false,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "airbnb_miss_006": {
+      "original_correct": false,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": false,
+      "normalized_wrong": false,
+      "issues": [
+        {
+          "code": "schema",
+          "detail": "invalid contract: must_change.0.column_value_relation: Value error, fn identity takes 1 args, got 0"
+        }
+      ],
+      "correction_would_run": true
+    },
+    "taxi_col_006": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "taxi_conv_006": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "taxi_dedup_006": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "taxi_filt_006": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "taxi_miss_006": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "titanic_col_006": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "titanic_conv_006": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "titanic_dedup_006": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "titanic_filt_006": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    },
+    "titanic_miss_006": {
+      "original_correct": true,
+      "original_wrong": false,
+      "normalization": [],
+      "normalized_correct": true,
+      "normalized_wrong": false,
+      "issues": [],
+      "correction_would_run": false
+    }
+  }
+}

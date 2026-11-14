@@ -1,0 +1,19 @@
+{
+  "experiment": "stage2-dual-parser-v1",
+  "tests_passed": 24,
+  "tests": [
+    "tests/test_stage2_dual.py",
+    "tests/test_selective_attention.py"
+  ],
+  "source_manifest_sha256": "d9e67c22c047a06aa7996efa2bde5f700c3c8dfdae46b65ad8220fbff609c335",
+  "source_zip_sha256": "0b922460c093232a5d0790ac5477d6cd3e6346337dd173d4c3083b89abfa01d6",
+  "checks": [
+    "both selected adapters validated from actual intact ZIP and extracted folders",
+    "isolated source runtime hashes match workspace",
+    "all notebook code cells compile and notebook schemas validate",
+    "one-resident-model scripted pipeline and actual sandbox repair",
+    "two-method and six-system collection, invalid input rejection",
+    "original frozen sources and uploaded artifact bytes unchanged"
+  ],
+  "gpu_model_quality_measured": false
+}

@@ -1,0 +1,616 @@
+{
+  "bundle_sha256": "37fd69b68c42d4b23114948e2b7da0e94423314978da26baf36e69f2eaedc67c",
+  "completion": {
+    "complete": true,
+    "smoke": false,
+    "retrained": false,
+    "protocol": "p1-v2+sf1-scopefix1-norm1-correct1"
+  },
+  "summary": {
+    "complete": true,
+    "smoke": false,
+    "arms": {
+      "control": {
+        "synthetic": {
+          "tasks": 80,
+          "correct_accepted": 68,
+          "wrong_accepted": 0,
+          "joint_success": 68,
+          "invalid": 5,
+          "tokens": 129595
+        },
+        "original": {
+          "tasks": 20,
+          "correct_accepted": 17,
+          "wrong_accepted": 0,
+          "joint_success": 17,
+          "invalid": 1,
+          "tokens": 36450
+        }
+      },
+      "normalized": {
+        "synthetic": {
+          "tasks": 80,
+          "correct_accepted": 71,
+          "wrong_accepted": 0,
+          "joint_success": 71,
+          "invalid": 2,
+          "tokens": 129595
+        },
+        "original": {
+          "tasks": 20,
+          "correct_accepted": 17,
+          "wrong_accepted": 0,
+          "joint_success": 17,
+          "invalid": 1,
+          "tokens": 36450
+        }
+      },
+      "corrected": {
+        "synthetic": {
+          "tasks": 80,
+          "correct_accepted": 71,
+          "wrong_accepted": 0,
+          "joint_success": 71,
+          "invalid": 8,
+          "tokens": 145195
+        },
+        "original": {
+          "tasks": 20,
+          "correct_accepted": 17,
+          "wrong_accepted": 0,
+          "joint_success": 17,
+          "invalid": 2,
+          "tokens": 40686
+        }
+      }
+    },
+    "actual_model_calls": 110,
+    "actual_tokens": 185881,
+    "task_count": 100,
+    "protocol": "p1-v2+sf1-scopefix1-norm1-correct1",
+    "limitations": [
+      "Open development tasks used to design this method; not independent test performance.",
+      "Original tasks have only a wrong-no-op probe.",
+      "Input diagnostics are incomplete; passing them does not prove semantic correctness."
+    ]
+  },
+  "comparison": {
+    "current": {
+      "control": {
+        "synthetic": {
+          "tasks": 80,
+          "correct_accepted": 68,
+          "wrong_accepted": 0,
+          "joint_success": 68,
+          "invalid": 5,
+          "tokens": 129595
+        },
+        "original": {
+          "tasks": 20,
+          "correct_accepted": 17,
+          "wrong_accepted": 0,
+          "joint_success": 17,
+          "invalid": 1,
+          "tokens": 36450
+        }
+      },
+      "normalized": {
+        "synthetic": {
+          "tasks": 80,
+          "correct_accepted": 71,
+          "wrong_accepted": 0,
+          "joint_success": 71,
+          "invalid": 2,
+          "tokens": 129595
+        },
+        "original": {
+          "tasks": 20,
+          "correct_accepted": 17,
+          "wrong_accepted": 0,
+          "joint_success": 17,
+          "invalid": 1,
+          "tokens": 36450
+        }
+      },
+      "corrected": {
+        "synthetic": {
+          "tasks": 80,
+          "correct_accepted": 71,
+          "wrong_accepted": 0,
+          "joint_success": 71,
+          "invalid": 8,
+          "tokens": 145195
+        },
+        "original": {
+          "tasks": 20,
+          "correct_accepted": 17,
+          "wrong_accepted": 0,
+          "joint_success": 17,
+          "invalid": 2,
+          "tokens": 40686
+        }
+      }
+    },
+    "paired": {
+      "control_vs_normalized": {
+        "gained": [
+          "warehouse_filter_0",
+          "courier_filter_0",
+          "nursery_filter_0"
+        ],
+        "lost": []
+      },
+      "normalized_vs_corrected": {
+        "gained": [],
+        "lost": []
+      },
+      "control_vs_corrected": {
+        "gained": [
+          "warehouse_filter_0",
+          "courier_filter_0",
+          "nursery_filter_0"
+        ],
+        "lost": []
+      }
+    },
+    "historical": {
+      "summary": {
+        "synthetic": {
+          "tasks": 80,
+          "correct_accepted": 68,
+          "wrong_accepted": 0,
+          "joint_success": 68,
+          "invalid": 5,
+          "tokens": 129595
+        },
+        "original": {
+          "tasks": 20,
+          "correct_accepted": 17,
+          "wrong_accepted": 0,
+          "joint_success": 17,
+          "invalid": 1,
+          "tokens": 36450
+        }
+      },
+      "source_bundle_sha256": "6445971cef4a22250dbcd9f17934104cdcc906372f6fd411621b48eb48ce2b41",
+      "note": "Historical Colab scopefix evaluation, same selected adapter; no saved predictions used for fresh inference."
+    },
+    "normalization_tasks": [
+      "warehouse_filter_0",
+      "courier_filter_0",
+      "nursery_filter_0"
+    ],
+    "correction_tasks": [
+      "warehouse_convert_1",
+      "warehouse_edit_1",
+      "solar_edit_1",
+      "solar_edit_2",
+      "courier_edit_1",
+      "courier_edit_2",
+      "nursery_edit_1",
+      "nursery_edit_2",
+      "adult_col_006",
+      "airbnb_miss_006"
+    ],
+    "unresolved_tasks": [
+      "warehouse_convert_1",
+      "warehouse_edit_1",
+      "solar_edit_1",
+      "solar_edit_2",
+      "courier_edit_1",
+      "courier_edit_2",
+      "nursery_edit_1",
+      "nursery_edit_2",
+      "adult_col_006",
+      "airbnb_miss_006"
+    ],
+    "note": "Three fresh paired arms; historical 85/100 is context only. Corrected contracts are not chosen using reference scores."
+  },
+  "environment": {
+    "python": "3.13.16",
+    "cuda": "13.0",
+    "gpu": "Tesla T4",
+    "visible_gpus": 1,
+    "versions": {
+      "torch": "2.14.1+cu130",
+      "transformers": "5.20.2",
+      "peft": "0.21.2",
+      "bitsandbytes": "0.50.2",
+      "accelerate": "1.15.0",
+      "pandas": "2.3.3",
+      "numpy": "2.1.3"
+    }
+  },
+  "notebook_source_matches": true,
+  "notebook_errors": [],
+  "previous_cpu_audit_sha256": "cb6f4cc6255fa3effdea68a0340d9fce3c79a8c416ac0abe7cbcfc0e0565c3b3",
+  "normalization_cpu_audit_sha256": "fba00415397b2924651be2651c0754f3bf41935bc3364f7a663f6082eb0d4370",
+  "policy_mismatches": [],
+  "score_mismatches": [],
+  "unchanged_control_predictions": [
+    "warehouse_filter_0",
+    "warehouse_filter_1",
+    "warehouse_filter_2",
+    "warehouse_filter_3",
+    "warehouse_dedup_0",
+    "warehouse_dedup_1",
+    "warehouse_dedup_2",
+    "warehouse_dedup_3",
+    "warehouse_fill_0",
+    "warehouse_fill_1",
+    "warehouse_fill_2",
+    "warehouse_fill_3",
+    "warehouse_convert_0",
+    "warehouse_convert_1",
+    "warehouse_convert_2",
+    "warehouse_convert_3",
+    "warehouse_edit_0",
+    "warehouse_edit_1",
+    "warehouse_edit_2",
+    "warehouse_edit_3",
+    "solar_filter_0",
+    "solar_filter_1",
+    "solar_filter_2",
+    "solar_filter_3",
+    "solar_dedup_0",
+    "solar_dedup_1",
+    "solar_dedup_2",
+    "solar_dedup_3",
+    "solar_fill_0",
+    "solar_fill_1",
+    "solar_fill_2",
+    "solar_fill_3",
+    "solar_convert_0",
+    "solar_convert_1",
+    "solar_convert_2",
+    "solar_convert_3",
+    "solar_edit_0",
+    "solar_edit_1",
+    "solar_edit_2",
+    "solar_edit_3",
+    "courier_filter_0",
+    "courier_filter_1",
+    "courier_filter_2",
+    "courier_filter_3",
+    "courier_dedup_0",
+    "courier_dedup_1",
+    "courier_dedup_2",
+    "courier_dedup_3",
+    "courier_fill_0",
+    "courier_fill_1",
+    "courier_fill_2",
+    "courier_fill_3",
+    "courier_convert_0",
+    "courier_convert_1",
+    "courier_convert_2",
+    "courier_convert_3",
+    "courier_edit_0",
+    "courier_edit_1",
+    "courier_edit_2",
+    "courier_edit_3",
+    "nursery_filter_0",
+    "nursery_filter_1",
+    "nursery_filter_2",
+    "nursery_filter_3",
+    "nursery_dedup_0",
+    "nursery_dedup_1",
+    "nursery_dedup_2",
+    "nursery_dedup_3",
+    "nursery_fill_0",
+    "nursery_fill_1",
+    "nursery_fill_2",
+    "nursery_fill_3",
+    "nursery_convert_0",
+    "nursery_convert_1",
+    "nursery_convert_2",
+    "nursery_convert_3",
+    "nursery_edit_0",
+    "nursery_edit_1",
+    "nursery_edit_2",
+    "nursery_edit_3",
+    "adult_col_006",
+    "adult_conv_006",
+    "adult_dedup_006",
+    "adult_filt_006",
+    "adult_miss_006",
+    "airbnb_col_006",
+    "airbnb_conv_006",
+    "airbnb_dedup_006",
+    "airbnb_filt_006",
+    "airbnb_miss_006",
+    "taxi_col_006",
+    "taxi_conv_006",
+    "taxi_dedup_006",
+    "taxi_filt_006",
+    "taxi_miss_006",
+    "titanic_col_006",
+    "titanic_conv_006",
+    "titanic_dedup_006",
+    "titanic_filt_006",
+    "titanic_miss_006"
+  ],
+  "correction_details": {
+    "warehouse_convert_1": {
+      "identical_reply": true,
+      "initial_issues": [
+        {
+          "code": "schema",
+          "detail": "invalid contract: must_change.0.column_dtype.format: Extra inputs are not permitted"
+        }
+      ],
+      "remaining_issues": [
+        {
+          "code": "schema",
+          "detail": "invalid contract: must_change.0.column_dtype.format: Extra inputs are not permitted"
+        }
+      ],
+      "status": "correction_failed"
+    },
+    "warehouse_edit_1": {
+      "identical_reply": false,
+      "initial_issues": [
+        {
+          "code": "change_preserve_conflict",
+          "detail": "c1 requires changed values in 'warehouse_priority', but p3 requires those same cells unchanged on retained rows. Reconcile the conditions with the request; do not simply remove preservation."
+        }
+      ],
+      "remaining_issues": [
+        {
+          "code": "schema",
+          "detail": "invalid contract: must_not_change: Extra inputs are not permitted"
+        }
+      ],
+      "status": "correction_failed"
+    },
+    "solar_edit_1": {
+      "identical_reply": true,
+      "initial_issues": [
+        {
+          "code": "change_preserve_conflict",
+          "detail": "c1 requires changed values in 'solar_priority', but p3 requires those same cells unchanged on retained rows. Reconcile the conditions with the request; do not simply remove preservation."
+        }
+      ],
+      "remaining_issues": [
+        {
+          "code": "change_preserve_conflict",
+          "detail": "c1 requires changed values in 'solar_priority', but p3 requires those same cells unchanged on retained rows. Reconcile the conditions with the request; do not simply remove preservation."
+        }
+      ],
+      "status": "correction_failed"
+    },
+    "solar_edit_2": {
+      "identical_reply": true,
+      "initial_issues": [
+        {
+          "code": "schema",
+          "detail": "invalid contract: must_change.0.columns_added.target.1: Input should be a valid string"
+        }
+      ],
+      "remaining_issues": [
+        {
+          "code": "schema",
+          "detail": "invalid contract: must_change.0.columns_added.target.1: Input should be a valid string"
+        }
+      ],
+      "status": "correction_failed"
+    },
+    "courier_edit_1": {
+      "identical_reply": true,
+      "initial_issues": [
+        {
+          "code": "change_preserve_conflict",
+          "detail": "c1 requires changed values in 'courier_priority', but p3 requires those same cells unchanged on retained rows. Reconcile the conditions with the request; do not simply remove preservation."
+        }
+      ],
+      "remaining_issues": [
+        {
+          "code": "change_preserve_conflict",
+          "detail": "c1 requires changed values in 'courier_priority', but p3 requires those same cells unchanged on retained rows. Reconcile the conditions with the request; do not simply remove preservation."
+        }
+      ],
+      "status": "correction_failed"
+    },
+    "courier_edit_2": {
+      "identical_reply": true,
+      "initial_issues": [
+        {
+          "code": "existing_column_added",
+          "detail": "c1: columns_added declares existing input columns ['courier_reading_backup'] as new. An edit of an existing column is not a column addition."
+        }
+      ],
+      "remaining_issues": [
+        {
+          "code": "existing_column_added",
+          "detail": "c1: columns_added declares existing input columns ['courier_reading_backup'] as new. An edit of an existing column is not a column addition."
+        }
+      ],
+      "status": "correction_failed"
+    },
+    "nursery_edit_1": {
+      "identical_reply": true,
+      "initial_issues": [
+        {
+          "code": "change_preserve_conflict",
+          "detail": "c1 requires changed values in 'nursery_priority', but p3 requires those same cells unchanged on retained rows. Reconcile the conditions with the request; do not simply remove preservation."
+        }
+      ],
+      "remaining_issues": [
+        {
+          "code": "change_preserve_conflict",
+          "detail": "c1 requires changed values in 'nursery_priority', but p3 requires those same cells unchanged on retained rows. Reconcile the conditions with the request; do not simply remove preservation."
+        }
+      ],
+      "status": "correction_failed"
+    },
+    "nursery_edit_2": {
+      "identical_reply": true,
+      "initial_issues": [
+        {
+          "code": "existing_column_added",
+          "detail": "c1: columns_added declares existing input columns ['nursery_reading_backup'] as new. An edit of an existing column is not a column addition."
+        }
+      ],
+      "remaining_issues": [
+        {
+          "code": "existing_column_added",
+          "detail": "c1: columns_added declares existing input columns ['nursery_reading_backup'] as new. An edit of an existing column is not a column addition."
+        }
+      ],
+      "status": "correction_failed"
+    },
+    "adult_col_006": {
+      "identical_reply": true,
+      "initial_issues": [
+        {
+          "code": "unknown_column",
+          "detail": "c2: input column 'education_num' does not exist. Similar input names (suggestions, not automatic replacements): ['education-num', 'education', 'occupation']."
+        },
+        {
+          "code": "unknown_column",
+          "detail": "c3: input column 'education_num' does not exist. Similar input names (suggestions, not automatic replacements): ['education-num', 'education', 'occupation']."
+        }
+      ],
+      "remaining_issues": [
+        {
+          "code": "unknown_column",
+          "detail": "c2: input column 'education_num' does not exist. Similar input names (suggestions, not automatic replacements): ['education-num', 'education', 'occupation']."
+        },
+        {
+          "code": "unknown_column",
+          "detail": "c3: input column 'education_num' does not exist. Similar input names (suggestions, not automatic replacements): ['education-num', 'education', 'occupation']."
+        }
+      ],
+      "status": "correction_failed"
+    },
+    "airbnb_miss_006": {
+      "identical_reply": true,
+      "initial_issues": [
+        {
+          "code": "schema",
+          "detail": "invalid contract: must_change.0.column_value_relation: Value error, fn identity takes 1 args, got 0"
+        }
+      ],
+      "remaining_issues": [
+        {
+          "code": "schema",
+          "detail": "invalid contract: must_change.0.column_value_relation: Value error, fn identity takes 1 args, got 0"
+        }
+      ],
+      "status": "correction_failed"
+    }
+  },
+  "bound_cases": [
+    "warehouse_filter_0",
+    "warehouse_filter_1",
+    "warehouse_filter_2",
+    "warehouse_filter_3",
+    "warehouse_dedup_0",
+    "warehouse_dedup_1",
+    "warehouse_dedup_2",
+    "warehouse_dedup_3",
+    "warehouse_fill_0",
+    "warehouse_fill_1",
+    "warehouse_fill_2",
+    "warehouse_fill_3",
+    "warehouse_convert_0",
+    "warehouse_convert_1",
+    "warehouse_convert_2",
+    "warehouse_convert_3",
+    "warehouse_edit_0",
+    "warehouse_edit_1",
+    "warehouse_edit_2",
+    "warehouse_edit_3",
+    "solar_filter_0",
+    "solar_filter_1",
+    "solar_filter_2",
+    "solar_filter_3",
+    "solar_dedup_0",
+    "solar_dedup_1",
+    "solar_dedup_2",
+    "solar_dedup_3",
+    "solar_fill_0",
+    "solar_fill_1",
+    "solar_fill_2",
+    "solar_fill_3",
+    "solar_convert_0",
+    "solar_convert_1",
+    "solar_convert_2",
+    "solar_convert_3",
+    "solar_edit_0",
+    "solar_edit_1",
+    "solar_edit_2",
+    "solar_edit_3",
+    "courier_filter_0",
+    "courier_filter_1",
+    "courier_filter_2",
+    "courier_filter_3",
+    "courier_dedup_0",
+    "courier_dedup_1",
+    "courier_dedup_2",
+    "courier_dedup_3",
+    "courier_fill_0",
+    "courier_fill_1",
+    "courier_fill_2",
+    "courier_fill_3",
+    "courier_convert_0",
+    "courier_convert_1",
+    "courier_convert_2",
+    "courier_convert_3",
+    "courier_edit_0",
+    "courier_edit_1",
+    "courier_edit_2",
+    "courier_edit_3",
+    "nursery_filter_0",
+    "nursery_filter_1",
+    "nursery_filter_2",
+    "nursery_filter_3",
+    "nursery_dedup_0",
+    "nursery_dedup_1",
+    "nursery_dedup_2",
+    "nursery_dedup_3",
+    "nursery_fill_0",
+    "nursery_fill_1",
+    "nursery_fill_2",
+    "nursery_fill_3",
+    "nursery_convert_0",
+    "nursery_convert_1",
+    "nursery_convert_2",
+    "nursery_convert_3",
+    "nursery_edit_0",
+    "nursery_edit_1",
+    "nursery_edit_2",
+    "nursery_edit_3",
+    "adult_col_006",
+    "adult_conv_006",
+    "adult_dedup_006",
+    "adult_filt_006",
+    "adult_miss_006",
+    "airbnb_col_006",
+    "airbnb_conv_006",
+    "airbnb_dedup_006",
+    "airbnb_filt_006",
+    "airbnb_miss_006",
+    "taxi_col_006",
+    "taxi_conv_006",
+    "taxi_dedup_006",
+    "taxi_filt_006",
+    "taxi_miss_006",
+    "titanic_col_006",
+    "titanic_conv_006",
+    "titanic_dedup_006",
+    "titanic_filt_006",
+    "titanic_miss_006"
+  ],
+  "totals": {
+    "control_correct": 85,
+    "normalized_correct": 88,
+    "corrected_correct": 88,
+    "correction_attempts": 10,
+    "identical_correction_replies": 9,
+    "calls": 110,
+    "tokens": 185881,
+    "inference_seconds": 1639.1853533430021,
+    "additional_tokens": 19836
+  }
+}

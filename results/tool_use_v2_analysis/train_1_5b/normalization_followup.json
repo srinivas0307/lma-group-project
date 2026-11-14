@@ -1,0 +1,48 @@
+{
+  "method": "Offline normalization of saved final reply, not a new model/tool-loop evaluation.",
+  "source_bundle_sha256": "3a648aa7578c5d7c785ef745e46c467538b0809c94519669e312bce5462e3b2b",
+  "task_id": "nursery_filter_0",
+  "changes": [
+    {
+      "path": "must_change[0].condition.not.op",
+      "before": "> ",
+      "after": ">"
+    }
+  ],
+  "score": {
+    "positive_statuses": [
+      "PASS",
+      "PASS"
+    ],
+    "positive_verdicts": [
+      {
+        "status": "PASS",
+        "failures": [],
+        "evidence_rows": []
+      },
+      {
+        "status": "PASS",
+        "failures": [],
+        "evidence_rows": []
+      }
+    ],
+    "negative_statuses": [
+      {
+        "family": "filter_0",
+        "status": "VIOLATION"
+      },
+      {
+        "family": "no_op",
+        "status": "VIOLATION"
+      }
+    ],
+    "all_correct_accepted": true,
+    "any_wrong_accepted": false
+  },
+  "aggregate_after_postprocessing": {
+    "correct_reference_passes": 91,
+    "tasks_accepting_wrong_probe": 1,
+    "joint_successes": 90
+  },
+  "note": "The existing loop already provides invalid-response feedback; this audit does not add a new correction policy or alter the adapter/runtime."
+}

@@ -1,0 +1,6277 @@
+{
+  "bundle_sha256": "6445971cef4a22250dbcd9f17934104cdcc906372f6fd411621b48eb48ce2b41",
+  "completion": {
+    "complete": true,
+    "smoke": false,
+    "protocol": "p1-v2+sf1-scopefix1",
+    "retrained": false
+  },
+  "summary": {
+    "synthetic": {
+      "tasks": 80,
+      "correct_accepted": 68,
+      "wrong_accepted": 0,
+      "joint_success": 68,
+      "invalid": 5,
+      "tokens": 129595
+    },
+    "original": {
+      "tasks": 20,
+      "correct_accepted": 17,
+      "wrong_accepted": 0,
+      "joint_success": 17,
+      "invalid": 1,
+      "tokens": 36450
+    }
+  },
+  "comparison": {
+    "historical_note": "Historical development results from the supplied sealed training run; not fresh independent baseline runs.",
+    "current": {
+      "synthetic": {
+        "tasks": 80,
+        "correct_accepted": 68,
+        "wrong_accepted": 0,
+        "joint_success": 68,
+        "invalid": 5,
+        "tokens": 129595
+      },
+      "original": {
+        "tasks": 20,
+        "correct_accepted": 17,
+        "wrong_accepted": 0,
+        "joint_success": 17,
+        "invalid": 1,
+        "tokens": 36450
+      }
+    },
+    "prior": {
+      "original": {
+        "synthetic": {
+          "tasks": 80,
+          "correct_accepted": 52,
+          "wrong_accepted": 4,
+          "joint_success": 52,
+          "invalid": 4,
+          "tokens": 119026
+        },
+        "original": {
+          "tasks": 20,
+          "correct_accepted": 16,
+          "wrong_accepted": 0,
+          "joint_success": 16,
+          "invalid": 0,
+          "tokens": 34076
+        }
+      },
+      "sf1": {
+        "synthetic": {
+          "tasks": 80,
+          "correct_accepted": 56,
+          "wrong_accepted": 0,
+          "joint_success": 56,
+          "invalid": 17,
+          "tokens": 109046
+        },
+        "original": {
+          "tasks": 20,
+          "correct_accepted": 17,
+          "wrong_accepted": 0,
+          "joint_success": 17,
+          "invalid": 1,
+          "tokens": 36450
+        }
+      }
+    },
+    "paired": {
+      "original": {
+        "gained": [
+          "warehouse_fill_0",
+          "warehouse_fill_1",
+          "warehouse_fill_2",
+          "warehouse_fill_3",
+          "warehouse_edit_3",
+          "solar_fill_0",
+          "solar_fill_1",
+          "solar_fill_2",
+          "solar_fill_3",
+          "solar_convert_1",
+          "solar_edit_3",
+          "courier_fill_0",
+          "courier_fill_1",
+          "courier_fill_2",
+          "courier_fill_3",
+          "courier_convert_1",
+          "courier_edit_3",
+          "nursery_fill_0",
+          "nursery_fill_1",
+          "nursery_fill_2",
+          "nursery_fill_3",
+          "nursery_convert_1",
+          "nursery_edit_3",
+          "titanic_filt_006"
+        ],
+        "lost": [
+          "warehouse_filter_0",
+          "warehouse_edit_1",
+          "solar_edit_1",
+          "courier_filter_0",
+          "courier_edit_1",
+          "nursery_filter_0",
+          "nursery_edit_1"
+        ]
+      },
+      "sf1": {
+        "gained": [
+          "warehouse_fill_0",
+          "warehouse_fill_1",
+          "warehouse_fill_2",
+          "solar_fill_0",
+          "solar_fill_1",
+          "solar_fill_2",
+          "courier_fill_0",
+          "courier_fill_1",
+          "courier_fill_2",
+          "nursery_fill_0",
+          "nursery_fill_1",
+          "nursery_fill_2"
+        ],
+        "lost": []
+      }
+    },
+    "routing": {
+      "fact_unavailable": 0,
+      "tasks_with_facts": 16,
+      "previously_blocked": {
+        "warehouse_fill_0": {
+          "parse_status": "ok",
+          "facts_delivered": true,
+          "correct": true,
+          "wrong": false
+        },
+        "warehouse_fill_1": {
+          "parse_status": "ok",
+          "facts_delivered": true,
+          "correct": true,
+          "wrong": false
+        },
+        "warehouse_fill_2": {
+          "parse_status": "ok",
+          "facts_delivered": true,
+          "correct": true,
+          "wrong": false
+        },
+        "solar_fill_0": {
+          "parse_status": "ok",
+          "facts_delivered": true,
+          "correct": true,
+          "wrong": false
+        },
+        "solar_fill_1": {
+          "parse_status": "ok",
+          "facts_delivered": true,
+          "correct": true,
+          "wrong": false
+        },
+        "solar_fill_2": {
+          "parse_status": "ok",
+          "facts_delivered": true,
+          "correct": true,
+          "wrong": false
+        },
+        "courier_fill_0": {
+          "parse_status": "ok",
+          "facts_delivered": true,
+          "correct": true,
+          "wrong": false
+        },
+        "courier_fill_1": {
+          "parse_status": "ok",
+          "facts_delivered": true,
+          "correct": true,
+          "wrong": false
+        },
+        "courier_fill_2": {
+          "parse_status": "ok",
+          "facts_delivered": true,
+          "correct": true,
+          "wrong": false
+        },
+        "nursery_fill_0": {
+          "parse_status": "ok",
+          "facts_delivered": true,
+          "correct": true,
+          "wrong": false
+        },
+        "nursery_fill_1": {
+          "parse_status": "ok",
+          "facts_delivered": true,
+          "correct": true,
+          "wrong": false
+        },
+        "nursery_fill_2": {
+          "parse_status": "ok",
+          "facts_delivered": true,
+          "correct": true,
+          "wrong": false
+        }
+      }
+    },
+    "passed_original_screen": true,
+    "no_cohort_regression_vs_sf1": true,
+    "smoke": false
+  },
+  "notebook_errors": [],
+  "launcher": "Colab adaptation; source bundle and executed Python runtime hashes verified rather than requiring Kaggle launcher equality.",
+  "environment_limit": "The Colab launcher uses its installed Torch/CUDA build, not the Kaggle Torch assertion. colab_environment.json is written to Drive but is not present in this result ZIP; exact Torch/GPU identity cannot be verified from the supplied ZIP.",
+  "historical_audit_sha256": "e7c709f358b5b9b8c10e9af84c4e900f31a9bd7d121108dfedf5894621131ae3",
+  "unchanged_prior_audit_bound": [
+    "warehouse_filter_0",
+    "warehouse_filter_1",
+    "warehouse_filter_2",
+    "warehouse_filter_3",
+    "warehouse_dedup_0",
+    "warehouse_dedup_1",
+    "warehouse_dedup_2",
+    "warehouse_dedup_3",
+    "warehouse_fill_3",
+    "warehouse_convert_0",
+    "warehouse_convert_1",
+    "warehouse_convert_2",
+    "warehouse_convert_3",
+    "warehouse_edit_0",
+    "warehouse_edit_1",
+    "warehouse_edit_2",
+    "warehouse_edit_3",
+    "solar_filter_0",
+    "solar_filter_1",
+    "solar_filter_2",
+    "solar_filter_3",
+    "solar_dedup_0",
+    "solar_dedup_1",
+    "solar_dedup_2",
+    "solar_dedup_3",
+    "solar_fill_3",
+    "solar_convert_0",
+    "solar_convert_1",
+    "solar_convert_2",
+    "solar_convert_3",
+    "solar_edit_0",
+    "solar_edit_1",
+    "solar_edit_2",
+    "solar_edit_3",
+    "courier_filter_0",
+    "courier_filter_1",
+    "courier_filter_2",
+    "courier_filter_3",
+    "courier_dedup_0",
+    "courier_dedup_1",
+    "courier_dedup_2",
+    "courier_dedup_3",
+    "courier_fill_3",
+    "courier_convert_0",
+    "courier_convert_1",
+    "courier_convert_2",
+    "courier_convert_3",
+    "courier_edit_0",
+    "courier_edit_1",
+    "courier_edit_2",
+    "courier_edit_3",
+    "nursery_filter_0",
+    "nursery_filter_1",
+    "nursery_filter_2",
+    "nursery_filter_3",
+    "nursery_dedup_0",
+    "nursery_dedup_1",
+    "nursery_dedup_2",
+    "nursery_dedup_3",
+    "nursery_fill_3",
+    "nursery_convert_0",
+    "nursery_convert_1",
+    "nursery_convert_2",
+    "nursery_convert_3",
+    "nursery_edit_0",
+    "nursery_edit_1",
+    "nursery_edit_2",
+    "nursery_edit_3",
+    "adult_col_006",
+    "adult_conv_006",
+    "adult_dedup_006",
+    "adult_filt_006",
+    "adult_miss_006",
+    "airbnb_col_006",
+    "airbnb_conv_006",
+    "airbnb_dedup_006",
+    "airbnb_filt_006",
+    "airbnb_miss_006",
+    "taxi_col_006",
+    "taxi_conv_006",
+    "taxi_dedup_006",
+    "taxi_filt_006",
+    "taxi_miss_006",
+    "titanic_col_006",
+    "titanic_conv_006",
+    "titanic_dedup_006",
+    "titanic_filt_006",
+    "titanic_miss_006"
+  ],
+  "new_cpu_replays": [
+    "warehouse_fill_0",
+    "warehouse_fill_1",
+    "warehouse_fill_2",
+    "solar_fill_0",
+    "solar_fill_1",
+    "solar_fill_2",
+    "courier_fill_0",
+    "courier_fill_1",
+    "courier_fill_2",
+    "nursery_fill_0",
+    "nursery_fill_1",
+    "nursery_fill_2"
+  ],
+  "message_mismatches": [],
+  "facts_mismatches": [],
+  "extraction_mismatches": [],
+  "score_mismatches": [],
+  "cases": {
+    "warehouse_filter_0": {
+      "request": "Keep only rows where warehouse_reading > 30; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "filter_0",
+      "facts": [],
+      "status": "invalid_contract",
+      "correct": false,
+      "wrong": false,
+      "error": "invalid contract: must_change.0.rows_removed_where.condition.not.op: Input should be '==', '!=', '<', '<=', '>', '>=', 'in', 'not_in', 'is_null' or 'not_null'; must_preserve.0.rows_retained_where.condition.op: Input should be '==', '!=', '<', '<=', '>', '>=', 'in', 'not_in', 'is_null' or 'not_null'",
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "rows_removed_where",
+            "condition": {
+              "not": {
+                "column": "warehouse_reading",
+                "op": "> ",
+                "value": 30
+              }
+            }
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "rows_retained_where",
+            "condition": {
+              "column": "warehouse_reading",
+              "op": "> ",
+              "value": 30
+            }
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": null
+    },
+    "warehouse_filter_1": {
+      "request": "Keep only rows where warehouse_reading >= 30; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "filter_1",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "rows_removed_where",
+            "condition": {
+              "not": {
+                "column": "warehouse_reading",
+                "op": ">=",
+                "value": 30
+              }
+            }
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "rows_retained_where",
+            "condition": {
+              "column": "warehouse_reading",
+              "op": ">=",
+              "value": 30
+            }
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "warehouse_filter_2": {
+      "request": "Keep only rows where warehouse_reading < 30; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "filter_2",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "rows_removed_where",
+            "target": null,
+            "condition": {
+              "column": "warehouse_reading",
+              "op": ">=",
+              "value": 30
+            }
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "decreased"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "rows_retained_where",
+            "target": null,
+            "condition": {
+              "column": "warehouse_reading",
+              "op": "<",
+              "value": 30
+            }
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "warehouse_filter_3": {
+      "request": "Keep only rows where warehouse_reading <= 30; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "filter_3",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "rows_removed_where",
+            "target": null,
+            "condition": {
+              "column": "warehouse_reading",
+              "op": ">",
+              "value": 30
+            }
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "decreased"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "rows_retained_where",
+            "target": null,
+            "condition": {
+              "column": "warehouse_reading",
+              "op": "<=",
+              "value": 30
+            }
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "warehouse_dedup_0": {
+      "request": "Remove duplicates by ['warehouse_batch'], retaining the first row of each group in input order. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "dedup_0",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "duplicate_count",
+            "target": [
+              "warehouse_batch"
+            ],
+            "op": "eq",
+            "value": 0,
+            "keep": "first"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "warehouse_dedup_1": {
+      "request": "Remove duplicates by ['warehouse_batch'], retaining the last row of each group in input order. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "dedup_1",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "duplicate_count",
+            "target": [
+              "warehouse_batch"
+            ],
+            "op": "eq",
+            "value": 0,
+            "keep": "last"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "warehouse_dedup_2": {
+      "request": "Remove duplicates by ['warehouse_batch', 'warehouse_unit'], retaining the first row of each group in input order. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "dedup_2",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "duplicate_count",
+            "target": [
+              "warehouse_batch",
+              "warehouse_unit"
+            ],
+            "op": "eq",
+            "value": 0,
+            "keep": "first"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "warehouse_dedup_3": {
+      "request": "Remove duplicates by ['warehouse_batch', 'warehouse_unit'], retaining the last row of each group in input order. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "dedup_3",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "duplicate_count",
+            "target": [
+              "warehouse_batch",
+              "warehouse_unit"
+            ],
+            "op": "eq",
+            "value": 0,
+            "keep": "last"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "warehouse_fill_0": {
+      "request": "Fill missing warehouse_reading with the full-column median. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "fill_0",
+      "facts": [
+        {
+          "column": "warehouse_reading",
+          "statistic": "median",
+          "value": 49.096551465116654,
+          "scope": {
+            "kind": "full_column"
+          },
+          "nonmissing_count": 41,
+          "missing_values": "excluded"
+        }
+      ],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "warehouse_reading",
+            "fn": "const",
+            "args": [
+              {
+                "lit": 49.096551465116654
+              }
+            ],
+            "where": {
+              "column": "warehouse_reading",
+              "op": "is_null"
+            }
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "warehouse_reading"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "warehouse_reading",
+            "where": {
+              "not": {
+                "column": "warehouse_reading",
+                "op": "is_null"
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "warehouse_fill_1": {
+      "request": "Fill missing warehouse_reading with the full-column mean. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "fill_1",
+      "facts": [
+        {
+          "column": "warehouse_reading",
+          "statistic": "mean",
+          "value": 50.40065448751673,
+          "scope": {
+            "kind": "full_column"
+          },
+          "nonmissing_count": 41,
+          "missing_values": "excluded"
+        }
+      ],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "warehouse_reading",
+            "fn": "const",
+            "args": [
+              {
+                "lit": 50.40065448751673
+              }
+            ],
+            "where": {
+              "column": "warehouse_reading",
+              "op": "is_null"
+            }
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "warehouse_reading"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "warehouse_reading",
+            "where": {
+              "not": {
+                "column": "warehouse_reading",
+                "op": "is_null"
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "warehouse_fill_2": {
+      "request": "Fill missing warehouse_priority with the unique most frequent nonmissing value. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "fill_2",
+      "facts": [
+        {
+          "column": "warehouse_priority",
+          "statistic": "mode",
+          "value": "low",
+          "scope": {
+            "kind": "full_column"
+          },
+          "nonmissing_count": 40,
+          "missing_values": "excluded"
+        }
+      ],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "warehouse_priority",
+            "where": {
+              "column": "warehouse_priority",
+              "op": "is_null"
+            },
+            "fn": "const",
+            "args": [
+              {
+                "lit": "low"
+              }
+            ]
+          },
+          {
+            "type": "null_count",
+            "target": "warehouse_priority",
+            "op": "eq",
+            "value": 0
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "column_values_unchanged",
+            "target": "warehouse_priority",
+            "where": {
+              "column": "warehouse_priority",
+              "op": "not_null"
+            }
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "warehouse_priority"
+            ]
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "unchanged"
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "warehouse_fill_3": {
+      "request": "Fill missing warehouse_reading only in warehouse_zone = east with the median of warehouse_reading among rows with warehouse_zone = east. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "fill_3",
+      "facts": [
+        {
+          "column": "warehouse_reading",
+          "statistic": "median",
+          "value": 42.60290181595126,
+          "scope": {
+            "kind": "conditional",
+            "where": {
+              "column": "warehouse_zone",
+              "op": "==",
+              "value": "east"
+            }
+          },
+          "nonmissing_count": 13,
+          "missing_values": "excluded"
+        }
+      ],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "warehouse_reading",
+            "fn": "const",
+            "args": [
+              {
+                "lit": 42.60290181595126
+              }
+            ],
+            "where": {
+              "all": [
+                {
+                  "column": "warehouse_reading",
+                  "op": "is_null"
+                },
+                {
+                  "column": "warehouse_zone",
+                  "op": "==",
+                  "value": "east"
+                }
+              ]
+            }
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "warehouse_reading"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "warehouse_reading",
+            "where": {
+              "not": {
+                "all": [
+                  {
+                    "column": "warehouse_reading",
+                    "op": "is_null"
+                  },
+                  {
+                    "column": "warehouse_zone",
+                    "op": "==",
+                    "value": "east"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "warehouse_convert_0": {
+      "request": "Convert warehouse_priority to an ordered category with order low < mid < high. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "convert_0",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_dtype",
+            "target": "warehouse_priority",
+            "dtype": "category",
+            "ordered": true,
+            "categories": [
+              "low",
+              "mid",
+              "high"
+            ]
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "warehouse_priority"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "warehouse_priority",
+            "where": {
+              "not": {
+                "column": "warehouse_priority",
+                "op": "is_null"
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "warehouse_convert_1": {
+      "request": "Convert warehouse_date to datetime using format %d/%m/%Y. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "convert_1",
+      "facts": [],
+      "status": "invalid_contract",
+      "correct": false,
+      "wrong": false,
+      "error": "invalid contract: must_change.0.column_dtype.format: Extra inputs are not permitted",
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_dtype",
+            "target": "warehouse_date",
+            "dtype": "datetime",
+            "format": "%d/%m/%Y"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "warehouse_date"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "warehouse_date",
+            "where": {
+              "not": {
+                "column": "warehouse_date",
+                "op": "is_null"
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": null
+    },
+    "warehouse_convert_2": {
+      "request": "Convert warehouse_batch to float. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "convert_2",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_dtype",
+            "target": "warehouse_batch",
+            "dtype": "float"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "warehouse_batch"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "warehouse_batch",
+            "where": {
+              "not": {
+                "column": "warehouse_batch",
+                "op": "is_null"
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "warehouse_convert_3": {
+      "request": "Convert warehouse_unit to string. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "convert_3",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_dtype",
+            "target": "warehouse_unit",
+            "dtype": "string"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "column_value_relation",
+            "target": "warehouse_unit",
+            "fn": "cast",
+            "args": [
+              {
+                "col": "warehouse_unit"
+              },
+              {
+                "lit": "string"
+              }
+            ]
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "unchanged"
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "warehouse_edit_0": {
+      "request": "Clip warehouse_reading to [20,60]. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "edit_0",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "warehouse_reading",
+            "fn": "clip",
+            "args": [
+              {
+                "col": "warehouse_reading"
+              },
+              {
+                "lit": 20
+              },
+              {
+                "lit": 60
+              }
+            ]
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "warehouse_reading"
+            ]
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "warehouse_edit_1": {
+      "request": "Map warehouse_priority: low to 1, mid to 2, high to 3; preserve missing cells. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "edit_1",
+      "facts": [],
+      "status": "ok",
+      "correct": false,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "warehouse_priority",
+            "fn": "map",
+            "args": [
+              {
+                "col": "warehouse_priority"
+              },
+              {
+                "lit": {
+                  "low": 1,
+                  "mid": 2,
+                  "high": 3
+                }
+              }
+            ]
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "warehouse_priority"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "warehouse_priority",
+            "where": {
+              "not": {
+                "column": "warehouse_priority",
+                "op": "in",
+                "value": [
+                  1,
+                  2,
+                  3
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "VIOLATION",
+          "failures": [
+            {
+              "kind": "predicate",
+              "predicate_id": "p3",
+              "predicate_type": "column_values_unchanged",
+              "direction": "must_preserve",
+              "target": "warehouse_priority",
+              "expected": "values unchanged",
+              "observed": "40 changed cells in ['warehouse_priority']",
+              "detail": "warehouse_priority: 40 rows changed",
+              "evidence_rows": [
+                0,
+                1,
+                2,
+                3,
+                5
+              ]
+            }
+          ],
+          "evidence_rows": [
+            0,
+            1,
+            2,
+            3,
+            5
+          ]
+        }
+      ]
+    },
+    "warehouse_edit_2": {
+      "request": "Add 2 to warehouse_reading_backup. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "edit_2",
+      "facts": [],
+      "status": "ok",
+      "correct": false,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "columns_added",
+            "target": [
+              "add",
+              "2"
+            ]
+          },
+          {
+            "type": "column_value_relation",
+            "target": "add",
+            "fn": "const",
+            "args": [
+              {
+                "lit": 2
+              }
+            ]
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "VIOLATION",
+          "failures": [
+            {
+              "kind": "predicate",
+              "predicate_id": "c1",
+              "predicate_type": "columns_added",
+              "direction": "must_change",
+              "target": [
+                "add",
+                "2"
+              ],
+              "expected": "columns ['add', '2'] added",
+              "observed": "missing ['add', '2']",
+              "detail": "column(s) ['add', '2'] not added",
+              "evidence_rows": []
+            },
+            {
+              "kind": "uncertain",
+              "reason": "predicate_not_evaluable",
+              "detail": "target column 'add' missing in the output",
+              "predicate_id": "c2"
+            },
+            {
+              "kind": "predicate",
+              "predicate_id": "p2",
+              "predicate_type": "columns_unchanged",
+              "direction": "must_preserve",
+              "target": "*",
+              "expected": "values unchanged",
+              "observed": "48 changed cells in ['warehouse_reading_backup']",
+              "detail": "warehouse_reading_backup: 48 rows changed",
+              "evidence_rows": [
+                0,
+                1,
+                2,
+                3,
+                4
+              ]
+            }
+          ],
+          "evidence_rows": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        }
+      ]
+    },
+    "warehouse_edit_3": {
+      "request": "Double warehouse_reading_backup only for rows with warehouse_zone = west. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "edit_3",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "warehouse_reading_backup",
+            "fn": "mul",
+            "args": [
+              {
+                "col": "warehouse_reading_backup"
+              },
+              {
+                "lit": 2
+              }
+            ],
+            "where": {
+              "column": "warehouse_zone",
+              "op": "==",
+              "value": "west"
+            }
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "warehouse_reading_backup"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "warehouse_reading_backup",
+            "where": {
+              "not": {
+                "column": "warehouse_zone",
+                "op": "==",
+                "value": "west"
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "solar_filter_0": {
+      "request": "Keep only rows where solar_reading > 31; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "filter_0",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "rows_removed_where",
+            "target": null,
+            "condition": {
+              "column": "solar_reading",
+              "op": "<=",
+              "value": 31
+            }
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "decreased"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "rows_retained_where",
+            "target": null,
+            "condition": {
+              "column": "solar_reading",
+              "op": ">",
+              "value": 31
+            }
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "solar_filter_1": {
+      "request": "Keep only rows where solar_reading >= 31; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "filter_1",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "rows_removed_where",
+            "target": null,
+            "condition": {
+              "not": {
+                "column": "solar_reading",
+                "op": ">=",
+                "value": 31
+              }
+            }
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "rows_retained_where",
+            "target": null,
+            "condition": {
+              "column": "solar_reading",
+              "op": ">=",
+              "value": 31
+            }
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "solar_filter_2": {
+      "request": "Keep only rows where solar_reading < 31; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "filter_2",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "rows_removed_where",
+            "target": null,
+            "condition": {
+              "any": [
+                {
+                  "column": "solar_reading",
+                  "op": ">=",
+                  "value": 31
+                },
+                {
+                  "column": "solar_reading",
+                  "op": "is_null"
+                }
+              ]
+            }
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "decreased"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "rows_retained_where",
+            "target": null,
+            "condition": {
+              "column": "solar_reading",
+              "op": "<",
+              "value": 31
+            }
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "solar_filter_3": {
+      "request": "Keep only rows where solar_reading <= 31; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "filter_3",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "rows_removed_where",
+            "target": null,
+            "condition": {
+              "not": {
+                "column": "solar_reading",
+                "op": "<=",
+                "value": 31
+              }
+            }
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "rows_retained_where",
+            "target": null,
+            "condition": {
+              "column": "solar_reading",
+              "op": "<=",
+              "value": 31
+            }
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "solar_dedup_0": {
+      "request": "Remove duplicates by ['solar_batch'], retaining the first row of each group in input order. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "dedup_0",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "duplicate_count",
+            "target": [
+              "solar_batch"
+            ],
+            "op": "eq",
+            "value": 0,
+            "keep": "first"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "solar_dedup_1": {
+      "request": "Remove duplicates by ['solar_batch'], retaining the last row of each group in input order. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "dedup_1",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "duplicate_count",
+            "target": [
+              "solar_batch"
+            ],
+            "op": "eq",
+            "value": 0,
+            "keep": "last"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "solar_dedup_2": {
+      "request": "Remove duplicates by ['solar_batch', 'solar_unit'], retaining the first row of each group in input order. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "dedup_2",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "duplicate_count",
+            "target": [
+              "solar_batch",
+              "solar_unit"
+            ],
+            "op": "eq",
+            "value": 0,
+            "keep": "first"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "solar_dedup_3": {
+      "request": "Remove duplicates by ['solar_batch', 'solar_unit'], retaining the last row of each group in input order. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "dedup_3",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "duplicate_count",
+            "target": [
+              "solar_batch",
+              "solar_unit"
+            ],
+            "op": "eq",
+            "value": 0,
+            "keep": "last"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "solar_fill_0": {
+      "request": "Fill missing solar_reading with the full-column median. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "fill_0",
+      "facts": [
+        {
+          "column": "solar_reading",
+          "statistic": "median",
+          "value": 44.29668094708101,
+          "scope": {
+            "kind": "full_column"
+          },
+          "nonmissing_count": 41,
+          "missing_values": "excluded"
+        }
+      ],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "solar_reading",
+            "fn": "const",
+            "args": [
+              {
+                "lit": 44.29668094708101
+              }
+            ],
+            "where": {
+              "column": "solar_reading",
+              "op": "is_null"
+            }
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "solar_reading"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "solar_reading",
+            "where": {
+              "not": {
+                "column": "solar_reading",
+                "op": "is_null"
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "solar_fill_1": {
+      "request": "Fill missing solar_reading with the full-column mean. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "fill_1",
+      "facts": [
+        {
+          "column": "solar_reading",
+          "statistic": "mean",
+          "value": 46.36344393100585,
+          "scope": {
+            "kind": "full_column"
+          },
+          "nonmissing_count": 41,
+          "missing_values": "excluded"
+        }
+      ],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "solar_reading",
+            "fn": "const",
+            "args": [
+              {
+                "lit": 46.36344393100585
+              }
+            ],
+            "where": {
+              "column": "solar_reading",
+              "op": "is_null"
+            }
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "solar_reading"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "solar_reading",
+            "where": {
+              "not": {
+                "column": "solar_reading",
+                "op": "is_null"
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "solar_fill_2": {
+      "request": "Fill missing solar_priority with the unique most frequent nonmissing value. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "fill_2",
+      "facts": [
+        {
+          "column": "solar_priority",
+          "statistic": "mode",
+          "value": "low",
+          "scope": {
+            "kind": "full_column"
+          },
+          "nonmissing_count": 40,
+          "missing_values": "excluded"
+        }
+      ],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "solar_priority",
+            "where": {
+              "column": "solar_priority",
+              "op": "is_null"
+            },
+            "fn": "const",
+            "args": [
+              {
+                "lit": "low"
+              }
+            ]
+          },
+          {
+            "type": "null_count",
+            "target": "solar_priority",
+            "op": "eq",
+            "value": 0
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "column_values_unchanged",
+            "target": "solar_priority",
+            "where": {
+              "column": "solar_priority",
+              "op": "not_null"
+            }
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "solar_priority"
+            ]
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "unchanged"
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "solar_fill_3": {
+      "request": "Fill missing solar_reading only in solar_zone = east with the median of solar_reading among rows with solar_zone = east. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "fill_3",
+      "facts": [
+        {
+          "column": "solar_reading",
+          "statistic": "median",
+          "value": 41.19818359429058,
+          "scope": {
+            "kind": "conditional",
+            "where": {
+              "column": "solar_zone",
+              "op": "==",
+              "value": "east"
+            }
+          },
+          "nonmissing_count": 13,
+          "missing_values": "excluded"
+        }
+      ],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "solar_reading",
+            "fn": "const",
+            "args": [
+              {
+                "lit": 41.19818359429058
+              }
+            ],
+            "where": {
+              "all": [
+                {
+                  "column": "solar_reading",
+                  "op": "is_null"
+                },
+                {
+                  "column": "solar_zone",
+                  "op": "==",
+                  "value": "east"
+                }
+              ]
+            }
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "solar_reading"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "solar_reading",
+            "where": {
+              "not": {
+                "all": [
+                  {
+                    "column": "solar_reading",
+                    "op": "is_null"
+                  },
+                  {
+                    "column": "solar_zone",
+                    "op": "==",
+                    "value": "east"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "solar_convert_0": {
+      "request": "Convert solar_priority to an ordered category with order low < mid < high. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "convert_0",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_dtype",
+            "target": "solar_priority",
+            "dtype": "category",
+            "ordered": true,
+            "categories": [
+              "low",
+              "mid",
+              "high"
+            ]
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "solar_priority"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "solar_priority",
+            "where": {
+              "not": {
+                "column": "solar_priority",
+                "op": "in",
+                "value": [
+                  "low",
+                  "mid",
+                  "high"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "solar_convert_1": {
+      "request": "Convert solar_date to datetime using format %d/%m/%Y. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "convert_1",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_dtype",
+            "target": "solar_date",
+            "dtype": "datetime"
+          },
+          {
+            "type": "column_value_relation",
+            "target": "solar_date",
+            "fn": "cast",
+            "args": [
+              {
+                "col": "solar_date"
+              },
+              {
+                "lit": "datetime"
+              },
+              {
+                "lit": "%d/%m/%Y"
+              }
+            ]
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "solar_date"
+            ]
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "solar_convert_2": {
+      "request": "Convert solar_batch to float. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "convert_2",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_dtype",
+            "target": "solar_batch",
+            "dtype": "float"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "solar_batch"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "solar_batch",
+            "where": {
+              "not": {
+                "column": "solar_batch",
+                "op": "is_null"
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "solar_convert_3": {
+      "request": "Convert solar_unit to string. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "convert_3",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_dtype",
+            "target": "solar_unit",
+            "dtype": "string"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "column_value_relation",
+            "target": "solar_unit",
+            "fn": "cast",
+            "args": [
+              {
+                "col": "solar_unit"
+              },
+              {
+                "lit": "string"
+              }
+            ]
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "unchanged"
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "solar_edit_0": {
+      "request": "Clip solar_reading to [20,60]. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "edit_0",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "solar_reading",
+            "fn": "clip",
+            "args": [
+              {
+                "col": "solar_reading"
+              },
+              {
+                "lit": 20
+              },
+              {
+                "lit": 60
+              }
+            ]
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "solar_reading"
+            ]
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "solar_edit_1": {
+      "request": "Map solar_priority: low to 1, mid to 2, high to 3; preserve missing cells. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "edit_1",
+      "facts": [],
+      "status": "ok",
+      "correct": false,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "solar_priority",
+            "fn": "map",
+            "args": [
+              {
+                "col": "solar_priority"
+              },
+              {
+                "lit": {
+                  "low": 1,
+                  "mid": 2,
+                  "high": 3
+                }
+              }
+            ]
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "solar_priority"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "solar_priority",
+            "where": {
+              "not": {
+                "column": "solar_priority",
+                "op": "is_null"
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "VIOLATION",
+          "failures": [
+            {
+              "kind": "predicate",
+              "predicate_id": "p3",
+              "predicate_type": "column_values_unchanged",
+              "direction": "must_preserve",
+              "target": "solar_priority",
+              "expected": "values unchanged",
+              "observed": "40 changed cells in ['solar_priority']",
+              "detail": "solar_priority: 40 rows changed",
+              "evidence_rows": [
+                0,
+                1,
+                2,
+                3,
+                5
+              ]
+            }
+          ],
+          "evidence_rows": [
+            0,
+            1,
+            2,
+            3,
+            5
+          ]
+        }
+      ]
+    },
+    "solar_edit_2": {
+      "request": "Add 3 to solar_reading_backup. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "edit_2",
+      "facts": [],
+      "status": "invalid_contract",
+      "correct": false,
+      "wrong": false,
+      "error": "invalid contract: must_change.0.columns_added.target.1: Input should be a valid string",
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "columns_added",
+            "target": [
+              "add",
+              {
+                "col": "solar_reading_backup",
+                "lit": 3
+              }
+            ]
+          },
+          {
+            "type": "column_value_relation",
+            "target": "solar_reading_backup",
+            "fn": "add",
+            "args": [
+              {
+                "col": "solar_reading_backup"
+              },
+              {
+                "lit": 3
+              }
+            ]
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": null
+    },
+    "solar_edit_3": {
+      "request": "Double solar_reading_backup only for rows with solar_zone = west. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "edit_3",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "solar_reading_backup",
+            "fn": "mul",
+            "args": [
+              {
+                "col": "solar_reading_backup"
+              },
+              {
+                "lit": 2
+              }
+            ],
+            "where": {
+              "column": "solar_zone",
+              "op": "==",
+              "value": "west"
+            }
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "solar_reading_backup"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "solar_reading_backup",
+            "where": {
+              "not": {
+                "column": "solar_zone",
+                "op": "==",
+                "value": "west"
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "courier_filter_0": {
+      "request": "Keep only rows where courier_reading > 32; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "filter_0",
+      "facts": [],
+      "status": "invalid_contract",
+      "correct": false,
+      "wrong": false,
+      "error": "invalid contract: must_change.0.rows_removed_where.condition.not.op: Input should be '==', '!=', '<', '<=', '>', '>=', 'in', 'not_in', 'is_null' or 'not_null'; must_preserve.0.rows_retained_where.condition.op: Input should be '==', '!=', '<', '<=', '>', '>=', 'in', 'not_in', 'is_null' or 'not_null'",
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "rows_removed_where",
+            "condition": {
+              "not": {
+                "column": "courier_reading",
+                "op": "> ",
+                "value": 32
+              }
+            }
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "rows_retained_where",
+            "condition": {
+              "column": "courier_reading",
+              "op": "> ",
+              "value": 32
+            }
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": null
+    },
+    "courier_filter_1": {
+      "request": "Keep only rows where courier_reading >= 32; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "filter_1",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "rows_removed_where",
+            "condition": {
+              "not": {
+                "column": "courier_reading",
+                "op": ">=",
+                "value": 32
+              }
+            }
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "rows_retained_where",
+            "condition": {
+              "column": "courier_reading",
+              "op": ">=",
+              "value": 32
+            }
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "courier_filter_2": {
+      "request": "Keep only rows where courier_reading < 32; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "filter_2",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "rows_removed_where",
+            "target": null,
+            "condition": {
+              "any": [
+                {
+                  "column": "courier_reading",
+                  "op": ">=",
+                  "value": 32
+                },
+                {
+                  "column": "courier_reading",
+                  "op": "is_null"
+                }
+              ]
+            }
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "decreased"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "rows_retained_where",
+            "target": null,
+            "condition": {
+              "column": "courier_reading",
+              "op": "<",
+              "value": 32
+            }
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "courier_filter_3": {
+      "request": "Keep only rows where courier_reading <= 32; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "filter_3",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "rows_removed_where",
+            "condition": {
+              "not": {
+                "column": "courier_reading",
+                "op": "<=",
+                "value": 32
+              }
+            }
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "rows_retained_where",
+            "condition": {
+              "column": "courier_reading",
+              "op": "<=",
+              "value": 32
+            }
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "courier_dedup_0": {
+      "request": "Remove duplicates by ['courier_batch'], retaining the first row of each group in input order. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "dedup_0",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "duplicate_count",
+            "target": [
+              "courier_batch"
+            ],
+            "op": "eq",
+            "value": 0,
+            "keep": "first"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "courier_dedup_1": {
+      "request": "Remove duplicates by ['courier_batch'], retaining the last row of each group in input order. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "dedup_1",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "duplicate_count",
+            "target": [
+              "courier_batch"
+            ],
+            "op": "eq",
+            "value": 0,
+            "keep": "last"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "courier_dedup_2": {
+      "request": "Remove duplicates by ['courier_batch', 'courier_unit'], retaining the first row of each group in input order. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "dedup_2",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "duplicate_count",
+            "target": [
+              "courier_batch",
+              "courier_unit"
+            ],
+            "op": "eq",
+            "value": 0,
+            "keep": "first"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "courier_dedup_3": {
+      "request": "Remove duplicates by ['courier_batch', 'courier_unit'], retaining the last row of each group in input order. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "dedup_3",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "duplicate_count",
+            "target": [
+              "courier_batch",
+              "courier_unit"
+            ],
+            "op": "eq",
+            "value": 0,
+            "keep": "last"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "courier_fill_0": {
+      "request": "Fill missing courier_reading with the full-column median. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "fill_0",
+      "facts": [
+        {
+          "column": "courier_reading",
+          "statistic": "median",
+          "value": 36.33081249221443,
+          "scope": {
+            "kind": "full_column"
+          },
+          "nonmissing_count": 41,
+          "missing_values": "excluded"
+        }
+      ],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "courier_reading",
+            "fn": "const",
+            "args": [
+              {
+                "lit": 36.33081249221443
+              }
+            ],
+            "where": {
+              "column": "courier_reading",
+              "op": "is_null"
+            }
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "courier_reading"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "courier_reading",
+            "where": {
+              "not": {
+                "column": "courier_reading",
+                "op": "is_null"
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "courier_fill_1": {
+      "request": "Fill missing courier_reading with the full-column mean. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "fill_1",
+      "facts": [
+        {
+          "column": "courier_reading",
+          "statistic": "mean",
+          "value": 39.8234753417835,
+          "scope": {
+            "kind": "full_column"
+          },
+          "nonmissing_count": 41,
+          "missing_values": "excluded"
+        }
+      ],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "courier_reading",
+            "fn": "const",
+            "args": [
+              {
+                "lit": 39.8234753417835
+              }
+            ],
+            "where": {
+              "column": "courier_reading",
+              "op": "is_null"
+            }
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "courier_reading"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "courier_reading",
+            "where": {
+              "not": {
+                "column": "courier_reading",
+                "op": "is_null"
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "courier_fill_2": {
+      "request": "Fill missing courier_priority with the unique most frequent nonmissing value. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "fill_2",
+      "facts": [
+        {
+          "column": "courier_priority",
+          "statistic": "mode",
+          "value": "low",
+          "scope": {
+            "kind": "full_column"
+          },
+          "nonmissing_count": 40,
+          "missing_values": "excluded"
+        }
+      ],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "courier_priority",
+            "where": {
+              "column": "courier_priority",
+              "op": "is_null"
+            },
+            "fn": "const",
+            "args": [
+              {
+                "lit": "low"
+              }
+            ]
+          },
+          {
+            "type": "null_count",
+            "target": "courier_priority",
+            "op": "eq",
+            "value": 0
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "column_values_unchanged",
+            "target": "courier_priority",
+            "where": {
+              "column": "courier_priority",
+              "op": "not_null"
+            }
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "courier_priority"
+            ]
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "unchanged"
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "courier_fill_3": {
+      "request": "Fill missing courier_reading only in courier_zone = east with the median of courier_reading among rows with courier_zone = east. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "fill_3",
+      "facts": [
+        {
+          "column": "courier_reading",
+          "statistic": "median",
+          "value": 24.977172227007696,
+          "scope": {
+            "kind": "conditional",
+            "where": {
+              "column": "courier_zone",
+              "op": "==",
+              "value": "east"
+            }
+          },
+          "nonmissing_count": 13,
+          "missing_values": "excluded"
+        }
+      ],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "courier_reading",
+            "fn": "const",
+            "args": [
+              {
+                "lit": 24.977172227007696
+              }
+            ],
+            "where": {
+              "all": [
+                {
+                  "column": "courier_reading",
+                  "op": "is_null"
+                },
+                {
+                  "column": "courier_zone",
+                  "op": "==",
+                  "value": "east"
+                }
+              ]
+            }
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "courier_reading"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "courier_reading",
+            "where": {
+              "not": {
+                "all": [
+                  {
+                    "column": "courier_reading",
+                    "op": "is_null"
+                  },
+                  {
+                    "column": "courier_zone",
+                    "op": "==",
+                    "value": "east"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "courier_convert_0": {
+      "request": "Convert courier_priority to an ordered category with order low < mid < high. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "convert_0",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_dtype",
+            "target": "courier_priority",
+            "dtype": "category",
+            "ordered": true,
+            "categories": [
+              "low",
+              "mid",
+              "high"
+            ]
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "courier_priority"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "courier_priority",
+            "where": {
+              "not": {
+                "column": "courier_priority",
+                "op": "in",
+                "value": [
+                  "low",
+                  "mid",
+                  "high"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "courier_convert_1": {
+      "request": "Convert courier_date to datetime using format %d/%m/%Y. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "convert_1",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_dtype",
+            "target": "courier_date",
+            "dtype": "datetime"
+          },
+          {
+            "type": "column_value_relation",
+            "target": "courier_date",
+            "fn": "cast",
+            "args": [
+              {
+                "col": "courier_date"
+              },
+              {
+                "lit": "datetime"
+              },
+              {
+                "lit": "%d/%m/%Y"
+              }
+            ]
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "courier_date"
+            ]
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "courier_convert_2": {
+      "request": "Convert courier_batch to float. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "convert_2",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_dtype",
+            "target": "courier_batch",
+            "dtype": "float"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "courier_batch"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "courier_batch",
+            "where": {
+              "not": {
+                "column": "courier_batch",
+                "op": "is_null"
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "courier_convert_3": {
+      "request": "Convert courier_unit to string. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "convert_3",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_dtype",
+            "target": "courier_unit",
+            "dtype": "string"
+          },
+          {
+            "type": "column_value_relation",
+            "target": "courier_unit",
+            "fn": "cast",
+            "args": [
+              {
+                "col": "courier_unit"
+              },
+              {
+                "lit": "string"
+              }
+            ]
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "courier_unit"
+            ]
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "courier_edit_0": {
+      "request": "Clip courier_reading to [20,60]. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "edit_0",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "courier_reading",
+            "fn": "clip",
+            "args": [
+              {
+                "col": "courier_reading"
+              },
+              {
+                "lit": 20
+              },
+              {
+                "lit": 60
+              }
+            ]
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "courier_reading"
+            ]
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "courier_edit_1": {
+      "request": "Map courier_priority: low to 1, mid to 2, high to 3; preserve missing cells. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "edit_1",
+      "facts": [],
+      "status": "ok",
+      "correct": false,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "courier_priority",
+            "fn": "map",
+            "args": [
+              {
+                "col": "courier_priority"
+              },
+              {
+                "lit": {
+                  "low": 1,
+                  "mid": 2,
+                  "high": 3
+                }
+              }
+            ]
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "courier_priority"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "courier_priority",
+            "where": {
+              "not": {
+                "column": "courier_priority",
+                "op": "is_null"
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "VIOLATION",
+          "failures": [
+            {
+              "kind": "predicate",
+              "predicate_id": "p3",
+              "predicate_type": "column_values_unchanged",
+              "direction": "must_preserve",
+              "target": "courier_priority",
+              "expected": "values unchanged",
+              "observed": "40 changed cells in ['courier_priority']",
+              "detail": "courier_priority: 40 rows changed",
+              "evidence_rows": [
+                0,
+                1,
+                2,
+                3,
+                5
+              ]
+            }
+          ],
+          "evidence_rows": [
+            0,
+            1,
+            2,
+            3,
+            5
+          ]
+        }
+      ]
+    },
+    "courier_edit_2": {
+      "request": "Add 4 to courier_reading_backup. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "edit_2",
+      "facts": [],
+      "status": "ok",
+      "correct": false,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "columns_added",
+            "target": [
+              "courier_reading_backup"
+            ]
+          },
+          {
+            "type": "column_value_relation",
+            "target": "courier_reading_backup",
+            "fn": "add",
+            "args": [
+              {
+                "col": "courier_reading_backup"
+              },
+              {
+                "lit": 4
+              }
+            ]
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "courier_reading_backup"
+            ]
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "UNCERTAIN",
+          "failures": [
+            {
+              "kind": "uncertain",
+              "reason": "predicate_not_evaluable",
+              "detail": "column(s) ['courier_reading_backup'] already exist in the input",
+              "predicate_id": "c1"
+            }
+          ],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "courier_edit_3": {
+      "request": "Double courier_reading_backup only for rows with courier_zone = west. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "edit_3",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "courier_reading_backup",
+            "fn": "mul",
+            "args": [
+              {
+                "col": "courier_reading_backup"
+              },
+              {
+                "lit": 2
+              }
+            ],
+            "where": {
+              "column": "courier_zone",
+              "op": "==",
+              "value": "west"
+            }
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "courier_reading_backup"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "courier_reading_backup",
+            "where": {
+              "not": {
+                "column": "courier_zone",
+                "op": "==",
+                "value": "west"
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "nursery_filter_0": {
+      "request": "Keep only rows where nursery_reading > 33; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "filter_0",
+      "facts": [],
+      "status": "invalid_contract",
+      "correct": false,
+      "wrong": false,
+      "error": "invalid contract: must_change.0.rows_removed_where.condition.not.op: Input should be '==', '!=', '<', '<=', '>', '>=', 'in', 'not_in', 'is_null' or 'not_null'; must_preserve.0.rows_retained_where.condition.op: Input should be '==', '!=', '<', '<=', '>', '>=', 'in', 'not_in', 'is_null' or 'not_null'",
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "rows_removed_where",
+            "condition": {
+              "not": {
+                "column": "nursery_reading",
+                "op": "> ",
+                "value": 33
+              }
+            }
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "rows_retained_where",
+            "condition": {
+              "column": "nursery_reading",
+              "op": "> ",
+              "value": 33
+            }
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": null
+    },
+    "nursery_filter_1": {
+      "request": "Keep only rows where nursery_reading >= 33; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "filter_1",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "rows_removed_where",
+            "condition": {
+              "not": {
+                "column": "nursery_reading",
+                "op": ">=",
+                "value": 33
+              }
+            }
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "rows_retained_where",
+            "condition": {
+              "column": "nursery_reading",
+              "op": ">=",
+              "value": 33
+            }
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "nursery_filter_2": {
+      "request": "Keep only rows where nursery_reading < 33; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "filter_2",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "rows_removed_where",
+            "target": null,
+            "condition": {
+              "any": [
+                {
+                  "column": "nursery_reading",
+                  "op": ">=",
+                  "value": 33
+                },
+                {
+                  "column": "nursery_reading",
+                  "op": "is_null"
+                }
+              ]
+            }
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "decreased"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "rows_retained_where",
+            "target": null,
+            "condition": {
+              "column": "nursery_reading",
+              "op": "<",
+              "value": 33
+            }
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "nursery_filter_3": {
+      "request": "Keep only rows where nursery_reading <= 33; missing readings do not qualify. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "filter_3",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "rows_removed_where",
+            "condition": {
+              "not": {
+                "column": "nursery_reading",
+                "op": "<=",
+                "value": 33
+              }
+            }
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "rows_retained_where",
+            "condition": {
+              "column": "nursery_reading",
+              "op": "<=",
+              "value": 33
+            }
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "nursery_dedup_0": {
+      "request": "Remove duplicates by ['nursery_batch'], retaining the first row of each group in input order. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "dedup_0",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "duplicate_count",
+            "target": [
+              "nursery_batch"
+            ],
+            "op": "eq",
+            "value": 0,
+            "keep": "first"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "nursery_dedup_1": {
+      "request": "Remove duplicates by ['nursery_batch'], retaining the last row of each group in input order. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "dedup_1",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "duplicate_count",
+            "target": [
+              "nursery_batch"
+            ],
+            "op": "eq",
+            "value": 0,
+            "keep": "last"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "nursery_dedup_2": {
+      "request": "Remove duplicates by ['nursery_batch', 'nursery_unit'], retaining the first row of each group in input order. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "dedup_2",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "duplicate_count",
+            "target": [
+              "nursery_batch",
+              "nursery_unit"
+            ],
+            "op": "eq",
+            "value": 0,
+            "keep": "first"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "nursery_dedup_3": {
+      "request": "Remove duplicates by ['nursery_batch', 'nursery_unit'], retaining the last row of each group in input order. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "dedup_3",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "duplicate_count",
+            "target": [
+              "nursery_batch",
+              "nursery_unit"
+            ],
+            "op": "eq",
+            "value": 0,
+            "keep": "last"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        },
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "nursery_fill_0": {
+      "request": "Fill missing nursery_reading with the full-column median. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "fill_0",
+      "facts": [
+        {
+          "column": "nursery_reading",
+          "statistic": "median",
+          "value": 39.42104056679592,
+          "scope": {
+            "kind": "full_column"
+          },
+          "nonmissing_count": 41,
+          "missing_values": "excluded"
+        }
+      ],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "nursery_reading",
+            "fn": "const",
+            "args": [
+              {
+                "lit": 39.42104056679592
+              }
+            ],
+            "where": {
+              "column": "nursery_reading",
+              "op": "is_null"
+            }
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "nursery_reading"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "nursery_reading",
+            "where": {
+              "not": {
+                "column": "nursery_reading",
+                "op": "is_null"
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "nursery_fill_1": {
+      "request": "Fill missing nursery_reading with the full-column mean. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "fill_1",
+      "facts": [
+        {
+          "column": "nursery_reading",
+          "statistic": "mean",
+          "value": 40.8086240328989,
+          "scope": {
+            "kind": "full_column"
+          },
+          "nonmissing_count": 41,
+          "missing_values": "excluded"
+        }
+      ],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "nursery_reading",
+            "fn": "const",
+            "args": [
+              {
+                "lit": 40.8086240328989
+              }
+            ],
+            "where": {
+              "column": "nursery_reading",
+              "op": "is_null"
+            }
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "nursery_reading"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "nursery_reading",
+            "where": {
+              "not": {
+                "column": "nursery_reading",
+                "op": "is_null"
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "nursery_fill_2": {
+      "request": "Fill missing nursery_priority with the unique most frequent nonmissing value. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "fill_2",
+      "facts": [
+        {
+          "column": "nursery_priority",
+          "statistic": "mode",
+          "value": "low",
+          "scope": {
+            "kind": "full_column"
+          },
+          "nonmissing_count": 40,
+          "missing_values": "excluded"
+        }
+      ],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "nursery_priority",
+            "fn": "const",
+            "args": [
+              {
+                "lit": "low"
+              }
+            ],
+            "where": {
+              "column": "nursery_priority",
+              "op": "is_null"
+            }
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "nursery_priority"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "nursery_priority",
+            "where": {
+              "not": {
+                "column": "nursery_priority",
+                "op": "is_null"
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "nursery_fill_3": {
+      "request": "Fill missing nursery_reading only in nursery_zone = east with the median of nursery_reading among rows with nursery_zone = east. Ignore missing values when computing statistics. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "fill_3",
+      "facts": [
+        {
+          "column": "nursery_reading",
+          "statistic": "median",
+          "value": 33.137803448995925,
+          "scope": {
+            "kind": "conditional",
+            "where": {
+              "column": "nursery_zone",
+              "op": "==",
+              "value": "east"
+            }
+          },
+          "nonmissing_count": 13,
+          "missing_values": "excluded"
+        }
+      ],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "nursery_reading",
+            "fn": "const",
+            "args": [
+              {
+                "lit": 33.137803448995925
+              }
+            ],
+            "where": {
+              "all": [
+                {
+                  "column": "nursery_reading",
+                  "op": "is_null"
+                },
+                {
+                  "column": "nursery_zone",
+                  "op": "==",
+                  "value": "east"
+                }
+              ]
+            }
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "nursery_reading"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "nursery_reading",
+            "where": {
+              "not": {
+                "all": [
+                  {
+                    "column": "nursery_reading",
+                    "op": "is_null"
+                  },
+                  {
+                    "column": "nursery_zone",
+                    "op": "==",
+                    "value": "east"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "nursery_convert_0": {
+      "request": "Convert nursery_priority to an ordered category with order low < mid < high. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "convert_0",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_dtype",
+            "target": "nursery_priority",
+            "dtype": "category",
+            "ordered": true,
+            "categories": [
+              "low",
+              "mid",
+              "high"
+            ]
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "nursery_priority"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "nursery_priority",
+            "where": {
+              "not": {
+                "column": "nursery_priority",
+                "op": "in",
+                "value": [
+                  "low",
+                  "mid",
+                  "high"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "nursery_convert_1": {
+      "request": "Convert nursery_date to datetime using format %d/%m/%Y. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "convert_1",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_dtype",
+            "target": "nursery_date",
+            "dtype": "datetime"
+          },
+          {
+            "type": "column_value_relation",
+            "target": "nursery_date",
+            "fn": "cast",
+            "args": [
+              {
+                "col": "nursery_date"
+              },
+              {
+                "lit": "datetime"
+              },
+              {
+                "lit": "%d/%m/%Y"
+              }
+            ]
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "nursery_date"
+            ]
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "nursery_convert_2": {
+      "request": "Convert nursery_batch to float. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "convert_2",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_dtype",
+            "target": "nursery_batch",
+            "dtype": "float"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "nursery_batch"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "nursery_batch",
+            "where": {
+              "not": {
+                "column": "nursery_batch",
+                "op": "is_null"
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "nursery_convert_3": {
+      "request": "Convert nursery_unit to string. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "convert_3",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_dtype",
+            "target": "nursery_unit",
+            "dtype": "string"
+          },
+          {
+            "type": "column_value_relation",
+            "target": "nursery_unit",
+            "fn": "cast",
+            "args": [
+              {
+                "col": "nursery_unit"
+              },
+              {
+                "lit": "string"
+              }
+            ]
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "nursery_unit"
+            ]
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "nursery_edit_0": {
+      "request": "Clip nursery_reading to [20,60]. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "edit_0",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "nursery_reading",
+            "fn": "clip",
+            "args": [
+              {
+                "col": "nursery_reading"
+              },
+              {
+                "lit": 20
+              },
+              {
+                "lit": 60
+              }
+            ]
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "nursery_reading"
+            ]
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "nursery_edit_1": {
+      "request": "Map nursery_priority: low to 1, mid to 2, high to 3; preserve missing cells. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "edit_1",
+      "facts": [],
+      "status": "ok",
+      "correct": false,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "nursery_priority",
+            "fn": "map",
+            "args": [
+              {
+                "col": "nursery_priority"
+              },
+              {
+                "lit": {
+                  "low": 1,
+                  "mid": 2,
+                  "high": 3
+                }
+              }
+            ]
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "nursery_priority"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "nursery_priority",
+            "where": {
+              "not": {
+                "column": "nursery_priority",
+                "op": "is_null"
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "VIOLATION",
+          "failures": [
+            {
+              "kind": "predicate",
+              "predicate_id": "p3",
+              "predicate_type": "column_values_unchanged",
+              "direction": "must_preserve",
+              "target": "nursery_priority",
+              "expected": "values unchanged",
+              "observed": "40 changed cells in ['nursery_priority']",
+              "detail": "nursery_priority: 40 rows changed",
+              "evidence_rows": [
+                0,
+                1,
+                2,
+                3,
+                5
+              ]
+            }
+          ],
+          "evidence_rows": [
+            0,
+            1,
+            2,
+            3,
+            5
+          ]
+        }
+      ]
+    },
+    "nursery_edit_2": {
+      "request": "Add 5 to nursery_reading_backup. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "edit_2",
+      "facts": [],
+      "status": "ok",
+      "correct": false,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "columns_added",
+            "target": [
+              "nursery_reading_backup"
+            ]
+          },
+          {
+            "type": "column_value_relation",
+            "target": "nursery_reading_backup",
+            "fn": "add",
+            "args": [
+              {
+                "col": "nursery_reading_backup"
+              },
+              {
+                "lit": 5
+              }
+            ]
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "nursery_reading_backup"
+            ]
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "UNCERTAIN",
+          "failures": [
+            {
+              "kind": "uncertain",
+              "reason": "predicate_not_evaluable",
+              "detail": "column(s) ['nursery_reading_backup'] already exist in the input",
+              "predicate_id": "c1"
+            }
+          ],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "nursery_edit_3": {
+      "request": "Double nursery_reading_backup only for rows with nursery_zone = west. Keep everything else unchanged; retain original row indices.",
+      "cohort": "synthetic",
+      "pattern": "edit_3",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "nursery_reading_backup",
+            "fn": "mul",
+            "args": [
+              {
+                "col": "nursery_reading_backup"
+              },
+              {
+                "lit": 2
+              }
+            ],
+            "where": {
+              "column": "nursery_zone",
+              "op": "==",
+              "value": "west"
+            }
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "row_count",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "nursery_reading_backup"
+            ]
+          },
+          {
+            "type": "column_values_unchanged",
+            "target": "nursery_reading_backup",
+            "where": {
+              "not": {
+                "column": "nursery_zone",
+                "op": "==",
+                "value": "west"
+              }
+            }
+          }
+        ]
+      },
+      "positive_verdicts": [
+        {
+          "status": "PASS",
+          "failures": [],
+          "evidence_rows": []
+        }
+      ]
+    },
+    "adult_col_006": {
+      "request": "Rename the education-num column to education_years.\n",
+      "cohort": "original",
+      "pattern": "column_transformation",
+      "facts": [],
+      "status": "ok",
+      "correct": false,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "columns_added",
+            "target": [
+              "education_years"
+            ]
+          },
+          {
+            "type": "columns_removed",
+            "target": [
+              "education_num"
+            ]
+          },
+          {
+            "type": "column_value_relation",
+            "target": "education_years",
+            "fn": "identity",
+            "args": [
+              {
+                "col": "education_num"
+              }
+            ]
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "education_num"
+            ]
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "unchanged"
+          }
+        ]
+      },
+      "positive_verdicts": null
+    },
+    "adult_conv_006": {
+      "request": "Make workclass a categorical column. Missing workclass values should stay missing.\n",
+      "cohort": "original",
+      "pattern": "type_conversion",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_dtype",
+            "target": "workclass",
+            "dtype": "category"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "column_values_unchanged",
+            "target": "workclass"
+          },
+          {
+            "type": "null_count",
+            "target": "workclass",
+            "op": "unchanged"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "workclass"
+            ]
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "unchanged"
+          }
+        ]
+      },
+      "positive_verdicts": null
+    },
+    "adult_dedup_006": {
+      "request": "Remove records that are identical in every column except fnlwgt and income, keeping the first.\n",
+      "cohort": "original",
+      "pattern": "deduplication",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "duplicate_count",
+            "target": "*",
+            "op": "eq",
+            "value": 0,
+            "except": [
+              "fnlwgt",
+              "income"
+            ],
+            "keep": "first"
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "decreased"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": null
+    },
+    "adult_filt_006": {
+      "request": "Remove private-sector workers who work fewer than 20 hours a week.\n",
+      "cohort": "original",
+      "pattern": "filtering",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "rows_removed_where",
+            "target": null,
+            "condition": {
+              "all": [
+                {
+                  "column": "workclass",
+                  "op": "==",
+                  "value": "Private"
+                },
+                {
+                  "column": "hours-per-week",
+                  "op": "<",
+                  "value": 20
+                }
+              ]
+            }
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "decreased"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "rows_retained_where",
+            "target": null,
+            "condition": {
+              "not": {
+                "all": [
+                  {
+                    "column": "workclass",
+                    "op": "==",
+                    "value": "Private"
+                  },
+                  {
+                    "column": "hours-per-week",
+                    "op": "<",
+                    "value": 20
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": null
+    },
+    "adult_miss_006": {
+      "request": "Drop every record that has any missing value.\n",
+      "cohort": "original",
+      "pattern": "missing_values",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "rows_removed_where",
+            "target": null,
+            "condition": {
+              "any": [
+                {
+                  "column": "capital-gain",
+                  "op": "is_null"
+                },
+                {
+                  "column": "education-num",
+                  "op": "is_null"
+                },
+                {
+                  "column": "native-country",
+                  "op": "is_null"
+                },
+                {
+                  "column": "race",
+                  "op": "is_null"
+                },
+                {
+                  "column": "sex",
+                  "op": "is_null"
+                },
+                {
+                  "column": "workclass",
+                  "op": "is_null"
+                },
+                {
+                  "column": "education",
+                  "op": "is_null"
+                },
+                {
+                  "column": "marital-status",
+                  "op": "is_null"
+                },
+                {
+                  "column": "income",
+                  "op": "is_null"
+                }
+              ]
+            }
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "decreased"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "rows_retained_where",
+            "target": null,
+            "condition": {
+              "all": [
+                {
+                  "column": "capital-gain",
+                  "op": "not_null"
+                },
+                {
+                  "column": "education-num",
+                  "op": "not_null"
+                },
+                {
+                  "column": "native-country",
+                  "op": "not_null"
+                },
+                {
+                  "column": "race",
+                  "op": "not_null"
+                },
+                {
+                  "column": "sex",
+                  "op": "not_null"
+                },
+                {
+                  "column": "workclass",
+                  "op": "not_null"
+                },
+                {
+                  "column": "education",
+                  "op": "not_null"
+                },
+                {
+                  "column": "marital-status",
+                  "op": "not_null"
+                },
+                {
+                  "column": "income",
+                  "op": "not_null"
+                }
+              ]
+            }
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": null
+    },
+    "airbnb_col_006": {
+      "request": "Rename the reviews_per_month column to monthly_reviews.\n",
+      "cohort": "original",
+      "pattern": "column_transformation",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "columns_added",
+            "target": [
+              "monthly_reviews"
+            ]
+          },
+          {
+            "type": "columns_removed",
+            "target": [
+              "reviews_per_month"
+            ]
+          },
+          {
+            "type": "column_value_relation",
+            "target": "monthly_reviews",
+            "fn": "identity",
+            "args": [
+              {
+                "col": "reviews_per_month"
+              }
+            ]
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "reviews_per_month"
+            ]
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "unchanged"
+          }
+        ]
+      },
+      "positive_verdicts": null
+    },
+    "airbnb_conv_006": {
+      "request": "Store the listing id as text rather than as a number.\n",
+      "cohort": "original",
+      "pattern": "type_conversion",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_dtype",
+            "target": "id",
+            "dtype": "string"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "column_value_relation",
+            "target": "id",
+            "fn": "cast",
+            "args": [
+              {
+                "col": "id"
+              },
+              {
+                "lit": "string"
+              }
+            ]
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "id"
+            ]
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "unchanged"
+          }
+        ]
+      },
+      "positive_verdicts": null
+    },
+    "airbnb_dedup_006": {
+      "request": "Remove repeat listings from the same host that have the same room type and the same price. Keep the first one.\n",
+      "cohort": "original",
+      "pattern": "deduplication",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "duplicate_count",
+            "target": [
+              "host_id",
+              "room_type",
+              "price"
+            ],
+            "op": "eq",
+            "value": 0,
+            "keep": "first"
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "decreased"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": null
+    },
+    "airbnb_filt_006": {
+      "request": "Remove private rooms in Manhattan that cost less than $60 a night.\n",
+      "cohort": "original",
+      "pattern": "filtering",
+      "facts": [],
+      "status": "ok",
+      "correct": false,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "rows_removed_where",
+            "target": null,
+            "condition": {
+              "all": [
+                {
+                  "column": "room_type",
+                  "op": "==",
+                  "value": "Private room"
+                },
+                {
+                  "column": "neighbourhood",
+                  "op": "==",
+                  "value": "Manhattan"
+                },
+                {
+                  "column": "price",
+                  "op": "<",
+                  "value": 60
+                }
+              ]
+            }
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "decreased"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "rows_retained_where",
+            "target": null,
+            "condition": {
+              "any": [
+                {
+                  "column": "room_type",
+                  "op": "!=",
+                  "value": "Private room"
+                },
+                {
+                  "column": "neighbourhood",
+                  "op": "!=",
+                  "value": "Manhattan"
+                }
+              ]
+            }
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": null
+    },
+    "airbnb_miss_006": {
+      "request": "Where the host name is missing, use the listing's name instead.\n",
+      "cohort": "original",
+      "pattern": "missing_values",
+      "facts": [],
+      "status": "invalid_contract",
+      "correct": false,
+      "wrong": false,
+      "error": "invalid contract: must_change.0.column_value_relation: Value error, fn identity takes 1 args, got 0",
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "host_name",
+            "where": {
+              "column": "host_name",
+              "op": "is_null"
+            },
+            "fn": "identity"
+          },
+          {
+            "type": "null_count",
+            "target": "host_name",
+            "op": "eq",
+            "value": 0
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "column_values_unchanged",
+            "target": "host_name",
+            "where": {
+              "column": "host_name",
+              "op": "not_null"
+            }
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "host_name"
+            ]
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "unchanged"
+          }
+        ]
+      },
+      "positive_verdicts": null
+    },
+    "taxi_col_006": {
+      "request": "Rename the Airport_fee column to airport_fee.\n",
+      "cohort": "original",
+      "pattern": "column_transformation",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "columns_added",
+            "target": [
+              "airport_fee"
+            ]
+          },
+          {
+            "type": "columns_removed",
+            "target": [
+              "Airport_fee"
+            ]
+          },
+          {
+            "type": "column_value_relation",
+            "target": "airport_fee",
+            "fn": "identity",
+            "args": [
+              {
+                "col": "Airport_fee"
+              }
+            ]
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "Airport_fee"
+            ]
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "unchanged"
+          }
+        ]
+      },
+      "positive_verdicts": null
+    },
+    "taxi_conv_006": {
+      "request": "Store RatecodeID as an integer instead of a float.\n",
+      "cohort": "original",
+      "pattern": "type_conversion",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_dtype",
+            "target": "RatecodeID",
+            "dtype": "int"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "column_values_unchanged",
+            "target": "RatecodeID"
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "RatecodeID"
+            ]
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "unchanged"
+          }
+        ]
+      },
+      "positive_verdicts": null
+    },
+    "taxi_dedup_006": {
+      "request": "Trips from the same vendor (VendorID) with the same pickup time are duplicates. Keep the last one of each.\n",
+      "cohort": "original",
+      "pattern": "deduplication",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "duplicate_count",
+            "target": [
+              "VendorID",
+              "tpep_pickup_datetime"
+            ],
+            "op": "eq",
+            "value": 0,
+            "keep": "last"
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "decreased"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": null
+    },
+    "taxi_filt_006": {
+      "request": "Keep only the trips that carried between 1 and 4 passengers, inclusive.\n",
+      "cohort": "original",
+      "pattern": "filtering",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "rows_removed_where",
+            "target": null,
+            "condition": {
+              "any": [
+                {
+                  "column": "passenger_count",
+                  "op": "<",
+                  "value": 1
+                },
+                {
+                  "column": "passenger_count",
+                  "op": ">",
+                  "value": 4
+                }
+              ]
+            }
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "decreased"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "rows_retained_where",
+            "target": null,
+            "condition": {
+              "all": [
+                {
+                  "column": "passenger_count",
+                  "op": "<=",
+                  "value": 4
+                },
+                {
+                  "column": "passenger_count",
+                  "op": ">=",
+                  "value": 1
+                }
+              ]
+            }
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": null
+    },
+    "taxi_miss_006": {
+      "request": "A trip_distance of 0 means the distance was not recorded. Mark those values as missing.\n",
+      "cohort": "original",
+      "pattern": "missing_values",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_value_relation",
+            "target": "trip_distance",
+            "where": {
+              "column": "trip_distance",
+              "op": "==",
+              "value": 0
+            },
+            "fn": "null"
+          },
+          {
+            "type": "null_count",
+            "target": "trip_distance",
+            "op": "increased"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "column_values_unchanged",
+            "target": "trip_distance",
+            "where": {
+              "column": "trip_distance",
+              "op": "!=",
+              "value": 0
+            }
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "trip_distance"
+            ]
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "unchanged"
+          }
+        ]
+      },
+      "positive_verdicts": null
+    },
+    "titanic_col_006": {
+      "request": "Rename the Pclass column to passenger_class.\n",
+      "cohort": "original",
+      "pattern": "column_transformation",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "columns_added",
+            "target": [
+              "passenger_class"
+            ]
+          },
+          {
+            "type": "columns_removed",
+            "target": [
+              "Pclass"
+            ]
+          },
+          {
+            "type": "column_value_relation",
+            "target": "passenger_class",
+            "fn": "identity",
+            "args": [
+              {
+                "col": "Pclass"
+              }
+            ]
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "Pclass"
+            ]
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "unchanged"
+          }
+        ]
+      },
+      "positive_verdicts": null
+    },
+    "titanic_conv_006": {
+      "request": "Store SibSp and Parch as floating-point numbers.\n",
+      "cohort": "original",
+      "pattern": "type_conversion",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "column_dtype",
+            "target": "SibSp",
+            "dtype": "float"
+          },
+          {
+            "type": "column_dtype",
+            "target": "Parch",
+            "dtype": "float"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "column_values_unchanged",
+            "target": [
+              "SibSp",
+              "Parch"
+            ]
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": [
+              "SibSp",
+              "Parch"
+            ]
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "unchanged"
+          }
+        ]
+      },
+      "positive_verdicts": null
+    },
+    "titanic_dedup_006": {
+      "request": "Passengers with the same ticket and the same fare belong to one booking. Keep only the first passenger of each booking.\n",
+      "cohort": "original",
+      "pattern": "deduplication",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "duplicate_count",
+            "target": [
+              "Ticket",
+              "Fare"
+            ],
+            "op": "eq",
+            "value": 0,
+            "keep": "first"
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "decreased"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": null
+    },
+    "titanic_filt_006": {
+      "request": "Remove the first-class passengers who paid a fare of less than 30.\n",
+      "cohort": "original",
+      "pattern": "filtering",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "rows_removed_where",
+            "target": null,
+            "condition": {
+              "all": [
+                {
+                  "column": "Fare",
+                  "op": "<",
+                  "value": 30
+                },
+                {
+                  "column": "Pclass",
+                  "op": "==",
+                  "value": 1
+                }
+              ]
+            }
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "decreased"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "rows_retained_where",
+            "target": null,
+            "condition": {
+              "not": {
+                "all": [
+                  {
+                    "column": "Fare",
+                    "op": "<",
+                    "value": 30
+                  },
+                  {
+                    "column": "Pclass",
+                    "op": "==",
+                    "value": 1
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": null
+    },
+    "titanic_miss_006": {
+      "request": "Drop the passengers whose age is missing.\n",
+      "cohort": "original",
+      "pattern": "missing_values",
+      "facts": [],
+      "status": "ok",
+      "correct": true,
+      "wrong": false,
+      "error": null,
+      "contract": {
+        "contract_version": "1.0",
+        "must_change": [
+          {
+            "type": "rows_removed_where",
+            "target": null,
+            "condition": {
+              "column": "Age",
+              "op": "is_null"
+            }
+          },
+          {
+            "type": "row_count",
+            "target": null,
+            "op": "decreased"
+          }
+        ],
+        "must_preserve": [
+          {
+            "type": "rows_retained_where",
+            "target": null,
+            "condition": {
+              "column": "Age",
+              "op": "not_null"
+            }
+          },
+          {
+            "type": "columns_unchanged",
+            "target": "*",
+            "except": []
+          }
+        ]
+      },
+      "positive_verdicts": null
+    }
+  },
+  "by_pattern": {
+    "column_transformation": {
+      "tasks": 4,
+      "correct": 3,
+      "wrong": 0,
+      "invalid": 0
+    },
+    "convert_0": {
+      "tasks": 4,
+      "correct": 4,
+      "wrong": 0,
+      "invalid": 0
+    },
+    "convert_1": {
+      "tasks": 4,
+      "correct": 3,
+      "wrong": 0,
+      "invalid": 1
+    },
+    "convert_2": {
+      "tasks": 4,
+      "correct": 4,
+      "wrong": 0,
+      "invalid": 0
+    },
+    "convert_3": {
+      "tasks": 4,
+      "correct": 4,
+      "wrong": 0,
+      "invalid": 0
+    },
+    "dedup_0": {
+      "tasks": 4,
+      "correct": 4,
+      "wrong": 0,
+      "invalid": 0
+    },
+    "dedup_1": {
+      "tasks": 4,
+      "correct": 4,
+      "wrong": 0,
+      "invalid": 0
+    },
+    "dedup_2": {
+      "tasks": 4,
+      "correct": 4,
+      "wrong": 0,
+      "invalid": 0
+    },
+    "dedup_3": {
+      "tasks": 4,
+      "correct": 4,
+      "wrong": 0,
+      "invalid": 0
+    },
+    "deduplication": {
+      "tasks": 4,
+      "correct": 4,
+      "wrong": 0,
+      "invalid": 0
+    },
+    "edit_0": {
+      "tasks": 4,
+      "correct": 4,
+      "wrong": 0,
+      "invalid": 0
+    },
+    "edit_1": {
+      "tasks": 4,
+      "correct": 0,
+      "wrong": 0,
+      "invalid": 0
+    },
+    "edit_2": {
+      "tasks": 4,
+      "correct": 0,
+      "wrong": 0,
+      "invalid": 1
+    },
+    "edit_3": {
+      "tasks": 4,
+      "correct": 4,
+      "wrong": 0,
+      "invalid": 0
+    },
+    "fill_0": {
+      "tasks": 4,
+      "correct": 4,
+      "wrong": 0,
+      "invalid": 0
+    },
+    "fill_1": {
+      "tasks": 4,
+      "correct": 4,
+      "wrong": 0,
+      "invalid": 0
+    },
+    "fill_2": {
+      "tasks": 4,
+      "correct": 4,
+      "wrong": 0,
+      "invalid": 0
+    },
+    "fill_3": {
+      "tasks": 4,
+      "correct": 4,
+      "wrong": 0,
+      "invalid": 0
+    },
+    "filter_0": {
+      "tasks": 4,
+      "correct": 1,
+      "wrong": 0,
+      "invalid": 3
+    },
+    "filter_1": {
+      "tasks": 4,
+      "correct": 4,
+      "wrong": 0,
+      "invalid": 0
+    },
+    "filter_2": {
+      "tasks": 4,
+      "correct": 4,
+      "wrong": 0,
+      "invalid": 0
+    },
+    "filter_3": {
+      "tasks": 4,
+      "correct": 4,
+      "wrong": 0,
+      "invalid": 0
+    },
+    "filtering": {
+      "tasks": 4,
+      "correct": 3,
+      "wrong": 0,
+      "invalid": 0
+    },
+    "missing_values": {
+      "tasks": 4,
+      "correct": 3,
+      "wrong": 0,
+      "invalid": 1
+    },
+    "type_conversion": {
+      "tasks": 4,
+      "correct": 4,
+      "wrong": 0,
+      "invalid": 0
+    }
+  },
+  "totals": {
+    "correct": 85,
+    "wrong": 0,
+    "valid": 94,
+    "facts_delivered": 16,
+    "tokens": 166045,
+    "inference_seconds": 1528.2060074090011
+  }
+}

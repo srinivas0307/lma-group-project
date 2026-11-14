@@ -30,6 +30,56 @@
       "original": "stage2_tools_proposed.zip",
       "current": "kaggle_outputs/stage2/tools_v1/stage2_tools_proposed.zip",
       "sha256": "ae730bc61d17f7f212d6c80bb6ed111318a49fb454e30659dd3eb15c6c7bb038"
+    },
+    {
+      "original": "stage2-tools-nf-3b.ipynb",
+      "current": "notebooks/executed/tool_use_v2/tool_use_base_1_5b_executed.ipynb",
+      "sha256": "79177dca1e84a2034fdacdd07dacea159199ffab5026e37d2f7f7a13aef73841"
+    },
+    {
+      "original": "stage2-tools-nf-15b.ipynb",
+      "current": "notebooks/executed/tool_use_v2/tool_use_base_3b_executed.ipynb",
+      "sha256": "421f0615f2b1f62cae61eb9b7391441788a173534c5b81964afc99695feed980"
+    },
+    {
+      "original": "tool_use_base_1_5b.zip",
+      "current": "kaggle_outputs/tool_use_v2/tool_use_base_1_5b.zip",
+      "sha256": "cb34ac1192ebf2e80eedf0db31749242e98e108835d9e35b6d67f61b9b3c97ac"
+    },
+    {
+      "original": "tool_use_base_3b.zip",
+      "current": "kaggle_outputs/tool_use_v2/tool_use_base_3b.zip",
+      "sha256": "a69f122f846171d1740e36b870afd39a10ad97aa6b013cae762f1963ae28453a"
+    },
+    {
+      "original": "selective_facts_scopefix_eval.zip",
+      "current": "kaggle_outputs/parsing/selective_facts_scopefix1/selective_facts_scopefix_eval.zip",
+      "sha256": "6445971cef4a22250dbcd9f17934104cdcc906372f6fd411621b48eb48ce2b41"
+    },
+    {
+      "original": "selective_facts_scopefix_eval_colab.ipynb",
+      "current": "notebooks/executed/parsing/selective_facts_scopefix1/selective_facts_scopefix_eval_colab_executed.ipynb",
+      "sha256": "11bcae035816b0147bd21e6ef9e81530836c2ad97c9c291bf29b08057c050e52"
+    },
+    {
+      "original": "tool_use_train_1_5b.zip",
+      "current": "kaggle_outputs/tool_use_v2/tool_use_train_1_5b.zip",
+      "sha256": "3a648aa7578c5d7c785ef745e46c467538b0809c94519669e312bce5462e3b2b"
+    },
+    {
+      "original": "tool_use_train_executed.ipynb",
+      "current": "notebooks/executed/tool_use_v2/tool_use_train_1_5b_executed.ipynb",
+      "sha256": "eb462d6ebeee887d98b2d3f494209696546c22232670e1867432d3d375212fef"
+    },
+    {
+      "original": "selective_facts_correction_eval.zip",
+      "current": "kaggle_outputs/parsing/selective_facts_correction1/selective_facts_correction_eval.zip",
+      "sha256": "37fd69b68c42d4b23114948e2b7da0e94423314978da26baf36e69f2eaedc67c"
+    },
+    {
+      "original": "selective_facts_correction_colab(1).ipynb",
+      "current": "notebooks/executed/parsing/selective_facts_correction1/selective_facts_correction_colab_executed.ipynb",
+      "sha256": "562a5ba9b9b4b29a2e02fb17562c1fa9882052c8d48e44c09739dd8bbe2dfb83"
     }
   ]
 }

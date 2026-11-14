@@ -1,0 +1,22 @@
+{
+  "summary": {
+    "synthetic": {
+      "tasks": 80,
+      "correct_accepted": 68,
+      "wrong_accepted": 0,
+      "joint_success": 68,
+      "invalid": 5,
+      "tokens": 129595
+    },
+    "original": {
+      "tasks": 20,
+      "correct_accepted": 17,
+      "wrong_accepted": 0,
+      "joint_success": 17,
+      "invalid": 1,
+      "tokens": 36450
+    }
+  },
+  "source_bundle_sha256": "6445971cef4a22250dbcd9f17934104cdcc906372f6fd411621b48eb48ce2b41",
+  "note": "Historical Colab scopefix evaluation, same selected adapter; no saved predictions used for fresh inference."
+}
