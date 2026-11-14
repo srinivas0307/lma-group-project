@@ -1,0 +1,52 @@
+# ---------- identity ----------
+id: adult_miss_006
+version: 1
+split: dev                         # test | dev
+dataset: adult
+data_file: data/adult_dev.csv
+transformation_type: missing_values
+difficulty: easy                      # suggested; easy | medium | hard
+
+# ---------- the user request ----------
+request: >
+  Drop every record that has any missing value.
+assumptions:
+  - "On this file only workclass, occupation and native-country contain missing values, so the condition lists those three columns."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      return df.dropna().copy()
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - id: c1
+      type: rows_removed_where
+      target: null
+      condition: 
+        any:
+          - {column: native-country, op: is_null}
+          - {column: occupation, op: is_null}
+          - {column: workclass, op: is_null}
+    - {id: c2, type: row_count, target: null, op: decreased}
+  must_preserve:
+    - id: p1
+      type: rows_retained_where
+      target: null
+      condition: 
+        all:
+          - {column: native-country, op: not_null}
+          - {column: occupation, op: not_null}
+          - {column: workclass, op: not_null}
+    - {id: p2, type: columns_unchanged, target: "*", except: []}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 922
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+notes: "Data-dependent condition: lists the columns that have nulls in data/adult_dev.csv. Re-check if the data file changes."

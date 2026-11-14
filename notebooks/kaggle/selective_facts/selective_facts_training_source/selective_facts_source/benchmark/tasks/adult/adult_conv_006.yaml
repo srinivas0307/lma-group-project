@@ -1,0 +1,41 @@
+# ---------- identity ----------
+id: adult_conv_006
+version: 1
+split: dev                         # test | dev
+dataset: adult
+data_file: data/adult_dev.csv
+transformation_type: type_conversion
+difficulty: medium                    # suggested; easy | medium | hard
+
+# ---------- the user request ----------
+request: >
+  Make workclass a categorical column. Missing workclass values should stay missing.
+assumptions:
+  - "Missing values are not turned into a category; they remain NaN."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      out = df.copy()
+      out["workclass"] = out["workclass"].astype("category")
+      return out
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: column_dtype, target: workclass, dtype: category}
+  must_preserve:
+    - {id: p1, type: column_values_unchanged, target: workclass}
+    - {id: p2, type: null_count, target: workclass, op: unchanged}
+    - {id: p3, type: columns_unchanged, target: "*", except: [workclass]}
+    - {id: p4, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 1000
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+notes: ""

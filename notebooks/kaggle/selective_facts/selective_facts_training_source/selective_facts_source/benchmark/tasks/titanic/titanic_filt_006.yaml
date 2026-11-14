@@ -1,0 +1,50 @@
+# ---------- identity ----------
+id: titanic_filt_006
+version: 1
+split: dev                        # test | dev
+dataset: titanic
+data_file: data/Titanic-Dataset.csv
+transformation_type: filtering
+difficulty: hard                      # suggested; easy | medium | hard
+
+# ---------- the user request ----------
+request: >
+  Remove the first-class passengers who paid a fare of less than 30.
+assumptions:
+  - "First class is Pclass 1. A fare of exactly 30 is kept."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      return df[~((df["Pclass"] == 1) & (df["Fare"] < 30))].copy()
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - id: c1
+      type: rows_removed_where
+      target: null
+      condition:
+        all:
+          - {column: Pclass, op: "==", value: 1}
+          - {column: Fare, op: "<", value: 30}
+    - {id: c2, type: row_count, target: null, op: decreased}
+  must_preserve:
+    - id: p1
+      type: rows_retained_where
+      target: null
+      condition:
+        any:
+          - {column: Pclass, op: "!=", value: 1}
+          - {column: Fare, op: ">=", value: 30}
+    - {id: p2, type: columns_unchanged, target: "*", except: []}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 891
+  rows_after: 849
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+notes: ""

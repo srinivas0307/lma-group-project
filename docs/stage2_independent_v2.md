@@ -1,5 +1,7 @@
 # Stage 2 v2: parser loading correction and development diagnosis
 
+**Diagnostic completed:** original/NF4 passed 16/20 references versus profile/NF4 8/20; original/FP16 15/20 versus profile/FP16 7/20. NF4 did not resolve the profile regression. See the [validated diagnostic analysis](../results/stage2_independent_analysis/parser_diagnostic_v1/ANALYSIS.md). Defer the six full profile runs while testing a smaller information format on broader development coverage. The instructions below document the reproducible diagnostic and full-run artifacts.
+
 The submitted v1 notebook had no runtime exception. Its completed result was 44 correct, 2 incorrect accepted and 54 withheld. Many generated contracts rejected correct transformations. Supplying data did not ensure the parser used the right statistic, row scope, key or operator.
 
 One implementation mistake was confirmed: v1 changed the original fine-tuned parser's NF4 inference to FP16. Version 2 restores NF4 (FP16 computation, no double quantization, matching the original inference configuration) and pins the base model to `989aa7980e4cf806f80c7fef2b1adb7bc71aa306`, the revision recorded in the submitted v1 run. This controls revision drift between these new comparisons; the historical original base revision is unknown. Generator, repair, adapter weights, decoding and profile/prompt format remain as in independent v1. The newer library environment remains; this is not an exact reproduction of the historical parser.

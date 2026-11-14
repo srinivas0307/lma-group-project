@@ -182,3 +182,31 @@ def test_v1_completed_bundle_still_validates():
     plan,rows=read_old(path)
     assert len(rows)==100
     with pytest.raises(ValueError,match='Method differs'):read_bundle(path)
+
+
+def test_diagnostic_summary_pairs_arms_and_rejects_uncontrolled_changes(tmp_path):
+    from eval.stage2_independent_v2.diagnostic import ARMS, summarize
+    from eval.stage2_independent_v2.runner import ROOT,digest,runtime_hashes,write_json,export
+    from eval.stage2_independent_v2.config import MODELS
+    tasks=load_tasks('dev')
+    inputs={str(p.relative_to(ROOT)):digest(p) for p,_ in tasks}
+    inputs.update({t['data_file']:digest(ROOT/t['data_file']) for _,t in tasks})
+    for arm in ARMS:
+        plan=dict(experiment='stage2-parser-loading-diagnostic-v1',arm=arm,split='dev',smoke=False,
+                  parser=dict(MODELS['parser'],four_bit=arm.endswith('_nf4')),runtime=runtime_hashes(),
+                  inputs=inputs,task_ids=[t['id'] for _,t in tasks],adapter_hashes={'fixture':'only'},
+                  packages={'fixture':'only'},decoding={'fixture':'only'})
+        write_json(tmp_path/arm/'plan.json',plan)
+        for i,(_,t) in enumerate(tasks):
+            passed=arm=='profile_nf4' or i>0
+            write_json(tmp_path/arm/'tasks'/f'{t["id"]}.json',dict(task_id=t['id'],extracted={'status':'ok'},
+                       reference_verdict={'status':'PASS' if passed else 'VIOLATION'},wrong_noop_accepted=False,noop_is_wrong=True,tokens=10))
+        export(tmp_path/arm,True)
+    summary=summarize(tmp_path)
+    assert summary['profile_nf4']['reference_pass']==len(tasks)
+    result=json.loads((tmp_path/'summary.json').read_text())
+    assert result['paired_reference_pass']['original_nf4 -> profile_nf4']['gained']==[tasks[0][1]['id']]
+    path=tmp_path/'original_fp16'/'plan.json'
+    plan=json.loads(path.read_text());plan['packages']['fixture']='changed'
+    write_json(path,plan);export(path.parent,True)
+    with pytest.raises(ValueError,match='Uncontrolled difference: packages'):summarize(tmp_path)

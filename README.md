@@ -78,3 +78,13 @@ The layout keeps executable dependencies and frozen research inputs at stable pa
 Adapters and the Python environment are local, git-ignored assets. Archiving files inside this project organizes the layout without reducing its total disk usage.
 
 Parser loading correction: [Stage 2 v2 and development diagnostic](docs/stage2_independent_v2.md). Run the diagnostic before interpreting NF4 as a quality fix.
+
+Completed parser diagnostic: [analysis and recommended continuation](results/stage2_independent_analysis/parser_diagnostic_v1/ANALYSIS.md). Original input + NF4 passed 16/20 references; the current profile + NF4 passed 8/20.
+
+Selective-facts implementation: [training and Stage 2 instructions](docs/selective_facts_training.md). Next run: `notebooks/kaggle/selective_facts/selective_facts_train.ipynb`. This trains a new matching adapter and scores its checkpoints; GPU quality results are pending.
+
+Tool-protocol GPU run: [validated analysis](results/stage2_tools_analysis/proposed_v1/ANALYSIS.md). Result 67 correct / 1 incorrect accepted / 32 withheld; zero intent-parser tool calls, with 67 separate repair-agent tool calls.
+
+### New: base-model tools and tool-use training
+
+The isolated `parser-tools-v2` workflows support Qwen2.5 **1.5B or 3B** with no adapter, or a newly trained tool-use adapter. Start with [the run instructions](docs/tool_use_v2.md) and [the Kaggle notebooks](notebooks/kaggle/tool_use_v2/). These are parser-development workflows; existing Stage 2 and selective-facts runs remain separate.

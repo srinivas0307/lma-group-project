@@ -1,0 +1,216 @@
+"""Prompted intent parser (Baseline 3): request + dataset schema -> intent contract JSON (vocabulary v1.0).
+
+Prompt versions p1-v1 (first run) and p1-v2 (default; adds format rules). Few-shot examples are DEV tasks only (README: no test phrasings in prompts). The same
+prompt, extraction and decoding (greedy, plain generation + JSON extraction + pydantic validation; README §12)
+are used for every LLM parser, so prompted and fine-tuned parsers are compared fairly.
+No pandas/torch imports: this module runs inside the Kaggle GPU kernel unchanged.
+"""
+import hashlib
+import json
+import re
+
+from igt.agents.code_generator import load_prompt_schema, load_tasks  # noqa: F401  (re-exported for scripts)
+
+FEW_SHOT_IDS = ("adult_dedup_006", "airbnb_filt_006", "airbnb_miss_006", "adult_conv_006", "adult_col_006")
+HEAD_ROWS = 3
+
+SYSTEM_PROMPT_V1 = """You turn a data-transformation request into an intent contract: a JSON object that states what the transformation must change and what it must preserve. You never write code.
+
+Output exactly one JSON object in a ```json block:
+{"contract_version": "1.0", "must_change": [...], "must_preserve": [...]}
+
+must_change = what the request asks for. must_preserve = everything a reasonable user expects to stay the same: rows not targeted are kept, columns not mentioned are unchanged (values and dtype), values not targeted in mentioned columns are unchanged, no rows are added.
+
+Predicates (use only these; "target" names columns of the input data unless stated):
+- {"type": "row_count", "target": null, "op": OP}
+- {"type": "rows_removed_where", "target": null, "condition": COND}   every input row matching COND is removed
+- {"type": "rows_retained_where", "target": null, "condition": COND}  every input row matching COND is kept
+- {"type": "duplicate_count", "target": [key columns] or "*", "except": [columns], "op": "eq", "value": 0, "keep": "first"|"last"}  one row per key group survives, the first/last in the original order
+- {"type": "null_count", "target": column, "op": OP}
+- {"type": "column_values_unchanged", "target": column | [columns], "where": COND (optional)}  values equal on surviving rows; dtype may change
+- {"type": "columns_unchanged", "target": "*", "except": [columns]}  columns still exist with the same dtype family and values
+- {"type": "column_dtype", "target": column, "dtype": DTYPE, "ordered": true|false (optional), "categories": [...] (optional)}
+- {"type": "column_value_relation", "target": column (may be new), "fn": FN, "args": [ARG, ...], "where": COND (optional)}  after[target] == FN(args of the input row) on surviving rows
+- {"type": "columns_added", "target": [new columns]}
+- {"type": "columns_removed", "target": [columns]}
+
+OP: "unchanged" | "decreased" | "increased" (relative to the input), or "eq" | "lt" | "le" | "gt" | "ge" with "value": integer.
+COND: {"column": c, "op": "=="|"!="|"<"|"<="|">"|">=", "value": scalar} | {"column": c, "op": "in"|"not_in", "value": [..]} | {"column": c, "op": "is_null"|"not_null"} | {"all": [COND, ...]} | {"any": [COND, ...]} | {"not": COND}. A missing cell makes every comparison false (also "!=" and "not_in"); use "not" when missing cells must be included.
+ARG: {"col": column} or {"lit": value}.
+FN: identity [col] | const [lit] | null [] | add, sub, mul, div [a, b] | round [col, lit n] | clip [col, lit lo, lit hi] (null = no bound) | lower, upper, strip [col] | map [col, lit {"from": "to", ...}] (unlisted values unchanged) | cast [col, lit DTYPE].
+DTYPE: "int" | "float" | "bool" | "string" | "category" | "datetime".
+
+Use the exact column names and values shown in the data. Every must_change predicate must be something the correct transformation actually changes."""
+
+# p1-v2 (2026-10-29): p1-v1 + explicit format rules. Each rule targets an invalid-output type that also occurs on
+# the DEV split in the p1-v1 run (7B/3B/1.5B): pandas dtype names, "and"/"or" instead of "all"/"any", several
+# arguments merged into one object, functions outside the list, "ordered" on non-category dtypes, "keep" with an
+# op other than eq 0. Few-shot examples, user template and decoding are unchanged.
+FORMAT_RULES = """
+
+Format rules (outputs that break them are rejected):
+- DTYPE is one of the six words int, float, bool, string, category, datetime. Never a pandas name such as int64, float64, object or str.
+- Combine conditions only with "all", "any" and "not". There is no "and" or "or" key.
+- "args" is a list, and every element is its own object with exactly one key: {"col": "name"} or {"lit": value}. Example: clip to at most 60 is "args": [{"col": "hours"}, {"lit": null}, {"lit": 60}].
+- "fn" is one of the FN names above. There is no mean, median, mode or replace; if the request needs a statistic of the data, write its value from the data as a {"lit": ...}.
+- "ordered" and "categories" appear only with "dtype": "category".
+- "keep" appears only together with "op": "eq", "value": 0.
+- Output the JSON block and nothing else."""
+
+PROMPTS = {"p1-v1": SYSTEM_PROMPT_V1, "p1-v2": SYSTEM_PROMPT_V1 + FORMAT_RULES}
+
+# p1-v3 (2026-10-30): p1-v2 + a reference card with one exact JSON snippet for every part of the vocabulary the
+# few-shot examples don't demonstrate (13 of 14 functions, 6 condition operators, "any", every count op, every dtype).
+# Design rule fixed before any p1-v3 run: every vocabulary element appears at least once in exact JSON
+# (tests/test_intent_parser.py checks coverage and validity). Column names are invented, not from evaluation data.
+REFERENCE_CARD = """
+
+Reference card (exact JSON for every part of the vocabulary; column names are only illustrations):
+Conditions:
+  {"column": "score", "op": "!=", "value": 0}
+  {"column": "score", "op": "<=", "value": 10}
+  {"column": "score", "op": ">", "value": 10}
+  {"column": "score", "op": ">=", "value": 10}
+  {"column": "color", "op": "in", "value": ["blue", "red"]}
+  {"column": "color", "op": "not_in", "value": ["blue", "red"]}
+  {"any": [{"column": "score", "op": ">", "value": 90}, {"column": "color", "op": "is_null"}]}
+Functions in column_value_relation:
+  {"type": "column_value_relation", "target": "color", "fn": "const", "args": [{"lit": "unknown"}], "where": {"column": "color", "op": "is_null"}}
+  {"type": "column_value_relation", "target": "color", "fn": "null", "args": [], "where": {"column": "color", "op": "==", "value": "n/a"}}
+  {"type": "column_value_relation", "target": "total", "fn": "add", "args": [{"col": "base"}, {"col": "bonus"}]}
+  {"type": "column_value_relation", "target": "net", "fn": "sub", "args": [{"col": "gross"}, {"col": "tax"}]}
+  {"type": "column_value_relation", "target": "cost", "fn": "mul", "args": [{"col": "units"}, {"col": "unit_cost"}]}
+  {"type": "column_value_relation", "target": "per_day", "fn": "div", "args": [{"col": "per_week"}, {"lit": 7}]}
+  {"type": "column_value_relation", "target": "weight", "fn": "round", "args": [{"col": "weight"}, {"lit": 1}]}
+  {"type": "column_value_relation", "target": "score", "fn": "clip", "args": [{"col": "score"}, {"lit": 0}, {"lit": 100}]}
+  {"type": "column_value_relation", "target": "city", "fn": "lower", "args": [{"col": "city"}]}
+  {"type": "column_value_relation", "target": "code", "fn": "upper", "args": [{"col": "code"}]}
+  {"type": "column_value_relation", "target": "title", "fn": "strip", "args": [{"col": "title"}]}
+  {"type": "column_value_relation", "target": "size", "fn": "map", "args": [{"col": "size"}, {"lit": {"L": "large", "S": "small"}}]}
+  {"type": "column_value_relation", "target": "signup", "fn": "cast", "args": [{"col": "signup"}, {"lit": "datetime"}]}
+Counts:
+  {"type": "row_count", "target": null, "op": "unchanged"}   also "decreased", "increased"
+  {"type": "null_count", "target": "color", "op": "eq", "value": 0}   also "lt", "le", "gt", "ge" with "value"
+  {"type": "duplicate_count", "target": ["shop", "day"], "op": "eq", "value": 0, "keep": "last"}
+Dtypes:
+  {"type": "column_dtype", "target": "score", "dtype": "float"}   also "int", "bool", "string", "datetime"
+  {"type": "column_dtype", "target": "size", "dtype": "category", "ordered": true, "categories": ["S", "M", "L"]}"""
+
+PROMPTS["p1-v3"] = PROMPTS["p1-v2"] + REFERENCE_CARD
+PARSER_PROMPT_VERSION = "p1-v3"                 # default for prompted runs; the final Baseline 3 version is chosen on DEV
+# Fine-tuned parsers train and parse with p1-v2 (format rules, no reference card): they learn the vocabulary from the
+# training data, which covers every function and operator, and the card would add ~900 tokens to every example.
+FT_PROMPT_VERSION = "p1-v2"
+SYSTEM_PROMPT = PROMPTS[PARSER_PROMPT_VERSION]
+
+USER_TEMPLATE = """Dataset: {n_rows} rows, {n_cols} columns.
+
+Columns (name: dtype, missing values):
+{columns}
+
+First {k} rows (CSV):
+{head}
+Request: {request}"""
+
+def prompt_hash(version=None):
+    v = version or PARSER_PROMPT_VERSION
+    return hashlib.sha256((v + PROMPTS[v] + USER_TEMPLATE + ",".join(FEW_SHOT_IDS)).encode()).hexdigest()[:12]
+
+
+PROMPT_HASH = prompt_hash()
+
+
+def _user(task, schema):
+    ds = schema[task["data_file"]]
+    cols = "\n".join(f"- {c['name']}: {c['dtype']}, {c['nulls']} missing" for c in ds["columns"])
+    head = "\n".join(ds["head_csv"].splitlines()[: HEAD_ROWS + 1]) + "\n"
+    return USER_TEMPLATE.format(n_rows=ds["n_rows"], n_cols=len(ds["columns"]), columns=cols, k=HEAD_ROWS,
+                                head=head, request=task["request"])
+
+
+def _strip_ids(contract):
+    return {"contract_version": contract.get("contract_version", "1.0"),
+            **{d: [{k: v for k, v in p.items() if k != "id"} for p in contract.get(d) or []]
+               for d in ("must_change", "must_preserve")}}
+
+
+def contract_to_text(contract):
+    """Compact JSON, one predicate per line (the format the examples teach)."""
+    c = _strip_ids(contract)
+    lines = ['{"contract_version": "1.0",']
+    for d in ("must_change", "must_preserve"):
+        preds = [json.dumps(p, ensure_ascii=False) for p in c[d]]
+        body = ",\n  ".join(preds)
+        lines.append(f' "{d}": [\n  {body}\n ]' + ("," if d == "must_change" else ""))
+    lines.append("}")
+    return "```json\n" + "\n".join(lines) + "\n```"
+
+
+def build_messages(task, schema, examples, version=None):
+    """examples: list of dicts with request, data_file and gold_contract (DEV tasks only)."""
+    if task.get("split") == "test" and any(e["id"] == task["id"] for e in examples):
+        raise ValueError("test task used as a few-shot example")
+    msgs = [{"role": "system", "content": PROMPTS[version or PARSER_PROMPT_VERSION]}]
+    for e in examples:
+        if e["id"] == task["id"]:
+            continue
+        msgs += [{"role": "user", "content": _user(e, schema)},
+                 {"role": "assistant", "content": contract_to_text(e["gold_contract"])}]
+    msgs.append({"role": "user", "content": _user(task, schema)})
+    return msgs
+
+
+def few_shot_examples(tasks_with_contracts):
+    by_id = {t["id"]: t for t in tasks_with_contracts}
+    ex = [by_id[i] for i in FEW_SHOT_IDS]
+    assert all(e["split"] == "dev" for e in ex), "few-shot examples must be dev tasks"
+    return ex
+
+
+# ---------------- output extraction ----------------
+_FENCE = re.compile(r"```(?:json|JSON)?\s*\n(.*?)```", re.S)
+
+
+def _first_json_object(text):
+    start = text.find("{")
+    while start != -1:
+        depth, in_str, esc = 0, False, False
+        for i in range(start, len(text)):
+            ch = text[i]
+            if in_str:
+                esc = (ch == "\\") and not esc
+                if ch == '"' and not esc:
+                    in_str = False
+                continue
+            if ch == '"':
+                in_str = True
+            elif ch == "{":
+                depth += 1
+            elif ch == "}":
+                depth -= 1
+                if depth == 0:
+                    return text[start:i + 1]
+        start = text.find("{", start + 1)
+    return None
+
+
+def extract_contract(text):
+    """-> dict(status: ok | no_json | invalid_json | invalid_contract, contract, error)."""
+    from igt.contracts import ContractError, load_contract
+    blocks = _FENCE.findall(text) + [text]
+    raw = None
+    for b in blocks:
+        raw = _first_json_object(b)
+        if raw:
+            break
+    if not raw:
+        return dict(status="no_json", contract=None, error="no JSON object in the output")
+    try:
+        obj = json.loads(raw)
+    except json.JSONDecodeError as e:
+        return dict(status="invalid_json", contract=None, error=str(e))
+    try:
+        load_contract(obj)
+    except ContractError as e:
+        return dict(status="invalid_contract", contract=obj, error=str(e))
+    return dict(status="ok", contract=obj, error=None)

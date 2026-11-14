@@ -1,0 +1,38 @@
+# ---------- identity ----------
+id: adult_dedup_006
+version: 1
+split: dev                         # test | dev
+dataset: adult
+data_file: data/adult_dev.csv
+transformation_type: deduplication
+difficulty: medium                    # suggested; easy | medium | hard
+
+# ---------- the user request ----------
+request: >
+  Remove records that are identical in every column except fnlwgt and income, keeping the first.
+assumptions:
+  - "'First' means earliest in the original row order; missing values in the same column count as equal."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      keys = [c for c in df.columns if c not in ("fnlwgt", "income")]
+      return df.drop_duplicates(subset=keys, keep="first").copy()
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: duplicate_count, target: "*", except: [fnlwgt, income], op: eq, value: 0, keep: first}
+    - {id: c2, type: row_count, target: null, op: decreased}
+  must_preserve:
+    - {id: p1, type: columns_unchanged, target: "*", except: []}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 989
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+notes: ""

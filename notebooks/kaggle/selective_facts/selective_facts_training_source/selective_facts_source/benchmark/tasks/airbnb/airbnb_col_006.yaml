@@ -1,0 +1,43 @@
+# ---------- identity ----------
+id: airbnb_col_006
+version: 1
+split: dev                         # test | dev
+dataset: airbnb
+data_file: data/airbnb_dev.csv
+transformation_type: column_transformation
+difficulty: medium                    # suggested; easy | medium | hard
+
+# ---------- the user request ----------
+request: >
+  Rename the reviews_per_month column to monthly_reviews.
+assumptions:
+  - "Pure rename: values (including missing ones) are unchanged."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      return df.rename(columns={"reviews_per_month": "monthly_reviews"})
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: columns_added, target: [monthly_reviews]}
+    - {id: c2, type: columns_removed, target: [reviews_per_month]}
+    - id: c3
+      type: column_value_relation
+      target: monthly_reviews
+      fn: identity
+      args: [{col: reviews_per_month}]
+  must_preserve:
+    - {id: p1, type: columns_unchanged, target: "*", except: [reviews_per_month]}
+    - {id: p2, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 1000
+  columns_added: [monthly_reviews]
+  columns_removed: [reviews_per_month]
+  cells_changed: 0
+
+# ---------- notes ----------
+notes: "c3 reads reviews_per_month from the BEFORE data (§5.5 #9), so the old column being gone in AFTER is fine."

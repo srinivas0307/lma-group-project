@@ -1,0 +1,58 @@
+# ---------- identity ----------
+id: airbnb_filt_006
+version: 1
+split: dev                         # test | dev
+dataset: airbnb
+data_file: data/airbnb_dev.csv
+transformation_type: filtering
+difficulty: hard                      # suggested; easy | medium | hard
+
+# ---------- the user request ----------
+request: >
+  Remove private rooms in Manhattan that cost less than $60 a night.
+assumptions:
+  - "All three conditions must hold: room_type is 'Private room', neighbourhood_group is 'Manhattan', price < 60."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      mask = (
+          (df["room_type"] == "Private room")
+          & (df["neighbourhood_group"] == "Manhattan")
+          & (df["price"] < 60)
+      )
+      return df[~mask].copy()
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - id: c1
+      type: rows_removed_where
+      target: null
+      condition:
+        all:
+          - {column: neighbourhood_group, op: "==", value: Manhattan}
+          - {column: price, op: "<", value: 60}
+          - {column: room_type, op: "==", value: Private room}
+    - {id: c2, type: row_count, target: null, op: decreased}
+  must_preserve:
+    - id: p1
+      type: rows_retained_where
+      target: null
+      condition:
+        not:
+          all:
+            - {column: neighbourhood_group, op: "==", value: Manhattan}
+            - {column: price, op: "<", value: 60}
+            - {column: room_type, op: "==", value: Private room}
+    - {id: p2, type: columns_unchanged, target: "*", except: []}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 987
+  columns_added: []
+  columns_removed: []
+  cells_changed: 0
+
+# ---------- notes ----------
+notes: ""

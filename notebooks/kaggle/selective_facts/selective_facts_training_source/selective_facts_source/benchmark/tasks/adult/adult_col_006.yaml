@@ -1,0 +1,43 @@
+# ---------- identity ----------
+id: adult_col_006
+version: 1
+split: dev                         # test | dev
+dataset: adult
+data_file: data/adult_dev.csv
+transformation_type: column_transformation
+difficulty: medium                    # suggested; easy | medium | hard
+
+# ---------- the user request ----------
+request: >
+  Rename the education-num column to education_years.
+assumptions:
+  - "Pure rename: values are unchanged."
+
+# ---------- ground truth ----------
+reference_code: |
+  def transform(df):
+      return df.rename(columns={"education-num": "education_years"})
+
+gold_contract:
+  contract_version: "1.0"
+  must_change:
+    - {id: c1, type: columns_added, target: [education_years]}
+    - {id: c2, type: columns_removed, target: [education-num]}
+    - id: c3
+      type: column_value_relation
+      target: education_years
+      fn: identity
+      args: [{col: education-num}]
+  must_preserve:
+    - {id: p1, type: columns_unchanged, target: "*", except: [education-num]}
+    - {id: p2, type: row_count, target: null, op: unchanged}
+
+expected_effect:                   # fill in by running the reference (guide §12.1)
+  rows_before: 1000
+  rows_after: 1000
+  columns_added: [education_years]
+  columns_removed: [education-num]
+  cells_changed: 0
+
+# ---------- notes ----------
+notes: "c3 reads education-num from the BEFORE data (§5.5 #9), so the old column being gone in AFTER is fine."

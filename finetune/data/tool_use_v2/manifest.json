@@ -1,0 +1,28 @@
+{
+  "protocol": "parser-tools-v2",
+  "source_manifest": "6be3332d2dcf8da395b4445b65abec279225208a2c78df19824711011e67307f",
+  "tool_repeat": 4,
+  "counts": {
+    "train": {
+      "examples": 4743,
+      "tool_conversations": 913,
+      "recovery": 173,
+      "escalation": 48
+    },
+    "val": {
+      "examples": 914,
+      "tool_conversations": 51,
+      "recovery": 0,
+      "escalation": 12
+    }
+  },
+  "sha256": {
+    "sft_train.jsonl": "a31c915b84a7d8ba7e3a662ca58f8af0d4bb6ac1730bc3866bc6a01036b83189",
+    "sft_val.jsonl": "abae47ac3a827af1f9070aa6543a0e1ca7768753ae8fdb920ce2b1a6228a8ef5"
+  },
+  "limitations": [
+    "Automatically constructed conversations; not independently reviewed.",
+    "Tool supervision covers profile_column and single equality scopes; other exposed tools are prompt-only.",
+    "Training and validation retain the source dataset split."
+  ]
+}

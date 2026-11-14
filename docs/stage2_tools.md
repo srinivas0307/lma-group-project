@@ -1,5 +1,7 @@
 # Separate Stage 2 parser-tool version
 
+**First proposed GPU run completed:** 67 correct, 1 incorrect accepted, 32 withheld. The parser made **zero tool calls**; the repair agent separately made 67. This run does not demonstrate parser tool use. See the [validated tool-run analysis](../results/stage2_tools_analysis/proposed_v1/ANALYSIS.md). Keep the ongoing selective-facts training as a separate experiment; its adapter does not implement this tool protocol.
+
 Experiment: **stage2-tools-v1**. Prompt/protocol: **s2-parser-tools-v1**. This is separate from `stage2-independent-v1`, which supplies an automatic data profile. You may finish the profile version and run this version afterward. No source or notebook in the current profile version was changed to enable tools.
 
 ## What changes
