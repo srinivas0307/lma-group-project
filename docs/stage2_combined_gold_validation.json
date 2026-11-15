@@ -1,0 +1,16 @@
+{
+  "experiment": "stage2-combined-gold-3b-fp16-v1",
+  "source_manifest_sha256": "6f38ed25cd58df3e2c83e543a3b707ef1a68c46f0d401553b50176e225393be4",
+  "source_files": 282,
+  "cpu_tests_passed": 13,
+  "test_files": [
+    "tests/test_stage2_combined_gold.py",
+    "tests/test_stage2_combined_3b.py"
+  ],
+  "isolated_pack_imports": "passed",
+  "original_and_gold_source_seals": "passed",
+  "isolated_original_combined_preflight": "passed",
+  "notebook_python_cells_and_intact_extracted_loaders": "passed",
+  "gpu_run": "pending",
+  "model_quality_result": false
+}

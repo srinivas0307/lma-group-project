@@ -1,0 +1,216 @@
+{
+  "selective": {
+    "checks": {
+      "models": true,
+      "parser_settings": true,
+      "generator_prompt": true,
+      "limits": true,
+      "inputs": true,
+      "task_ids": true,
+      "adapter_hashes": true,
+      "environment": true,
+      "contracts/same": true,
+      "generation/same": true
+    },
+    "summary": {
+      "tasks": 100,
+      "correct": 74,
+      "incorrect_accepted": 1,
+      "withheld": 25,
+      "parse_escalations": 5,
+      "initial_correct_lost": 5,
+      "repaired": 3,
+      "reference_incompatible": 12,
+      "parser_calls": 98,
+      "parser_tokens": 177514,
+      "parser_tools": 0,
+      "parser_tool_failures": 0,
+      "generation_repair_tokens": 379210,
+      "total_tokens": 556724,
+      "normalized_tasks": 0,
+      "summed_task_seconds": 1990.9649522419968,
+      "fresh_recovery_requests": 19,
+      "repair_diagnostic_seconds": 8.502115482999216,
+      "combined_reference_incompatible": 12
+    },
+    "gains": [
+      "adult_dedup_003",
+      "taxi_col_004"
+    ],
+    "losses": [
+      "airbnb_dedup_005"
+    ],
+    "wrong_accepts": [
+      "airbnb_filt_002"
+    ],
+    "changes": {
+      "adult_dedup_003": {
+        "old": "REJECT",
+        "new": "ACCEPT",
+        "old_correct": false,
+        "new_correct": true
+      },
+      "airbnb_conv_005": {
+        "old": "ESCALATE",
+        "new": "REJECT",
+        "old_correct": false,
+        "new_correct": false
+      },
+      "airbnb_dedup_003": {
+        "old": "ESCALATE",
+        "new": "REJECT",
+        "old_correct": false,
+        "new_correct": false
+      },
+      "airbnb_dedup_004": {
+        "old": "ESCALATE",
+        "new": "REJECT",
+        "old_correct": false,
+        "new_correct": false
+      },
+      "airbnb_dedup_005": {
+        "old": "ACCEPT",
+        "new": "ESCALATE",
+        "old_correct": true,
+        "new_correct": false
+      },
+      "taxi_col_004": {
+        "old": "REJECT",
+        "new": "ACCEPT",
+        "old_correct": false,
+        "new_correct": true
+      },
+      "taxi_col_005": {
+        "old": "REJECT",
+        "new": "ESCALATE",
+        "old_correct": false,
+        "new_correct": false
+      },
+      "taxi_dedup_005": {
+        "old": "ESCALATE",
+        "new": "REJECT",
+        "old_correct": false,
+        "new_correct": false
+      },
+      "taxi_filt_004": {
+        "old": "ACCEPT",
+        "new": "REJECT",
+        "old_correct": false,
+        "new_correct": false
+      },
+      "titanic_col_003": {
+        "old": "ESCALATE",
+        "new": "REJECT",
+        "old_correct": false,
+        "new_correct": false
+      },
+      "titanic_col_005": {
+        "old": "ESCALATE",
+        "new": "REJECT",
+        "old_correct": false,
+        "new_correct": false
+      }
+    }
+  },
+  "tools": {
+    "checks": {
+      "models": true,
+      "parser_settings": true,
+      "generator_prompt": true,
+      "limits": true,
+      "inputs": true,
+      "task_ids": true,
+      "adapter_hashes": true,
+      "environment": true,
+      "contracts/same": true,
+      "generation/same": true
+    },
+    "summary": {
+      "tasks": 100,
+      "correct": 74,
+      "incorrect_accepted": 1,
+      "withheld": 25,
+      "parse_escalations": 1,
+      "initial_correct_lost": 9,
+      "repaired": 6,
+      "reference_incompatible": 15,
+      "parser_calls": 110,
+      "parser_tokens": 258796,
+      "parser_tools": 8,
+      "parser_tool_failures": 4,
+      "generation_repair_tokens": 426969,
+      "total_tokens": 685765,
+      "normalized_tasks": 0,
+      "summed_task_seconds": 2171.660954464998,
+      "fresh_recovery_requests": 20,
+      "repair_diagnostic_seconds": 9.228639789997942,
+      "combined_reference_incompatible": 15
+    },
+    "gains": [
+      "adult_dedup_003",
+      "taxi_col_004"
+    ],
+    "losses": [
+      "airbnb_dedup_005"
+    ],
+    "wrong_accepts": [
+      "airbnb_filt_002"
+    ],
+    "changes": {
+      "adult_dedup_003": {
+        "old": "REJECT",
+        "new": "ACCEPT",
+        "old_correct": false,
+        "new_correct": true
+      },
+      "airbnb_conv_005": {
+        "old": "ESCALATE",
+        "new": "REJECT",
+        "old_correct": false,
+        "new_correct": false
+      },
+      "airbnb_dedup_005": {
+        "old": "ACCEPT",
+        "new": "ESCALATE",
+        "old_correct": true,
+        "new_correct": false
+      },
+      "taxi_col_004": {
+        "old": "REJECT",
+        "new": "ACCEPT",
+        "old_correct": false,
+        "new_correct": true
+      },
+      "taxi_dedup_005": {
+        "old": "ESCALATE",
+        "new": "REJECT",
+        "old_correct": false,
+        "new_correct": false
+      },
+      "taxi_filt_004": {
+        "old": "ACCEPT",
+        "new": "REJECT",
+        "old_correct": false,
+        "new_correct": false
+      },
+      "titanic_col_003": {
+        "old": "ESCALATE",
+        "new": "REJECT",
+        "old_correct": false,
+        "new_correct": false
+      },
+      "titanic_col_005": {
+        "old": "ESCALATE",
+        "new": "REJECT",
+        "old_correct": false,
+        "new_correct": false
+      },
+      "titanic_miss_005": {
+        "old": "ESCALATE",
+        "new": "REJECT",
+        "old_correct": false,
+        "new_correct": false
+      }
+    }
+  }
+}

@@ -86,3 +86,7 @@ PYTHONPATH=.:src .venv/bin/python notebooks/kaggle/stage2_combined_3b/make_noteb
 ```
 
 Always upload the notebook and source ZIP from the same build. The notebook pins the source manifest hash.
+
+## Completed GPU result
+
+Both full runs are complete: **74 correct, one incorrect accepted, 25 withheld** per method. Original 3B gave 73/2/25. Two tasks improve, one regresses, and the extra-column false acceptance becomes REJECT; total tokens increase. See [the full analysis](../results/stage2_combined_3b_analysis/ANALYSIS.md) before further runs. The earlier 16/17 synthetic result did not transfer as a comparable end-to-end gain.

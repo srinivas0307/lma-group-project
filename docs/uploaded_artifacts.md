@@ -98,3 +98,19 @@ Both runs: 78 correct, one incorrect accepted, 21 withheld. The generator remain
 - [Analysis](../results/stage2_repair_dev_analysis/v1/ANALYSIS.md).
 
 On 17 synthetic repair cases, control gives 11 correct/1 incorrect accepted/5 withheld; combined gives 16/0/1. This is repair-only development, not the full 100-task Stage 2 evaluation. Original uploaded bytes are preserved.
+
+## Completed combined 3B end-to-end runs
+
+- [Selective-facts full bundle](../kaggle_outputs/stage2/combined_3b_v1/stage2_combined_3b_selective_proposed.zip).
+- [Tools full bundle](../kaggle_outputs/stage2/combined_3b_v1/stage2_combined_3b_tools_proposed.zip).
+- [Selective executed notebook](../notebooks/executed/stage2/combined_3b_v1/stage2_combined_3b_selective_proposed_kaggle_executed.ipynb), uploaded as `stage2-selctive-combined-3b.ipynb`.
+- [Tools executed notebook](../notebooks/executed/stage2/combined_3b_v1/stage2_combined_3b_tools_proposed_kaggle_executed.ipynb), uploaded as `stage2-combined-tooluse-3b.ipynb`.
+- [Verified analysis](../results/stage2_combined_3b_analysis/ANALYSIS.md).
+
+Both full runs: 74 correct, one incorrect accepted and 25 withheld. Compared with original 3B, each gains two correct tasks and loses one, with more total tokens. Separate development ZIPs were not part of this upload. Original bytes are preserved.
+
+## Completed combined 3B gold diagnostic
+
+- `stage2_combined_gold_3b.zip` → [kaggle_outputs/stage2/combined_gold_v1/stage2_combined_gold_3b.zip](../kaggle_outputs/stage2/combined_gold_v1/stage2_combined_gold_3b.zip)
+- `stage2-combined-gold.ipynb` → [notebooks/executed/stage2/combined_gold_v1/stage2_combined_gold_3b_kaggle_executed.ipynb](../notebooks/executed/stage2/combined_gold_v1/stage2_combined_gold_3b_kaggle_executed.ipynb)
+- [Verified analysis](../results/stage2_combined_gold_analysis/ANALYSIS.md): 84 correct, zero incorrect accepted, 16 withheld; collector JSON-key bug handled offline, no inference rerun.

@@ -1,0 +1,17 @@
+{
+  "experiment": "stage2-combined-gold-7b-nf4-v1",
+  "source_manifest_sha256": "1cd923de600a419d8b6299cafab1fa8afe70f3016b9fddc3e51cf55609e1bcf8",
+  "source_files": 293,
+  "cpu_tests_passed": 6,
+  "test_files": [
+    "tests/test_stage2_combined_gold_7b.py",
+    "tests/test_stage2_gold_collector_compat.py"
+  ],
+  "isolated_source_preflight": "passed",
+  "gold_json_validation": "100 test contracts passed",
+  "strict_original_control_validation": "passed: 100 records, 84 correct",
+  "notebook_python_cells_and_intact_extracted_loaders": "passed",
+  "actual_precision_checks": "CPU positive/negative fixtures passed; GPU pending",
+  "gpu_run": "pending",
+  "model_quality_result": false
+}

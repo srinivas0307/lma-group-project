@@ -130,6 +130,36 @@
       "original": "stage2_repair_dev_full.zip",
       "current": "kaggle_outputs/stage2/repair_dev_v1/stage2_repair_dev_full.zip",
       "sha256": "692766967d176e3d672546978d5b4806ea6000a53d70a2c010bd90530d3ed1ee"
+    },
+    {
+      "original": "stage2_combined_3b_selective_proposed.zip",
+      "current": "kaggle_outputs/stage2/combined_3b_v1/stage2_combined_3b_selective_proposed.zip",
+      "sha256": "9a7222b359ac1ac7b6f06c2445061577685123ad13046ce1be10f8307e54f3a3"
+    },
+    {
+      "original": "stage2-selctive-combined-3b.ipynb",
+      "current": "notebooks/executed/stage2/combined_3b_v1/stage2_combined_3b_selective_proposed_kaggle_executed.ipynb",
+      "sha256": "cd9f23d936837005b19baa9bf23695dae48cf3065dff79170ade72349cbae774"
+    },
+    {
+      "original": "stage2_combined_3b_tools_proposed.zip",
+      "current": "kaggle_outputs/stage2/combined_3b_v1/stage2_combined_3b_tools_proposed.zip",
+      "sha256": "221c083504648ebd1caf5dfb23e296771b53651fe2ba39378e8aecd54da186e0"
+    },
+    {
+      "original": "stage2-combined-tooluse-3b.ipynb",
+      "current": "notebooks/executed/stage2/combined_3b_v1/stage2_combined_3b_tools_proposed_kaggle_executed.ipynb",
+      "sha256": "dbdae1ef7c0f48cfcb123d3a7b2420a0d82decbd4f90109fa915190a0e22f769"
+    },
+    {
+      "original": "stage2_combined_gold_3b.zip",
+      "current": "kaggle_outputs/stage2/combined_gold_v1/stage2_combined_gold_3b.zip",
+      "sha256": "4b17c6e1e56205f79a1df2ad63fe2375497f67efb27bc27adbbc6af7f7900eac"
+    },
+    {
+      "original": "stage2-combined-gold.ipynb",
+      "current": "notebooks/executed/stage2/combined_gold_v1/stage2_combined_gold_3b_kaggle_executed.ipynb",
+      "sha256": "4f5c9cf28c966e522327f1a7b784852fd3849e3aaaaac896f1d6e086183d1928"
     }
   ]
 }
