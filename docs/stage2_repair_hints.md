@@ -1,6 +1,6 @@
 # Repair hints for the 3B repair agent (repair-hints-v1)
 
-Status: built and CPU-replayed; GPU runs pending. Phase 2b of the improvement plan. Models stay Qwen2.5-3B FP16 for generation and repair.
+Status: GPU runs complete (2026-11-15), see Results. Phase 2b of the improvement plan. Models stay Qwen2.5-3B FP16 for generation and repair.
 
 ## Why
 
@@ -64,6 +64,28 @@ Better contract-following turns wrong contracts into wrong accepts. In both chec
 3. `.venv/bin/python tools/analyze_repair_hints_run.py --pipeline <gold|selective|tools> --run <zip>`. It reports paired gains and losses, new wrong accepts, initial-code reproduction (it should be complete, since only repair changed), the hints and lints shown, and the gated variant.
 
 Tests: `tests/test_stage2_repair_hints.py`.
+
+## Results (Kaggle, T4 x2)
+
+Bundles: `kaggle_outputs/stage2/repair_hints_v1/`. Paired reports: `results/repair_hints_v1/<pipeline>_paired.json`. Initial code was reproduced on 100/100, 90/90 and 92/92 tasks, so every difference comes from repair.
+
+| Pipeline | Test baseline | Test with hints | Gained / lost | Dev baseline | Dev with hints | Tokens |
+|---|---|---|---|---|---|---|
+| gold | 84/0/16 | **92/0/8** | 11 / 3 | 16/0/4 | 16/0/4 | −13% |
+| selective | 76/1/23 | **82/2/16** | 7 / 1 (+1 new wrong accept) | 14/0/6 | 15/0/5 | −13% |
+| tools | 74/1/25 | **80/1/19** | 8 / 2 | 13/1/6 | 14/1/5 | −8% |
+
+With the offline gate (diagnostic): selective 82/1/17, tools 80/0/20.
+
+Shared gains across all three pipelines: `airbnb_conv_005`, `taxi_dedup_005`, `titanic_col_001`, `titanic_col_003`, `titanic_filt_003`. `taxi_filt_004` and `titanic_dedup_004` were gained in both parser pipelines.
+
+Losses (every lost task was shown hints):
+
+- `taxi_miss_002` (gold): **hint bug.** The `null_count` note says "fill using the rule in the request" even when the contract requires the count to *increase*. The model then added `fillna`.
+- `adult_col_005`, `airbnb_dedup_001` (gold), `adult_dedup_003` (selective and tools), `airbnb_conv_001` (tools): the recipe was correct, but the 3B model did not follow it. It kept its own map, `astype('category')`, merge or `strftime`. Before, these tasks were reached through a different repair trajectory.
+- `airbnb_dedup_004` (selective): **new wrong accept.** The predicted contract omitted `host_id` from the dedup key. The recipe implemented it faithfully, and the verifier accepted it. No check issue remained, so the gate cannot catch it. In tools, the contract was right and the task was gained.
+
+Wording to fix in a v2: the `null_count` note when `op` is `increased`, and the datetime `column_dtype` note, which mentions category methods.
 
 ## Limits
 

@@ -1,0 +1,114 @@
+{
+ "pipeline": "selective",
+ "baseline": {
+  "correct": 76,
+  "incorrect_accepted": 1,
+  "withheld": 23,
+  "tokens": 487468
+ },
+ "hints": {
+  "correct": 82,
+  "incorrect_accepted": 2,
+  "withheld": 16,
+  "tokens": 425057
+ },
+ "gained": [
+  "airbnb_conv_005",
+  "taxi_dedup_005",
+  "taxi_filt_004",
+  "titanic_col_001",
+  "titanic_col_003",
+  "titanic_dedup_004",
+  "titanic_filt_003"
+ ],
+ "lost": [
+  "adult_dedup_003"
+ ],
+ "newly_incorrect_accepted": [
+  "airbnb_dedup_004"
+ ],
+ "initial_code_reproduced": "90/90",
+ "tasks_with_hints": 17,
+ "lints_shown": {
+  "discarded_result": 1,
+  "sort_before_dedup": 3,
+  "unrequested_dropna": 2,
+  "round_style": 2,
+  "overwrites_preserved_column": 1,
+  "drops_required_column": 2,
+  "groupby_for_dedup": 1,
+  "null_filter": 1
+ },
+ "hint_errors": 0,
+ "offline_gate_unresolved_evidence": {
+  "baseline": {
+   "correct": 76,
+   "incorrect_accepted": 0,
+   "withheld": 24,
+   "tokens": 487468
+  },
+  "hints": {
+   "correct": 82,
+   "incorrect_accepted": 1,
+   "withheld": 17,
+   "tokens": 425057
+  },
+  "note": "Withhold an accepted result when contract-check issues remained after the correction turn; designed after inspecting these test tasks (diagnostic only)."
+ },
+ "per_task": [
+  {
+   "task_id": "adult_dedup_003",
+   "baseline": "correct",
+   "hints": "withheld",
+   "attempts": 3
+  },
+  {
+   "task_id": "airbnb_conv_005",
+   "baseline": "withheld",
+   "hints": "correct",
+   "attempts": 1
+  },
+  {
+   "task_id": "airbnb_dedup_004",
+   "baseline": "withheld",
+   "hints": "incorrect_accepted",
+   "attempts": 1
+  },
+  {
+   "task_id": "taxi_dedup_005",
+   "baseline": "withheld",
+   "hints": "correct",
+   "attempts": 2
+  },
+  {
+   "task_id": "taxi_filt_004",
+   "baseline": "withheld",
+   "hints": "correct",
+   "attempts": 3
+  },
+  {
+   "task_id": "titanic_col_001",
+   "baseline": "withheld",
+   "hints": "correct",
+   "attempts": 2
+  },
+  {
+   "task_id": "titanic_col_003",
+   "baseline": "withheld",
+   "hints": "correct",
+   "attempts": 1
+  },
+  {
+   "task_id": "titanic_dedup_004",
+   "baseline": "withheld",
+   "hints": "correct",
+   "attempts": 1
+  },
+  {
+   "task_id": "titanic_filt_003",
+   "baseline": "withheld",
+   "hints": "correct",
+   "attempts": 3
+  }
+ ]
+}

@@ -122,3 +122,14 @@ Both full runs: 74 correct, one incorrect accepted and 25 withheld. Compared wit
 - `stage2_contract_check_tools_checked.zip` → [kaggle_outputs/stage2/contract_check_v1/stage2_contract_check_tools_checked.zip](../kaggle_outputs/stage2/contract_check_v1/stage2_contract_check_tools_checked.zip)
 - `stage2-tool-contract-check.ipynb` → [notebooks/executed/stage2/contract_check_v1/stage2_contract_check_tools_kaggle_executed.ipynb](../notebooks/executed/stage2/contract_check_v1/stage2_contract_check_tools_kaggle_executed.ipynb)
 - [Verified analysis](../results/contract_check_v1/completed/ANALYSIS.md): selective facts 76/1/23; tools 74/1/25 (correct / incorrect accepted / withheld). All 200 records CPU-audited with zero mismatches.
+
+## Repair hints v1 uploads
+
+- `stage2_repair_hints_gold.zip` → [kaggle_outputs/stage2/repair_hints_v1/stage2_repair_hints_gold.zip](../kaggle_outputs/stage2/repair_hints_v1/stage2_repair_hints_gold.zip)
+- `gold-kaggle.ipynb` → [notebooks/executed/stage2/repair_hints_v1/stage2_repair_hints_gold_kaggle_executed.ipynb](../notebooks/executed/stage2/repair_hints_v1/stage2_repair_hints_gold_kaggle_executed.ipynb)
+- `stage2_repair_hints_selective.zip` → [kaggle_outputs/stage2/repair_hints_v1/stage2_repair_hints_selective.zip](../kaggle_outputs/stage2/repair_hints_v1/stage2_repair_hints_selective.zip)
+- `selective-repair-hints.ipynb` → [notebooks/executed/stage2/repair_hints_v1/stage2_repair_hints_selective_kaggle_executed.ipynb](../notebooks/executed/stage2/repair_hints_v1/stage2_repair_hints_selective_kaggle_executed.ipynb)
+- `stage2_repair_hints_tools.zip` → [kaggle_outputs/stage2/repair_hints_v1/stage2_repair_hints_tools.zip](../kaggle_outputs/stage2/repair_hints_v1/stage2_repair_hints_tools.zip)
+- `tooluse-repair-hints.ipynb` → [notebooks/executed/stage2/repair_hints_v1/stage2_repair_hints_tools_kaggle_executed.ipynb](../notebooks/executed/stage2/repair_hints_v1/stage2_repair_hints_tools_kaggle_executed.ipynb)
+
+All three bundles declare complete 100-task test runs; ZIP CRCs and content seals verify. All executed notebook sources match their templates and have no recorded exception outputs. Original upload bytes are preserved; no full CPU score replay is implied by these import checks.

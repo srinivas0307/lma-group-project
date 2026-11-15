@@ -1,0 +1,134 @@
+{
+ "pipeline": "gold",
+ "baseline": {
+  "correct": 84,
+  "incorrect_accepted": 0,
+  "withheld": 16,
+  "tokens": 327153
+ },
+ "hints": {
+  "correct": 92,
+  "incorrect_accepted": 0,
+  "withheld": 8,
+  "tokens": 283545
+ },
+ "gained": [
+  "adult_col_002",
+  "adult_conv_003",
+  "airbnb_conv_005",
+  "airbnb_dedup_004",
+  "airbnb_dedup_005",
+  "taxi_dedup_005",
+  "taxi_filt_005",
+  "titanic_col_001",
+  "titanic_col_003",
+  "titanic_filt_003",
+  "titanic_miss_005"
+ ],
+ "lost": [
+  "adult_col_005",
+  "airbnb_dedup_001",
+  "taxi_miss_002"
+ ],
+ "newly_incorrect_accepted": [],
+ "initial_code_reproduced": "100/100",
+ "tasks_with_hints": 23,
+ "lints_shown": {
+  "drops_required_column": 6,
+  "discarded_result": 4,
+  "overwrites_preserved_column": 4,
+  "unrequested_dropna": 8,
+  "sort_before_dedup": 3,
+  "round_style": 2,
+  "groupby_for_dedup": 1,
+  "null_filter": 1,
+  "merge_for_fill": 2
+ },
+ "hint_errors": 0,
+ "per_task": [
+  {
+   "task_id": "adult_col_002",
+   "baseline": "withheld",
+   "hints": "correct",
+   "attempts": 3
+  },
+  {
+   "task_id": "adult_col_005",
+   "baseline": "correct",
+   "hints": "withheld",
+   "attempts": 3
+  },
+  {
+   "task_id": "adult_conv_003",
+   "baseline": "withheld",
+   "hints": "correct",
+   "attempts": 2
+  },
+  {
+   "task_id": "airbnb_conv_005",
+   "baseline": "withheld",
+   "hints": "correct",
+   "attempts": 2
+  },
+  {
+   "task_id": "airbnb_dedup_001",
+   "baseline": "correct",
+   "hints": "withheld",
+   "attempts": 3
+  },
+  {
+   "task_id": "airbnb_dedup_004",
+   "baseline": "withheld",
+   "hints": "correct",
+   "attempts": 3
+  },
+  {
+   "task_id": "airbnb_dedup_005",
+   "baseline": "withheld",
+   "hints": "correct",
+   "attempts": 2
+  },
+  {
+   "task_id": "taxi_dedup_005",
+   "baseline": "withheld",
+   "hints": "correct",
+   "attempts": 2
+  },
+  {
+   "task_id": "taxi_filt_005",
+   "baseline": "withheld",
+   "hints": "correct",
+   "attempts": 2
+  },
+  {
+   "task_id": "taxi_miss_002",
+   "baseline": "correct",
+   "hints": "withheld",
+   "attempts": 3
+  },
+  {
+   "task_id": "titanic_col_001",
+   "baseline": "withheld",
+   "hints": "correct",
+   "attempts": 2
+  },
+  {
+   "task_id": "titanic_col_003",
+   "baseline": "withheld",
+   "hints": "correct",
+   "attempts": 1
+  },
+  {
+   "task_id": "titanic_filt_003",
+   "baseline": "withheld",
+   "hints": "correct",
+   "attempts": 2
+  },
+  {
+   "task_id": "titanic_miss_005",
+   "baseline": "withheld",
+   "hints": "correct",
+   "attempts": 2
+  }
+ ]
+}

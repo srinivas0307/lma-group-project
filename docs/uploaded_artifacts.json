@@ -180,6 +180,36 @@
       "original": "stage2-tool-contract-check.ipynb",
       "current": "notebooks/executed/stage2/contract_check_v1/stage2_contract_check_tools_kaggle_executed.ipynb",
       "sha256": "974ba1ac25ec12a6a154abcf155ac68c0c1dd7cc7cb0d098a9a3b5f27c5ae16a"
+    },
+    {
+      "original": "stage2_repair_hints_gold.zip",
+      "current": "kaggle_outputs/stage2/repair_hints_v1/stage2_repair_hints_gold.zip",
+      "sha256": "df33ad0e4abacf142885cc10b8d85a4bf99801a1cc6175dc497cced758143f5b"
+    },
+    {
+      "original": "gold-kaggle.ipynb",
+      "current": "notebooks/executed/stage2/repair_hints_v1/stage2_repair_hints_gold_kaggle_executed.ipynb",
+      "sha256": "d7c46c7c117c0dc74516889e623b9736311d456dd35e1dead587e8dee90ce334"
+    },
+    {
+      "original": "stage2_repair_hints_selective.zip",
+      "current": "kaggle_outputs/stage2/repair_hints_v1/stage2_repair_hints_selective.zip",
+      "sha256": "def31030bdca236dc098e99cf00ab8b2378ff1fd17d8761c279d196b59c44f9c"
+    },
+    {
+      "original": "selective-repair-hints.ipynb",
+      "current": "notebooks/executed/stage2/repair_hints_v1/stage2_repair_hints_selective_kaggle_executed.ipynb",
+      "sha256": "3822dd1dc1549965cc7c8de91dd6ba5690692b9dd269417d0cf24f7e22e54e0e"
+    },
+    {
+      "original": "stage2_repair_hints_tools.zip",
+      "current": "kaggle_outputs/stage2/repair_hints_v1/stage2_repair_hints_tools.zip",
+      "sha256": "e49ad8a9fb2443b8056015895bc490605bc387c7d801a2154af88dc3a59dca29"
+    },
+    {
+      "original": "tooluse-repair-hints.ipynb",
+      "current": "notebooks/executed/stage2/repair_hints_v1/stage2_repair_hints_tools_kaggle_executed.ipynb",
+      "sha256": "086139d0bf70793d6835effacb3d6c2edd7e39c103523a8088c869b47cf95c60"
     }
   ]
 }
