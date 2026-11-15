@@ -1,0 +1,15 @@
+{
+  "source_manifest_sha256": "d9e67c22c047a06aa7996efa2bde5f700c3c8dfdae46b65ad8220fbff609c335",
+  "adapter_files": {
+    "adapter/README.md": "b0057ecdd9582cb395bb022ffde8ffdd42f45dd8ee311c1c9547c8c1fe4b35bb",
+    "adapter/adapter_config.json": "5f9986e782c704e324bb3601d3028e3b40c8947b7e10488286fbd6668545d728",
+    "adapter/adapter_model.safetensors": "000213b9b7fd82441e5ecac9a214630f03af3dcba8984fffdf82a099a5035352",
+    "adapter/chat_template.jinja": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+    "adapter/igt_prompt_version.txt": "cf93532c95b89102dbc1c44aff723419f7775653d0258c9265ef9d6b8ab3eb2c",
+    "adapter/selection.json": "4157ba1bd0882b5decded6f8a39b2b801400e35f968c64bc77b9946586acba37",
+    "adapter/tokenizer.json": "3fd169731d2cbde95e10bf356d66d5997fd885dd8dbb6fb4684da3f23b2585d8",
+    "adapter/tokenizer_config.json": "04b1682c59acbd057f4c9072297faa73d56fc9de053094c659cdb4c464f58f86",
+    "adapter/tool_protocol.json": "8951a8f8cf9ee0229954129877c0e83fffbe6b05b7f956d5ced3fe6243327f6e"
+  },
+  "note": "Clean Kaggle inputs; no baseline/semantic result folders or nested ZIPs. Original runtime, weights and results unchanged."
+}

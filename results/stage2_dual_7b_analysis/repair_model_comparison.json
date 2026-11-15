@@ -1,0 +1,202 @@
+{
+  "selective": {
+    "checks": {
+      "parser_settings": true,
+      "generator_prompt": true,
+      "repair_prompt": true,
+      "limits": true,
+      "thresholds": true,
+      "inputs": true,
+      "task_ids": true,
+      "split": true,
+      "smoke": true,
+      "adapter_hashes": true,
+      "same_parser_payload_except_label_and_time": true,
+      "same_generation_payload_except_time": true,
+      "same_initial_code": true
+    },
+    "models_7b": {
+      "parser": {
+        "id": "Qwen/Qwen2.5-1.5B-Instruct",
+        "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+        "four_bit": true
+      },
+      "generator": {
+        "id": "Qwen/Qwen2.5-3B-Instruct",
+        "revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+        "four_bit": false
+      },
+      "agent": {
+        "id": "Qwen/Qwen2.5-7B-Instruct",
+        "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+        "four_bit": true
+      }
+    },
+    "models_3b": {
+      "parser": {
+        "id": "Qwen/Qwen2.5-1.5B-Instruct",
+        "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+        "four_bit": true
+      },
+      "generator": {
+        "id": "Qwen/Qwen2.5-3B-Instruct",
+        "revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+        "four_bit": false
+      },
+      "agent": {
+        "id": "Qwen/Qwen2.5-3B-Instruct",
+        "revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+        "four_bit": false
+      }
+    },
+    "gains": [
+      "adult_dedup_003",
+      "airbnb_conv_005",
+      "taxi_col_004",
+      "titanic_col_001",
+      "titanic_col_003",
+      "titanic_dedup_004"
+    ],
+    "losses": [
+      "airbnb_dedup_005"
+    ],
+    "summaries": {
+      "7b": {
+        "tasks": 100,
+        "correct": 78,
+        "incorrect_accepted": 1,
+        "withheld": 21,
+        "parse_escalations": 5,
+        "initial_correct_lost": 5,
+        "repaired": 7,
+        "reference_incompatible": 12,
+        "parser_calls": 98,
+        "parser_tokens": 177514,
+        "parser_tools": 0,
+        "parser_tool_failures": 0,
+        "generation_repair_tokens": 335871,
+        "total_tokens": 513385,
+        "normalized_tasks": 0,
+        "summed_task_seconds": 2249.9158555970043
+      },
+      "3b": {
+        "tasks": 100,
+        "correct": 73,
+        "incorrect_accepted": 2,
+        "withheld": 25,
+        "parse_escalations": 5,
+        "initial_correct_lost": 5,
+        "repaired": 2,
+        "reference_incompatible": 12,
+        "parser_calls": 98,
+        "parser_tokens": 177514,
+        "parser_tools": 0,
+        "parser_tool_failures": 0,
+        "generation_repair_tokens": 360167,
+        "total_tokens": 537681,
+        "normalized_tasks": 0,
+        "summed_task_seconds": 1920.5168522419985
+      }
+    }
+  },
+  "tools": {
+    "checks": {
+      "parser_settings": true,
+      "generator_prompt": true,
+      "repair_prompt": true,
+      "limits": true,
+      "thresholds": true,
+      "inputs": true,
+      "task_ids": true,
+      "split": true,
+      "smoke": true,
+      "adapter_hashes": true,
+      "same_parser_payload_except_label_and_time": true,
+      "same_generation_payload_except_time": true,
+      "same_initial_code": true
+    },
+    "models_7b": {
+      "parser": {
+        "id": "Qwen/Qwen2.5-1.5B-Instruct",
+        "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+        "four_bit": true
+      },
+      "generator": {
+        "id": "Qwen/Qwen2.5-3B-Instruct",
+        "revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+        "four_bit": false
+      },
+      "agent": {
+        "id": "Qwen/Qwen2.5-7B-Instruct",
+        "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+        "four_bit": true
+      }
+    },
+    "models_3b": {
+      "parser": {
+        "id": "Qwen/Qwen2.5-1.5B-Instruct",
+        "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+        "four_bit": true
+      },
+      "generator": {
+        "id": "Qwen/Qwen2.5-3B-Instruct",
+        "revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+        "four_bit": false
+      },
+      "agent": {
+        "id": "Qwen/Qwen2.5-3B-Instruct",
+        "revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+        "four_bit": false
+      }
+    },
+    "gains": [
+      "adult_dedup_003",
+      "airbnb_conv_005",
+      "taxi_col_004",
+      "titanic_col_001",
+      "titanic_col_003",
+      "titanic_dedup_004"
+    ],
+    "losses": [
+      "airbnb_dedup_005"
+    ],
+    "summaries": {
+      "7b": {
+        "tasks": 100,
+        "correct": 78,
+        "incorrect_accepted": 1,
+        "withheld": 21,
+        "parse_escalations": 1,
+        "initial_correct_lost": 9,
+        "repaired": 10,
+        "reference_incompatible": 15,
+        "parser_calls": 110,
+        "parser_tokens": 258796,
+        "parser_tools": 8,
+        "parser_tool_failures": 4,
+        "generation_repair_tokens": 429267,
+        "total_tokens": 688063,
+        "normalized_tasks": 0,
+        "summed_task_seconds": 2364.3084268159987
+      },
+      "3b": {
+        "tasks": 100,
+        "correct": 73,
+        "incorrect_accepted": 2,
+        "withheld": 25,
+        "parse_escalations": 1,
+        "initial_correct_lost": 9,
+        "repaired": 5,
+        "reference_incompatible": 15,
+        "parser_calls": 110,
+        "parser_tokens": 258796,
+        "parser_tools": 8,
+        "parser_tool_failures": 4,
+        "generation_repair_tokens": 373882,
+        "total_tokens": 632678,
+        "normalized_tasks": 0,
+        "summed_task_seconds": 2223.833148396
+      }
+    }
+  }
+}

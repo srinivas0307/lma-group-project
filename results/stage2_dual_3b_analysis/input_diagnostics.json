@@ -1,0 +1,242 @@
+{
+  "router_false_positive": {
+    "task_id": "taxi_miss_005",
+    "original_request": "In this file a passenger_count of 0 and a RatecodeID of 99 both mean 'not recorded'. Mark those values as missing.\n",
+    "original_result": {
+      "error": "Conditional statistic needs an explicit column = value scope"
+    },
+    "rephrased_request": "In this file a passenger_count of 0 and a RatecodeID of 99 both denote 'not recorded'. Mark those values as missing.\n",
+    "rephrased_result": [],
+    "note": "CPU-only lexical diagnosis. No modified-prompt model run or replacement score."
+  },
+  "group_query": {
+    "task_id": "titanic_miss_005",
+    "tool": "group_profile",
+    "args": {
+      "column": "Age",
+      "by": [
+        "Pclass"
+      ]
+    },
+    "observation": {
+      "ok": true,
+      "result": {
+        "column": "Age",
+        "by": [
+          "Pclass"
+        ],
+        "where": null,
+        "groups": [
+          {
+            "group": {
+              "Pclass": 3
+            },
+            "profile": {
+              "rows": 491,
+              "missing": 136,
+              "dtype": "float64",
+              "distinct": 68,
+              "top_values": [
+                {
+                  "value": 22.0,
+                  "count": 20
+                },
+                {
+                  "value": 21.0,
+                  "count": 17
+                },
+                {
+                  "value": 18.0,
+                  "count": 16
+                },
+                {
+                  "value": 20.0,
+                  "count": 15
+                },
+                {
+                  "value": 26.0,
+                  "count": 14
+                },
+                {
+                  "value": 19.0,
+                  "count": 14
+                },
+                {
+                  "value": 24.0,
+                  "count": 13
+                },
+                {
+                  "value": 25.0,
+                  "count": 13
+                },
+                {
+                  "value": 28.0,
+                  "count": 12
+                },
+                {
+                  "value": 32.0,
+                  "count": 12
+                }
+              ],
+              "values_omitted": 58,
+              "modes": [
+                22.0
+              ],
+              "mode_tie": false,
+              "mode_values_total": 1,
+              "modes_truncated": false,
+              "null_policy": "Statistics and frequencies exclude missing cells; no tie-break is inferred.",
+              "statistics": {
+                "min": 0.42,
+                "max": 74.0,
+                "mean": 25.14061971830986,
+                "median": 24.0
+              },
+              "nonfinite_nonmissing": 0
+            }
+          },
+          {
+            "group": {
+              "Pclass": 1
+            },
+            "profile": {
+              "rows": 216,
+              "missing": 30,
+              "dtype": "float64",
+              "distinct": 57,
+              "top_values": [
+                {
+                  "value": 35.0,
+                  "count": 9
+                },
+                {
+                  "value": 36.0,
+                  "count": 9
+                },
+                {
+                  "value": 24.0,
+                  "count": 7
+                },
+                {
+                  "value": 30.0,
+                  "count": 6
+                },
+                {
+                  "value": 38.0,
+                  "count": 6
+                },
+                {
+                  "value": 49.0,
+                  "count": 5
+                },
+                {
+                  "value": 47.0,
+                  "count": 5
+                },
+                {
+                  "value": 40.0,
+                  "count": 5
+                },
+                {
+                  "value": 58.0,
+                  "count": 5
+                },
+                {
+                  "value": 50.0,
+                  "count": 5
+                }
+              ],
+              "values_omitted": 47,
+              "modes": [
+                35.0,
+                36.0
+              ],
+              "mode_tie": true,
+              "mode_values_total": 2,
+              "modes_truncated": false,
+              "null_policy": "Statistics and frequencies exclude missing cells; no tie-break is inferred.",
+              "statistics": {
+                "min": 0.92,
+                "max": 80.0,
+                "mean": 38.233440860215055,
+                "median": 37.0
+              },
+              "nonfinite_nonmissing": 0
+            }
+          },
+          {
+            "group": {
+              "Pclass": 2
+            },
+            "profile": {
+              "rows": 184,
+              "missing": 11,
+              "dtype": "float64",
+              "distinct": 57,
+              "top_values": [
+                {
+                  "value": 34.0,
+                  "count": 10
+                },
+                {
+                  "value": 24.0,
+                  "count": 10
+                },
+                {
+                  "value": 28.0,
+                  "count": 9
+                },
+                {
+                  "value": 30.0,
+                  "count": 8
+                },
+                {
+                  "value": 25.0,
+                  "count": 7
+                },
+                {
+                  "value": 36.0,
+                  "count": 7
+                },
+                {
+                  "value": 23.0,
+                  "count": 7
+                },
+                {
+                  "value": 29.0,
+                  "count": 6
+                },
+                {
+                  "value": 27.0,
+                  "count": 6
+                },
+                {
+                  "value": 19.0,
+                  "count": 6
+                }
+              ],
+              "values_omitted": 47,
+              "modes": [
+                24.0,
+                34.0
+              ],
+              "mode_tie": true,
+              "mode_values_total": 2,
+              "modes_truncated": false,
+              "null_policy": "Statistics and frequencies exclude missing cells; no tie-break is inferred.",
+              "statistics": {
+                "min": 0.67,
+                "max": 70.0,
+                "mean": 29.87763005780347,
+                "median": 29.0
+              },
+              "nonfinite_nonmissing": 0
+            }
+          }
+        ],
+        "missing_group_keys": "included"
+      }
+    },
+    "note": "Audit-only query; this was not requested by the model in the submitted run."
+  }
+}

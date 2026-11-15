@@ -7,7 +7,7 @@ These artifacts preserve the project's research history. The current final evalu
 - [Earlier core templates](notebooks/core/) — candidate generation, parsing, agent evaluation, Stage 2 development, and the superseded combined/resume evaluation. The recovery builder remains beside its input notebook so historical regression tests and regeneration still work.
 - [Optional extension templates](notebooks/extensions/) — re-ask, pre-check combinations, tool fine-tuning, LLM verifier, vLLM, Gradio, and agent extensions. These are outside the current required six-system evaluation.
 - [Executed notebooks](notebooks/executed/) — grouped into `stage1/`, `training/`, `agent/`, `stage2_dev/`, and `stage2_test/`. Notebook contents and outputs are preserved.
-- [Extracted notebook pack](distributions/stage2_six_notebooks/) — a previously extracted copy; use the canonical current [ZIP](../notebooks/kaggle/stage2_six_notebooks.zip).
+- The duplicate extracted notebook pack was removed; use the canonical [ZIP](../notebooks/kaggle/stage2_six_notebooks.zip). Its differing [historical start guide](distributions/stage2_six_notebooks_START_HERE.md) is preserved.
 
 The active parser training template is in [notebooks/training/](../notebooks/training/).
 
@@ -37,3 +37,7 @@ Historical plans and workflow instructions are grouped under [docs/history/](../
 [cleanup_manifest_2026-11-13.json](cleanup_manifest_2026-11-13.json) records each old and new location, file size, and SHA-256 before and after the cleanup. Files were checksum-verified immediately after moving. Markdown link updates are identified by `content_changed`; notebooks, raw runs, checkpoints, and review evidence retain their contents.
 
 No experiment data or model weights were deleted. The trained adapters remain under `finetune/runs/`; generation/parser inputs, frozen source, benchmark data, and the local environment retain their active paths.
+
+## Report-focused cleanup (2026-11-15)
+
+Start with [the report guide](../docs/REPORT_GUIDE.md). Redundant upload ZIPs and extracted distributions were removed after checking canonical copies. Four differing historical selective-facts source files are preserved in `notebooks/training/selective_facts_extracted_source_delta.zip`; reconstruction details are in [the cleanup manifest](../docs/report_cleanup_manifest_2026-11-15.json). Unique historical benchmark files remain available.

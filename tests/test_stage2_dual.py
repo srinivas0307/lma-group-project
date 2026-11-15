@@ -201,3 +201,22 @@ def test_retained_six_system_routes_and_oracle_boundary(tmp_path):
         paths.append(out.with_suffix('.zip'))
     report=collect(paths,tmp_path/'six',allow_scripted=True,six=True)
     assert set(report['summary'])==set(SYSTEMS)
+
+@pytest.mark.parametrize('layout',['zip','extracted','both'])
+def test_collector_discovers_kaggle_auto_extracted_results(tmp_path,layout):
+    inputs=tmp_path/'input';inputs.mkdir();run_dir=tmp_path/'run';run_dir.mkdir()
+    for method in ['selective','tools']:
+        data=json.dumps(dict(experiment='stage2-dual-parser-v1',method=method,preset='proposed')).encode()
+        seal=dict(complete=True,sha256={'plan.json':hashlib.sha256(data).hexdigest()})
+        if layout in ['zip','both']:
+            with zipfile.ZipFile(inputs/f'stage2_dual_{method}_proposed.zip','w') as z:
+                z.writestr('plan.json',data);z.writestr('bundle.json',json.dumps(seal))
+        if layout in ['extracted','both']:
+            folder=inputs/method;folder.mkdir();(folder/'plan.json').write_bytes(data);(folder/'bundle.json').write_text(json.dumps(seal))
+    book=nbformat.read(ROOT/'notebooks/kaggle/stage2_dual/stage2_dual_collect_kaggle.ipynb',as_version=4)
+    code=book.cells[3].source.split("OUT=RUN_DIR/")[0]
+    namespace=dict(INPUT=inputs,RUN_DIR=run_dir,Path=Path,zipfile=zipfile,json=json,hashlib=hashlib)
+    exec(code,namespace)
+    assert len(namespace['paths'])==2
+    for path in namespace['paths']:
+        with zipfile.ZipFile(path) as z:assert z.testzip() is None

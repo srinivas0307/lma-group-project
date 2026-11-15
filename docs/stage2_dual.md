@@ -97,3 +97,17 @@ Rebuild with `PYTHONPATH=src:. .venv/bin/python -m notebooks.kaggle.stage2_dual.
 Tests exercise normalized selective facts, the genuine tool-observation loop with retained errors, one-model residency, within-run generation accounting, successful acceptance, real repair through the unchanged sandbox/verifier, parser failures, explicit context limits, strict collection/corruption rejection and both packed/unpacked source layouts on both platforms. Source ZIP extraction/CLI checks and both actual selected adapter ZIPs/folders are verified locally. Actual full GPU Stage 2 quality remains to be measured; scripted CPU tests are not model-quality results.
 
 Implementation validation completed: **24 tests passed** (`tests/test_stage2_dual.py` and `tests/test_selective_attention.py`). This includes all six retained preset routes, both proposed methods, real repair execution, explicit context refusal, missing-generation rejection and both platforms' source loaders. The final sealed source ZIP passed isolated CLI/preflight and exact runtime-hash comparison. Both real selected adapters validated from intact ZIPs and extracted folders. Original frozen source checks passed. Full GPU Stage 2 results remain pending.
+
+### Kaggle archive-creation errors: clean tool input package
+
+If Kaggle reports `Directory already exists: baseline` or `epoch_000297`, do **not** upload the original full `tool_use_train_1_5b.zip` as the dataset. That result bundle contains directories plus nested result ZIPs with the same names; automatic expansion can collide.
+
+Instead, create **one private Kaggle dataset** from **`kaggle_uploads/stage2_dual/stage2_dual_tools_kaggle_dataset.zip`**. This clean archive contains the matching Stage 2 source and the exact selected tool adapter, with no nested ZIPs or baseline/semantic results. Attach that single dataset to the tool-use notebook. It replaces the two input uploads for that notebook. The source/runtime version and adapter weights are unchanged, so an already-running selective-facts run remains compatible.
+
+If you already have the source dataset attached, the alternative adapter-only input is `kaggle_uploads/stage2_dual/tools_adapter/tool_use_train_1_5b.zip`; its basename intentionally matches the existing loader. Its contents are only the sealed adapter files. Do not confuse it with the full training-result ZIP in `kaggle_outputs/tool_use_v2/`.
+
+For the collector, upload the selective and tools result ZIPs as **separate datasets**, because their extracted folder names overlap. The updated collector notebook handles intact ZIPs or automatically extracted result folders, validates/repackages extracted contents locally, and keeps the strict original bundle checks. It recognizes duplicate ZIP/extracted representations of the same sealed result. No inference source change or model rerun is needed.
+
+Rebuild clean upload packages with `.venv/bin/python kaggle_uploads/stage2_dual/make_tools_dataset.py`. The package was tested with the existing Kaggle source loader and the actual selected adapter validation. Collector input discovery passed intact/extracted/both-layout tests.
+
+The user's current requested repair model is unquantized **3B FP16**, matching the generator. Use `docs/stage2_dual_3b.md` and the new `stage2_dual_3b_...` files for that experiment. This document describes the older, separately retained 7B-repair version.

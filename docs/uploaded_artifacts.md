@@ -70,3 +70,31 @@ The notebook's actual size is 1.5B. Its original contents and the full output ZI
 - Analysis: [completed correction comparison](../results/selective_facts_analysis/correction1/completed/ANALYSIS.md).
 
 Fresh paired scores: 85 control, 88 normalization, 88 one-correction; zero accepted tested wrong outputs in all arms. Normalization-only is the recommended next Stage 2 integration candidate.
+
+## Completed Stage 2: unquantized 3B generation and repair
+
+- Selective facts output: [stage2_dual_3b_selective_proposed.zip](../kaggle_outputs/stage2/dual_parser_3b_fp16_v1/stage2_dual_3b_selective_proposed.zip).
+- Tool output: [stage2_dual_3b_tools_proposed.zip](../kaggle_outputs/stage2/dual_parser_3b_fp16_v1/stage2_dual_3b_tools_proposed.zip).
+- Selective executed notebook: [stage2_dual_3b_selective_proposed_kaggle_executed.ipynb](../notebooks/executed/stage2/dual_parser_3b_fp16_v1/stage2_dual_3b_selective_proposed_kaggle_executed.ipynb), uploaded as `stage2-selective-3b.ipynb`.
+- Tool executed notebook: [stage2_dual_3b_tools_proposed_kaggle_executed.ipynb](../notebooks/executed/stage2/dual_parser_3b_fp16_v1/stage2_dual_3b_tools_proposed_kaggle_executed.ipynb), uploaded as `stage2-tooluse-3b.ipynb`.
+- Analysis and strict collector output: [Stage 2 comparison report](../results/stage2_dual_3b_analysis/ANALYSIS.md).
+
+Both complete runs give 73 correct, two incorrect accepted and 25 withheld. The tools method gains three and loses three different cases, with 17.7% more total tokens. Original uploaded bytes are preserved.
+
+## Completed Stage 2: 3B generator and 7B NF4 repair
+
+- Selective output: [stage2_dual_selective_proposed.zip](../kaggle_outputs/stage2/dual_parser_v1/stage2_dual_selective_proposed.zip).
+- Tools output: [stage2_dual_tools_proposed.zip](../kaggle_outputs/stage2/dual_parser_v1/stage2_dual_tools_proposed.zip).
+- Selective notebook: [stage2_dual_selective_proposed_kaggle_executed.ipynb](../notebooks/executed/stage2/dual_parser_v1/stage2_dual_selective_proposed_kaggle_executed.ipynb), uploaded as `stage2-selective-proposed.ipynb`.
+- Tools notebook: [stage2_dual_tools_proposed_kaggle_executed.ipynb](../notebooks/executed/stage2/dual_parser_v1/stage2_dual_tools_proposed_kaggle_executed.ipynb), uploaded as `stage2-tooluse.ipynb`.
+- [Analysis and paired comparison](../results/stage2_dual_7b_analysis/ANALYSIS.md).
+
+Both runs: 78 correct, one incorrect accepted, 21 withheld. The generator remains unquantized 3B; repair is 7B NF4. Original bytes are preserved in the hash index.
+
+## Completed 3B repair-development comparison
+
+- [Full live GPU bundle](../kaggle_outputs/stage2/repair_dev_v1/stage2_repair_dev_full.zip).
+- [Executed notebook](../notebooks/executed/stage2/repair_dev_v1/stage2_repair_dev_kaggle_executed.ipynb), uploaded as `repair-dev.ipynb`.
+- [Analysis](../results/stage2_repair_dev_analysis/v1/ANALYSIS.md).
+
+On 17 synthetic repair cases, control gives 11 correct/1 incorrect accepted/5 withheld; combined gives 16/0/1. This is repair-only development, not the full 100-task Stage 2 evaluation. Original uploaded bytes are preserved.

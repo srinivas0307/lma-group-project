@@ -1,104 +1,49 @@
 # Intent-Gated Data Transformation Agent
 
-An agent that checks LLM-generated pandas transformations against an intent contract describing what must change and what must be preserved. A bounded repair loop uses tools to inspect failures, propose fixes, and escalate unresolved requests.
+Pandas code generation with an intent-contract parser, deterministic verification, and bounded tool-assisted repair. Team SSSS · LMA Group Project 2026.
 
-**Team SSSS · LMA Group Project 2026**
+## Start here for the report
 
-## Current status and next step
+Use the [report guide](docs/REPORT_GUIDE.md) for the main results, evidence locations, limitations, and which experiments can be compared. It replaces the long chronological list of notebooks as the project entry point.
 
-Stage 1 evaluation, parser fine-tuning, agent experiments, Stage 2 prompt development, and the final six-system Stage 2 evaluation are complete. All six Kaggle runs contain 100 verified task records, and the collector contains 600 records across the same 100 test tasks. Its 657 files match an independent local collection.
+- [Original six-system Stage 2 evaluation](results/stage2_clean_v1/stage2_summary.csv) and [failure analysis](results/STAGE2_FAILURE_ANALYSIS.md).
+- [3B FP16 generator/repair comparison](results/stage2_dual_3b_analysis/ANALYSIS.md): both parser methods give **73 correct, 2 incorrect accepted, 25 withheld** on 100 tasks.
+- [7B NF4 repair comparison](results/stage2_dual_7b_analysis/ANALYSIS.md): both methods give **78 correct, 1 incorrect accepted, 21 withheld**. The generator stays 3B FP16.
+- [Complete 3B failure inventory](results/stage2_dual_3b_analysis/failure_review/INVENTORY.md) and [improvement plan](docs/stage2_3b_improvement_plan.md).
 
-See the [Stage 2 summary](results/stage2_clean_v1/stage2_summary.csv), [full metrics and paired comparisons](results/stage2_clean_v1/stage2_metrics_test.json), and [import validation](kaggle_outputs/stage2/clean_v1/import_validation.json). Completed bundles are in `kaggle_outputs/stage2/clean_v1/`; executed notebooks are in `notebooks/executed/stage2/clean_v1/`. The [failure analysis](results/STAGE2_FAILURE_ANALYSIS.md) is complete: predicted contracts reduce incorrect acceptances but also reject correct programs. The next step is the final write-up and, if pursued, a separately developed method revision followed by an independent benchmark.
+These experiments use different protocol versions. Previously inspected test cases are diagnostic; do not describe them as a new independent benchmark. The 7B/3B repair comparison changes both model size and precision. See the report guide before combining results.
 
-To reproduce the completed GPU experiment:
+## Current runnable work
 
-1. Download and extract [the notebook pack](notebooks/kaggle/stage2_six_notebooks.zip).
-2. Run [notebook 06](notebooks/kaggle/stage2_06_no_contract_to_generator.ipynb) first, with Internet on and GPU T4 ×2. Use **Save Version → Save & Run All**. Wait for **COMPLETE AND VALIDATED: 100 / 100**.
-3. Run notebooks 01–05 in fresh sessions with the same settings, saving each completed bundle.
-4. Attach the six outputs to [the CPU collector](notebooks/kaggle/stage2_collect_results.ipynb) and download the final bundle after **600 / 600 verified task records**.
+The [combined 3B end-to-end workflow](docs/stage2_combined_3b.md) is ready for both **selective facts** and **trained tool use**. Each notebook generates fresh contracts and code, then uses the combined repair implementation. Generation and repair remain unquantized 3B FP16; the selected method-specific 1.5B parser adapters are unchanged.
 
-Follow the [complete Kaggle instructions](docs/stage2_six_notebooks.md). The notebooks embed their shared runtime; no new GitHub push, adapter upload, old checkpoint, or separate resume notebook is required. All six supplied Kaggle runs completed without recorded generation or attention failures.
+- [Selective-facts Kaggle notebook](notebooks/kaggle/stage2_combined_3b/stage2_combined_3b_selective_proposed_kaggle.ipynb).
+- [Tool-use Kaggle notebook](notebooks/kaggle/stage2_combined_3b/stage2_combined_3b_tools_proposed_kaggle.ipynb).
+- [Shared source/data ZIP](notebooks/kaggle/stage2_combined_3b/stage2_combined_3b_source.zip).
+- [Optional CPU comparison collector](notebooks/kaggle/stage2_combined_3b/stage2_combined_3b_collect_kaggle.ipynb).
 
-The active next phase follows the [contract-quality improvement plan](docs/contract_quality_improvement_plan.md). A CPU-validated synthetic draft suite and two Kaggle adapter-comparison notebooks and a CPU results collector are ready. Follow the [pilot runbook](docs/contract_quality/RUNBOOK.md) and download the [three-notebook pack](notebooks/kaggle/contract_quality/contract_quality_pilots.zip). GPU pilot results and independent task review are still pending; retraining follows the grounding decision.
+Attach the new source dataset and the selected adapter dataset from the corresponding completed 3B run. No GitHub push or previous predictions are needed. Each notebook runs smoke, 20 development tasks and 100 diagnostic test tasks. End-to-end GPU results for this version are pending.
 
-The [independent Stage 2 workflow](docs/stage2_independent.md) now runs directly from raw datasets and requests, generating its own enriched-input contracts inside each job. Download the [six-system notebook pack plus collector](notebooks/kaggle/stage2_independent/stage2_independent_notebooks.zip). It requires model weights but no earlier experiment outputs or parser-pilot run. Start with notebook 05 for the proposed system. The first proposed-system GPU run completed and validated: **44 correct, 2 incorrect accepted, 54 withheld**. See the [run analysis](results/stage2_independent_analysis/proposed_v1/ANALYSIS.md) before running further comparisons; it found major contract regressions and a changed parser quantization setting. Other independent-system GPU runs remain pending.
+The [completed repair-only development experiment](results/stage2_repair_dev_analysis/v1/ANALYSIS.md) gives control **11/1/5** versus combined **16/0/1** (correct/incorrect accepted/withheld), using 26.1% fewer tokens. This motivates the new integration; it does not establish its full Stage 2 accuracy. Parser correction and information-routing changes remain planned.
 
-A separate [tool-enabled Stage 2 version](docs/stage2_tools.md) lets the parser request read-only dataset queries before writing its contract. Its [notebook pack](notebooks/kaggle/stage2_tools/stage2_tools_notebooks.zip) can be run after the current profile-based experiment; its outputs and collector are separate. The existing adapter has not been trained on this new tool protocol.
+## Folder map
 
-## Setup and local checks
+- `results/`: report analyses, scores, audits and per-task evidence.
+- `docs/`: specifications, current instructions, proposal and submitted report material.
+- `kaggle_outputs/`: canonical uploaded runs and training bundles; keep these as original evidence.
+- `notebooks/executed/`: executed notebooks backing those runs.
+- `notebooks/kaggle/` and `notebooks/colab/`: runnable templates and sealed source packages.
+- `src/`, `eval/`, `finetune/`, `tests/`, `benchmark/`, `data/`, `configs/`: implementation, reproducibility inputs and checks.
+- `archive/`: earlier experiments and historical evidence.
+- `kaggle_uploads/`: builders for optional adapter-containing upload packages. Redundant generated ZIPs were removed; rebuild only when needed.
 
-Use Python 3.11 or newer. An existing `.venv/` can be reused.
+## Local verification
 
 ```bash
-python3 -m venv .venv
-.venv/bin/python -m pip install -r requirements-dev.txt
-.venv/bin/python -m pytest -q
-```
-
-[Training instructions](finetune/README.md) cover the separate GPU training dependencies and adapters. Recompute the existing CPU research results with:
-
-```bash
+.venv/bin/python -m pytest -q tests/test_stage2_repair_dev.py tests/agent/test_repair_agent.py
 ./reproduce_all.sh
 ```
 
-This script uses the frozen benchmark, downloaded parser/generation inputs, and existing result folders. It does not run the six new GPU evaluations.
+The reproduction script recomputes existing CPU results; it does not launch new GPU inference. Setup dependencies are in `requirements-dev.txt`; training instructions are in [finetune/README.md](finetune/README.md).
 
-## Where to work
-
-- `src/igt/` — contracts, verifier, repair agent, tools, sandbox, and model clients.
-- `eval/` — research runners and scoring; `eval/stage2_clean/` implements the current six-notebook workflow.
-- `notebooks/kaggle/` — the seven current notebooks, their builder, and the download pack.
-- `notebooks/training/` — the parser fine-tuning template.
-- `notebooks/executed/stage2/clean_v1/` — completed Stage 2 notebooks, including the collector.
-- `benchmark/`, `data/`, `configs/` — frozen tasks, candidate pool, datasets, and experiment settings.
-- `finetune/` — training scripts, datasets, configurations, and local trained adapters in `runs/`.
-- `kaggle_outputs/` — generation and parser inputs needed for reproducibility.
-- `results/` — core scored results, reports, safety evidence, and agent traces.
-- `docs/` — specifications and current instructions; `docs/history/` holds earlier plans and workflows.
-- `tests/` — regression checks for both current and historical implementations.
-- `app/`, `sandbox/`, `tools/` — optional demo, Docker sandbox, and supporting utilities.
-- `archive/` — earlier notebooks, superseded runs, optional experiment artifacts, and review material. See the [archive index](archive/README.md).
-
-The layout keeps executable dependencies and frozen research inputs at stable paths. Optional extension source remains available because existing imports and source checks depend on it.
-
-## Research results and references
-
-- [Stage 1 results](results/STAGE1_RESULTS.md)
-- [Fine-tuning results](results/FINETUNE_RESULTS.md) and [training/data audit](results/FINETUNE_AUDIT.md)
-- [Agent evaluation](results/STAGE2_AGENT_RESULTS.md)
-- [Stage 2 development comparisons](results/STAGE2_DEV_RESULTS.md)
-- [Stage 2 failure analysis](results/STAGE2_FAILURE_ANALYSIS.md) with [reproducible audit evidence](results/stage2_failure_analysis/audit.json)
-- [Completed Stage 2 test metrics](results/stage2_clean_v1/stage2_metrics_test.json) and [summary CSV](results/stage2_clean_v1/stage2_summary.csv)
-- [Contract schema](docs/contract_schema.md) and [verdict format](docs/verdict_format.md)
-- [Open issues](docs/open_issues.md) and [future work](docs/future_work.md)
-- [Mid-submission report](docs/mid_submission_report.md), [PDF](docs/reports/mid_submission_report.pdf)
-- [Full historical roadmap](docs/history/implementation_roadmap.md)
-- [Project handout](docs/course/handout.txt) and [proposal](docs/course/SSSS_LMA_PROJECT_PROPOSAL.pdf)
-
-Adapters and the Python environment are local, git-ignored assets. Archiving files inside this project organizes the layout without reducing its total disk usage.
-
-Parser loading correction: [Stage 2 v2 and development diagnostic](docs/stage2_independent_v2.md). Run the diagnostic before interpreting NF4 as a quality fix.
-
-Completed parser diagnostic: [analysis and recommended continuation](results/stage2_independent_analysis/parser_diagnostic_v1/ANALYSIS.md). Original input + NF4 passed 16/20 references; the current profile + NF4 passed 8/20.
-
-Selective-facts implementation: [training and Stage 2 instructions](docs/selective_facts_training.md). Next run: `notebooks/kaggle/selective_facts/selective_facts_train.ipynb`. This trains a new matching adapter and scores its checkpoints; GPU quality results are pending.
-
-Tool-protocol GPU run: [validated analysis](results/stage2_tools_analysis/proposed_v1/ANALYSIS.md). Result 67 correct / 1 incorrect accepted / 32 withheld; zero intent-parser tool calls, with 67 separate repair-agent tool calls.
-
-### New: base-model tools and tool-use training
-
-The isolated `parser-tools-v2` workflows support Qwen2.5 **1.5B or 3B** with no adapter, or a newly trained tool-use adapter. Start with [the run instructions](docs/tool_use_v2.md) and [the Kaggle notebooks](notebooks/kaggle/tool_use_v2/). These are parser-development workflows; existing Stage 2 and selective-facts runs remain separate.
-
-### Selective-facts scope correction: reuse the trained adapter
-
-After the completed SF1 training run, use the [inference-only scope-fix notebook](notebooks/kaggle/selective_facts_scopefix/selective_facts_scopefix_eval.ipynb) with its new source ZIP and the existing `selective_facts_1_5b.zip`. [Run instructions](docs/selective_facts_scopefix.md). This fixes the 12 blocked development routes and evaluates the same epoch-2 weights without retraining.
-
-Uploaded executed notebooks and result ZIPs are organized by workflow. See [the upload locations index](docs/uploaded_artifacts.md) for exact paths and original names.
-
-### Existing-adapter development: normalization and one correction
-
-The [inference-only correction workflow](docs/selective_facts_correction.md) compares fresh scope-fixed control, operator normalization and one input-diagnostic-guided correction. [Colab notebook](notebooks/colab/selective_facts_correction/selective_facts_correction_colab.ipynb) · [Kaggle notebook](notebooks/kaggle/selective_facts_correction/selective_facts_correction_kaggle.ipynb). It uses the existing epoch-2 adapter without retraining. Offline normalization of saved outputs recovered three cases (85 → 88); fresh correction results remain pending.
-
-### Stage 2: selective facts versus trained tools
-
-The [two independent Stage 2 workflows](docs/stage2_dual.md) use the existing selected 1.5B adapters with operator normalization, a shared 3B generator and 7B repair agent. [Colab notebooks](notebooks/colab/stage2_dual/) · [Kaggle notebooks and source ZIP](notebooks/kaggle/stage2_dual/). Start with the selective proposed run, then the tool proposed run, then the CPU collector. No retraining or previous evaluation outputs are required.
+[Uploaded artifact index](docs/uploaded_artifacts.md) · [Cleanup manifest](docs/report_cleanup_manifest_2026-11-15.json) · [Historical index](archive/README.md).

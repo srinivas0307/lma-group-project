@@ -1,0 +1,31 @@
+{
+  "experiment": "stage2-dual-parser-3b-fp16-v1",
+  "tests_passed": 32,
+  "generator": {
+    "id": "Qwen/Qwen2.5-3B-Instruct",
+    "revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+    "four_bit": false
+  },
+  "repair": {
+    "id": "Qwen/Qwen2.5-3B-Instruct",
+    "revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+    "four_bit": false
+  },
+  "generator_repair_precision": "unquantized torch.float16",
+  "parser_quantization": "existing NF4",
+  "source_manifest_sha256": "66d2d430b0f79400ea666c856023b3150af856b3fa420165448901754b0323a3",
+  "clean_packages": {
+    "selective": "kaggle_uploads/stage2_dual_3b/stage2_dual_3b_selective_kaggle_dataset.zip",
+    "tools": "kaggle_uploads/stage2_dual_3b/stage2_dual_3b_tools_kaggle_dataset.zip"
+  },
+  "checks": [
+    "explicit FP16/no quantization load arguments and runtime guards",
+    "both actual selected adapters validated from clean packages",
+    "isolated source hashes, CLI imports and CPU preflight",
+    "single-model pipeline, real sandbox repair and six-system collection",
+    "collector rejects 7B/quantized configuration",
+    "all notebook schemas and code cells valid",
+    "original experiment and uploaded bytes unchanged"
+  ],
+  "gpu_model_quality_measured": false
+}

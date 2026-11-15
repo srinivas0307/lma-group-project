@@ -80,6 +80,56 @@
       "original": "selective_facts_correction_colab(1).ipynb",
       "current": "notebooks/executed/parsing/selective_facts_correction1/selective_facts_correction_colab_executed.ipynb",
       "sha256": "562a5ba9b9b4b29a2e02fb17562c1fa9882052c8d48e44c09739dd8bbe2dfb83"
+    },
+    {
+      "original": "stage2_dual_3b_selective_proposed.zip",
+      "current": "kaggle_outputs/stage2/dual_parser_3b_fp16_v1/stage2_dual_3b_selective_proposed.zip",
+      "sha256": "5b822e9cc845850780a0859c6b94215752b1558ec4c0f65fd1b4ca94d994b4e8"
+    },
+    {
+      "original": "stage2_dual_3b_tools_proposed.zip",
+      "current": "kaggle_outputs/stage2/dual_parser_3b_fp16_v1/stage2_dual_3b_tools_proposed.zip",
+      "sha256": "3b13816b181b325a37fdf2a5f487bb8c2bc620006a8ec766a3bbf4577bc078db"
+    },
+    {
+      "original": "stage2-selective-3b.ipynb",
+      "current": "notebooks/executed/stage2/dual_parser_3b_fp16_v1/stage2_dual_3b_selective_proposed_kaggle_executed.ipynb",
+      "sha256": "21aa03ad141f40dd4677a58ca2e1d9b9553ead72cfb2b88f4dc9fefa21ab3bb3"
+    },
+    {
+      "original": "stage2-tooluse-3b.ipynb",
+      "current": "notebooks/executed/stage2/dual_parser_3b_fp16_v1/stage2_dual_3b_tools_proposed_kaggle_executed.ipynb",
+      "sha256": "e083ed7a1f9b8a3cdbb4e7cb428727711f76a6eed05ee57e3e28b9075e6d0cc9"
+    },
+    {
+      "original": "stage2_dual_selective_proposed.zip",
+      "current": "kaggle_outputs/stage2/dual_parser_v1/stage2_dual_selective_proposed.zip",
+      "sha256": "139e3f74a6870a2edcf5ac9cf8e50908833fbe53f7371806568eefd6b1478d52"
+    },
+    {
+      "original": "stage2-selective-proposed.ipynb",
+      "current": "notebooks/executed/stage2/dual_parser_v1/stage2_dual_selective_proposed_kaggle_executed.ipynb",
+      "sha256": "d5f2b4bdf1824aac3df9de94a59709ea86d900ed49135693b8f58624cdec248a"
+    },
+    {
+      "original": "stage2_dual_tools_proposed.zip",
+      "current": "kaggle_outputs/stage2/dual_parser_v1/stage2_dual_tools_proposed.zip",
+      "sha256": "e788d07c338892e7ba2e9156e239967ff5672ee9a26228b7e447c6fa8e0fc437"
+    },
+    {
+      "original": "stage2-tooluse.ipynb",
+      "current": "notebooks/executed/stage2/dual_parser_v1/stage2_dual_tools_proposed_kaggle_executed.ipynb",
+      "sha256": "5034013ce862d538ec3d9bd4392eb05bbe17ec09af627cc125ff46309ca16c06"
+    },
+    {
+      "original": "repair-dev.ipynb",
+      "current": "notebooks/executed/stage2/repair_dev_v1/stage2_repair_dev_kaggle_executed.ipynb",
+      "sha256": "94f6cde79b1498b509f284455cab62c1c431bab255761a46f9978dba35cb2dc4"
+    },
+    {
+      "original": "stage2_repair_dev_full.zip",
+      "current": "kaggle_outputs/stage2/repair_dev_v1/stage2_repair_dev_full.zip",
+      "sha256": "692766967d176e3d672546978d5b4806ea6000a53d70a2c010bd90530d3ed1ee"
     }
   ]
 }

@@ -1,0 +1,1681 @@
+{
+  "bundle_sha256": "692766967d176e3d672546978d5b4806ea6000a53d70a2c010bd90530d3ed1ee",
+  "notebook_sha256": "94f6cde79b1498b509f284455cab62c1c431bab255761a46f9978dba35cb2dc4",
+  "source_manifest_sha256": "4be9feb5542ba53281961a772f97154d85836caab92af66f931d647d195521aa",
+  "model": {
+    "model": "Qwen/Qwen2.5-3B-Instruct",
+    "revision": "aa8e72537993ba99e69dfaafa59ed015b17504d1",
+    "device": "cuda:0",
+    "precision": {
+      "quantization": "none",
+      "compute_dtype": "torch.float16",
+      "floating_parameter_dtypes": [
+        "torch.float16"
+      ]
+    }
+  },
+  "environment": {
+    "python": "3.13.16",
+    "torch": "2.11.0+cu130",
+    "cuda": "13.0",
+    "gpu": "Tesla T4",
+    "versions": {
+      "transformers": "5.20.2",
+      "pandas": "2.3.3",
+      "numpy": "2.1.3",
+      "accelerate": "1.15.0"
+    }
+  },
+  "summary": {
+    "control": {
+      "tasks": 17,
+      "correct": 11,
+      "incorrect_accepted": 1,
+      "withheld": 5,
+      "initial_correct_lost": 0,
+      "repairs": 6,
+      "tokens": 39194,
+      "llm_calls": 30,
+      "tools": 6,
+      "fresh_recovery_requests": 0,
+      "diagnostic_seconds": 0,
+      "repair_seconds": 85.05761581100012
+    },
+    "evidence": {
+      "tasks": 17,
+      "correct": 15,
+      "incorrect_accepted": 1,
+      "withheld": 1,
+      "initial_correct_lost": 0,
+      "repairs": 10,
+      "tokens": 27434,
+      "llm_calls": 17,
+      "tools": 0,
+      "fresh_recovery_requests": 4,
+      "diagnostic_seconds": 0.04808514599983482,
+      "repair_seconds": 58.54287074800004
+    },
+    "schema_guard": {
+      "tasks": 17,
+      "correct": 12,
+      "incorrect_accepted": 0,
+      "withheld": 5,
+      "initial_correct_lost": 0,
+      "repairs": 7,
+      "tokens": 40354,
+      "llm_calls": 31,
+      "tools": 6,
+      "fresh_recovery_requests": 0,
+      "diagnostic_seconds": 0,
+      "repair_seconds": 86.40116977700029
+    },
+    "combined": {
+      "tasks": 17,
+      "correct": 16,
+      "incorrect_accepted": 0,
+      "withheld": 1,
+      "initial_correct_lost": 0,
+      "repairs": 11,
+      "tokens": 28976,
+      "llm_calls": 18,
+      "tools": 0,
+      "fresh_recovery_requests": 4,
+      "diagnostic_seconds": 0.048771365999868976,
+      "repair_seconds": 63.138429107999514
+    }
+  },
+  "checks": {
+    "seal": true,
+    "runtime": true,
+    "source": true,
+    "coverage": true,
+    "summary": true,
+    "notebook_source": true,
+    "no_notebook_errors": true
+  },
+  "mismatches": [],
+  "cases": {
+    "dedup_original_first": {
+      "request": "Keep the first original record for each combination of ['account', 'kind'], in input order. Preserve all columns and values.",
+      "initial_correct": false,
+      "arms": {
+        "control": {
+          "record": {
+            "task_id": "dedup_original_first",
+            "arm": "control",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 1,
+            "tokens": 1096,
+            "llm_calls": 1,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 3.3934454700000742,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    grouped = df.groupby(['account', 'kind'])\n    return grouped.apply(lambda x: x.iloc[0]).reset_index(drop=True)\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "evidence": {
+          "record": {
+            "task_id": "dedup_original_first",
+            "arm": "evidence",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 1,
+            "tokens": 1646,
+            "llm_calls": 1,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0.00469926799996756,
+            "repair_seconds": 3.3086030120000487,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    grouped = df.groupby(['account', 'kind'])\n    return grouped.apply(lambda g: g.iloc[0]).reset_index(drop=True)\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "schema_guard": {
+          "record": {
+            "task_id": "dedup_original_first",
+            "arm": "schema_guard",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 1,
+            "tokens": 1096,
+            "llm_calls": 1,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 3.0945062160000134,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    grouped = df.groupby(['account', 'kind'])\n    return grouped.apply(lambda x: x.iloc[0]).reset_index(drop=True)\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "combined": {
+          "record": {
+            "task_id": "dedup_original_first",
+            "arm": "combined",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 1,
+            "tokens": 1646,
+            "llm_calls": 1,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0.004345950000015364,
+            "repair_seconds": 3.321135750999929,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    grouped = df.groupby(['account', 'kind'])\n    return grouped.apply(lambda g: g.iloc[0]).reset_index(drop=True)\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        }
+      }
+    },
+    "dedup_original_last": {
+      "request": "Keep the last original record for each combination of ['account'], in input order. Preserve all columns and values.",
+      "initial_correct": false,
+      "arms": {
+        "control": {
+          "record": {
+            "task_id": "dedup_original_last",
+            "arm": "control",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 1,
+            "tokens": 1076,
+            "llm_calls": 1,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 2.7805983509999805,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    grouped = df.groupby('account', sort=False).tail(1)\n    return grouped\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "evidence": {
+          "record": {
+            "task_id": "dedup_original_last",
+            "arm": "evidence",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 1,
+            "tokens": 1610,
+            "llm_calls": 1,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0.003942550000033407,
+            "repair_seconds": 3.321159706000003,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    grouped = df.groupby('account', sort=False)\n    return grouped.apply(lambda g: g.iloc[-1]).reset_index(drop=True)\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "schema_guard": {
+          "record": {
+            "task_id": "dedup_original_last",
+            "arm": "schema_guard",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 1,
+            "tokens": 1076,
+            "llm_calls": 1,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 2.719252738000023,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    grouped = df.groupby('account', sort=False).tail(1)\n    return grouped\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "combined": {
+          "record": {
+            "task_id": "dedup_original_last",
+            "arm": "combined",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 1,
+            "tokens": 1610,
+            "llm_calls": 1,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0.004151415000023917,
+            "repair_seconds": 3.367783319999944,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    grouped = df.groupby('account', sort=False)\n    return grouped.apply(lambda g: g.iloc[-1]).reset_index(drop=True)\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        }
+      }
+    },
+    "dedup_complete_record": {
+      "request": "Keep the first original record for each combination of ['account'], in input order. Preserve all columns and values.",
+      "initial_correct": false,
+      "arms": {
+        "control": {
+          "record": {
+            "task_id": "dedup_complete_record",
+            "arm": "control",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 3,
+            "tokens": 5023,
+            "llm_calls": 4,
+            "tool_calls": 1,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 10.925881215999993,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    grouped = df.sort_values(by='record').groupby('account', as_index=False)\n    return grouped.head(1).reset_index(drop=True)\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "evidence": {
+          "record": {
+            "task_id": "dedup_complete_record",
+            "arm": "evidence",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 1,
+            "tokens": 1496,
+            "llm_calls": 1,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0.006294614000012189,
+            "repair_seconds": 3.698024835999945,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    grouped = df.sort_values(by='record').groupby('account', as_index=False)\n    return grouped.apply(lambda g: g.iloc[0])\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "schema_guard": {
+          "record": {
+            "task_id": "dedup_complete_record",
+            "arm": "schema_guard",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 3,
+            "tokens": 5023,
+            "llm_calls": 4,
+            "tool_calls": 1,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 10.472369103999995,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    grouped = df.sort_values(by='record').groupby('account', as_index=False)\n    return grouped.head(1).reset_index(drop=True)\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "combined": {
+          "record": {
+            "task_id": "dedup_complete_record",
+            "arm": "combined",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 1,
+            "tokens": 1496,
+            "llm_calls": 1,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0.006846695000035652,
+            "repair_seconds": 3.5257928269999184,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    grouped = df.sort_values(by='record').groupby('account', as_index=False)\n    return grouped.apply(lambda g: g.iloc[0])\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        }
+      }
+    },
+    "dedup_keep_repeated_groups": {
+      "request": "Keep the last original record for each combination of ['account', 'kind'], in input order. Preserve all columns and values.",
+      "initial_correct": false,
+      "arms": {
+        "control": {
+          "record": {
+            "task_id": "dedup_keep_repeated_groups",
+            "arm": "control",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 1,
+            "tokens": 1115,
+            "llm_calls": 1,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 3.3644428769999877,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    grouped = df.groupby(['account', 'kind'])\n    last_records = grouped.apply(lambda x: x.iloc[-1])\n    return last_records\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "evidence": {
+          "record": {
+            "task_id": "dedup_keep_repeated_groups",
+            "arm": "evidence",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 1,
+            "tokens": 1666,
+            "llm_calls": 1,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0.0018162249998567859,
+            "repair_seconds": 4.0327346359999865,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df = df.sort_values(by=['account', 'kind', 'record'])\n    df = df.drop_duplicates(subset=['account', 'kind'], keep='last')\n    return df\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "schema_guard": {
+          "record": {
+            "task_id": "dedup_keep_repeated_groups",
+            "arm": "schema_guard",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 1,
+            "tokens": 1115,
+            "llm_calls": 1,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 3.2493132520000927,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    grouped = df.groupby(['account', 'kind'])\n    last_records = grouped.apply(lambda x: x.iloc[-1])\n    return last_records\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "combined": {
+          "record": {
+            "task_id": "dedup_keep_repeated_groups",
+            "arm": "combined",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 1,
+            "tokens": 1666,
+            "llm_calls": 1,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0.0018151530000523053,
+            "repair_seconds": 4.100391959999911,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df = df.sort_values(by=['account', 'kind', 'record'])\n    df = df.drop_duplicates(subset=['account', 'kind'], keep='last')\n    return df\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        }
+      }
+    },
+    "dedup_crashed_candidate": {
+      "request": "Keep the first original record for each combination of ['account'], in input order. Preserve all columns and values.",
+      "initial_correct": false,
+      "arms": {
+        "control": {
+          "record": {
+            "task_id": "dedup_crashed_candidate",
+            "arm": "control",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 1,
+            "tokens": 1040,
+            "llm_calls": 1,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 3.1790131920000704,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    grouped = df.groupby('account', as_index=False)\n    return grouped.apply(lambda x: x.iloc[0]).reset_index(drop=True)\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "evidence": {
+          "record": {
+            "task_id": "dedup_crashed_candidate",
+            "arm": "evidence",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 1,
+            "tokens": 1261,
+            "llm_calls": 1,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0.0006073880000485588,
+            "repair_seconds": 2.904601527000068,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    return df.sort_values(by='record').drop_duplicates(subset='account', keep='first')\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "schema_guard": {
+          "record": {
+            "task_id": "dedup_crashed_candidate",
+            "arm": "schema_guard",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 1,
+            "tokens": 1040,
+            "llm_calls": 1,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 3.1302298010000413,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    grouped = df.groupby('account', as_index=False)\n    return grouped.apply(lambda x: x.iloc[0]).reset_index(drop=True)\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "combined": {
+          "record": {
+            "task_id": "dedup_crashed_candidate",
+            "arm": "combined",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 1,
+            "tokens": 1261,
+            "llm_calls": 1,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0.0006060700000034558,
+            "repair_seconds": 2.8373713400000042,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    return df.sort_values(by='record').drop_duplicates(subset='account', keep='first')\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        }
+      }
+    },
+    "category_assignment_1": {
+      "request": "Make tier an ordered category in this order: ['bronze', 'silver', 'gold']. Retain all values and rows.",
+      "initial_correct": false,
+      "arms": {
+        "control": {
+          "record": {
+            "task_id": "category_assignment_1",
+            "arm": "control",
+            "outcome": "ESCALATE",
+            "initial_correct": false,
+            "final_correct": false,
+            "equivalence": "withheld",
+            "attempts": 3,
+            "tokens": 3711,
+            "llm_calls": 3,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 9.798976692999986,
+            "escalate_reason": "identical code proposed twice"
+          },
+          "final_code": "def transform(df):\n    df['tier'] = df['tier'].astype('category')\n    df['tier'].cat.add_categories(['bronze', 'silver', 'gold'], inplace=True)\n    df['tier'].cat.set_ordered(True)\n    return df\n",
+          "equivalence": "withheld",
+          "recovery_after_steps": []
+        },
+        "evidence": {
+          "record": {
+            "task_id": "category_assignment_1",
+            "arm": "evidence",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 3,
+            "tokens": 4809,
+            "llm_calls": 3,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 1,
+            "diagnostic_seconds": 0.004517070000019885,
+            "repair_seconds": 10.449635648000026,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df['tier'] = df['tier'].astype('category')\n    df['tier'] = df['tier'].cat.set_categories(['bronze', 'silver', 'gold'], ordered=True)\n    return df\n",
+          "equivalence": "equal",
+          "recovery_after_steps": [
+            6
+          ]
+        },
+        "schema_guard": {
+          "record": {
+            "task_id": "category_assignment_1",
+            "arm": "schema_guard",
+            "outcome": "ESCALATE",
+            "initial_correct": false,
+            "final_correct": false,
+            "equivalence": "withheld",
+            "attempts": 3,
+            "tokens": 3711,
+            "llm_calls": 3,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 9.351246164999907,
+            "escalate_reason": "identical code proposed twice"
+          },
+          "final_code": "def transform(df):\n    df['tier'] = df['tier'].astype('category')\n    df['tier'].cat.add_categories(['bronze', 'silver', 'gold'], inplace=True)\n    df['tier'].cat.set_ordered(True)\n    return df\n",
+          "equivalence": "withheld",
+          "recovery_after_steps": []
+        },
+        "combined": {
+          "record": {
+            "task_id": "category_assignment_1",
+            "arm": "combined",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 3,
+            "tokens": 4809,
+            "llm_calls": 3,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 1,
+            "diagnostic_seconds": 0.004312672999844835,
+            "repair_seconds": 10.87575235899999,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df['tier'] = df['tier'].astype('category')\n    df['tier'] = df['tier'].cat.set_categories(['bronze', 'silver', 'gold'], ordered=True)\n    return df\n",
+          "equivalence": "equal",
+          "recovery_after_steps": [
+            6
+          ]
+        }
+      }
+    },
+    "category_assignment_2": {
+      "request": "Make tier an ordered category in this order: ['low', 'middle', 'high']. Retain all values and rows.",
+      "initial_correct": false,
+      "arms": {
+        "control": {
+          "record": {
+            "task_id": "category_assignment_2",
+            "arm": "control",
+            "outcome": "ESCALATE",
+            "initial_correct": false,
+            "final_correct": false,
+            "equivalence": "withheld",
+            "attempts": 3,
+            "tokens": 3695,
+            "llm_calls": 3,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 9.42581983599996,
+            "escalate_reason": "identical code proposed twice"
+          },
+          "final_code": "def transform(df):\n    df['tier'] = df['tier'].astype('category')\n    df['tier'].cat.add_categories(['low', 'middle', 'high'], inplace=True)\n    df['tier'].cat.set_ordered(True)\n    return df\n",
+          "equivalence": "withheld",
+          "recovery_after_steps": []
+        },
+        "evidence": {
+          "record": {
+            "task_id": "category_assignment_2",
+            "arm": "evidence",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 2,
+            "tokens": 3167,
+            "llm_calls": 2,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 1,
+            "diagnostic_seconds": 0.0032403539998995257,
+            "repair_seconds": 7.083326889999967,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df['tier'] = df['tier'].astype('category')\n    df['tier'] = df['tier'].cat.reorder_categories(['low', 'middle', 'high'], ordered=True)\n    return df\n",
+          "equivalence": "equal",
+          "recovery_after_steps": [
+            6
+          ]
+        },
+        "schema_guard": {
+          "record": {
+            "task_id": "category_assignment_2",
+            "arm": "schema_guard",
+            "outcome": "ESCALATE",
+            "initial_correct": false,
+            "final_correct": false,
+            "equivalence": "withheld",
+            "attempts": 3,
+            "tokens": 3695,
+            "llm_calls": 3,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 9.754020956999966,
+            "escalate_reason": "identical code proposed twice"
+          },
+          "final_code": "def transform(df):\n    df['tier'] = df['tier'].astype('category')\n    df['tier'].cat.add_categories(['low', 'middle', 'high'], inplace=True)\n    df['tier'].cat.set_ordered(True)\n    return df\n",
+          "equivalence": "withheld",
+          "recovery_after_steps": []
+        },
+        "combined": {
+          "record": {
+            "task_id": "category_assignment_2",
+            "arm": "combined",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 2,
+            "tokens": 3167,
+            "llm_calls": 2,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 1,
+            "diagnostic_seconds": 0.0031961989999444995,
+            "repair_seconds": 7.207899998000016,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df['tier'] = df['tier'].astype('category')\n    df['tier'] = df['tier'].cat.reorder_categories(['low', 'middle', 'high'], ordered=True)\n    return df\n",
+          "equivalence": "equal",
+          "recovery_after_steps": [
+            6
+          ]
+        }
+      }
+    },
+    "derived_preserve_inputs": {
+      "request": "Add total equal to units_a plus units_b. Preserve every original column and row.",
+      "initial_correct": false,
+      "arms": {
+        "control": {
+          "record": {
+            "task_id": "derived_preserve_inputs",
+            "arm": "control",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 1,
+            "tokens": 1102,
+            "llm_calls": 1,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 2.958286842000007,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df['total'] = df['units_a'] + df['units_b']\n    return df\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "evidence": {
+          "record": {
+            "task_id": "derived_preserve_inputs",
+            "arm": "evidence",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 1,
+            "tokens": 1424,
+            "llm_calls": 1,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0.0031728199999179196,
+            "repair_seconds": 3.1409728480000467,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df['total'] = df['units_a'] + df['units_b']\n    return df\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "schema_guard": {
+          "record": {
+            "task_id": "derived_preserve_inputs",
+            "arm": "schema_guard",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 1,
+            "tokens": 1150,
+            "llm_calls": 1,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 2.9740851779999957,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df['total'] = df['units_a'] + df['units_b']\n    return df\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "combined": {
+          "record": {
+            "task_id": "derived_preserve_inputs",
+            "arm": "combined",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 1,
+            "tokens": 1532,
+            "llm_calls": 1,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0.003112832999931925,
+            "repair_seconds": 3.2017395249999936,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df['total'] = df['units_a'] + df['units_b']\n    return df\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        }
+      }
+    },
+    "rounding_convention_1": {
+      "request": "Round reading to 1 decimal places using pandas/NumPy rounding. Keep missing values and other columns unchanged.",
+      "initial_correct": false,
+      "arms": {
+        "control": {
+          "record": {
+            "task_id": "rounding_convention_1",
+            "arm": "control",
+            "outcome": "REJECT",
+            "initial_correct": false,
+            "final_correct": false,
+            "equivalence": "withheld",
+            "attempts": 3,
+            "tokens": 4938,
+            "llm_calls": 4,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 11.79832369299993,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df['reading'] = df['reading'].apply(lambda x: round(x, 1) if pd.notna(x) else x)\n    return df\n",
+          "equivalence": "withheld",
+          "recovery_after_steps": []
+        },
+        "evidence": {
+          "record": {
+            "task_id": "rounding_convention_1",
+            "arm": "evidence",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 1,
+            "tokens": 1671,
+            "llm_calls": 1,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0.0046358000000736865,
+            "repair_seconds": 3.273850454000012,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df['reading'] = df['reading'].apply(np.round, decimals=1)\n    return df\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "schema_guard": {
+          "record": {
+            "task_id": "rounding_convention_1",
+            "arm": "schema_guard",
+            "outcome": "REJECT",
+            "initial_correct": false,
+            "final_correct": false,
+            "equivalence": "withheld",
+            "attempts": 3,
+            "tokens": 4938,
+            "llm_calls": 4,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 11.890045685000018,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df['reading'] = df['reading'].apply(lambda x: round(x, 1) if pd.notna(x) else x)\n    return df\n",
+          "equivalence": "withheld",
+          "recovery_after_steps": []
+        },
+        "combined": {
+          "record": {
+            "task_id": "rounding_convention_1",
+            "arm": "combined",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 1,
+            "tokens": 1671,
+            "llm_calls": 1,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0.004732639000053496,
+            "repair_seconds": 3.264853740000035,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df['reading'] = df['reading'].apply(np.round, decimals=1)\n    return df\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        }
+      }
+    },
+    "rounding_convention_2": {
+      "request": "Round reading to 2 decimal places using pandas/NumPy rounding. Keep missing values and other columns unchanged.",
+      "initial_correct": false,
+      "arms": {
+        "control": {
+          "record": {
+            "task_id": "rounding_convention_2",
+            "arm": "control",
+            "outcome": "REJECT",
+            "initial_correct": false,
+            "final_correct": false,
+            "equivalence": "withheld",
+            "attempts": 3,
+            "tokens": 3699,
+            "llm_calls": 3,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 9.006883678000008,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df['reading'] = df['reading'].apply(lambda x: round(x, 2) if pd.notna(x) else x)\n    return df\n",
+          "equivalence": "withheld",
+          "recovery_after_steps": []
+        },
+        "evidence": {
+          "record": {
+            "task_id": "rounding_convention_2",
+            "arm": "evidence",
+            "outcome": "REJECT",
+            "initial_correct": false,
+            "final_correct": false,
+            "equivalence": "withheld",
+            "attempts": 3,
+            "tokens": 5479,
+            "llm_calls": 3,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 1,
+            "diagnostic_seconds": 0.00747433599985925,
+            "repair_seconds": 9.019866856000021,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df['reading'] = df['reading'].apply(np.round)\n    return df\n",
+          "equivalence": "withheld",
+          "recovery_after_steps": [
+            7
+          ]
+        },
+        "schema_guard": {
+          "record": {
+            "task_id": "rounding_convention_2",
+            "arm": "schema_guard",
+            "outcome": "REJECT",
+            "initial_correct": false,
+            "final_correct": false,
+            "equivalence": "withheld",
+            "attempts": 3,
+            "tokens": 3699,
+            "llm_calls": 3,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 8.950711482000088,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df['reading'] = df['reading'].apply(lambda x: round(x, 2) if pd.notna(x) else x)\n    return df\n",
+          "equivalence": "withheld",
+          "recovery_after_steps": []
+        },
+        "combined": {
+          "record": {
+            "task_id": "rounding_convention_2",
+            "arm": "combined",
+            "outcome": "REJECT",
+            "initial_correct": false,
+            "final_correct": false,
+            "equivalence": "withheld",
+            "attempts": 3,
+            "tokens": 5479,
+            "llm_calls": 3,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 1,
+            "diagnostic_seconds": 0.0074973609999915425,
+            "repair_seconds": 8.912074103999998,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df['reading'] = df['reading'].apply(np.round)\n    return df\n",
+          "equivalence": "withheld",
+          "recovery_after_steps": [
+            7
+          ]
+        }
+      }
+    },
+    "filter_keep_unknown": {
+      "request": "Remove measurements below 10. Keep rows with an unknown measurement, unchanged.",
+      "initial_correct": false,
+      "arms": {
+        "control": {
+          "record": {
+            "task_id": "filter_keep_unknown",
+            "arm": "control",
+            "outcome": "REJECT",
+            "initial_correct": false,
+            "final_correct": false,
+            "equivalence": "withheld",
+            "attempts": 3,
+            "tokens": 12699,
+            "llm_calls": 8,
+            "tool_calls": 5,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 15.558509533999995,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    return df[df['measurement'] >= 10].dropna(subset=['measurement'])\n",
+          "equivalence": "withheld",
+          "recovery_after_steps": []
+        },
+        "evidence": {
+          "record": {
+            "task_id": "filter_keep_unknown",
+            "arm": "evidence",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 2,
+            "tokens": 3205,
+            "llm_calls": 2,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 1,
+            "diagnostic_seconds": 0.0011951179999414308,
+            "repair_seconds": 5.400469206000025,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    return df[df['measurement'].ge(10) | df['measurement'].isna()]\n",
+          "equivalence": "equal",
+          "recovery_after_steps": [
+            6
+          ]
+        },
+        "schema_guard": {
+          "record": {
+            "task_id": "filter_keep_unknown",
+            "arm": "schema_guard",
+            "outcome": "REJECT",
+            "initial_correct": false,
+            "final_correct": false,
+            "equivalence": "withheld",
+            "attempts": 3,
+            "tokens": 12699,
+            "llm_calls": 8,
+            "tool_calls": 5,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 15.508863448000056,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    return df[df['measurement'] >= 10].dropna(subset=['measurement'])\n",
+          "equivalence": "withheld",
+          "recovery_after_steps": []
+        },
+        "combined": {
+          "record": {
+            "task_id": "filter_keep_unknown",
+            "arm": "combined",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 2,
+            "tokens": 3205,
+            "llm_calls": 2,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 1,
+            "diagnostic_seconds": 0.0012111500000173692,
+            "repair_seconds": 5.369419224000012,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    return df[df['measurement'].ge(10) | df['measurement'].isna()]\n",
+          "equivalence": "equal",
+          "recovery_after_steps": [
+            6
+          ]
+        }
+      }
+    },
+    "filter_extra_helper": {
+      "request": "Keep rows whose stamp is on or after 2025-04-01. Preserve the original text timestamps and original columns only.",
+      "initial_correct": false,
+      "arms": {
+        "control": {
+          "record": {
+            "task_id": "filter_extra_helper",
+            "arm": "control",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": false,
+            "equivalence": "columns differ (extra=['temporary_stamp'], missing=[])",
+            "attempts": 0,
+            "tokens": 0,
+            "llm_calls": 0,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 0.4864504920000172,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df['temporary_stamp'] = pd.to_datetime(df['stamp'])\n    return df[df['temporary_stamp'] >= pd.to_datetime('2025-04-01')]\n",
+          "equivalence": "columns differ (extra=['temporary_stamp'], missing=[])",
+          "recovery_after_steps": []
+        },
+        "evidence": {
+          "record": {
+            "task_id": "filter_extra_helper",
+            "arm": "evidence",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": false,
+            "equivalence": "columns differ (extra=['temporary_stamp'], missing=[])",
+            "attempts": 0,
+            "tokens": 0,
+            "llm_calls": 0,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0.0004969900001015048,
+            "repair_seconds": 0.477780910999968,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df['temporary_stamp'] = pd.to_datetime(df['stamp'])\n    return df[df['temporary_stamp'] >= pd.to_datetime('2025-04-01')]\n",
+          "equivalence": "columns differ (extra=['temporary_stamp'], missing=[])",
+          "recovery_after_steps": []
+        },
+        "schema_guard": {
+          "record": {
+            "task_id": "filter_extra_helper",
+            "arm": "schema_guard",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 1,
+            "tokens": 1112,
+            "llm_calls": 1,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 2.8505167129999336,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    return df[df['stamp'] >= '2025-04-01']\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "combined": {
+          "record": {
+            "task_id": "filter_extra_helper",
+            "arm": "combined",
+            "outcome": "ACCEPT",
+            "initial_correct": false,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 1,
+            "tokens": 1434,
+            "llm_calls": 1,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0.0010380529998883503,
+            "repair_seconds": 4.689705007999919,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df['temporary_stamp'] = pd.to_datetime(df['stamp'], errors='coerce')\n    return df[df['temporary_stamp'].notna() & (df['temporary_stamp'] >= pd.to_datetime('2025-04-01'))][['record', 'stamp']]\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        }
+      }
+    },
+    "control_fill": {
+      "request": "Fill missing quantity with 4, preserving all other cells.",
+      "initial_correct": true,
+      "arms": {
+        "control": {
+          "record": {
+            "task_id": "control_fill",
+            "arm": "control",
+            "outcome": "ACCEPT",
+            "initial_correct": true,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 0,
+            "tokens": 0,
+            "llm_calls": 0,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 0.4708196390000694,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df['quantity'] = df['quantity'].fillna(4)\n    return df\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "evidence": {
+          "record": {
+            "task_id": "control_fill",
+            "arm": "evidence",
+            "outcome": "ACCEPT",
+            "initial_correct": true,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 0,
+            "tokens": 0,
+            "llm_calls": 0,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0.0017713180000100692,
+            "repair_seconds": 0.46721360999993067,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df['quantity'] = df['quantity'].fillna(4)\n    return df\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "schema_guard": {
+          "record": {
+            "task_id": "control_fill",
+            "arm": "schema_guard",
+            "outcome": "ACCEPT",
+            "initial_correct": true,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 0,
+            "tokens": 0,
+            "llm_calls": 0,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 0.4944443920001049,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df['quantity'] = df['quantity'].fillna(4)\n    return df\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "combined": {
+          "record": {
+            "task_id": "control_fill",
+            "arm": "combined",
+            "outcome": "ACCEPT",
+            "initial_correct": true,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 0,
+            "tokens": 0,
+            "llm_calls": 0,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0.0017981949999921198,
+            "repair_seconds": 0.4829697000000124,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df['quantity'] = df['quantity'].fillna(4)\n    return df\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        }
+      }
+    },
+    "control_rename": {
+      "request": "Rename quantity to amount and preserve values.",
+      "initial_correct": true,
+      "arms": {
+        "control": {
+          "record": {
+            "task_id": "control_rename",
+            "arm": "control",
+            "outcome": "ACCEPT",
+            "initial_correct": true,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 0,
+            "tokens": 0,
+            "llm_calls": 0,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 0.47514777000003505,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    return df.rename(columns={'quantity':'amount'})\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "evidence": {
+          "record": {
+            "task_id": "control_rename",
+            "arm": "evidence",
+            "outcome": "ACCEPT",
+            "initial_correct": true,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 0,
+            "tokens": 0,
+            "llm_calls": 0,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0.001138029000003371,
+            "repair_seconds": 0.4746182209999006,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    return df.rename(columns={'quantity':'amount'})\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "schema_guard": {
+          "record": {
+            "task_id": "control_rename",
+            "arm": "schema_guard",
+            "outcome": "ACCEPT",
+            "initial_correct": true,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 0,
+            "tokens": 0,
+            "llm_calls": 0,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 0.4647873139999774,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    return df.rename(columns={'quantity':'amount'})\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "combined": {
+          "record": {
+            "task_id": "control_rename",
+            "arm": "combined",
+            "outcome": "ACCEPT",
+            "initial_correct": true,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 0,
+            "tokens": 0,
+            "llm_calls": 0,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0.0011736110000128974,
+            "repair_seconds": 0.4841712729999017,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    return df.rename(columns={'quantity':'amount'})\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        }
+      }
+    },
+    "control_drop": {
+      "request": "Remove quantity. Keep every other column and all rows.",
+      "initial_correct": true,
+      "arms": {
+        "control": {
+          "record": {
+            "task_id": "control_drop",
+            "arm": "control",
+            "outcome": "ACCEPT",
+            "initial_correct": true,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 0,
+            "tokens": 0,
+            "llm_calls": 0,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 0.48458337399995344,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    return df.drop(columns=['quantity'])\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "evidence": {
+          "record": {
+            "task_id": "control_drop",
+            "arm": "evidence",
+            "outcome": "ACCEPT",
+            "initial_correct": true,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 0,
+            "tokens": 0,
+            "llm_calls": 0,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0.0012122850000650942,
+            "repair_seconds": 0.47600991600006637,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    return df.drop(columns=['quantity'])\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "schema_guard": {
+          "record": {
+            "task_id": "control_drop",
+            "arm": "schema_guard",
+            "outcome": "ACCEPT",
+            "initial_correct": true,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 0,
+            "tokens": 0,
+            "llm_calls": 0,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 0.5153288100000282,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    return df.drop(columns=['quantity'])\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "combined": {
+          "record": {
+            "task_id": "control_drop",
+            "arm": "combined",
+            "outcome": "ACCEPT",
+            "initial_correct": true,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 0,
+            "tokens": 0,
+            "llm_calls": 0,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0.001022174000013365,
+            "repair_seconds": 0.47000925199995436,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    return df.drop(columns=['quantity'])\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        }
+      }
+    },
+    "control_add": {
+      "request": "Add double equal to quantity multiplied by 2. Preserve the input columns.",
+      "initial_correct": true,
+      "arms": {
+        "control": {
+          "record": {
+            "task_id": "control_add",
+            "arm": "control",
+            "outcome": "ACCEPT",
+            "initial_correct": true,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 0,
+            "tokens": 0,
+            "llm_calls": 0,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 0.4737860019999971,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df['double'] = df['quantity'] * 2\n    return df\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "evidence": {
+          "record": {
+            "task_id": "control_add",
+            "arm": "evidence",
+            "outcome": "ACCEPT",
+            "initial_correct": true,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 0,
+            "tokens": 0,
+            "llm_calls": 0,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0.001472766999995656,
+            "repair_seconds": 0.5155853569999636,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df['double'] = df['quantity'] * 2\n    return df\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "schema_guard": {
+          "record": {
+            "task_id": "control_add",
+            "arm": "schema_guard",
+            "outcome": "ACCEPT",
+            "initial_correct": true,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 0,
+            "tokens": 0,
+            "llm_calls": 0,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 0.46439919099998406,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df['double'] = df['quantity'] * 2\n    return df\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "combined": {
+          "record": {
+            "task_id": "control_add",
+            "arm": "combined",
+            "outcome": "ACCEPT",
+            "initial_correct": true,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 0,
+            "tokens": 0,
+            "llm_calls": 0,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0.0015036940000072718,
+            "repair_seconds": 0.5034865299999183,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    df['double'] = df['quantity'] * 2\n    return df\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        }
+      }
+    },
+    "control_empty": {
+      "request": "Remove all rows with quantity greater than zero, retaining the original columns.",
+      "initial_correct": true,
+      "arms": {
+        "control": {
+          "record": {
+            "task_id": "control_empty",
+            "arm": "control",
+            "outcome": "ACCEPT",
+            "initial_correct": true,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 0,
+            "tokens": 0,
+            "llm_calls": 0,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 0.47664715200005503,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    return df[df['quantity'] <= 0].copy()\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "evidence": {
+          "record": {
+            "task_id": "control_empty",
+            "arm": "evidence",
+            "outcome": "ACCEPT",
+            "initial_correct": true,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 0,
+            "tokens": 0,
+            "llm_calls": 0,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0.00039821400002892915,
+            "repair_seconds": 0.4984171140000626,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    return df[df['quantity'] <= 0].copy()\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "schema_guard": {
+          "record": {
+            "task_id": "control_empty",
+            "arm": "schema_guard",
+            "outcome": "ACCEPT",
+            "initial_correct": true,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 0,
+            "tokens": 0,
+            "llm_calls": 0,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0,
+            "repair_seconds": 0.5170493310000666,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    return df[df['quantity'] <= 0].copy()\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        },
+        "combined": {
+          "record": {
+            "task_id": "control_empty",
+            "arm": "combined",
+            "outcome": "ACCEPT",
+            "initial_correct": true,
+            "final_correct": true,
+            "equivalence": "equal",
+            "attempts": 0,
+            "tokens": 0,
+            "llm_calls": 0,
+            "tool_calls": 0,
+            "fresh_recovery_requests": 0,
+            "diagnostic_seconds": 0.00040750100004061096,
+            "repair_seconds": 0.5238731970000572,
+            "escalate_reason": null
+          },
+          "final_code": "def transform(df):\n    return df[df['quantity'] <= 0].copy()\n",
+          "equivalence": "equal",
+          "recovery_after_steps": []
+        }
+      }
+    }
+  },
+  "limits": [
+    "Local CPU replay; GPU latency and real token counts are verified from recorded traces, not recomputed by a tokenizer.",
+    "Small synthetic repair-only suite informed by earlier failures; no live parser/generator and no independent benchmark.",
+    "Five correct controls return before any repair model call; this does not test regression safety when correct code is blocked by an incorrect contract."
+  ],
+  "paired": {
+    "control": {
+      "gains": [],
+      "losses": []
+    },
+    "evidence": {
+      "gains": [
+        "category_assignment_1",
+        "category_assignment_2",
+        "rounding_convention_1",
+        "filter_keep_unknown"
+      ],
+      "losses": []
+    },
+    "schema_guard": {
+      "gains": [
+        "filter_extra_helper"
+      ],
+      "losses": []
+    },
+    "combined": {
+      "gains": [
+        "category_assignment_1",
+        "category_assignment_2",
+        "rounding_convention_1",
+        "filter_keep_unknown",
+        "filter_extra_helper"
+      ],
+      "losses": []
+    }
+  }
+}

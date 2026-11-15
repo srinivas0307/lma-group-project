@@ -1,0 +1,75 @@
+{
+  "packaged_cpu_check": "passed",
+  "records": 68,
+  "source_manifest_sha256": "4be9feb5542ba53281961a772f97154d85836caab92af66f931d647d195521aa",
+  "model_quality_result": false,
+  "gpu_validation": "not run locally: no Torch/CUDA runtime",
+  "summary": {
+    "model_quality_result": false,
+    "complete": true,
+    "arms": {
+      "control": {
+        "tasks": 17,
+        "correct": 16,
+        "incorrect_accepted": 1,
+        "withheld": 0,
+        "initial_correct_lost": 0,
+        "repairs": 11,
+        "tokens": 11578,
+        "llm_calls": 11,
+        "tools": 0,
+        "fresh_recovery_requests": 0,
+        "diagnostic_seconds": 0,
+        "repair_seconds": 14.549243267989368
+      },
+      "evidence": {
+        "tasks": 17,
+        "correct": 16,
+        "incorrect_accepted": 1,
+        "withheld": 0,
+        "initial_correct_lost": 0,
+        "repairs": 11,
+        "tokens": 15987,
+        "llm_calls": 11,
+        "tools": 0,
+        "fresh_recovery_requests": 0,
+        "diagnostic_seconds": 0.05659810400538845,
+        "repair_seconds": 14.619358091997128
+      },
+      "schema_guard": {
+        "tasks": 17,
+        "correct": 17,
+        "incorrect_accepted": 0,
+        "withheld": 0,
+        "initial_correct_lost": 0,
+        "repairs": 12,
+        "tokens": 12687,
+        "llm_calls": 12,
+        "tools": 0,
+        "fresh_recovery_requests": 0,
+        "diagnostic_seconds": 0,
+        "repair_seconds": 15.587827972995001
+      },
+      "combined": {
+        "tasks": 17,
+        "correct": 17,
+        "incorrect_accepted": 0,
+        "withheld": 0,
+        "initial_correct_lost": 0,
+        "repairs": 12,
+        "tokens": 17432,
+        "llm_calls": 12,
+        "tools": 0,
+        "fresh_recovery_requests": 0,
+        "diagnostic_seconds": 0.05056305900143343,
+        "repair_seconds": 15.13700748899646
+      }
+    }
+  },
+  "seal_verified": true,
+  "tests": {
+    "command": ".venv/bin/python -m pytest -q tests/test_stage2_repair_dev.py tests/agent/test_repair_agent.py",
+    "passed": 60
+  },
+  "frozen_source_integrity": "passed"
+}

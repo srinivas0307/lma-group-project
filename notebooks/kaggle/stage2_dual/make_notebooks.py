@@ -132,14 +132,39 @@ Selective facts uses the corrected scope router plus operator normalization, wit
 Run a two-task infrastructure smoke, then all 100 test tasks. A smoke can accept/reject/escalate: it checks infrastructure, not a quality threshold. The previously inspected test tasks provide diagnostic comparison, not independent research evidence. Download **stage2_dual_{method}_proposed.zip** and the executed notebook. Compare both methods using the CPU collector from this same pack.
 '''
             intro+='\n**Colab:** create `MyDrive/igt_scopefix`, place the two ZIPs there, enable T4 GPU, then Run all. Use separate sessions for the two methods. Results are copied to timestamped Drive folders.\n' if platform=='colab' else '\n**Kaggle:** attach both required ZIPs as private datasets, enable Internet and T4 GPU (T4 x2 also works), then Save Version → Run All.\n'
-            header=config(platform)+f'\nMETHOD={method!r}\n'+f"for name in ['stage2_dual_source.zip',{adapter!r}]:\n    matches=list(INPUT.rglob(name));print(('found   ' if matches else 'MISSING ')+name,*matches)\n"
+            if platform=='kaggle' and method=='tools':
+                intro+='\n**Recommended upload:** create one private dataset from `stage2_dual_tools_kaggle_dataset.zip` (the clean package). It contains both source and the selected adapter without nested result archives. Attach that single dataset; the verification cells discover its extracted contents automatically. Do not upload the full original tool-training results ZIP directly.\n'
+            header=config(platform)+f'\nMETHOD={method!r}\n'+f"for name in ['stage2_dual_source.zip',{adapter!r}]:\n    matches=list(INPUT.rglob(name));print(('found ZIP: ' if matches else 'No intact ZIP (may be extracted): ')+name,*matches)\nprint('The next cells verify source files and adapter contents, including automatically extracted datasets.')\n"
             save(folder,f'stage2_dual_{method}_proposed_{platform}.ipynb',[nb.v4.new_markdown_cell(intro)]+[nb.v4.new_code_cell(c) for c in [header,loader,prepare,execute,finish]])
         collector='''paths=[]
 for method in ['selective','tools']:
-    candidates=list(INPUT.rglob('stage2_dual_'+method+'_proposed.zip'))
-    by_hash={hashlib.sha256(p.read_bytes()).hexdigest():p for p in candidates}
-    assert len(by_hash)==1,f'Need exactly one distinct full bundle for {method}; found {candidates}'
-    paths.append(next(iter(by_hash.values())))
+    filename='stage2_dual_'+method+'_proposed.zip'
+    candidates=list(INPUT.rglob(filename))
+    # Kaggle may unpack a result dataset instead of preserving its uploaded ZIP.
+    for plan_path in INPUT.rglob('plan.json'):
+        try:
+            plan=json.loads(plan_path.read_text())
+            if plan.get('experiment')!='stage2-dual-parser-v1' or plan.get('method')!=method or plan.get('preset')!='proposed':continue
+            folder=plan_path.parent;seal=json.loads((folder/'bundle.json').read_text())
+        except (OSError,ValueError):continue
+        assert seal.get('complete'),f'Incomplete extracted run: {folder}'
+        local=RUN_DIR/('repacked_'+method+'_'+str(len(candidates))+'.zip')
+        with zipfile.ZipFile(local,'w',zipfile.ZIP_DEFLATED) as archive:
+            for name,sha in seal['sha256'].items():
+                relative=Path(name);assert not relative.is_absolute() and '..' not in relative.parts
+                data=(folder/relative).read_bytes()
+                assert hashlib.sha256(data).hexdigest()==sha,f'Changed extracted result: {folder/name}'
+                archive.writestr(name,data)
+            archive.writestr('bundle.json',json.dumps(seal))
+        candidates.append(local)
+    by_contents={}
+    for candidate in candidates:
+        with zipfile.ZipFile(candidate) as archive:
+            seal=json.loads(archive.read('bundle.json'))
+        fingerprint=hashlib.sha256(json.dumps(seal,sort_keys=True).encode()).hexdigest()
+        by_contents[fingerprint]=candidate
+    assert len(by_contents)==1,f'Need one distinct full result for {method}; found {candidates}'
+    paths.append(next(iter(by_contents.values())))
 OUT=RUN_DIR/'stage2_dual_comparison'
 subprocess.run([sys.executable,'-m','eval.stage2_dual.collect',*map(str,paths),'--out',str(OUT)],cwd=ROOT,env=ENV,check=True)
 save_results()
@@ -150,7 +175,7 @@ print('COMPLETE: two full Stage 2 runs verified; no models loaded.')
         intro='''# Stage 2 — two-parser CPU collector
 No GPU or adapter required. Provide **stage2_dual_source.zip**, **stage2_dual_selective_proposed.zip** and **stage2_dual_tools_proposed.zip**. Inputs must come from the same source pack, match software/Python versions, and cover the same complete 100 tasks. Partial/smoke/scripted or mixed-method/version bundles are refused. Results report correct acceptance, incorrect acceptance, withholding, repairs, parser costs and every parser tool failure.
 '''
-        intro+='\nColab: place all three ZIPs under `MyDrive/igt_scopefix` (timestamped result subfolders are searched). Run all on CPU.\n' if platform=='colab' else '\nKaggle: attach all three ZIPs as datasets and enable Internet. Run all on CPU.\n'
+        intro+='\nColab: place all three ZIPs under `MyDrive/igt_scopefix` (timestamped result subfolders are searched). Run all on CPU.\n' if platform=='colab' else '\nKaggle: create a separate dataset for each result ZIP to avoid overlapping result folders, then attach both plus the source dataset. Automatically extracted result folders are supported. Enable Internet and run on CPU.\n'
         save(folder,f'stage2_dual_collect_{platform}.ipynb',[nb.v4.new_markdown_cell(intro)]+[nb.v4.new_code_cell(c) for c in [config(platform),loader,collector]])
     print('Built two independent runners + collector for Colab/Kaggle; source manifest',sha,'files',len(contents))
 if __name__=='__main__':build()
