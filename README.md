@@ -15,6 +15,8 @@ These experiments use different protocol versions. Previously inspected test cas
 
 ## Current runnable work
 
+The [completed contract-check experiment](results/contract_check_v1/completed/ANALYSIS.md) gives selective facts **76/1/23** and tools **74/1/25**, with lower token use but the shared wrong acceptance still unresolved. All 200 task records pass the CPU audit.
+
 The [combined gold workflow with 7B NF4 repair](docs/stage2_combined_gold_7b.md) is ready for Kaggle. It retains 3B FP16 generation and the same combined procedure/budgets, with an optional comparison against the completed 84/100 combined 3B gold run. GPU results are pending.
 
 The [combined 3B gold-contract diagnostic](docs/stage2_combined_gold.md) is implemented for comparison with both completed parser methods. It needs only its new source ZIP and no parser adapter. Its completed result is **84 correct, zero incorrect accepted, 16 withheld**, versus 74/1/25 for each predicted-contract method; see [the audited gold analysis](results/stage2_combined_gold_analysis/ANALYSIS.md). A post-run collector serialization bug is handled offline.

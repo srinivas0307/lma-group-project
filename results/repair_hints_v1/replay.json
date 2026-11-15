@@ -1,0 +1,990 @@
+{
+ "gold": {
+  "compiled": {
+   "correct/compiled_correct": 84,
+   "withheld/compiled_correct": 16
+  },
+  "lint_on_failed_attempts": {
+   "drops_required_column": 7,
+   "discarded_result": 5,
+   "bad_category_kwargs": 1,
+   "unrequested_dropna": 9,
+   "groupby_for_dedup": 3,
+   "sort_before_dedup": 14,
+   "overwrites_preserved_column": 4,
+   "round_style": 3,
+   "null_filter": 1,
+   "merge_for_fill": 3
+  },
+  "lint_on_initially_correct": {
+   "groupby_for_dedup": 3
+  },
+  "hint_block_tokens_approx": {
+   "max": 374,
+   "mean": 178
+  },
+  "failing_tasks": [
+   {
+    "task_id": "adult_col_002",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 3,
+    "lint_per_attempt": [
+     [
+      "drops_required_column"
+     ],
+     [
+      "drops_required_column"
+     ],
+     [
+      "drops_required_column"
+     ]
+    ],
+    "first_failed": [
+     "declared_output_schema",
+     "p1"
+    ]
+   },
+   {
+    "task_id": "adult_conv_003",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 2,
+    "lint_per_attempt": [
+     [
+      "discarded_result"
+     ],
+     [
+      "discarded_result"
+     ]
+    ],
+    "first_failed": [
+     "c1"
+    ]
+   },
+   {
+    "task_id": "adult_dedup_003",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 3,
+    "lint_per_attempt": [
+     [],
+     [],
+     []
+    ],
+    "first_failed": [
+     "execution"
+    ]
+   },
+   {
+    "task_id": "airbnb_conv_005",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 3,
+    "lint_per_attempt": [
+     [
+      "discarded_result"
+     ],
+     [
+      "discarded_result"
+     ],
+     [
+      "discarded_result",
+      "bad_category_kwargs"
+     ]
+    ],
+    "first_failed": [
+     "c1"
+    ]
+   },
+   {
+    "task_id": "airbnb_dedup_002",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 4,
+    "lint_per_attempt": [
+     [
+      "unrequested_dropna",
+      "groupby_for_dedup"
+     ],
+     [
+      "sort_before_dedup",
+      "unrequested_dropna"
+     ],
+     [
+      "sort_before_dedup",
+      "unrequested_dropna"
+     ],
+     [
+      "sort_before_dedup",
+      "unrequested_dropna"
+     ]
+    ],
+    "first_failed": [
+     "c1"
+    ]
+   },
+   {
+    "task_id": "airbnb_dedup_004",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 4,
+    "lint_per_attempt": [
+     [],
+     [
+      "sort_before_dedup"
+     ],
+     [
+      "sort_before_dedup"
+     ],
+     [
+      "sort_before_dedup"
+     ]
+    ],
+    "first_failed": [
+     "c1"
+    ]
+   },
+   {
+    "task_id": "airbnb_dedup_005",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 4,
+    "lint_per_attempt": [
+     [
+      "unrequested_dropna",
+      "groupby_for_dedup"
+     ],
+     [
+      "unrequested_dropna",
+      "groupby_for_dedup"
+     ],
+     [
+      "unrequested_dropna"
+     ],
+     [
+      "sort_before_dedup",
+      "unrequested_dropna"
+     ]
+    ],
+    "first_failed": [
+     "c1"
+    ]
+   },
+   {
+    "task_id": "taxi_dedup_005",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 4,
+    "lint_per_attempt": [
+     [
+      "sort_before_dedup"
+     ],
+     [
+      "sort_before_dedup"
+     ],
+     [
+      "sort_before_dedup"
+     ],
+     [
+      "sort_before_dedup"
+     ]
+    ],
+    "first_failed": [
+     "c1"
+    ]
+   },
+   {
+    "task_id": "taxi_filt_004",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 4,
+    "lint_per_attempt": [
+     [
+      "overwrites_preserved_column"
+     ],
+     [
+      "overwrites_preserved_column"
+     ],
+     [
+      "overwrites_preserved_column"
+     ],
+     [
+      "overwrites_preserved_column"
+     ]
+    ],
+    "first_failed": [
+     "p2"
+    ]
+   },
+   {
+    "task_id": "taxi_filt_005",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 3,
+    "lint_per_attempt": [
+     [
+      "unrequested_dropna"
+     ],
+     [],
+     [
+      "drops_required_column"
+     ]
+    ],
+    "first_failed": [
+     "c1",
+     "declared_output_schema",
+     "p1",
+     "p2"
+    ]
+   },
+   {
+    "task_id": "titanic_col_001",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 3,
+    "lint_per_attempt": [
+     [
+      "drops_required_column"
+     ],
+     [
+      "drops_required_column"
+     ],
+     [
+      "drops_required_column"
+     ]
+    ],
+    "first_failed": [
+     "declared_output_schema",
+     "p1"
+    ]
+   },
+   {
+    "task_id": "titanic_col_003",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 3,
+    "lint_per_attempt": [
+     [
+      "round_style"
+     ],
+     [
+      "round_style"
+     ],
+     [
+      "round_style"
+     ]
+    ],
+    "first_failed": [
+     "c1"
+    ]
+   },
+   {
+    "task_id": "titanic_dedup_002",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 3,
+    "lint_per_attempt": [
+     [
+      "sort_before_dedup"
+     ],
+     [
+      "sort_before_dedup"
+     ],
+     [
+      "sort_before_dedup"
+     ]
+    ],
+    "first_failed": [
+     "c1"
+    ]
+   },
+   {
+    "task_id": "titanic_filt_003",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 4,
+    "lint_per_attempt": [
+     [],
+     [],
+     [],
+     [
+      "null_filter"
+     ]
+    ],
+    "first_failed": [
+     "p1"
+    ]
+   },
+   {
+    "task_id": "titanic_filt_005",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 3,
+    "lint_per_attempt": [
+     [],
+     [],
+     []
+    ],
+    "first_failed": [
+     "execution"
+    ]
+   },
+   {
+    "task_id": "titanic_miss_005",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 3,
+    "lint_per_attempt": [
+     [
+      "merge_for_fill"
+     ],
+     [
+      "merge_for_fill"
+     ],
+     [
+      "merge_for_fill"
+     ]
+    ],
+    "first_failed": [
+     "execution"
+    ]
+   }
+  ]
+ },
+ "selective_checked": {
+  "compiled": {
+   "correct/compiled_correct": 74,
+   "correct/compiled_wrong": 2,
+   "withheld/compiled_VIOLATION": 1,
+   "withheld/compiled_correct": 9,
+   "withheld/compiled_wrong": 3,
+   "withheld/no_contract": 10,
+   "wrong_accept/compiled_wrong": 1
+  },
+  "lint_on_failed_attempts": {
+   "discarded_result": 3,
+   "sort_before_dedup": 9,
+   "unrequested_dropna": 3,
+   "groupby_for_dedup": 3,
+   "overwrites_preserved_column": 3,
+   "null_filter": 3,
+   "drops_required_column": 3,
+   "round_style": 4
+  },
+  "lint_on_initially_correct": {
+   "groupby_for_dedup": 3
+  },
+  "hint_block_tokens_approx": {
+   "max": 195,
+   "mean": 143
+  },
+  "failing_tasks": [
+   {
+    "task_id": "adult_col_005",
+    "system": "withheld",
+    "compiled": "wrong",
+    "attempts": 2,
+    "lint_per_attempt": [
+     [],
+     []
+    ],
+    "first_failed": [
+     "c2"
+    ]
+   },
+   {
+    "task_id": "adult_miss_005",
+    "system": "withheld",
+    "compiled": "VIOLATION",
+    "attempts": 3,
+    "lint_per_attempt": [
+     [],
+     [],
+     []
+    ],
+    "first_failed": [
+     "p1",
+     "p2"
+    ]
+   },
+   {
+    "task_id": "airbnb_conv_005",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 3,
+    "lint_per_attempt": [
+     [
+      "discarded_result"
+     ],
+     [
+      "discarded_result"
+     ],
+     [
+      "discarded_result"
+     ]
+    ],
+    "first_failed": [
+     "c1"
+    ]
+   },
+   {
+    "task_id": "airbnb_dedup_004",
+    "system": "withheld",
+    "compiled": "wrong",
+    "attempts": 4,
+    "lint_per_attempt": [
+     [
+      "sort_before_dedup"
+     ],
+     [
+      "sort_before_dedup"
+     ],
+     [
+      "sort_before_dedup"
+     ],
+     [
+      "sort_before_dedup"
+     ]
+    ],
+    "first_failed": [
+     "c1"
+    ]
+   },
+   {
+    "task_id": "airbnb_dedup_005",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 2,
+    "lint_per_attempt": [
+     [
+      "unrequested_dropna",
+      "groupby_for_dedup"
+     ],
+     [
+      "unrequested_dropna"
+     ]
+    ],
+    "first_failed": [
+     "c1"
+    ]
+   },
+   {
+    "task_id": "airbnb_filt_002",
+    "system": "wrong_accept",
+    "compiled": "wrong",
+    "attempts": 2,
+    "lint_per_attempt": [
+     [],
+     []
+    ],
+    "first_failed": [
+     "c1",
+     "c2"
+    ]
+   },
+   {
+    "task_id": "taxi_dedup_005",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 3,
+    "lint_per_attempt": [
+     [
+      "sort_before_dedup"
+     ],
+     [
+      "sort_before_dedup"
+     ],
+     [
+      "sort_before_dedup"
+     ]
+    ],
+    "first_failed": [
+     "c1"
+    ]
+   },
+   {
+    "task_id": "taxi_filt_004",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 3,
+    "lint_per_attempt": [
+     [
+      "overwrites_preserved_column"
+     ],
+     [
+      "overwrites_preserved_column"
+     ],
+     [
+      "null_filter",
+      "overwrites_preserved_column"
+     ]
+    ],
+    "first_failed": [
+     "p2"
+    ]
+   },
+   {
+    "task_id": "titanic_col_001",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 3,
+    "lint_per_attempt": [
+     [
+      "drops_required_column"
+     ],
+     [
+      "drops_required_column"
+     ],
+     [
+      "drops_required_column"
+     ]
+    ],
+    "first_failed": [
+     "declared_output_schema",
+     "p1"
+    ]
+   },
+   {
+    "task_id": "titanic_col_003",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 4,
+    "lint_per_attempt": [
+     [
+      "round_style"
+     ],
+     [
+      "round_style"
+     ],
+     [
+      "round_style"
+     ],
+     [
+      "round_style"
+     ]
+    ],
+    "first_failed": [
+     "c1"
+    ]
+   },
+   {
+    "task_id": "titanic_col_005",
+    "system": "withheld",
+    "compiled": "wrong",
+    "attempts": 3,
+    "lint_per_attempt": [
+     [],
+     [],
+     []
+    ],
+    "first_failed": [
+     "c2"
+    ]
+   },
+   {
+    "task_id": "titanic_dedup_002",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 2,
+    "lint_per_attempt": [
+     [
+      "sort_before_dedup"
+     ],
+     [
+      "sort_before_dedup"
+     ]
+    ],
+    "first_failed": [
+     "c1"
+    ]
+   },
+   {
+    "task_id": "titanic_dedup_004",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 3,
+    "lint_per_attempt": [
+     [
+      "groupby_for_dedup"
+     ],
+     [
+      "groupby_for_dedup"
+     ],
+     []
+    ],
+    "first_failed": [
+     "execution"
+    ]
+   },
+   {
+    "task_id": "titanic_filt_003",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 4,
+    "lint_per_attempt": [
+     [],
+     [],
+     [
+      "null_filter"
+     ],
+     [
+      "unrequested_dropna",
+      "null_filter"
+     ]
+    ],
+    "first_failed": [
+     "p1"
+    ]
+   }
+  ]
+ },
+ "tools_checked": {
+  "compiled": {
+   "correct/compiled_correct": 72,
+   "correct/compiled_wrong": 2,
+   "withheld/compiled_VIOLATION": 1,
+   "withheld/compiled_correct": 11,
+   "withheld/compiled_wrong": 5,
+   "withheld/no_contract": 8,
+   "wrong_accept/compiled_wrong": 1
+  },
+  "lint_on_failed_attempts": {
+   "drops_required_column": 5,
+   "discarded_result": 3,
+   "overwrites_preserved_column": 6,
+   "sort_before_dedup": 6,
+   "unrequested_dropna": 4,
+   "groupby_for_dedup": 3,
+   "null_filter": 3,
+   "round_style": 4
+  },
+  "lint_on_initially_correct": {
+   "groupby_for_dedup": 3
+  },
+  "hint_block_tokens_approx": {
+   "max": 195,
+   "mean": 139
+  },
+  "failing_tasks": [
+   {
+    "task_id": "adult_col_005",
+    "system": "withheld",
+    "compiled": "wrong",
+    "attempts": 2,
+    "lint_per_attempt": [
+     [],
+     []
+    ],
+    "first_failed": [
+     "c2"
+    ]
+   },
+   {
+    "task_id": "adult_conv_003",
+    "system": "withheld",
+    "compiled": "wrong",
+    "attempts": 4,
+    "lint_per_attempt": [
+     [],
+     [],
+     [
+      "drops_required_column"
+     ],
+     [
+      "drops_required_column"
+     ]
+    ],
+    "first_failed": [
+     "c2"
+    ]
+   },
+   {
+    "task_id": "airbnb_conv_005",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 3,
+    "lint_per_attempt": [
+     [
+      "discarded_result"
+     ],
+     [
+      "discarded_result"
+     ],
+     [
+      "discarded_result"
+     ]
+    ],
+    "first_failed": [
+     "c1"
+    ]
+   },
+   {
+    "task_id": "airbnb_dedup_001",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 3,
+    "lint_per_attempt": [
+     [
+      "overwrites_preserved_column"
+     ],
+     [
+      "overwrites_preserved_column"
+     ],
+     [
+      "overwrites_preserved_column"
+     ]
+    ],
+    "first_failed": [
+     "p1"
+    ]
+   },
+   {
+    "task_id": "airbnb_dedup_004",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 2,
+    "lint_per_attempt": [
+     [],
+     [
+      "sort_before_dedup"
+     ]
+    ],
+    "first_failed": [
+     "c1"
+    ]
+   },
+   {
+    "task_id": "airbnb_dedup_005",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 2,
+    "lint_per_attempt": [
+     [
+      "unrequested_dropna",
+      "groupby_for_dedup"
+     ],
+     [
+      "unrequested_dropna"
+     ]
+    ],
+    "first_failed": [
+     "c1"
+    ]
+   },
+   {
+    "task_id": "airbnb_filt_002",
+    "system": "wrong_accept",
+    "compiled": "wrong",
+    "attempts": 2,
+    "lint_per_attempt": [
+     [],
+     []
+    ],
+    "first_failed": [
+     "c1",
+     "c2"
+    ]
+   },
+   {
+    "task_id": "taxi_dedup_005",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 3,
+    "lint_per_attempt": [
+     [
+      "sort_before_dedup"
+     ],
+     [
+      "sort_before_dedup"
+     ],
+     [
+      "sort_before_dedup"
+     ]
+    ],
+    "first_failed": [
+     "c1"
+    ]
+   },
+   {
+    "task_id": "taxi_filt_004",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 3,
+    "lint_per_attempt": [
+     [
+      "overwrites_preserved_column"
+     ],
+     [
+      "overwrites_preserved_column"
+     ],
+     [
+      "null_filter",
+      "overwrites_preserved_column"
+     ]
+    ],
+    "first_failed": [
+     "p2"
+    ]
+   },
+   {
+    "task_id": "titanic_col_001",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 3,
+    "lint_per_attempt": [
+     [
+      "drops_required_column"
+     ],
+     [
+      "drops_required_column"
+     ],
+     [
+      "drops_required_column"
+     ]
+    ],
+    "first_failed": [
+     "declared_output_schema",
+     "p1"
+    ]
+   },
+   {
+    "task_id": "titanic_col_003",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 4,
+    "lint_per_attempt": [
+     [
+      "round_style"
+     ],
+     [
+      "round_style"
+     ],
+     [
+      "round_style"
+     ],
+     [
+      "round_style"
+     ]
+    ],
+    "first_failed": [
+     "c1"
+    ]
+   },
+   {
+    "task_id": "titanic_col_005",
+    "system": "withheld",
+    "compiled": "wrong",
+    "attempts": 3,
+    "lint_per_attempt": [
+     [],
+     [],
+     [
+      "unrequested_dropna"
+     ]
+    ],
+    "first_failed": [
+     "c2"
+    ]
+   },
+   {
+    "task_id": "titanic_conv_002",
+    "system": "withheld",
+    "compiled": "wrong",
+    "attempts": 3,
+    "lint_per_attempt": [
+     [],
+     [],
+     []
+    ],
+    "first_failed": [
+     "c1"
+    ]
+   },
+   {
+    "task_id": "titanic_conv_003",
+    "system": "withheld",
+    "compiled": "VIOLATION",
+    "attempts": 4,
+    "lint_per_attempt": [
+     [],
+     [],
+     [],
+     []
+    ],
+    "first_failed": [
+     "c2"
+    ]
+   },
+   {
+    "task_id": "titanic_dedup_002",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 2,
+    "lint_per_attempt": [
+     [
+      "sort_before_dedup"
+     ],
+     [
+      "sort_before_dedup"
+     ]
+    ],
+    "first_failed": [
+     "c1"
+    ]
+   },
+   {
+    "task_id": "titanic_dedup_004",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 3,
+    "lint_per_attempt": [
+     [
+      "groupby_for_dedup"
+     ],
+     [
+      "groupby_for_dedup"
+     ],
+     []
+    ],
+    "first_failed": [
+     "execution"
+    ]
+   },
+   {
+    "task_id": "titanic_filt_003",
+    "system": "withheld",
+    "compiled": "correct",
+    "attempts": 4,
+    "lint_per_attempt": [
+     [],
+     [],
+     [
+      "null_filter"
+     ],
+     [
+      "unrequested_dropna",
+      "null_filter"
+     ]
+    ],
+    "first_failed": [
+     "p1"
+    ]
+   },
+   {
+    "task_id": "titanic_miss_005",
+    "system": "withheld",
+    "compiled": "wrong",
+    "attempts": 3,
+    "lint_per_attempt": [
+     [],
+     [],
+     []
+    ],
+    "first_failed": [
+     "execution"
+    ]
+   }
+  ]
+ }
+}

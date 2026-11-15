@@ -1,0 +1,222 @@
+{
+ "method": "selective",
+ "control": {
+  "correct": 74,
+  "incorrect_accepted": 1,
+  "withheld": 25,
+  "tokens": 556724,
+  "parser_tokens": 177514
+ },
+ "checked": {
+  "correct": 76,
+  "incorrect_accepted": 1,
+  "withheld": 23,
+  "tokens": 487468,
+  "parser_tokens": 208324
+ },
+ "gained": [
+  "airbnb_dedup_003",
+  "titanic_conv_003"
+ ],
+ "lost": [],
+ "first_parse_reproduced": "100/100",
+ "decisions": {
+  "no_issue": 84,
+  "use_corrected": 6,
+  "withhold_proven_inconsistency": 8,
+  "no_reply_to_correct": 2
+ },
+ "corrections_attempted": 14,
+ "check_tokens": 30810,
+ "per_task": [
+  {
+   "task_id": "adult_col_005",
+   "decision": "use_corrected",
+   "first_issues": [
+    "map_key_absent"
+   ],
+   "remaining": [
+    "map_key_absent"
+   ],
+   "control": "ESCALATE",
+   "checked": "ESCALATE"
+  },
+  {
+   "task_id": "adult_conv_003",
+   "decision": "withhold_proven_inconsistency",
+   "first_issues": [
+    "schema"
+   ],
+   "remaining": [
+    "schema"
+   ],
+   "control": "ESCALATE",
+   "checked": "ESCALATE"
+  },
+  {
+   "task_id": "adult_filt_004",
+   "decision": "withhold_proven_inconsistency",
+   "first_issues": [
+    "condition_not_evaluable"
+   ],
+   "remaining": [
+    "condition_not_evaluable"
+   ],
+   "control": "ESCALATE",
+   "checked": "ESCALATE"
+  },
+  {
+   "task_id": "adult_filt_005",
+   "decision": "withhold_proven_inconsistency",
+   "first_issues": [
+    "literal_absent",
+    "removal_matches_nothing"
+   ],
+   "remaining": [
+    "literal_absent",
+    "removal_matches_nothing"
+   ],
+   "control": "REJECT",
+   "checked": "ESCALATE"
+  },
+  {
+   "task_id": "adult_miss_005",
+   "decision": "use_corrected",
+   "first_issues": [
+    "null_count_contradiction"
+   ],
+   "remaining": [
+    "null_count_contradiction"
+   ],
+   "control": "REJECT",
+   "checked": "REJECT"
+  },
+  {
+   "task_id": "airbnb_dedup_001",
+   "decision": "withhold_proven_inconsistency",
+   "first_issues": [
+    "dedup_key_has_no_duplicates"
+   ],
+   "remaining": [
+    "dedup_key_has_no_duplicates"
+   ],
+   "control": "ESCALATE",
+   "checked": "ESCALATE"
+  },
+  {
+   "task_id": "airbnb_dedup_002",
+   "decision": "withhold_proven_inconsistency",
+   "first_issues": [
+    "unknown_column"
+   ],
+   "remaining": [
+    "unknown_column"
+   ],
+   "control": "ESCALATE",
+   "checked": "ESCALATE"
+  },
+  {
+   "task_id": "airbnb_dedup_003",
+   "decision": "use_corrected",
+   "first_issues": [
+    "dedup_key_has_no_duplicates"
+   ],
+   "remaining": [],
+   "control": "REJECT",
+   "checked": "ACCEPT/correct"
+  },
+  {
+   "task_id": "airbnb_filt_002",
+   "decision": "use_corrected",
+   "first_issues": [
+    "literal_absent"
+   ],
+   "remaining": [
+    "literal_absent"
+   ],
+   "control": "ACCEPT",
+   "checked": "ACCEPT"
+  },
+  {
+   "task_id": "taxi_col_005",
+   "decision": "withhold_proven_inconsistency",
+   "first_issues": [
+    "unknown_column"
+   ],
+   "remaining": [
+    "schema"
+   ],
+   "control": "ESCALATE",
+   "checked": "ESCALATE"
+  },
+  {
+   "task_id": "taxi_miss_005",
+   "decision": "no_reply_to_correct",
+   "first_issues": [
+    "schema"
+   ],
+   "remaining": [],
+   "control": "ESCALATE",
+   "checked": "ESCALATE"
+  },
+  {
+   "task_id": "titanic_col_005",
+   "decision": "use_corrected",
+   "first_issues": [
+    "change_is_noop",
+    "map_key_absent"
+   ],
+   "remaining": [
+    "change_is_noop",
+    "map_key_absent"
+   ],
+   "control": "REJECT",
+   "checked": "REJECT"
+  },
+  {
+   "task_id": "titanic_conv_002",
+   "decision": "withhold_proven_inconsistency",
+   "first_issues": [
+    "schema"
+   ],
+   "remaining": [
+    "schema"
+   ],
+   "control": "ESCALATE",
+   "checked": "ESCALATE"
+  },
+  {
+   "task_id": "titanic_conv_003",
+   "decision": "use_corrected",
+   "first_issues": [
+    "change_is_noop",
+    "map_key_absent"
+   ],
+   "remaining": [],
+   "control": "REJECT",
+   "checked": "ACCEPT/correct"
+  },
+  {
+   "task_id": "titanic_filt_005",
+   "decision": "withhold_proven_inconsistency",
+   "first_issues": [
+    "schema"
+   ],
+   "remaining": [
+    "schema"
+   ],
+   "control": "ESCALATE",
+   "checked": "ESCALATE"
+  },
+  {
+   "task_id": "titanic_miss_005",
+   "decision": "no_reply_to_correct",
+   "first_issues": [
+    "schema"
+   ],
+   "remaining": [],
+   "control": "ESCALATE",
+   "checked": "ESCALATE"
+  }
+ ]
+}

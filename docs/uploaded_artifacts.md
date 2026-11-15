@@ -114,3 +114,11 @@ Both full runs: 74 correct, one incorrect accepted and 25 withheld. Compared wit
 - `stage2_combined_gold_3b.zip` → [kaggle_outputs/stage2/combined_gold_v1/stage2_combined_gold_3b.zip](../kaggle_outputs/stage2/combined_gold_v1/stage2_combined_gold_3b.zip)
 - `stage2-combined-gold.ipynb` → [notebooks/executed/stage2/combined_gold_v1/stage2_combined_gold_3b_kaggle_executed.ipynb](../notebooks/executed/stage2/combined_gold_v1/stage2_combined_gold_3b_kaggle_executed.ipynb)
 - [Verified analysis](../results/stage2_combined_gold_analysis/ANALYSIS.md): 84 correct, zero incorrect accepted, 16 withheld; collector JSON-key bug handled offline, no inference rerun.
+
+## Contract-check-v1 completed runs
+
+- `stage2_contract_check_selective_checked.zip` → [kaggle_outputs/stage2/contract_check_v1/stage2_contract_check_selective_checked.zip](../kaggle_outputs/stage2/contract_check_v1/stage2_contract_check_selective_checked.zip)
+- `stage2-check-selective.ipynb` → [notebooks/executed/stage2/contract_check_v1/stage2_contract_check_selective_kaggle_executed.ipynb](../notebooks/executed/stage2/contract_check_v1/stage2_contract_check_selective_kaggle_executed.ipynb)
+- `stage2_contract_check_tools_checked.zip` → [kaggle_outputs/stage2/contract_check_v1/stage2_contract_check_tools_checked.zip](../kaggle_outputs/stage2/contract_check_v1/stage2_contract_check_tools_checked.zip)
+- `stage2-tool-contract-check.ipynb` → [notebooks/executed/stage2/contract_check_v1/stage2_contract_check_tools_kaggle_executed.ipynb](../notebooks/executed/stage2/contract_check_v1/stage2_contract_check_tools_kaggle_executed.ipynb)
+- [Verified analysis](../results/contract_check_v1/completed/ANALYSIS.md): selective facts 76/1/23; tools 74/1/25 (correct / incorrect accepted / withheld). All 200 records CPU-audited with zero mismatches.

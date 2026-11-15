@@ -160,6 +160,26 @@
       "original": "stage2-combined-gold.ipynb",
       "current": "notebooks/executed/stage2/combined_gold_v1/stage2_combined_gold_3b_kaggle_executed.ipynb",
       "sha256": "4f5c9cf28c966e522327f1a7b784852fd3849e3aaaaac896f1d6e086183d1928"
+    },
+    {
+      "original": "stage2_contract_check_selective_checked.zip",
+      "current": "kaggle_outputs/stage2/contract_check_v1/stage2_contract_check_selective_checked.zip",
+      "sha256": "7b4563e9c9edae7ab0784a0611c5f852c8fff4501a52c66edb3907dce33804bf"
+    },
+    {
+      "original": "stage2-check-selective.ipynb",
+      "current": "notebooks/executed/stage2/contract_check_v1/stage2_contract_check_selective_kaggle_executed.ipynb",
+      "sha256": "3b38c23fd444093edc16ce6e490ea74600eada67ff615d7f746e1dc0b414822e"
+    },
+    {
+      "original": "stage2_contract_check_tools_checked.zip",
+      "current": "kaggle_outputs/stage2/contract_check_v1/stage2_contract_check_tools_checked.zip",
+      "sha256": "eeb979518fdeb4814fe7f7f78dbf93054f4967f4d52b0441b090bc6310b3febc"
+    },
+    {
+      "original": "stage2-tool-contract-check.ipynb",
+      "current": "notebooks/executed/stage2/contract_check_v1/stage2_contract_check_tools_kaggle_executed.ipynb",
+      "sha256": "974ba1ac25ec12a6a154abcf155ac68c0c1dd7cc7cb0d098a9a3b5f27c5ae16a"
     }
   ]
 }

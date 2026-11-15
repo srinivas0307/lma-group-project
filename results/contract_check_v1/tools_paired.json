@@ -1,0 +1,200 @@
+{
+ "method": "tools",
+ "control": {
+  "correct": 74,
+  "incorrect_accepted": 1,
+  "withheld": 25,
+  "tokens": 685765,
+  "parser_tokens": 258796
+ },
+ "checked": {
+  "correct": 74,
+  "incorrect_accepted": 1,
+  "withheld": 25,
+  "tokens": 629527,
+  "parser_tokens": 298416
+ },
+ "gained": [],
+ "lost": [],
+ "first_parse_reproduced": "100/100",
+ "decisions": {
+  "no_issue": 86,
+  "use_corrected": 5,
+  "withhold_proven_inconsistency": 8,
+  "keep_first_evidence_only": 1
+ },
+ "corrections_attempted": 14,
+ "check_tokens": 39620,
+ "per_task": [
+  {
+   "task_id": "adult_col_005",
+   "decision": "use_corrected",
+   "first_issues": [
+    "map_key_absent"
+   ],
+   "remaining": [
+    "map_key_absent"
+   ],
+   "control": "ESCALATE",
+   "checked": "ESCALATE"
+  },
+  {
+   "task_id": "adult_conv_003",
+   "decision": "use_corrected",
+   "first_issues": [
+    "map_key_absent"
+   ],
+   "remaining": [
+    "map_key_absent"
+   ],
+   "control": "REJECT",
+   "checked": "REJECT"
+  },
+  {
+   "task_id": "adult_filt_004",
+   "decision": "withhold_proven_inconsistency",
+   "first_issues": [
+    "condition_not_evaluable"
+   ],
+   "remaining": [
+    "condition_not_evaluable"
+   ],
+   "control": "ESCALATE",
+   "checked": "ESCALATE"
+  },
+  {
+   "task_id": "adult_filt_005",
+   "decision": "withhold_proven_inconsistency",
+   "first_issues": [
+    "schema"
+   ],
+   "remaining": [
+    "schema"
+   ],
+   "control": "ESCALATE",
+   "checked": "ESCALATE"
+  },
+  {
+   "task_id": "adult_miss_005",
+   "decision": "withhold_proven_inconsistency",
+   "first_issues": [
+    "change_preserve_conflict",
+    "null_count_contradiction"
+   ],
+   "remaining": [
+    "change_preserve_conflict"
+   ],
+   "control": "ESCALATE",
+   "checked": "ESCALATE"
+  },
+  {
+   "task_id": "airbnb_dedup_001",
+   "decision": "use_corrected",
+   "first_issues": [
+    "dedup_key_has_no_duplicates"
+   ],
+   "remaining": [],
+   "control": "ESCALATE",
+   "checked": "REJECT"
+  },
+  {
+   "task_id": "airbnb_dedup_002",
+   "decision": "withhold_proven_inconsistency",
+   "first_issues": [
+    "unknown_column"
+   ],
+   "remaining": [
+    "unknown_column"
+   ],
+   "control": "ESCALATE",
+   "checked": "ESCALATE"
+  },
+  {
+   "task_id": "airbnb_filt_002",
+   "decision": "use_corrected",
+   "first_issues": [
+    "literal_absent"
+   ],
+   "remaining": [
+    "literal_absent"
+   ],
+   "control": "ACCEPT",
+   "checked": "ACCEPT"
+  },
+  {
+   "task_id": "taxi_conv_002",
+   "decision": "withhold_proven_inconsistency",
+   "first_issues": [
+    "dtype_vs_value_preservation"
+   ],
+   "remaining": [
+    "change_preserve_conflict",
+    "dtype_vs_value_preservation"
+   ],
+   "control": "ESCALATE",
+   "checked": "ESCALATE"
+  },
+  {
+   "task_id": "taxi_miss_003",
+   "decision": "withhold_proven_inconsistency",
+   "first_issues": [
+    "null_count_contradiction"
+   ],
+   "remaining": [
+    "null_count_contradiction"
+   ],
+   "control": "ESCALATE",
+   "checked": "ESCALATE"
+  },
+  {
+   "task_id": "taxi_miss_004",
+   "decision": "withhold_proven_inconsistency",
+   "first_issues": [
+    "null_count_contradiction"
+   ],
+   "remaining": [
+    "null_count_contradiction"
+   ],
+   "control": "REJECT",
+   "checked": "ESCALATE"
+  },
+  {
+   "task_id": "titanic_col_005",
+   "decision": "keep_first_evidence_only",
+   "first_issues": [
+    "change_is_noop"
+   ],
+   "remaining": [
+    "schema"
+   ],
+   "control": "REJECT",
+   "checked": "REJECT"
+  },
+  {
+   "task_id": "titanic_conv_003",
+   "decision": "use_corrected",
+   "first_issues": [
+    "change_is_noop",
+    "map_key_absent"
+   ],
+   "remaining": [
+    "change_is_noop",
+    "map_key_absent"
+   ],
+   "control": "REJECT",
+   "checked": "REJECT"
+  },
+  {
+   "task_id": "titanic_filt_005",
+   "decision": "withhold_proven_inconsistency",
+   "first_issues": [
+    "condition_not_evaluable"
+   ],
+   "remaining": [
+    "condition_not_evaluable"
+   ],
+   "control": "ESCALATE",
+   "checked": "ESCALATE"
+  }
+ ]
+}

@@ -88,3 +88,7 @@ No original uploaded run, executed notebook, trained adapter, scored result or u
 ## Combined 3B gold-contract diagnostic
 
 [Audited gold result](../results/stage2_combined_gold_analysis/ANALYSIS.md): 84 correct, zero incorrect accepted and 16 withheld, compared with matched predicted-contract runs at 74/1/25 each. Gold removes losses of initially correct outputs, while 16 initially incorrect programs remain unrepaired. Gold changes both generation and checking, and is not a deployable system. The historical 94/100 gold run uses a different repair configuration and initial programs. The final notebook collector error is a JSON mapping-key representation bug; all 100 inference records completed and passed offline validation with the documented compatibility fix.
+
+## Contract-check and one parser correction
+
+[Completed analysis](../results/contract_check_v1/completed/ANALYSIS.md): selective facts improves matched combined control 74/1/25 → 76/1/23 with no lost final successes; tools remains 74/1/25. Total tokens fall 12.4% and 8.2%. First contracts reproduce controls 100/100 each. Most correction replies are unchanged, the shared wrong acceptance persists, and an overbroad dtype diagnostic has a demonstrated synthetic false positive. Treat this as failure-informed development evidence, not independent confirmation.

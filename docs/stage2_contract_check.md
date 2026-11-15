@@ -1,6 +1,6 @@
 # Contract checks with one correction (contract-check-v1)
 
-Status: implemented and CPU-validated; GPU run pending. Phase 1 of the improvement plan that followed the gold-contract run (gold 84/0/16 versus 74/1/25 for each parser method).
+Status: completed and audited GPU runs. Selective facts gives **76 correct / 1 incorrect accepted / 23 withheld**, while tools gives **74/1/25**. Both controls were 74/1/25. All 200 records pass CPU policy/score audit with zero mismatches. See [the completed analysis](../results/contract_check_v1/completed/ANALYSIS.md), including the unchanged wrong acceptance and a demonstrated diagnostic false-positive limitation. Phase 1 of the improvement plan that followed the gold-contract run (gold 84/0/16 versus 74/1/25 for each parser method).
 
 ## What changes
 
