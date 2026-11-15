@@ -1,0 +1,75 @@
+{
+ "run": "no_contract_selective",
+ "system": "no_contract_to_generator",
+ "score": {
+  "correct": 79,
+  "incorrect_accepted": 2,
+  "withheld": 19,
+  "parse_escalations": 10,
+  "initial_correct": 75,
+  "tokens": 373717
+ },
+ "comparisons": {
+  "proposed_selective": {
+   "score": {
+    "correct": 82,
+    "incorrect_accepted": 2,
+    "withheld": 16,
+    "parse_escalations": 10,
+    "initial_correct": 74,
+    "tokens": 425057
+   },
+   "tasks": 100,
+   "only_this_correct": [
+    "airbnb_dedup_005"
+   ],
+   "only_other_correct": [
+    "taxi_dedup_002",
+    "taxi_dedup_005",
+    "titanic_dedup_001",
+    "titanic_dedup_005"
+   ]
+  },
+  "historical_clean_v1": {
+   "score": {
+    "correct": 73,
+    "incorrect_accepted": 2,
+    "withheld": 25,
+    "parse_escalations": 2,
+    "initial_correct": 76,
+    "tokens": 479668
+   },
+   "tasks": 100,
+   "only_this_correct": [
+    "adult_conv_002",
+    "airbnb_dedup_003",
+    "airbnb_dedup_005",
+    "airbnb_filt_005",
+    "airbnb_miss_004",
+    "taxi_conv_002",
+    "taxi_dedup_003",
+    "taxi_filt_004",
+    "taxi_miss_004",
+    "titanic_miss_002",
+    "titanic_miss_004"
+   ],
+   "only_other_correct": [
+    "adult_dedup_003",
+    "adult_filt_004",
+    "adult_miss_005",
+    "airbnb_dedup_002",
+    "taxi_col_005"
+   ]
+  }
+ },
+ "contract_check": {
+  "no_issue": 84,
+  "use_corrected": 6,
+  "withhold_proven_inconsistency": 8,
+  "no_reply_to_correct": 2
+ },
+ "reference_compatible_contracts": 85,
+ "repair_versions": {
+  "a1-v4+repair-evidence-reset1+declared-schema1+repair-hints-v1": 100
+ }
+}

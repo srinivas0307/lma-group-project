@@ -96,3 +96,11 @@ No original uploaded run, executed notebook, trained adapter, scored result or u
 ## Current-stack conventional Baseline 2
 
 [Verified analysis](../results/baselines_hints_v1/BASELINE2_ANALYSIS.md): 75 correct, 11 incorrect accepted, 14 withheld; current proposed selective facts 82/2/16 and tools 80/1/19. Baseline 2 has no parser, contract, schema guard or contract-derived hints. Its fixed generic mean-shift check rejects 16/100 correct references and five recorded correct final candidates. CPU replay finds zero mismatches. Do not mix historical direct-generation scores into a matched current table: only 67/100 initial programs reproduce the historical direct trace.
+
+## Current tool parser without generator contract conditioning
+
+[Generator-contract ablation](../results/baselines_hints_v1/NO_CONTRACT_TOOLS_ANALYSIS.md): no-contract/tools 78 correct, one incorrect accepted, 21 withheld, versus matched proposed tools 80/1/19. Parser/correction records match across all 100 tasks; only generator contract conditioning changes by design. No-contract saves 13.5% total tokens, but loses two net correct outcomes. The parser contract still controls checking and repair; the shared wrong-column acceptance persists, including a trace where correct initial code is changed to satisfy the wrong contract.
+
+## Current selective-facts generator-contract ablation
+
+[Selective ablation analysis](../results/baselines_hints_v1/NO_CONTRACT_SELECTIVE_ANALYSIS.md): 79 correct, two incorrect accepted, 19 withheld, versus matched proposed selective 82/2/16. Parser/correction records match on all 100 tasks. Omitting the contract from generation saves 12.1% total tokens but loses three net correct completions. Both variants retain contracts for verification and repair. These are diagnostic results on previously inspected tasks.

@@ -226,8 +226,11 @@ def check_predicate(p, before, after, surv):
                 return FAIL, f"column {col!r} has dtype {after[col].dtype} (family {fam}), required {p['dtype']}", []
             if p["dtype"] == "category":
                 cat = after[col].cat
-                if "ordered" in p and bool(cat.ordered) != p["ordered"]:
-                    return FAIL, f"column {col!r} ordered={bool(cat.ordered)}, required ordered={p['ordered']}", []
+                want_ordered = bool(p.get("ordered", False))   # omitted = unordered: no ordering the request did not ask for
+                if bool(cat.ordered) != want_ordered:
+                    return FAIL, (f"column {col!r} is an ordered category, but the contract does not ask for an order "
+                                  f"(use astype('category'))" if cat.ordered else
+                                  f"column {col!r} ordered={bool(cat.ordered)}, required ordered={want_ordered}"), []
                 if "categories" in p:
                     got = [_fmt(c) for c in cat.categories]
                     want = p["categories"]

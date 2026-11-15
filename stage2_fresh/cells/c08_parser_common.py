@@ -80,6 +80,19 @@ def contract_issues(contract, df):
                 if all(k in cols for k in keys) and not df.duplicated(subset=keys).any():
                     hard.append(f"{sec}[{i}] duplicate_count: the input has no duplicate rows on key {keys}, so this deduplication "
                                 f"removes nothing; use exactly the key columns the request names")
+            if t == "null_count" and p["op"] == "increased" and not any(
+                    q["type"] == "column_value_relation" and q["target"] == p["target"] and q["fn"] in ("null", "cast", "map", "div")
+                    for q in contract["must_change"] + contract["must_preserve"]):
+                hard.append(f"{sec}[{i}] null_count says 'increased' for {p['target']!r}, but nothing in the contract creates "
+                            f"missing values in that column; fix or remove this predicate")
+            if t == "rows_removed_where":
+                for lf in leaves(p["condition"]):
+                    c_ = lf.get("column")
+                    if lf.get("op") in ("not_in", "!=") and c_ in cols and df[c_].isna().any() and not any(
+                            x.get("column") == c_ and x.get("op") == "is_null" for x in leaves(p["condition"])):
+                        soft.append(f"{sec}[{i}] rows_removed_where: column {c_!r} has {int(df[c_].isna().sum())} missing values, "
+                                    f"and a missing cell never matches {lf['op']!r}, so those rows would be KEPT; if they should "
+                                    f"be removed too, add {{\"column\": \"{c_}\", \"op\": \"is_null\"}} inside an \"any\"")
             if t == "null_count" and p["target"] in filled and p["op"] in ("unchanged", "increased"):
                 hard.append(f"{sec}[{i}] null_count says {p['op']!r} for {p['target']!r}, but the contract fills the missing values "
                             f"of {p['target']!r}, so its null count decreases; fix or remove this predicate")

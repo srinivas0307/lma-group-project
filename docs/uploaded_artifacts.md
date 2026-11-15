@@ -140,3 +140,21 @@ All three bundles declare complete 100-task test runs; ZIP CRCs and content seal
 - `stage2-baseline2.ipynb` → [notebooks/executed/stage2/baselines_hints_v1/stage2_baselines_hints_baseline2_kaggle_executed.ipynb](../notebooks/executed/stage2/baselines_hints_v1/stage2_baselines_hints_baseline2_kaggle_executed.ipynb)
 
 Full 100-task test bundle: 75 correct, 11 incorrect accepted, 14 withheld. Original bytes preserved; notebook source matches its template and has no recorded exceptions.
+
+## No-contract-to-generator tool-use ablation
+
+- `stage2_baselines_hints_no_contract_tools.zip` → [kaggle_outputs/stage2/baselines_hints_v1/stage2_baselines_hints_no_contract_tools.zip](../kaggle_outputs/stage2/baselines_hints_v1/stage2_baselines_hints_no_contract_tools.zip)
+- `stage-2-no-contract-tool-use.ipynb` → [notebooks/executed/stage2/baselines_hints_v1/stage2_baselines_hints_no_contract_tools_kaggle_executed.ipynb](../notebooks/executed/stage2/baselines_hints_v1/stage2_baselines_hints_no_contract_tools_kaggle_executed.ipynb)
+
+Complete 100-task run: 78 correct, one incorrect accepted, 21 withheld. The parser, contract checks and repair retain the tool contract; only initial generation omits it. Original bytes preserved.
+
+The no-contract/tools upload passed full 100-task CPU audit with zero mismatches. [Analysis](../results/baselines_hints_v1/NO_CONTRACT_TOOLS_ANALYSIS.md).
+
+## No-contract-to-generator selective-facts ablation
+
+- `stage2_baselines_hints_no_contract_selective.zip` → [kaggle_outputs/stage2/baselines_hints_v1/stage2_baselines_hints_no_contract_selective.zip](../kaggle_outputs/stage2/baselines_hints_v1/stage2_baselines_hints_no_contract_selective.zip)
+- `stage2-selective-baseline.ipynb` → [notebooks/executed/stage2/baselines_hints_v1/stage2_baselines_hints_no_contract_selective_kaggle_executed.ipynb](../notebooks/executed/stage2/baselines_hints_v1/stage2_baselines_hints_no_contract_selective_kaggle_executed.ipynb)
+
+Complete 100-task run: 79 correct, two incorrect accepted, 19 withheld. Parser contracts remain in verification/repair; initial generation omits them. Original bytes preserved.
+
+The selective-facts ablation passed the full 100-task CPU audit with zero mismatches. [Analysis](../results/baselines_hints_v1/NO_CONTRACT_SELECTIVE_ANALYSIS.md).

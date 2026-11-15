@@ -63,3 +63,22 @@ check(not e, "value null on relative op accepted")
 # 11 sandbox blocklist
 check(bool(ns["safety_check"]("import numpy as np\ndef transform(df):\n    np.save('x', df.values)\n    return df")), "np.save blocked")
 print("\nPROBLEMS:", P)
+
+# --- tool-use v2 run regressions ---
+# ordered category produced although the contract (and request) did not ask for an order -> VIOLATION
+for t in ns["ALL_TASKS"]:
+    if t["id"] in ("adult_conv_001", "titanic_conv_001"):
+        b = ns["load_before"](t); c, _ = ns["normalize_contract"](t["gold_contract"])
+        col = c["must_change"][0]["target"]
+        wrong = b.copy(); wrong[col] = pd.Categorical(wrong[col], categories=sorted(wrong[col].dropna().unique()), ordered=True)
+        check(ns["verify"](b, wrong, c)["verdict"] == "VIOLATION", f"{t['id']}: ordered category rejected")
+        check(ns["verify"](b, ns["reference_output"](t), c)["verdict"] == "PASS", f"{t['id']}: reference still passes")
+# 'keep only S or C' written as not_in on a column with missing values -> soft warning
+t = [x for x in ns["ALL_TASKS"] if x["id"] == "titanic_filt_002"][0]
+pred = {"must_change": [{"type": "rows_removed_where", "target": None, "condition": {"column": "Embarked", "op": "not_in", "value": ["S", "C"]}},
+                        {"type": "row_count", "target": None, "op": "decreased"}],
+        "must_preserve": [{"type": "columns_unchanged", "target": "*", "except": []}]}
+c, _ = ns["normalize_contract"](pred)
+hard, soft = ns["contract_issues"](c, ns["load_before"](t))
+check(any("would be KEPT" in s for s in soft), "not_in on a column with missing values -> warning")
+print("\nPROBLEMS:", P)

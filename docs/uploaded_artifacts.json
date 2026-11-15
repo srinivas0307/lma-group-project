@@ -220,6 +220,26 @@
       "original": "stage2-baseline2.ipynb",
       "current": "notebooks/executed/stage2/baselines_hints_v1/stage2_baselines_hints_baseline2_kaggle_executed.ipynb",
       "sha256": "3276060b8957c6c006d044a41c1c52758835b728f5d1429dd4fd792135fa371b"
+    },
+    {
+      "original": "stage2_baselines_hints_no_contract_tools.zip",
+      "current": "kaggle_outputs/stage2/baselines_hints_v1/stage2_baselines_hints_no_contract_tools.zip",
+      "sha256": "29bb3a0a16cdea7118adff3721563aa9e5793a470c944d9d3e5b0d1b090753ab"
+    },
+    {
+      "original": "stage-2-no-contract-tool-use.ipynb",
+      "current": "notebooks/executed/stage2/baselines_hints_v1/stage2_baselines_hints_no_contract_tools_kaggle_executed.ipynb",
+      "sha256": "7012d571b47e8ad8c476adc42a9ee37bae79b153df0acf61fc1a0032cd4d03db"
+    },
+    {
+      "original": "stage2_baselines_hints_no_contract_selective.zip",
+      "current": "kaggle_outputs/stage2/baselines_hints_v1/stage2_baselines_hints_no_contract_selective.zip",
+      "sha256": "17deceec225acb2f5f858c6b98e0494ac34b26de55a47bff8c7c8564c5966ddb"
+    },
+    {
+      "original": "stage2-selective-baseline.ipynb",
+      "current": "notebooks/executed/stage2/baselines_hints_v1/stage2_baselines_hints_no_contract_selective_kaggle_executed.ipynb",
+      "sha256": "0f62a81f270773e9415927edbe66cd63b32516fb8c4a5140b9d4b46be0b06a60"
     }
   ]
 }

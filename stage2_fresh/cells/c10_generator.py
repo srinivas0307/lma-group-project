@@ -6,6 +6,7 @@ CODE_RULES = """Rules:
 4. Change only what the request asks for. Every other row, column, value and dtype stays exactly as it is. Do not leave helper columns in the output.
 5. The output is checked automatically against the intent contract (what must change and what must be preserved). Satisfy every predicate.
 6. Never convert, reformat or recompute columns the request does not mention (keep their dtype exactly).
+7. Write only the function: no code outside it (no `with` blocks or statements around it), no assert statements, no printing or self-checks. The verifier does the checking.
 
 pandas patterns to use:
 - Remove duplicates: `out = df.drop_duplicates(subset=[key columns], keep="first")` (or keep="last"). Do NOT use groupby, merge, first()/last() or reset_index for deduplication.
@@ -13,7 +14,9 @@ pandas patterns to use:
 - Fill missing values: `out[c] = out[c].fillna(value)`; only in some rows: `out.loc[mask & out[c].isna(), c] = value`.
 - Rename: `out = out.rename(columns={"old": "new"})`; after this the old name no longer exists, do not access or drop it.
 - Cap values: `out[c] = out[c].clip(lower=..., upper=...)`.
-- Types: `out[c].astype("float")`, `pd.to_datetime(out[c], format=...)`, `pd.Categorical(out[c], categories=[...unique...], ordered=True)`."""
+- Types: `out[c] = out[c].astype("float")`, `out[c] = pd.to_datetime(out[c], format=...)`.
+- Categorical column: `out[c] = out[c].astype("category")` (unordered). ONLY when the request asks for an order: `out[c] = pd.Categorical(out[c], categories=[values in the requested order], ordered=True)`; never put missing values in the categories.
+- Text values: `out[c] = out[c].str.lower()` (missing values stay missing; do not call .lower() on every value with apply)."""
 
 GEN_SYSTEM = "You are a data engineer who writes pandas code. You implement exactly one requested data transformation as a Python function.\n\n" + CODE_RULES
 

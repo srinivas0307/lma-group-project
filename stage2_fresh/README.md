@@ -112,3 +112,19 @@ Each run: a 2-task smoke run, then 20 dev tasks, then 100 test tasks. It resumes
 - The v1 incorrect accept plus 11 withheld tasks now get targeted feedback.
 
 These fixes were found by inspecting test-set failures, so the v2 test numbers are diagnostic. The 20 dev tasks are the fairer check.
+
+## v3 changes (after the tool-use v2 run: 68 / 8 / 24 on test, 13 / 0 / 7 on dev)
+
+**Regressions introduced by the v2 generator guide, now fixed**
+- The guide's only categorical example was `pd.Categorical(..., ordered=True)`. The 3B model copied it into 20 type-conversion code blocks, causing 5 silent errors where the parser's contract exactly matched gold. The guide now uses `astype("category")` and only shows `ordered=True` for requests that ask for an order.
+- The model added `assert` self-checks (15 code blocks; 6 crashed, e.g. `assert len(df) == 1000`). It also put code outside the function inside `with` blocks. Both are now forbidden by the prompt.
+
+**Safeguards**
+- **Verifier:** a category predicate without `ordered` now means unordered. An ordering the request didn't ask for is a VIOLATION, so this error can no longer pass silently.
+- **Parser checks:**
+  - `null_count "increased"` with nothing in the contract creating missing values is now a hard issue (`taxi_miss_003`/`004`).
+  - `not_in`/`!=` removal conditions on a column with missing values, where rows with missing values would be kept, now get a warning (`titanic_filt_002`).
+
+**What remains**
+- **Parser semantic errors no check can catch:** a missing category value (`adult_filt_005`) and the wrong order of ordered categories (`titanic_conv_002`).
+- **3B code-generation limits** on harder deduplication and conversion tasks.

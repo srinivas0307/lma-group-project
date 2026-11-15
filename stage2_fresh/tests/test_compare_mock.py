@@ -10,7 +10,7 @@ ids = ["adult_filt_001", "titanic_miss_004", "airbnb_dedup_001", "taxi_conv_001"
 for kind in ("selective_facts", "tool_use"):
     ns = load_variant(kind)
     tasks = {t["id"]: t for t in ns["ALL_TASKS"]}
-    out = SCR / f"stage2_fresh_{kind}_v2" / "tasks"; out.mkdir(parents=True)
+    out = SCR / f"stage2_fresh_{kind}_v3" / "tasks"; out.mkdir(parents=True)
     for i in ids:
         t = tasks[i]
         g = t["gold_contract"]

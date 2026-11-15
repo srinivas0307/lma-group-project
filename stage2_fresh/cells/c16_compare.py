@@ -5,7 +5,7 @@ import pandas as pd
 pd.set_option("display.max_colwidth", 120)
 pd.set_option("display.width", 250)
 SEARCH = [Path("/kaggle/input"), Path("."), Path("/kaggle/working")]
-RUNS = {"selective_facts": "stage2_fresh_selective_facts_v2", "tool_use": "stage2_fresh_tool_use_v2"}   # use the v1 names to compare the first runs
+RUNS = {"selective_facts": "stage2_fresh_selective_facts_v3", "tool_use": "stage2_fresh_tool_use_v3"}   # earlier runs: _v2, or no suffix for v1
 
 
 def load_run(run_name):

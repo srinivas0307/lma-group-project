@@ -107,7 +107,7 @@ CODER_BASE = "Qwen/Qwen2.5-3B-Instruct"       # code generator AND repair agent 
 DATA_ROOT = None                               # None = auto-detect (folder containing benchmark/tasks and data/)
 INPUT_SEARCH_ROOTS = ["/kaggle/input"]
 WORK_DIR = "/kaggle/working"
-RUN_NAME = "stage2_fresh_{key}_v2"
+RUN_NAME = "stage2_fresh_{key}_v3"
 
 RUN_MODELS = True
 RUN_SMOKE = True                               # 2 dev tasks first, written to RUN_NAME/smoke
@@ -154,7 +154,7 @@ The only component that differs from the companion notebook (`{VARIANTS[other]["
 1. Settings: **GPU T4 x2**, **Internet on**.
 2. Attach the datasets: **`stage2_fresh_data.zip`** (benchmark tasks + 4 CSVs) and {v["adapter_hint"]}. Paths are detected automatically.
 3. **Run All**. A smoke run (2 dev tasks) runs first, then 20 dev and 100 test tasks. Re-running resumes where it stopped.
-4. Download **`/kaggle/working/stage2_fresh_{key}_v2.zip`** and compare both runs with `03_compare_parsers.ipynb`.
+4. Download **`/kaggle/working/stage2_fresh_{key}_v3.zip`** and compare both runs with `03_compare_parsers.ipynb`.
 
 Outcome per task: **correct accepted** (verifier PASS and output equals the reference) · **incorrect accepted** (silent error) · **withheld** (parser escalation/invalid, verifier UNCERTAIN, or repair budget exhausted).
 """
