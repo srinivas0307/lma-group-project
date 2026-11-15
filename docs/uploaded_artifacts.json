@@ -210,6 +210,16 @@
       "original": "tooluse-repair-hints.ipynb",
       "current": "notebooks/executed/stage2/repair_hints_v1/stage2_repair_hints_tools_kaggle_executed.ipynb",
       "sha256": "086139d0bf70793d6835effacb3d6c2edd7e39c103523a8088c869b47cf95c60"
+    },
+    {
+      "original": "stage2_baselines_hints_baseline2.zip",
+      "current": "kaggle_outputs/stage2/baselines_hints_v1/stage2_baselines_hints_baseline2.zip",
+      "sha256": "3f2f03c5f5f7ea7b0f670f92df7c55c0aa3af34b7eac7f88b3ead9b04c854ff6"
+    },
+    {
+      "original": "stage2-baseline2.ipynb",
+      "current": "notebooks/executed/stage2/baselines_hints_v1/stage2_baselines_hints_baseline2_kaggle_executed.ipynb",
+      "sha256": "3276060b8957c6c006d044a41c1c52758835b728f5d1429dd4fd792135fa371b"
     }
   ]
 }

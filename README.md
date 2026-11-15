@@ -15,6 +15,8 @@ These experiments use different protocol versions. Previously inspected test cas
 
 ## Current runnable work
 
+The [current-stack Baseline 2 analysis](results/baselines_hints_v1/BASELINE2_ANALYSIS.md) reports **75/11/14**, versus repair-hints proposed selective **82/2/16** and tools **80/1/19**. Generic distribution checks reject legitimate requested changes; all 100 baseline records passed CPU audit.
+
 The [completed contract-check experiment](results/contract_check_v1/completed/ANALYSIS.md) gives selective facts **76/1/23** and tools **74/1/25**, with lower token use but the shared wrong acceptance still unresolved. All 200 task records pass the CPU audit.
 
 The [combined gold workflow with 7B NF4 repair](docs/stage2_combined_gold_7b.md) is ready for Kaggle. It retains 3B FP16 generation and the same combined procedure/budgets, with an optional comparison against the completed 84/100 combined 3B gold run. GPU results are pending.

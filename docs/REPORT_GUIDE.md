@@ -92,3 +92,7 @@ No original uploaded run, executed notebook, trained adapter, scored result or u
 ## Contract-check and one parser correction
 
 [Completed analysis](../results/contract_check_v1/completed/ANALYSIS.md): selective facts improves matched combined control 74/1/25 → 76/1/23 with no lost final successes; tools remains 74/1/25. Total tokens fall 12.4% and 8.2%. First contracts reproduce controls 100/100 each. Most correction replies are unchanged, the shared wrong acceptance persists, and an overbroad dtype diagnostic has a demonstrated synthetic false positive. Treat this as failure-informed development evidence, not independent confirmation.
+
+## Current-stack conventional Baseline 2
+
+[Verified analysis](../results/baselines_hints_v1/BASELINE2_ANALYSIS.md): 75 correct, 11 incorrect accepted, 14 withheld; current proposed selective facts 82/2/16 and tools 80/1/19. Baseline 2 has no parser, contract, schema guard or contract-derived hints. Its fixed generic mean-shift check rejects 16/100 correct references and five recorded correct final candidates. CPU replay finds zero mismatches. Do not mix historical direct-generation scores into a matched current table: only 67/100 initial programs reproduce the historical direct trace.

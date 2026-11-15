@@ -1,8 +1,8 @@
 # Baselines 2/3 and the generator ablation on the current 3B stack
 
-Status: built and validated with scripted models (2026-11-15); GPU runs pending.
+Status: Baseline 2 completed and CPU-audited: **75 correct, 11 incorrect accepted, 14 withheld**, with zero replay mismatches. See [the analysis](../results/baselines_hints_v1/BASELINE2_ANALYSIS.md). The other baseline GPU runs remain pending.
 
-The six-system comparison (`clean_v1`) used a 7B NF4 repair agent, the a1-v4 repair loop and older parser contracts, so its baseline rows cannot sit next to the current results. This experiment (`stage2-baselines-hints-3b-fp16-v1`) re-runs three of those systems on the current stack: 3B FP16 generator and repair, improved repair loop, contract-check-v1 and repair-hints-v1. Baseline 1 has no repair and is unaffected; its clean_v1 result stands. Gold (92/0/8) and proposed (selective 82/2/16, tools 80/1/19) are in `kaggle_outputs/stage2/repair_hints_v1/`.
+The six-system comparison (`clean_v1`) used a 7B NF4 repair agent, the a1-v4 repair loop and older parser contracts, so its baseline rows cannot sit next to the current results. This experiment (`stage2-baselines-hints-3b-fp16-v1`) re-runs three of those systems on the current stack: 3B FP16 generator and repair, improved repair loop, contract-check-v1 and repair-hints-v1. Baseline 1 has no repair, but its historical result is not automatically matched to the current generator inputs/runtime: only 67/100 historical direct initial programs match the completed current Baseline 2 initial programs. Run a fresh direct baseline before reporting a clean current six-system comparison. Gold (92/0/8) and proposed (selective 82/2/16, tools 80/1/19) are in `kaggle_outputs/stage2/repair_hints_v1/`.
 
 ## System definitions
 

@@ -133,3 +133,10 @@ Both full runs: 74 correct, one incorrect accepted and 25 withheld. Compared wit
 - `tooluse-repair-hints.ipynb` → [notebooks/executed/stage2/repair_hints_v1/stage2_repair_hints_tools_kaggle_executed.ipynb](../notebooks/executed/stage2/repair_hints_v1/stage2_repair_hints_tools_kaggle_executed.ipynb)
 
 All three bundles declare complete 100-task test runs; ZIP CRCs and content seals verify. All executed notebook sources match their templates and have no recorded exception outputs. Original upload bytes are preserved; no full CPU score replay is implied by these import checks.
+
+## Current-stack Baseline 2 upload
+
+- `stage2_baselines_hints_baseline2.zip` → [kaggle_outputs/stage2/baselines_hints_v1/stage2_baselines_hints_baseline2.zip](../kaggle_outputs/stage2/baselines_hints_v1/stage2_baselines_hints_baseline2.zip)
+- `stage2-baseline2.ipynb` → [notebooks/executed/stage2/baselines_hints_v1/stage2_baselines_hints_baseline2_kaggle_executed.ipynb](../notebooks/executed/stage2/baselines_hints_v1/stage2_baselines_hints_baseline2_kaggle_executed.ipynb)
+
+Full 100-task test bundle: 75 correct, 11 incorrect accepted, 14 withheld. Original bytes preserved; notebook source matches its template and has no recorded exceptions.

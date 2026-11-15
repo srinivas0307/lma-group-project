@@ -1,8 +1,3 @@
-Place the four completed test bundles here, unchanged:
+# Current-stack baseline output bundles
 
-- stage2_baselines_hints_baseline2.zip
-- stage2_baselines_hints_baseline3.zip
-- stage2_baselines_hints_no_contract_selective.zip
-- stage2_baselines_hints_no_contract_tools.zip
-
-Executed notebooks go to notebooks/executed/stage2/baselines_hints_v1/. Instructions: docs/stage2_baselines_hints.md.
+Baseline 2: 75 correct, 11 incorrect accepted, 14 withheld on 100 test tasks. Original upload bytes preserved. See results/baselines_hints_v1/BASELINE2_ANALYSIS.md and tools/audit_baseline2_hints.py.
