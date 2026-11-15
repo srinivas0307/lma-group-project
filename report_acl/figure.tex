@@ -1,0 +1,51 @@
+\begin{figure*}[t]
+\centering\scriptsize
+\begin{tikzpicture}[
+  node distance=0pt, >=Stealth,
+  box/.style={draw, rounded corners=2pt, minimum width=2.5cm, minimum height=0.7cm, align=center, inner sep=2pt, fill=white},
+  term/.style={box, fill=gray!20, minimum width=1.7cm},
+  dec/.style={box, fill=blue!8},
+  lab/.style={font=\tiny, fill=white, inner sep=1pt}]
+% row A
+\node[box] (req) at (1.3,2) {User request\\+ data schema};
+\node[box] (par) at (4.5,2) {Intent parser\\(prompted / fine-tuned /\\oracle / none)};
+\node[dec] (val) at (7.7,2) {Contract valid?};
+\node[box] (con) at (11.0,2) {Intent contract\\(read-only)};
+\node[term] (esc1) at (7.7,3.6) {ESCALATE};
+% row B
+\node[box] (gen) at (1.3,0) {Code generator};
+\node[dec] (saf) at (4.5,0) {AST safety checker};
+\node[box] (sbx) at (7.7,0) {Sandbox};
+\node[dec] (ver) at (11.0,0) {Verifier\\(none / conventional\\/ intent)};
+\node[term] (acc) at (14.2,0.9) {ACCEPT};
+\node[term] (esc2) at (14.2,-0.9) {ESCALATE};
+% row C
+\node[box] (rep) at (4.5,-2.1) {Repair agent\\+ tools};
+\node[box] (fr) at (7.7,-2.1) {Failure report};
+\node[term] (rej) at (7.7,-3.5) {REJECT};
+\node[term] (esc3) at (4.5,-3.5) {ESCALATE};
+% edges
+\draw[->] (req) -- (par);
+\draw[->] (par) -- (val);
+\draw[->] (val) -- node[lab,above]{yes} (con);
+\draw[->] (val) -- node[lab,right]{no} (esc1);
+\draw[->] (req.south) -- (gen.north);
+\draw[->,dashed] ($(con.south west)+(0.3,0)$) -- ++(0,-0.95) -| node[lab,pos=0.2,above]{only in contract-aware systems} ($(gen.north east)+(-0.3,0)$);
+\draw[->] ($(con.south east)+(-0.3,0)$) -- ($(ver.north east)+(-0.3,0)$);
+\draw[->] (gen) -- (saf);
+\draw[->] (saf) -- node[lab,above]{allowed} (sbx);
+\draw[->] (sbx) -- (ver);
+\draw[->] (ver.north east) ++(0,0) -- ++(0,0) coordinate (x);
+\draw[->] ($(ver.east)+(0,0.15)$) -- node[lab,above,pos=0.5]{PASS} (acc.west);
+\draw[->] ($(ver.east)+(0,-0.15)$) -- node[lab,below,pos=0.5]{UNCERTAIN} (esc2.west);
+\draw[->] (ver.south) |- node[lab,pos=0.25,right]{VIOLATION} (fr.east);
+\draw[->] (sbx.south) -- node[lab,right]{crash / timeout} (fr.north);
+\draw[->] ($(saf.south)+(0.6,0)$) to[out=-90,in=150] node[lab,pos=0.35,right]{blocked} (fr.north west);
+\draw[->] (fr) -- node[lab,above]{repair on} (rep);
+\draw[->] (fr) -- node[lab,right]{repair off / budget used} (rej);
+\draw[->] ($(rep.north)+(-0.6,0)$) -- node[lab,left]{revised code} ($(saf.south)+(-0.6,0)$);
+\draw[->] (rep) -- node[lab,right]{escalate} (esc3);
+\end{tikzpicture}
+\caption{System overview.}
+\label{fig:overview}
+\end{figure*}
