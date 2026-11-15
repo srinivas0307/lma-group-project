@@ -1,0 +1,2782 @@
+{
+ "version": "contract-check-v1",
+ "note": "Reference verdicts used only for offline scoring.",
+ "methods": {
+  "selective": {
+   "labels": {
+    "compatible": 83,
+    "incompatible": 12,
+    "no_contract": 5
+   },
+   "any_issue": {
+    "incompatible": 11,
+    "no_contract": 5
+   },
+   "proof_issue": {
+    "no_contract": 5,
+    "incompatible": 6
+   },
+   "by_code": {
+    "change_is_noop": {
+     "incompatible": 2
+    },
+    "condition_not_evaluable": {
+     "incompatible": 1
+    },
+    "dedup_key_has_no_duplicates": {
+     "incompatible": 2
+    },
+    "literal_absent": {
+     "incompatible": 2
+    },
+    "map_key_absent": {
+     "incompatible": 3
+    },
+    "null_count_contradiction": {
+     "incompatible": 1
+    },
+    "removal_matches_nothing": {
+     "incompatible": 1
+    },
+    "schema": {
+     "no_contract": 5
+    },
+    "unknown_column": {
+     "incompatible": 2
+    }
+   },
+   "fires_on_wrong_accept": [
+    "airbnb_filt_002"
+   ],
+   "fires_on_final_correct": [],
+   "proof_on_final_correct": [],
+   "missed_incompatible": [
+    "airbnb_dedup_004"
+   ],
+   "rows": [
+    {
+     "task_id": "adult_col_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_col_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_col_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_col_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_col_005",
+     "label": "incompatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "ESCALATE",
+     "issues": [
+      {
+       "code": "map_key_absent",
+       "kind": "evidence",
+       "detail": "c2: mapping key(s) ['Other'] never occur in input column 'marital-status'. Keys are matched literally, so they never apply (there is no default branch). Input values not covered by the mapping keep their original value: ['Never-married', 'Divorced', 'Separated', 'Widowed']."
+      }
+     ]
+    },
+    {
+     "task_id": "adult_conv_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_conv_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_conv_003",
+     "label": "no_contract",
+     "final_correct": false,
+     "initial_correct": null,
+     "outcome": "ESCALATE",
+     "issues": [
+      {
+       "code": "schema",
+       "kind": "proof",
+       "detail": "Expecting value: line 3 column 133 (char 178)"
+      }
+     ]
+    },
+    {
+     "task_id": "adult_conv_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_conv_005",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_dedup_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_dedup_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_dedup_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": false,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_dedup_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_dedup_005",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_filt_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_filt_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_filt_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_filt_004",
+     "label": "incompatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "ESCALATE",
+     "issues": [
+      {
+       "code": "condition_not_evaluable",
+       "kind": "proof",
+       "detail": "c1.condition: can't compare column 'education' value 'Bachelors' with 1 using <. Use values that exist in this column, or a different column whose type matches the comparison."
+      },
+      {
+       "code": "condition_not_evaluable",
+       "kind": "proof",
+       "detail": "p1.condition: can't compare column 'education' value 'Bachelors' with 5 using >=. Use values that exist in this column, or a different column whose type matches the comparison."
+      }
+     ]
+    },
+    {
+     "task_id": "adult_filt_005",
+     "label": "incompatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": [
+      {
+       "code": "literal_absent",
+       "kind": "evidence",
+       "detail": "c1.condition.all[0]: value(s) ['Private'] never occur in column 'education'. Columns that contain all of them: ['workclass']. Similar values in 'education': []. Check which column and values the request refers to."
+      },
+      {
+       "code": "literal_absent",
+       "kind": "evidence",
+       "detail": "p1.condition.any[0]: value(s) ['Private'] never occur in column 'education'. Columns that contain all of them: ['workclass']. Similar values in 'education': []. Check which column and values the request refers to."
+      },
+      {
+       "code": "removal_matches_nothing",
+       "kind": "proof",
+       "detail": "c1: the removal condition matches 0 of 1000 input rows, but the contract also requires the row count to decrease."
+      }
+     ]
+    },
+    {
+     "task_id": "adult_miss_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_miss_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_miss_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_miss_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_miss_005",
+     "label": "incompatible",
+     "final_correct": false,
+     "initial_correct": true,
+     "outcome": "REJECT",
+     "issues": [
+      {
+       "code": "null_count_contradiction",
+       "kind": "evidence",
+       "detail": "p1 requires null_count(workclass) unchanged (input has 62), but the contract's value requirements give 0 missing values when unspecified cells keep their values. Make the null requirement agree with the requested fill/replacement."
+      },
+      {
+       "code": "null_count_contradiction",
+       "kind": "evidence",
+       "detail": "p2 requires null_count(occupation) unchanged (input has 62), but the contract's value requirements give 0 missing values when unspecified cells keep their values. Make the null requirement agree with the requested fill/replacement."
+      }
+     ]
+    },
+    {
+     "task_id": "airbnb_col_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_col_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_col_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_col_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_col_005",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_conv_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_conv_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_conv_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_conv_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_conv_005",
+     "label": "compatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_dedup_001",
+     "label": "incompatible",
+     "final_correct": false,
+     "initial_correct": true,
+     "outcome": "ESCALATE",
+     "issues": [
+      {
+       "code": "dedup_key_has_no_duplicates",
+       "kind": "proof",
+       "detail": "c1: the input has no duplicate rows on key all columns, so deduplicating on it removes nothing although the row count must decrease. Input columns named in the request (suggestions only): ['name', 'host_name', 'calculated_host_listings_count']."
+      }
+     ]
+    },
+    {
+     "task_id": "airbnb_dedup_002",
+     "label": "incompatible",
+     "final_correct": false,
+     "initial_correct": true,
+     "outcome": "ESCALATE",
+     "issues": [
+      {
+       "code": "unknown_column",
+       "kind": "proof",
+       "detail": "c1: input column 'listing_name' does not exist. Similar input names (suggestions, not automatic replacements): ['host_name', 'name']."
+      }
+     ]
+    },
+    {
+     "task_id": "airbnb_dedup_003",
+     "label": "incompatible",
+     "final_correct": false,
+     "initial_correct": true,
+     "outcome": "REJECT",
+     "issues": [
+      {
+       "code": "dedup_key_has_no_duplicates",
+       "kind": "proof",
+       "detail": "c1: the input has no duplicate rows on key all columns, so deduplicating on it removes nothing although the row count must decrease. Input columns named in the request (suggestions only): ['host_id', 'host_name', 'reviews_per_month', 'calculated_host_listings_count']."
+      }
+     ]
+    },
+    {
+     "task_id": "airbnb_dedup_004",
+     "label": "incompatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_dedup_005",
+     "label": "compatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "ESCALATE",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_filt_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_filt_002",
+     "label": "incompatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "ACCEPT",
+     "issues": [
+      {
+       "code": "literal_absent",
+       "kind": "evidence",
+       "detail": "c1.condition: value(s) ['Brooklyn', 'Manhattan'] never occur in column 'neighbourhood'. Columns that contain all of them: ['neighbourhood_group']. Similar values in 'neighbourhood': ['Brooklyn Heights']. Check which column and values the request refers to."
+      },
+      {
+       "code": "literal_absent",
+       "kind": "evidence",
+       "detail": "p1.condition: value(s) ['Brooklyn', 'Manhattan'] never occur in column 'neighbourhood'. Columns that contain all of them: ['neighbourhood_group']. Similar values in 'neighbourhood': ['Brooklyn Heights']. Check which column and values the request refers to."
+      }
+     ]
+    },
+    {
+     "task_id": "airbnb_filt_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_filt_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_filt_005",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_miss_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_miss_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_miss_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_miss_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_miss_005",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_col_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_col_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_col_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_col_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": false,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_col_005",
+     "label": "incompatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "ESCALATE",
+     "issues": [
+      {
+       "code": "unknown_column",
+       "kind": "proof",
+       "detail": "p1: input column 'fare_per_mile' does not exist. Similar input names (suggestions, not automatic replacements): ['fare_amount']."
+      }
+     ]
+    },
+    {
+     "task_id": "taxi_conv_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_conv_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_conv_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_conv_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_conv_005",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_dedup_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_dedup_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_dedup_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_dedup_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_dedup_005",
+     "label": "compatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_filt_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_filt_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_filt_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_filt_004",
+     "label": "compatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_filt_005",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_miss_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_miss_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_miss_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_miss_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_miss_005",
+     "label": "no_contract",
+     "final_correct": false,
+     "initial_correct": null,
+     "outcome": "ESCALATE",
+     "issues": [
+      {
+       "code": "schema",
+       "kind": "proof",
+       "detail": "Conditional statistic needs an explicit column = value scope"
+      }
+     ]
+    },
+    {
+     "task_id": "titanic_col_001",
+     "label": "compatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_col_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_col_003",
+     "label": "compatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_col_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_col_005",
+     "label": "incompatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": [
+      {
+       "code": "map_key_absent",
+       "kind": "evidence",
+       "detail": "c2: mapping key(s) ['<1'] never occur in input column 'Age'. Keys are matched literally, so they never apply (there is no default branch). Input values not covered by the mapping keep their original value: [22.0, 38.0, 26.0, 35.0, 54.0, 2.0, 27.0, 14.0, '...']."
+      },
+      {
+       "code": "change_is_noop",
+       "kind": "evidence",
+       "detail": "c2: this must_change relation leaves every one of the 891 selected 'Age' values unchanged. Check the function and literals."
+      }
+     ]
+    },
+    {
+     "task_id": "titanic_conv_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_conv_002",
+     "label": "no_contract",
+     "final_correct": false,
+     "initial_correct": null,
+     "outcome": "ESCALATE",
+     "issues": [
+      {
+       "code": "schema",
+       "kind": "proof",
+       "detail": "invalid contract: must_change.1.column_value_relation.args.0.ColArg.from: Extra inputs are not permitted; must_change.1.column_value_relation.args.0.ColArg.to: Extra inputs are not permitted; must_change.1.column_value_relation.args.0.LitArg.col: Extra inputs are not permitted; must_change.1.column_value_relation.args.0.LitArg.from: Extra inputs are not permitted; must_change.1.column_value_relation.args.0.LitArg.to: Extra inputs are not permitted"
+      }
+     ]
+    },
+    {
+     "task_id": "titanic_conv_003",
+     "label": "incompatible",
+     "final_correct": false,
+     "initial_correct": true,
+     "outcome": "REJECT",
+     "issues": [
+      {
+       "code": "map_key_absent",
+       "kind": "evidence",
+       "detail": "c2: mapping key(s) ['True', 'False'] never occur in input column 'Survived'. Keys are matched literally, so they never apply (there is no default branch). Input values not covered by the mapping keep their original value: [0, 1]."
+      },
+      {
+       "code": "change_is_noop",
+       "kind": "evidence",
+       "detail": "c2: this must_change relation leaves every one of the 891 selected 'Survived' values unchanged. Check the function and literals."
+      }
+     ]
+    },
+    {
+     "task_id": "titanic_conv_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_conv_005",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_dedup_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_dedup_002",
+     "label": "compatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "ESCALATE",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_dedup_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_dedup_004",
+     "label": "compatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_dedup_005",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_filt_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_filt_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_filt_003",
+     "label": "compatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_filt_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_filt_005",
+     "label": "no_contract",
+     "final_correct": false,
+     "initial_correct": null,
+     "outcome": "ESCALATE",
+     "issues": [
+      {
+       "code": "schema",
+       "kind": "proof",
+       "detail": "invalid contract: must_preserve.0.rows_retained_where.condition.all.2.op: Input should be '==', '!=', '<', '<=', '>', '>=', 'in', 'not_in', 'is_null' or 'not_null'"
+      }
+     ]
+    },
+    {
+     "task_id": "titanic_miss_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_miss_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_miss_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_miss_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": false,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_miss_005",
+     "label": "no_contract",
+     "final_correct": false,
+     "initial_correct": null,
+     "outcome": "ESCALATE",
+     "issues": [
+      {
+       "code": "schema",
+       "kind": "proof",
+       "detail": "Conditional statistic needs an explicit column = value scope"
+      }
+     ]
+    }
+   ]
+  },
+  "tools": {
+   "labels": {
+    "compatible": 84,
+    "incompatible": 15,
+    "no_contract": 1
+   },
+   "any_issue": {
+    "incompatible": 13,
+    "no_contract": 1
+   },
+   "proof_issue": {
+    "incompatible": 8,
+    "no_contract": 1
+   },
+   "by_code": {
+    "change_is_noop": {
+     "incompatible": 2
+    },
+    "change_preserve_conflict": {
+     "incompatible": 1
+    },
+    "condition_not_evaluable": {
+     "incompatible": 2
+    },
+    "dedup_key_has_no_duplicates": {
+     "incompatible": 1
+    },
+    "dtype_vs_value_preservation": {
+     "incompatible": 1
+    },
+    "literal_absent": {
+     "incompatible": 1
+    },
+    "map_key_absent": {
+     "incompatible": 3
+    },
+    "null_count_contradiction": {
+     "incompatible": 3
+    },
+    "schema": {
+     "no_contract": 1
+    },
+    "unknown_column": {
+     "incompatible": 1
+    }
+   },
+   "fires_on_wrong_accept": [
+    "airbnb_filt_002"
+   ],
+   "fires_on_final_correct": [],
+   "proof_on_final_correct": [],
+   "missed_incompatible": [
+    "titanic_conv_002",
+    "titanic_miss_005"
+   ],
+   "rows": [
+    {
+     "task_id": "adult_col_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_col_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_col_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_col_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_col_005",
+     "label": "incompatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "ESCALATE",
+     "issues": [
+      {
+       "code": "map_key_absent",
+       "kind": "evidence",
+       "detail": "c2: mapping key(s) ['Other'] never occur in input column 'marital-status'. Keys are matched literally, so they never apply (there is no default branch). Input values not covered by the mapping keep their original value: ['Never-married', 'Divorced', 'Separated', 'Widowed']."
+      }
+     ]
+    },
+    {
+     "task_id": "adult_conv_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_conv_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_conv_003",
+     "label": "incompatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": [
+      {
+       "code": "map_key_absent",
+       "kind": "evidence",
+       "detail": "c2: mapping key(s) ['Preschool', 'Kindergarten', 'Grade school', 'High School', 'Some college', 'College', \"Bachelor's degree\", \"Master's degree\", '...'] never occur in input column 'education-num'. Keys are matched literally, so they never apply (there is no default branch). Input values not covered by the mapping keep their original value: [13, 9, 7, 14, 5, 10, 12, 11, '...']."
+      }
+     ]
+    },
+    {
+     "task_id": "adult_conv_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_conv_005",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_dedup_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_dedup_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_dedup_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": false,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_dedup_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_dedup_005",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_filt_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_filt_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_filt_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_filt_004",
+     "label": "incompatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "ESCALATE",
+     "issues": [
+      {
+       "code": "condition_not_evaluable",
+       "kind": "proof",
+       "detail": "c1.condition: can't compare column 'education' value 'Bachelors' with 4 using <=. Use values that exist in this column, or a different column whose type matches the comparison."
+      },
+      {
+       "code": "condition_not_evaluable",
+       "kind": "proof",
+       "detail": "p1.condition: can't compare column 'education' value 'Bachelors' with 4 using >. Use values that exist in this column, or a different column whose type matches the comparison."
+      }
+     ]
+    },
+    {
+     "task_id": "adult_filt_005",
+     "label": "no_contract",
+     "final_correct": false,
+     "initial_correct": null,
+     "outcome": "ESCALATE",
+     "issues": [
+      {
+       "code": "schema",
+       "kind": "proof",
+       "detail": "invalid contract: tool: Extra inputs are not permitted; args: Extra inputs are not permitted; target: Extra inputs are not permitted; op: Extra inputs are not permitted"
+      }
+     ]
+    },
+    {
+     "task_id": "adult_miss_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_miss_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_miss_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_miss_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_miss_005",
+     "label": "incompatible",
+     "final_correct": false,
+     "initial_correct": true,
+     "outcome": "ESCALATE",
+     "issues": [
+      {
+       "code": "change_preserve_conflict",
+       "kind": "proof",
+       "detail": "c1 requires changed values in 'workclass', but p1 requires those same cells unchanged on retained rows. Reconcile the conditions with the request; do not simply remove preservation."
+      },
+      {
+       "code": "change_preserve_conflict",
+       "kind": "proof",
+       "detail": "c2 requires changed values in 'occupation', but p1 requires those same cells unchanged on retained rows. Reconcile the conditions with the request; do not simply remove preservation."
+      },
+      {
+       "code": "null_count_contradiction",
+       "kind": "proof",
+       "detail": "p2 requires null_count(workclass) unchanged (input has 62), but the contract's value requirements give 0 missing values. Make the null requirement agree with the requested fill/replacement."
+      }
+     ]
+    },
+    {
+     "task_id": "airbnb_col_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_col_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_col_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_col_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_col_005",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_conv_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": false,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_conv_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_conv_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_conv_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_conv_005",
+     "label": "compatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_dedup_001",
+     "label": "incompatible",
+     "final_correct": false,
+     "initial_correct": true,
+     "outcome": "ESCALATE",
+     "issues": [
+      {
+       "code": "dedup_key_has_no_duplicates",
+       "kind": "proof",
+       "detail": "c1: the input has no duplicate rows on key all columns, so deduplicating on it removes nothing although the row count must decrease. Input columns named in the request (suggestions only): ['name', 'host_name', 'calculated_host_listings_count']."
+      }
+     ]
+    },
+    {
+     "task_id": "airbnb_dedup_002",
+     "label": "incompatible",
+     "final_correct": false,
+     "initial_correct": true,
+     "outcome": "ESCALATE",
+     "issues": [
+      {
+       "code": "unknown_column",
+       "kind": "proof",
+       "detail": "c1: input column 'listing_name' does not exist. Similar input names (suggestions, not automatic replacements): ['host_name', 'name']."
+      }
+     ]
+    },
+    {
+     "task_id": "airbnb_dedup_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_dedup_004",
+     "label": "compatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "ESCALATE",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_dedup_005",
+     "label": "compatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "ESCALATE",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_filt_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_filt_002",
+     "label": "incompatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "ACCEPT",
+     "issues": [
+      {
+       "code": "literal_absent",
+       "kind": "evidence",
+       "detail": "c1.condition: value(s) ['Brooklyn', 'Manhattan'] never occur in column 'neighbourhood'. Columns that contain all of them: ['neighbourhood_group']. Similar values in 'neighbourhood': ['Brooklyn Heights']. Check which column and values the request refers to."
+      },
+      {
+       "code": "literal_absent",
+       "kind": "evidence",
+       "detail": "p1.condition: value(s) ['Brooklyn', 'Manhattan'] never occur in column 'neighbourhood'. Columns that contain all of them: ['neighbourhood_group']. Similar values in 'neighbourhood': ['Brooklyn Heights']. Check which column and values the request refers to."
+      }
+     ]
+    },
+    {
+     "task_id": "airbnb_filt_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_filt_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_filt_005",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_miss_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_miss_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_miss_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_miss_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_miss_005",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_col_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_col_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_col_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_col_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": false,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_col_005",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": false,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_conv_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_conv_002",
+     "label": "incompatible",
+     "final_correct": false,
+     "initial_correct": true,
+     "outcome": "ESCALATE",
+     "issues": [
+      {
+       "code": "dtype_vs_value_preservation",
+       "kind": "proof",
+       "detail": "c1 converts 'tpep_pickup_datetime' from string to datetime, which changes every cell value, but p1 requires the same cells unchanged. Express the conversion itself (for example a cast relation) instead of value preservation."
+      },
+      {
+       "code": "dtype_vs_value_preservation",
+       "kind": "proof",
+       "detail": "c2 converts 'tpep_dropoff_datetime' from string to datetime, which changes every cell value, but p1 requires the same cells unchanged. Express the conversion itself (for example a cast relation) instead of value preservation."
+      }
+     ]
+    },
+    {
+     "task_id": "taxi_conv_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_conv_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_conv_005",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_dedup_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_dedup_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_dedup_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_dedup_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_dedup_005",
+     "label": "compatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_filt_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_filt_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_filt_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_filt_004",
+     "label": "compatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_filt_005",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_miss_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_miss_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": false,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_miss_003",
+     "label": "incompatible",
+     "final_correct": false,
+     "initial_correct": true,
+     "outcome": "ESCALATE",
+     "issues": [
+      {
+       "code": "null_count_contradiction",
+       "kind": "proof",
+       "detail": "c2 requires null_count(passenger_count) increased (input has 0), but the contract's value requirements give 0 missing values. Make the null requirement agree with the requested fill/replacement."
+      }
+     ]
+    },
+    {
+     "task_id": "taxi_miss_004",
+     "label": "incompatible",
+     "final_correct": false,
+     "initial_correct": true,
+     "outcome": "REJECT",
+     "issues": [
+      {
+       "code": "null_count_contradiction",
+       "kind": "proof",
+       "detail": "c2 requires null_count(RatecodeID) increased (input has 0), but the contract's value requirements give 0 missing values. Make the null requirement agree with the requested fill/replacement."
+      }
+     ]
+    },
+    {
+     "task_id": "taxi_miss_005",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_col_001",
+     "label": "compatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_col_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_col_003",
+     "label": "compatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_col_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_col_005",
+     "label": "incompatible",
+     "final_correct": false,
+     "initial_correct": true,
+     "outcome": "REJECT",
+     "issues": [
+      {
+       "code": "change_is_noop",
+       "kind": "evidence",
+       "detail": "c2: this must_change relation leaves every one of the 7 selected 'Age' values unchanged. Check the function and literals."
+      }
+     ]
+    },
+    {
+     "task_id": "titanic_conv_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_conv_002",
+     "label": "incompatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_conv_003",
+     "label": "incompatible",
+     "final_correct": false,
+     "initial_correct": true,
+     "outcome": "REJECT",
+     "issues": [
+      {
+       "code": "map_key_absent",
+       "kind": "evidence",
+       "detail": "c2: mapping key(s) ['True', 'False'] never occur in input column 'Survived'. Keys are matched literally, so they never apply (there is no default branch). Input values not covered by the mapping keep their original value: [0, 1]."
+      },
+      {
+       "code": "change_is_noop",
+       "kind": "evidence",
+       "detail": "c2: this must_change relation leaves every one of the 891 selected 'Survived' values unchanged. Check the function and literals."
+      }
+     ]
+    },
+    {
+     "task_id": "titanic_conv_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_conv_005",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_dedup_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_dedup_002",
+     "label": "compatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "ESCALATE",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_dedup_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_dedup_004",
+     "label": "compatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_dedup_005",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_filt_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_filt_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_filt_003",
+     "label": "compatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_filt_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_filt_005",
+     "label": "incompatible",
+     "final_correct": false,
+     "initial_correct": true,
+     "outcome": "ESCALATE",
+     "issues": [
+      {
+       "code": "condition_not_evaluable",
+       "kind": "proof",
+       "detail": "c1.condition: can't compare column 'Cabin' value 'C85' with 0 using >=. Use values that exist in this column, or a different column whose type matches the comparison."
+      },
+      {
+       "code": "condition_not_evaluable",
+       "kind": "proof",
+       "detail": "p1.condition: can't compare column 'Cabin' value 'C85' with 0 using <=. Use values that exist in this column, or a different column whose type matches the comparison."
+      }
+     ]
+    },
+    {
+     "task_id": "titanic_miss_001",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_miss_002",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_miss_003",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_miss_004",
+     "label": "compatible",
+     "final_correct": true,
+     "initial_correct": false,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_miss_005",
+     "label": "incompatible",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    }
+   ]
+  },
+  "gold": {
+   "labels": {
+    "gold": 100
+   },
+   "any_issue": {},
+   "proof_issue": {},
+   "by_code": {},
+   "fires_on_wrong_accept": [],
+   "fires_on_final_correct": [],
+   "proof_on_final_correct": [],
+   "missed_incompatible": [],
+   "rows": [
+    {
+     "task_id": "adult_col_001",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_col_002",
+     "label": "gold",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_col_003",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_col_004",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_col_005",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": false,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_conv_001",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_conv_002",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_conv_003",
+     "label": "gold",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "ESCALATE",
+     "issues": []
+    },
+    {
+     "task_id": "adult_conv_004",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_conv_005",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_dedup_001",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_dedup_002",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_dedup_003",
+     "label": "gold",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_dedup_004",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_dedup_005",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_filt_001",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_filt_002",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_filt_003",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_filt_004",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_filt_005",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_miss_001",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_miss_002",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_miss_003",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_miss_004",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "adult_miss_005",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_col_001",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_col_002",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_col_003",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_col_004",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_col_005",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_conv_001",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_conv_002",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_conv_003",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_conv_004",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_conv_005",
+     "label": "gold",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_dedup_001",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": false,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_dedup_002",
+     "label": "gold",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_dedup_003",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_dedup_004",
+     "label": "gold",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_dedup_005",
+     "label": "gold",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_filt_001",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_filt_002",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_filt_003",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_filt_004",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_filt_005",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_miss_001",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_miss_002",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_miss_003",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_miss_004",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "airbnb_miss_005",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_col_001",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_col_002",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_col_003",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_col_004",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": false,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_col_005",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": false,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_conv_001",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_conv_002",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_conv_003",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_conv_004",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_conv_005",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_dedup_001",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_dedup_002",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_dedup_003",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_dedup_004",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_dedup_005",
+     "label": "gold",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_filt_001",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_filt_002",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_filt_003",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_filt_004",
+     "label": "gold",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_filt_005",
+     "label": "gold",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_miss_001",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_miss_002",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": false,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_miss_003",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_miss_004",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "taxi_miss_005",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_col_001",
+     "label": "gold",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_col_002",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_col_003",
+     "label": "gold",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_col_004",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_col_005",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_conv_001",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_conv_002",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": false,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_conv_003",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_conv_004",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_conv_005",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_dedup_001",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_dedup_002",
+     "label": "gold",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_dedup_003",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_dedup_004",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": false,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_dedup_005",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_filt_001",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_filt_002",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_filt_003",
+     "label": "gold",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_filt_004",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_filt_005",
+     "label": "gold",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_miss_001",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_miss_002",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_miss_003",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_miss_004",
+     "label": "gold",
+     "final_correct": true,
+     "initial_correct": true,
+     "outcome": "ACCEPT",
+     "issues": []
+    },
+    {
+     "task_id": "titanic_miss_005",
+     "label": "gold",
+     "final_correct": false,
+     "initial_correct": false,
+     "outcome": "REJECT",
+     "issues": []
+    }
+   ]
+  }
+ }
+}
