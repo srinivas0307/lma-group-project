@@ -65,3 +65,50 @@ Each run: a 2-task smoke run, then 20 dev tasks, then 100 test tasks. It resumes
 .venv/bin/python stage2_fresh/tests/test_compare_mock.py   # comparison notebook on simulated runs
 .venv/bin/python stage2_fresh/build_notebooks.py           # regenerate notebooks + data zip after editing cells/
 ```
+
+## v2 changes (after the first selective-facts run: 71 / 2 / 27 on test)
+
+**Bugs fixed**
+- **Repair agent:** in v1 it wrote a tool call, invented the result and wrote code from it in the same reply (60 of 70 tool calls never received a real result). Generation now stops at `</tool_call>` and the real result is returned before the agent continues.
+- **Parser feedback:** the selective-facts adapter (trained single-turn) repeated a byte-identical contract after a follow-up message. Retries are now fresh single-turn prompts with the checker notes before the request: retry 1 is greedy, retry 2 uses seeded sampling (`RETRY_TEMPERATURE`). The tool parser keeps its trained correction channel and samples only after a repeated reply.
+- **"mean" as a verb** ("0 and 99 both mean not recorded") was read as a statistic request.
+- **Code extraction:** a stray `python` first line, prose or CSV blocks, and cut-off blocks.
+- **Verifier crashes became `pipeline_error`:**
+  - duplicate output columns;
+  - `round`/`clip` on text columns.
+
+  These now become VIOLATION or UNCERTAIN.
+- **Repair examples for computed columns** showed `before: None` instead of the source column values.
+- **`cast` to string of date-only datetimes** now follows pandas `astype(str)`.
+- **Metrics:**
+  - "recovered by feedback" counted contracts accepted despite unresolved warnings;
+  - feedback rounds counted the final failed check;
+  - contract scores sorted order-sensitive `args` and ordered categories, and ignored defaults;
+  - contract scores covered only accepted contracts.
+
+- **Second review pass:**
+  - multi-level output columns (from `groupby().agg`) crashed the verifier;
+  - `list.remove` was wrongly blocked as unsafe;
+  - the final parser result came from the last attempt, not the best one, so a broken sampled retry could discard a usable contract;
+  - the comparison notebook repeated the "recovered by feedback" miscount.
+- **New test suites:** crash fuzzing over 3,000 corrupted contracts and odd outputs (`tests/test_fuzz.py`), and a safety-checker battery of legitimate and dangerous code (`tests/test_safety_legit.py`).
+
+**Checks added**
+- **Parser feedback:**
+  - the value is in another column;
+  - the condition removes every row;
+  - the dedup key has no duplicates;
+  - duplicate or missing categories;
+  - a fill contradicts its `null_count`;
+  - facts supplied but unused;
+  - JSON parse errors with line and column;
+  - unknown columns reported per predicate.
+- **Generator/repair:** a short pandas-pattern guide, one free format retry, and a nudge when an attempt reproduces the same failure.
+- **Verifier:** the message for a renumbered index (`reset_index` after filtering).
+
+**Validation:**
+- No gold contract triggers the new checks.
+- None of v1's 71 correct accepts is affected.
+- The v1 incorrect accept plus 11 withheld tasks now get targeted feedback.
+
+These fixes were found by inspecting test-set failures, so the v2 test numbers are diagnostic. The 20 dev tasks are the fairer check.

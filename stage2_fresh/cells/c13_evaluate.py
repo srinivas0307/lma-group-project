@@ -45,8 +45,8 @@ def _canon_value(v):
         return v
     if isinstance(v, (int, float)):
         return round(float(v), 9)
-    if isinstance(v, list):
-        return sorted((_canon_value(x) for x in v), key=lambda x: json.dumps(x, sort_keys=True, default=str))
+    if isinstance(v, list):          # order is kept (args, ordered categories); unordered lists are sorted by the caller
+        return [_canon_value(x) for x in v]
     if isinstance(v, dict):
         return {k: _canon_value(x) for k, x in sorted(v.items())}
     return str(v)
@@ -72,6 +72,8 @@ def canon_condition(c):
     out = {"column": c["column"], "op": c["op"]}
     if "value" in c:
         out["value"] = _canon_value(c["value"])
+        if c["op"] in SET_OPS and isinstance(out["value"], list):
+            out["value"] = sorted(out["value"], key=lambda x: json.dumps(x, default=str))
     return out
 
 
@@ -80,6 +82,12 @@ def predicate_keys(contract, section, before_cols):
     for p in contract.get(section) or []:
         t = p["type"]
         base = {k: v for k, v in p.items() if k not in ("id", "atol", "target", "except", "condition", "where")}
+        if t == "column_value_relation":
+            base.setdefault("args", [])                       # missing optional fields count as their defaults
+        if t == "column_dtype" and p.get("dtype") == "category":
+            base.setdefault("ordered", False)
+            if "categories" in base and not base["ordered"]:  # unordered categories compare as a set
+                base["categories"] = sorted(base["categories"], key=lambda x: json.dumps(x, default=str))
         for k in ("condition", "where"):
             if p.get(k) is not None:
                 base[k] = canon_condition(p[k])

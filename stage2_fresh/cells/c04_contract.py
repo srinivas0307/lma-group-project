@@ -70,6 +70,27 @@ def extract_json_objects(text):
     return found
 
 
+def json_block_errors(text):
+    """Parse errors of the ```json blocks in a reply (fed back to the parser instead of 'no JSON found')."""
+    errs = []
+    for block in re.findall(r"```(?:json|JSON)?\s*(.*?)(?:```|$)", text, flags=re.S):
+        try:
+            json.loads(block.strip())
+        except json.JSONDecodeError as e:
+            lines = block.strip().splitlines()
+            bad = lines[e.lineno - 1].strip()[:160] if 0 < e.lineno <= len(lines) else ""
+            errs.append(f"the json block is not valid JSON: {e.msg} at line {e.lineno} column {e.colno} (near: {bad!r}); "
+                        f"write plain JSON only (no '&', comments or Python expressions)")
+    return errs
+
+
+def no_contract_error(text, truncated):
+    if truncated:
+        return "the reply was cut off before the JSON was complete; write the contract more compactly"
+    errs = json_block_errors(text)
+    return errs[0] if errs else "no JSON contract found in the reply"
+
+
 # ---------------------------------------------------------------- schema validation
 def _is_int(v):
     return isinstance(v, int) and not isinstance(v, bool)
@@ -119,6 +140,8 @@ def validate_condition(cond, path, errors):
 
 def _validate_count(p, path, errors):
     op = p.get("op")
+    if op in COUNT_REL and p.get("value", 0) is None:
+        p.pop("value")                     # harmless "value": null on a relative op
     if op in COUNT_REL:
         if "value" in p:
             errors.append(f"{path}: relative op {op!r} takes no \"value\"")
@@ -205,6 +228,8 @@ def validate_predicate(p, path, errors):
         if not any(len(sig) == len(kinds) and all(s in ("any", k) for s, k in zip(sig, kinds)) for sig in FN_SIGNATURES[fn]):
             errors.append(f"{path}: fn {fn} expects args {' or '.join(str(s) for s in FN_SIGNATURES[fn])}, got {kinds}")
             return
+        if fn == "clip" and not all(a["lit"] is None or (isinstance(a["lit"], (int, float)) and not isinstance(a["lit"], bool)) for a in args[1:]):
+            errors.append(f"{path}: clip bounds must be numbers or null")
         if fn == "round" and not _is_int(args[1]["lit"]):
             errors.append(f"{path}: round needs an integer number of decimals")
         if fn == "map" and not isinstance(args[1]["lit"], dict):
@@ -218,6 +243,8 @@ def validate_predicate(p, path, errors):
             errors.append(f"{path}.atol: must be a number")
     if t in ("columns_added", "columns_removed"):
         _validate_cols(tgt, path, errors, allow_star=False)
+        if isinstance(tgt, list) and "*" in tgt:
+            errors.append(f"{path}.target: list the column names explicitly (\"*\" is not allowed here)")
 
 
 def normalize_contract(obj):
@@ -424,8 +451,8 @@ def contract_columns(contract):
             elif t == "column_value_relation":
                 new.add(p["target"])
                 need |= {a["col"] for a in p.get("args", []) if "col" in a}
-            elif t in ("column_dtype",):
-                dtype_targets.add(p["target"])
+            elif t in ("column_dtype", "null_count"):
+                dtype_targets.add(p["target"])     # may refer to a new column
             elif p.get("target") not in (None, "*"):
                 need |= set([p["target"]] if isinstance(p["target"], str) else p["target"])
             need |= set(p.get("except") or [])

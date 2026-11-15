@@ -4,7 +4,16 @@ CODE_RULES = """Rules:
 2. `pd` (pandas) and `np` (numpy) are available; you may also import re, math, datetime. No other imports, no files, network, system calls or printing.
 3. Keep the original index labels: never call reset_index, never use ignore_index=True, never sort or rebuild the frame. When rows are removed, the remaining rows keep their index labels.
 4. Change only what the request asks for. Every other row, column, value and dtype stays exactly as it is. Do not leave helper columns in the output.
-5. The output is checked automatically against the intent contract (what must change and what must be preserved). Satisfy every predicate."""
+5. The output is checked automatically against the intent contract (what must change and what must be preserved). Satisfy every predicate.
+6. Never convert, reformat or recompute columns the request does not mention (keep their dtype exactly).
+
+pandas patterns to use:
+- Remove duplicates: `out = df.drop_duplicates(subset=[key columns], keep="first")` (or keep="last"). Do NOT use groupby, merge, first()/last() or reset_index for deduplication.
+- Filter rows: build a boolean mask and use `out = df.loc[mask].copy()`. "Remove rows where A and B" is `df.loc[~((A) & (B))]`; combine with `&`, `|`, `~` and parentheses.
+- Fill missing values: `out[c] = out[c].fillna(value)`; only in some rows: `out.loc[mask & out[c].isna(), c] = value`.
+- Rename: `out = out.rename(columns={"old": "new"})`; after this the old name no longer exists, do not access or drop it.
+- Cap values: `out[c] = out[c].clip(lower=..., upper=...)`.
+- Types: `out[c].astype("float")`, `pd.to_datetime(out[c], format=...)`, `pd.Categorical(out[c], categories=[...unique...], ordered=True)`."""
 
 GEN_SYSTEM = "You are a data engineer who writes pandas code. You implement exactly one requested data transformation as a Python function.\n\n" + CODE_RULES
 
@@ -29,4 +38,14 @@ def generate_code(task, df, contract):
             "First write a short plan (2-5 bullet points) as Python comments, then the complete function in one ```python block.")
     messages = [{"role": "system", "content": GEN_SYSTEM}, {"role": "user", "content": user}]
     text, usage = CODER_LM.chat(messages, max_new_tokens=GEN_MAX_NEW_TOKENS)
-    return {"messages": messages + [{"role": "assistant", "content": text}], "calls": [usage], "code": extract_code(text)}
+    messages.append({"role": "assistant", "content": text})
+    calls, code = [usage], extract_code(text)
+    problem = format_problem(code)
+    if problem:   # one format retry (unusable reply is not a repair attempt)
+        messages.append({"role": "user", "content": f"Your reply could not be used: {problem}. Return the complete function "
+                                                     "`def transform(df):` (with `return out`) in one ```python block."})
+        text, usage = CODER_LM.chat(messages, max_new_tokens=GEN_MAX_NEW_TOKENS)
+        messages.append({"role": "assistant", "content": text})
+        calls.append(usage)
+        code = extract_code(text)
+    return {"messages": messages, "calls": calls, "code": code, "format_retry": bool(problem)}

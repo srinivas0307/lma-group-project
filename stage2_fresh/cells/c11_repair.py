@@ -79,28 +79,45 @@ def repair(task, before, contract, code, first_stage, first_output):
             f"If you need evidence first, call a tool (at most {MAX_REPAIR_TOOL_CALLS} calls per attempt).")
     messages = [{"role": "system", "content": REPAIR_SYSTEM}, {"role": "user", "content": user}]
     attempts, calls, after = [], [], first_output
+    prev_feedback = first_stage["feedback"]
     for attempt in range(1, MAX_REPAIR_ATTEMPTS + 1):
-        used_tools = []
+        used_tools, format_retried = [], False
         while True:
-            text, usage = CODER_LM.chat(messages, max_new_tokens=REPAIR_MAX_NEW_TOKENS, tools=REPAIR_TOOLS)
+            tools_left = len(used_tools) < MAX_REPAIR_TOOL_CALLS
+            # generation stops at </tool_call>: the model must wait for the REAL tool result
+            # (in v1 it kept writing, invented the result and wrote code from it)
+            text, usage = CODER_LM.chat(messages, max_new_tokens=REPAIR_MAX_NEW_TOKENS,
+                                        tools=REPAIR_TOOLS,
+                                        stop=["</tool_call>"] if tools_left else None)
             calls.append(usage)
+            tcs = parse_tool_calls(text) if tools_left else []
+            if tcs:
+                messages.append({"role": "assistant", "content": text})
+                tc = tcs[0]
+                res = repair_tool(tc.get("name"), tc.get("arguments") or {}, before, after)
+                used_tools.append({"name": tc.get("name"), "arguments": tc.get("arguments")})
+                messages.append({"role": "tool", "content": json.dumps(res, default=str)})
+                continue
             messages.append({"role": "assistant", "content": text})
             new_code = extract_code(text)
-            tcs = parse_tool_calls(text)
-            if new_code is None and tcs and len(used_tools) < MAX_REPAIR_TOOL_CALLS:
-                for tc in tcs[: MAX_REPAIR_TOOL_CALLS - len(used_tools)]:
-                    res = repair_tool(tc.get("name"), tc.get("arguments") or {}, before, after)
-                    used_tools.append({"name": tc.get("name"), "arguments": tc.get("arguments")})
-                    messages.append({"role": "tool", "content": json.dumps(res, default=str)})
+            problem = format_problem(new_code)
+            if problem and not format_retried:   # unusable reply: ask once more within the same attempt
+                format_retried = True
+                messages.append({"role": "user", "content": f"Your reply could not be used: {problem}. Return the complete corrected "
+                                                             "function `def transform(df):` (with `return out`) in one ```python block."})
                 continue
             break
         stage, out = execute_and_verify(new_code, before, contract)
-        stage["attempt"], stage["tools"] = attempt, used_tools
+        stage["attempt"], stage["tools"], stage["format_retry"] = attempt, used_tools, format_retried
         attempts.append(stage)
         if out is not None:
             after = out
         if stage["status"] in ("PASS", "UNCERTAIN"):
             return attempts, calls, messages, out
-        messages.append({"role": "user", "content": f"Attempt {attempt} was executed and verified again:\n{stage['feedback']}\n\n"
+        same = stage["feedback"] == prev_feedback
+        prev_feedback = stage["feedback"]
+        nudge = ("This attempt produced exactly the same result as before, so the change did not address the problem. "
+                 "Re-read the failed predicate and its examples and use a different approach.\n\n") if same else ""
+        messages.append({"role": "user", "content": f"Attempt {attempt} was executed and verified again:\n{stage['feedback']}\n\n{nudge}"
                                                     "Fix the remaining problem and return the complete corrected function in one ```python block."})
     return attempts, calls, messages, out  # output of the last attempt (None if it did not execute)

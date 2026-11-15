@@ -46,7 +46,12 @@ def _cast_value(v, dtype, fmt=None):
         if dtype == "float":
             return float(v)
         if dtype == "string":
-            return v if isinstance(v, str) else str(_fmt(v))
+            if isinstance(v, str):
+                return v
+            if _is_datetime(v):     # like pandas astype(str): date only when there is no time part
+                ts = pd.Timestamp(v)
+                return str(ts.date()) if ts == ts.normalize() else str(ts)
+            return str(_fmt(v))
         if dtype == "bool":
             if isinstance(v, (bool, np.bool_)):
                 return bool(v)
@@ -250,6 +255,11 @@ def check_predicate(p, before, after, surv):
                 return PASS, "no surviving rows match the where-condition", []
             exp = relation_expected(p, before.loc[rows])
             n_bad, ex = _value_mismatch_examples(before, after, rows, col, expected=exp, atol=float(p.get("atol", 1e-9)))
+            arg_cols = [a["col"] for a in p.get("args", []) if "col" in a]
+            for e in ex:   # show the input values the expected value is computed from (the target may be a new column)
+                if col not in bcols:
+                    e.pop("before", None)
+                e["inputs"] = {c: _fmt(before.at[e["row"], c]) for c in arg_cols}
             if n_bad:
                 return FAIL, f"{col!r} != {p['fn']}(...) on {n_bad} of {len(rows)} checked rows", ex
             return PASS, f"{col!r} == {p['fn']}(...) on {len(rows)} rows", []
@@ -263,6 +273,8 @@ def check_predicate(p, before, after, surv):
             return (PASS if not bad else FAIL), (f"columns not removed: {bad}" if bad else f"removed {p['target']}"), []
     except MissingColumn as e:
         return UNCERTAIN, f"condition column {e.column!r} is not in the input data", []
+    except Exception as e:   # e.g. round/clip on a text column: the contract cannot be evaluated on this data
+        return UNCERTAIN, f"predicate cannot be evaluated on this data ({type(e).__name__}: {str(e)[:150]})", []
     return UNCERTAIN, f"unsupported predicate {t}", []
 
 
@@ -270,6 +282,10 @@ def profile_change(before, after):
     """Compact before/after profile used in reports and by the repair agent."""
     if not isinstance(after, pd.DataFrame):
         return {"error": "output is not a DataFrame"}
+    if isinstance(after.columns, pd.MultiIndex) or after.columns.duplicated().any():   # after[c] would be a DataFrame
+        return {"multilevel_columns": isinstance(after.columns, pd.MultiIndex),
+                "rows_before": len(before), "rows_after": len(after),
+                "duplicate_columns": sorted(set(after.columns[after.columns.duplicated()]))}
     surv = after.index.intersection(before.index)
     changed = {}
     for c in before.columns:
@@ -293,11 +309,25 @@ def verify(before, after, contract):
     results, structural = [], []
     if not isinstance(after, pd.DataFrame):
         return {"verdict": "VIOLATION", "structural": ["the transformation did not return a DataFrame"], "predicates": []}
+    if isinstance(after.columns, pd.MultiIndex):
+        return {"verdict": "VIOLATION", "predicates": [], "profile": profile_change(before, after),
+                "structural": ["the output has multi-level column names (e.g. from groupby().agg); return a frame with the "
+                               "original flat column names"]}
     if after.columns.duplicated().any():
         structural.append(f"duplicate column names in the output: {list(after.columns[after.columns.duplicated()])}")
     if after.index.has_duplicates or not after.index.isin(before.index).all():
-        structural.append("the output index does not keep the original row ids (do not use reset_index / ignore_index; "
-                          "keep the index labels of the input rows)")
+        structural.append("the output index does not keep the original row ids (groupby/merge/reset_index/ignore_index "
+                          "rebuild the index); keep the index labels of the input rows, e.g. use drop_duplicates or a boolean mask on df")
+    elif len(after) < len(before) and after.index.equals(pd.RangeIndex(len(after))):
+        shared = [c for c in before.columns if c in after.columns]
+        if shared:
+            same = pd.Series(True, index=after.index)
+            for c in shared:
+                same &= series_equal_mask(after[c], before.loc[after.index, c]).values
+            if same.mean() < 0.5:
+                structural.append(f"the output index was renumbered 0..{len(after) - 1} (reset_index / groupby / merge / ignore_index), "
+                                  f"so {int((~same).sum())} rows no longer carry their original row ids; do not renumber the index, "
+                                  f"e.g. use df.drop_duplicates(...) or df.loc[mask] directly")
     declared_new = set()
     for sec in ("must_change", "must_preserve"):
         for p in contract[sec]:

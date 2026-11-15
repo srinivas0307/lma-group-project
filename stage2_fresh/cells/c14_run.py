@@ -5,7 +5,7 @@ OUT_DIR = WORK_DIR / RUN_NAME
     "system": SYSTEM_NAME, "parser_protocol": PARSER_PROTOCOL, "parser_base": PARSER_BASE, "parser_revision": PARSER_REVISION,
     "parser_adapter": str(PARSER_ADAPTER), "coder": CODER_BASE, "max_parser_feedback": MAX_PARSER_FEEDBACK,
     "max_repair_attempts": MAX_REPAIR_ATTEMPTS, "max_repair_tool_calls": MAX_REPAIR_TOOL_CALLS,
-    "repetition_penalty": REPETITION_PENALTY, "torch": torch.__version__, "transformers": transformers.__version__,
+    "repetition_penalty": REPETITION_PENALTY, "retry_temperature": RETRY_TEMPERATURE, "torch": torch.__version__, "transformers": transformers.__version__,
     "pandas": pd.__version__, "gpus": [torch.cuda.get_device_name(i) for i in range(N_GPU)]}, indent=1))
 
 

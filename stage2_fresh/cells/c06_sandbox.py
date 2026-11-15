@@ -5,18 +5,38 @@ FORBIDDEN_NAMES = {"eval", "exec", "compile", "open", "__import__", "input", "gl
                    "subprocess", "shutil", "socket", "pickle", "importlib", "builtins"}
 FORBIDDEN_ATTRS = {"to_csv", "to_pickle", "to_parquet", "to_excel", "to_sql", "to_hdf", "to_feather", "to_json",
                    "to_clipboard", "read_csv", "read_pickle", "read_parquet", "read_excel", "read_sql", "read_json",
-                   "read_html", "read_clipboard", "read_table", "read_fwf", "read_hdf", "system", "popen", "remove",
-                   "unlink", "rmtree"}
+                   "read_html", "read_clipboard", "read_table", "read_fwf", "read_hdf", "system", "popen",
+                   "unlink", "rmtree", "save", "savetxt", "savez", "savez_compressed", "load", "loadtxt", "genfromtxt",
+                   "fromfile", "tofile", "memmap", "read_feather", "read_xml", "read_stata", "read_sas", "read_spss",
+                   "read_orc", "read_sql_query", "read_sql_table", "to_html", "to_latex", "to_markdown", "to_xml",
+                   "to_stata", "to_orc", "to_gbq"}
 
 
 def extract_code(text):
-    blocks = re.findall(r"```(?:python|py)?\s*\n(.*?)```", text, flags=re.S)
-    blocks = [b for b in blocks if "def transform" in b] or blocks
-    if blocks:
-        return blocks[-1].strip()
+    """The last fenced block that defines transform(df). Prose/CSV blocks are ignored; a stray first line
+    'python' inside the fence is dropped; an unterminated block (cut-off reply) is accepted."""
+    cands = []
+    for body in re.findall(r"```[ \t]*[A-Za-z0-9_+-]*[ \t]*\n(.*?)(?:```|$)", text, flags=re.S):
+        lines = body.strip("\n").splitlines()
+        while lines and lines[0].strip().lower() in ("python", "py", "python3"):
+            lines = lines[1:]
+        body = "\n".join(lines).strip()
+        if "def transform" in body:
+            cands.append(body)
+    if cands:
+        return cands[-1]
     if "def transform" in text:
-        return text[text.index("def transform"):].strip()
+        rest = text[text.index("def transform"):]
+        return rest.split("```")[0].strip()
     return None
+
+
+def format_problem(code):
+    """Problems that mean the reply was not usable code at all (asked again once, not counted as a repair)."""
+    if code is None:
+        return "the reply has no ```python block that defines def transform(df)"
+    probs = [p for p in safety_check(code) if p.startswith("SyntaxError") or "top-level function" in p]
+    return "; ".join(probs) or None
 
 
 def safety_check(code):

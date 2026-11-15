@@ -101,13 +101,15 @@ def run_parser(task, df):
     tools = DataTools(df)
     messages = [{"role": "system", "content": PARSER_SYSTEM},
                 {"role": "user", "content": describe_input(df) + "\nRequest: " + task["request"]}]
-    corrections, contract, errors, hard, soft = 0, None, [], [], []
-    status = None
+    corrections, contract, errors, hard, soft, problems = 0, None, [], [], [], []
+    status, last_kind, rejected_replies, resample, best = None, None, set(), False, None
     for reply_no in range(MAX_REPLIES):
         if tokens_of(rec["calls"]) > MAX_PARSER_TOKENS:
             status, rec["error"] = "parser_budget", f"cumulative parser tokens exceeded {MAX_PARSER_TOKENS}"
             break
-        text, usage = PARSER_LM.chat(messages, max_new_tokens=PARSER_MAX_NEW_TOKENS)
+        # greedy, except right after the model repeated an already rejected reply (then seeded sampling)
+        text, usage = PARSER_LM.chat(messages, max_new_tokens=PARSER_MAX_NEW_TOKENS,
+                                     sample_seed=(2000 + reply_no) if resample else None)
         rec["calls"].append(usage)
         messages.append({"role": "assistant", "content": text})
         objs = [o for o in extract_json_objects(text) if isinstance(o, dict)]
@@ -125,13 +127,18 @@ def run_parser(task, df):
                 obs = {"ok": False, "error_type": type(e).__name__, "error": str(e)}
             rec["tool_calls"].append({"tool": first.get("tool"), "args": first.get("args"), "observation": obs})
             messages.append({"role": "user", "content": _observation(obs)})
+            last_kind, resample = "tool", False
             continue
+        last_kind = "contract"
         cands = [o for o in objs if "must_change" in o or "must_preserve" in o]
         if not cands:
-            contract, errors = None, ["no tool call, contract or escalation JSON found" + (" (reply was cut off)" if usage["truncated"] else "")]
+            err = no_contract_error(text, usage["truncated"])
+            contract, errors = None, [err if not err.startswith("no JSON") else "no tool call, contract or escalation JSON found"]
         else:
             contract, errors = normalize_contract(cands[-1])
         hard, soft = contract_issues(contract, df) if contract else ([], [])
+        best = better_attempt(best, contract, errors, hard, soft)
+        problems = errors or (hard + soft)
         if errors:
             problem = "invalid contract: " + "; ".join(errors)
         elif hard or soft:
@@ -139,20 +146,28 @@ def run_parser(task, df):
         else:
             status = "ok"
             break
-        rec["feedback"].append({"round": corrections + 1, "problems": errors or (hard + soft)})
-        if corrections >= MAX_PARSER_FEEDBACK:
+        sent = corrections < MAX_PARSER_FEEDBACK
+        rec["feedback"].append({"round": corrections + 1, "problems": problems, "sent": sent})
+        if not sent:
             break
+        resample = text in rejected_replies       # identical to an earlier rejected reply -> sample next time
+        rejected_replies.add(text)
         corrections += 1
         messages.append({"role": "user", "content": CORRECTION + problem})
     rec["messages"] = messages
+    if status not in ("ok", "escalated", "parser_budget") and best is not None:
+        # budget ran out: use the best contract seen, not merely the last reply
+        contract, errors, hard, soft = best["contract"], best["errors"], best["hard"], best["soft"]
+        last_kind = "contract"
+    rec["final_problems"] = [] if status == "ok" else (errors or (hard + soft))
     rec["tool_attempts"] = len(rec["tool_calls"])
     rec["tool_failures"] = sum(not c["observation"]["ok"] for c in rec["tool_calls"])
     if status in ("escalated", "parser_budget"):
         rec["status"] = status
     elif status == "ok":
         rec.update(status="ok", contract=contract, warnings=[])
-    elif errors or contract is None:
-        rec.update(status="parser_invalid", error="; ".join(errors) or "reply budget exhausted")
+    elif errors or contract is None or last_kind != "contract":
+        rec.update(status="parser_invalid", error="; ".join(errors) or "reply budget exhausted without a final contract")
     elif hard:
         rec.update(status="parser_rejected", error="; ".join(hard), contract=contract)
     else:

@@ -5,7 +5,7 @@ import pandas as pd
 pd.set_option("display.max_colwidth", 120)
 pd.set_option("display.width", 250)
 SEARCH = [Path("/kaggle/input"), Path("."), Path("/kaggle/working")]
-RUNS = {"selective_facts": "stage2_fresh_selective_facts", "tool_use": "stage2_fresh_tool_use"}
+RUNS = {"selective_facts": "stage2_fresh_selective_facts_v2", "tool_use": "stage2_fresh_tool_use_v2"}   # use the v1 names to compare the first runs
 
 
 def load_run(run_name):
@@ -30,7 +30,8 @@ print({k: len(v) for k, v in recs.items()}, "common tasks:", len(ids))
 
 def row(r):
     p = r["parser"]
-    return {"split": r["split"], "type": r["transformation_type"], "parser": p["status"], "fb": len(p.get("feedback", [])),
+    return {"split": r["split"], "type": r["transformation_type"], "parser": p["status"], "fb": sum(1 for f in p.get("feedback", []) if f.get("sent", True)),
+            "unresolved": p["status"] == "ok" and bool(p.get("final_problems")),
             "tools": p.get("tool_attempts", 0), "facts": len(p.get("facts") or []),
             "exact": (r.get("contract_scores") or {}).get("exact_match"),
             "mc_f1": (r.get("contract_scores") or {}).get("must_change", {}).get("f1"),
@@ -48,7 +49,8 @@ def headline(df):
         "tasks": len(df), "correct accepted": (df.outcome == "correct_accepted").sum(),
         "incorrect accepted": (df.outcome == "incorrect_accepted").sum(), "withheld": (df.outcome == "withheld").sum(),
         "parser ok": (df.parser == "ok").sum(), "parser used feedback": (df.fb > 0).sum(),
-        "recovered by feedback": ((df.fb > 0) & (df.parser == "ok")).sum(),
+        "recovered by feedback": ((df.fb > 0) & (df.parser == "ok") & (df.unresolved == False)).sum(),
+        "accepted with unresolved warnings": (df.unresolved == True).sum(),
         "contract exact match": (df.exact == True).sum(), "must_change F1 (mean)": round(pd.to_numeric(df.mc_f1).mean(), 3),
         "must_preserve F1 (mean)": round(pd.to_numeric(df.mp_f1).mean(), 3),
         "initial PASS": (df.initial == "PASS").sum(), "entered repair": (df.repairs > 0).sum(),

@@ -31,18 +31,33 @@ class ChatModel:
         self.calls = 0
 
     @torch.inference_mode()
-    def chat(self, messages, max_new_tokens=1024, tools=None):
+    def chat(self, messages, max_new_tokens=1024, tools=None, stop=None, sample_seed=None):
+        """Greedy by default. sample_seed=int -> seeded sampling (used only for retries that would otherwise repeat).
+        stop=[...] -> generation ends at the first stop string, which is kept in the returned text."""
         kw = {"tools": tools} if tools else {}
         prompt = self.tok.apply_chat_template(messages, tokenize=False, add_generation_prompt=True, **kw)
         enc = self.tok(prompt, return_tensors="pt").to(self.device)
-        out = self.model.generate(**enc, max_new_tokens=max_new_tokens, do_sample=False, temperature=None,
-                                  top_p=None, top_k=None, repetition_penalty=REPETITION_PENALTY,
-                                  pad_token_id=self.tok.eos_token_id)
+        gen = dict(max_new_tokens=max_new_tokens, repetition_penalty=REPETITION_PENALTY, pad_token_id=self.tok.eos_token_id)
+        if sample_seed is None:
+            gen.update(do_sample=False, temperature=None, top_p=None, top_k=None)
+        else:
+            torch.manual_seed(sample_seed)
+            gen.update(do_sample=True, temperature=RETRY_TEMPERATURE, top_p=0.95, top_k=None)
+        if stop:
+            gen.update(stop_strings=stop, tokenizer=self.tok)
+        try:
+            out = self.model.generate(**enc, **gen)
+        except (TypeError, ValueError):          # older transformers without stop_strings: truncate afterwards
+            gen.pop("stop_strings", None); gen.pop("tokenizer", None)
+            out = self.model.generate(**enc, **gen)
         new = out[0, enc["input_ids"].shape[1]:]
         text = self.tok.decode(new, skip_special_tokens=True)
+        for s in stop or []:
+            if s in text:
+                text = text[: text.index(s) + len(s)]
         self.calls += 1
         return text, {"prompt_tokens": int(enc["input_ids"].shape[1]), "completion_tokens": int(new.shape[0]),
-                      "truncated": bool(new.shape[0] >= max_new_tokens)}
+                      "truncated": bool(new.shape[0] >= max_new_tokens), "sampled": sample_seed is not None}
 
 
 N_GPU = torch.cuda.device_count()

@@ -12,7 +12,10 @@ class FactUnavailable(Exception):
     pass
 
 
-_STATS = [("median", r"\bmedian\b"), ("mean", r"\b(?:mean|average)\b"), ("mode", r"\b(?:mode|most (?:common|frequent))\b")]
+# "mean" only as a statistic ("the mean", "mean of", "column mean"), not the verb ("0 and 99 both mean ...")
+_STATS = [("median", r"\bmedian\b"),
+          ("mean", r"\baverage\b|\b(?:the|its|their|column|full-column|group)\s+mean\b|\bmean\s+(?:of|value)\b"),
+          ("mode", r"\b(?:mode|most (?:common|frequent))\b")]
 
 
 def _col_spans(request, cols):
@@ -125,16 +128,41 @@ def compute_facts(request, df):
     return facts
 
 
-def build_parser_user_message(request, df, facts):
+def build_parser_user_message(request, df, facts, notes=None):
+    """Trained sf1 format; on a retry the checker notes go before the request (the request stays last)."""
     msg = describe_input(df)
     if facts:
         msg += "\nRequired input facts (sf1):\n" + json.dumps(facts) + "\n"
+    if notes:
+        msg += "\nChecker notes on an earlier contract for this request (fix all of them):\n- " + "\n- ".join(notes) + "\n"
     return msg + "\nRequest: " + request
 
 
-def _feedback_message(problems):
-    return ("The contract was rejected by the contract checker:\n- " + "\n- ".join(problems) +
-            "\nReturn the complete corrected contract as one ```json block and nothing else.")
+def _literals(obj, out=None):
+    """All scalar values under "lit" / "value" keys anywhere in a contract."""
+    out = [] if out is None else out
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            if k in ("lit", "value") and not isinstance(v, (dict, list)):
+                out.append(v)
+            else:
+                _literals(v, out)
+    elif isinstance(obj, list):
+        for v in obj:
+            _literals(v, out)
+    return out
+
+
+def facts_issues(contract, facts):
+    """Every supplied fact must appear in the contract as a literal (the facts are only computed when needed)."""
+    lits = _literals(contract)
+    missing = [f for f in facts if not any(scalar_equal(l, f["value"]) for l in lits)]
+    if not missing:
+        return []
+    grouped = any(f["scope"]["kind"] == "conditional" for f in missing)
+    return [f"the contract does not use the required input fact value(s) {[f['value'] for f in missing]}; copy each fact value "
+            f"exactly as the fill literal" + (" and write one column_value_relation per fact, with a where condition that combines "
+                                             "the missing-value test with the fact's scope (e.g. its group column == value)" if grouped else "")]
 
 
 def run_parser(task, df):
@@ -145,33 +173,47 @@ def run_parser(task, df):
         rec.update(status="fact_unavailable", error=str(e))
         return rec
     rec["facts"] = facts
-    messages = [{"role": "system", "content": PARSER_SYSTEM},
-                {"role": "user", "content": build_parser_user_message(task["request"], df, facts)}]
-    contract, errors, hard, soft = None, [], [], []
+    # Feedback rounds: this adapter was fine-tuned single-turn, and in v1 a follow-up chat message made it repeat the
+    # byte-identical contract. So each retry is a FRESH single-turn prompt with the checker notes placed before the
+    # request; retry 1 is greedy, later retries use seeded sampling so the reply cannot simply repeat.
+    contract, errors, hard, soft, problems, notes, best = None, [], [], [], [], None, None
+    rec["attempts"] = []
     for rnd in range(MAX_PARSER_FEEDBACK + 1):
-        text, usage = PARSER_LM.chat(messages, max_new_tokens=PARSER_MAX_NEW_TOKENS)
+        messages = [{"role": "system", "content": PARSER_SYSTEM},
+                    {"role": "user", "content": build_parser_user_message(task["request"], df, facts, notes)}]
+        seed = None if rnd <= 1 else 1000 + rnd
+        text, usage = PARSER_LM.chat(messages, max_new_tokens=PARSER_MAX_NEW_TOKENS, sample_seed=seed)
         rec["calls"].append(usage)
         messages.append({"role": "assistant", "content": text})
+        rec["attempts"].append({"round": rnd, "notes": notes, "sampled": seed is not None, "reply": text})
         objs = [o for o in extract_json_objects(text) if isinstance(o, dict)]
         cands = [o for o in objs if "must_change" in o or "must_preserve" in o]
         if any(o.get("action") == "escalate" for o in objs) and not cands:
             rec.update(status="escalated", error=next(o.get("reason") for o in objs if o.get("action") == "escalate"))
             break
         if not cands:
-            contract, errors = None, ["no JSON contract found in the reply" + (" (the reply was cut off; write it more compactly)" if usage["truncated"] else "")]
+            contract, errors = None, [no_contract_error(text, usage["truncated"])]
         else:
             contract, errors = normalize_contract(cands[-1])
         hard, soft = contract_issues(contract, df) if contract else ([], [])
+        if contract and not errors:
+            hard = facts_issues(contract, facts) + hard
+        best = better_attempt(best, contract, errors, hard, soft)
         problems = errors or (hard + soft)
         if not problems:
             break
-        rec["feedback"].append({"round": rnd + 1, "problems": problems})
-        if rnd == MAX_PARSER_FEEDBACK:
+        sent = rnd < MAX_PARSER_FEEDBACK
+        rec["feedback"].append({"round": rnd + 1, "problems": problems, "sent": sent})
+        if not sent:
             break
-        messages.append({"role": "user", "content": _feedback_message(problems)})
+        notes = problems
     rec["messages"] = messages
     if rec.get("status") == "escalated":
+        rec["final_problems"] = problems
         return rec
+    contract, errors, hard, soft = best["contract"], best["errors"], best["hard"], best["soft"]
+    rec["final_problems"] = errors or (hard + soft)
+    rec["chosen_attempt_rank"] = best["rank"]
     if errors:
         rec.update(status="parser_invalid", error="; ".join(errors))
     elif hard:
