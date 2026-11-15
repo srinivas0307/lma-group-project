@@ -8,7 +8,7 @@ marp: false
 **Status (2026-11-11):** Core implementation, Stage 1 evaluation, agent experiments, and full 1.5B/3B parser fine-tuning are complete. The roadmap below retains planning and historical notes; use the result reports for current experiment status.
 
 Full fine-tuning analysis: [results/FINETUNE_RESULTS.md](../../results/FINETUNE_RESULTS.md).
-Executed full-run notebook: [notebooks/executed/finetune_qlora_full.ipynb](../../archive/notebooks/executed/training/finetune_qlora_full.ipynb).
+Executed full-run notebook: [notebooks/executed/finetune_qlora_full.ipynb](../../notebooks/executed/training/finetune_qlora_full.ipynb).
 
 Completed Stage 2 development comparisons: [results and artifact index](../../results/STAGE2_DEV_RESULTS.md). Executed notebooks: [Phase A](../../archive/notebooks/executed/stage2_dev/stage2_prompt_dev_phase_a.ipynb) and [Phase B](../../archive/notebooks/executed/stage2_dev/stage2_prompt_dev_phase_b.ipynb). The [development workflow](stage2_prompt_dev.md) and [unexecuted Kaggle template](../../archive/notebooks/core/stage2_prompt_dev_kaggle.ipynb) remain available.
 
@@ -774,7 +774,7 @@ Dependency versions will be pinned in `requirements.txt` in Phase 0.
 
 ## 7. Repository structure
 
-Restructured 2026-10-30 (`tools/restructure.py`; every path is defined once in `src/igt/paths.py`).
+Restructured 2026-10-30 (`archive/tools/restructure.py`; every path is defined once in `src/igt/paths.py`).
 
 ```
 intent-parser/

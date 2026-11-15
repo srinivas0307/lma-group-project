@@ -8,4 +8,4 @@ finetune/runs/
 /finetune/runs.zip
 /kaggle_outputs/tool_use_v2/tool_use_train_1_5b.zip
 /kaggle_outputs/training/selective_facts_v1/selective_facts_1_5b.zip
-/stage2_fresh/kaggle_upload/tooluse_adapter_1_5b.zip
+/archive/stage2_fresh/kaggle_upload/tooluse_adapter_1_5b.zip

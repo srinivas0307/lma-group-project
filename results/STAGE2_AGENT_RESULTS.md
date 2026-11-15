@@ -1,6 +1,6 @@
 # Agent evaluation results (README Phase 10), test split
 
-Run: Kaggle T4, 2026-10-31, commit `6a79a36`, notebook `archive/notebooks/executed/agent/agent-eval.ipynb`. One model for every
+Run: Kaggle T4, 2026-10-31, commit `6a79a36`, notebook `notebooks/executed/agent/agent-eval.ipynb`. One model for every
 system (Qwen2.5-7B-Instruct, 4-bit), agent prompt **a1-v4** (frozen after 4 dev runs), scenarios `rct_v4.jsonl` + E/S,
 **oracle verifier** (gold contracts), greedy decoding, seed 0, limits: 3 repair attempts, 8 tool calls per attempt,
 60k tokens. Files: `results/stage2_agent/<system>/{runs,traces}.jsonl`; recompute with

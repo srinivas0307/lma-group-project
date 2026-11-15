@@ -1,6 +1,6 @@
 # Fine-tuning the intent parser (Phase 7)
 
-**Full runs imported and scored (2026-11-11):** both 1.5B and 3B adapters completed two epochs and parsed all 120 evaluation tasks. See [the analysis and results](../results/FINETUNE_RESULTS.md) and [the executed notebook](../archive/notebooks/executed/training/finetune_qlora_full.ipynb).
+**Full runs imported and scored (2026-11-11):** both 1.5B and 3B adapters completed two epochs and parsed all 120 evaluation tasks. See [the analysis and results](../results/FINETUNE_RESULTS.md) and [the executed notebook](../notebooks/executed/training/finetune_qlora_full.ipynb).
 
 Adapters and original training artifacts are in `finetune/runs/qwen25_1_5b/` and `finetune/runs/qwen25_3b/` (git-ignored). Parser outputs are in `kaggle_outputs/parsing/ft_1_5b/` and `ft_3b/`. Scored results and copies of portable training metadata are in `results/stage1/finetuned/intent_ft_1_5b/` and `intent_ft_3b/`.
 

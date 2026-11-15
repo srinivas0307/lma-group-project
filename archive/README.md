@@ -1,6 +1,6 @@
 # Archive index
 
-These artifacts preserve the project's research history. The current final evaluation is documented in [the six-notebook guide](../docs/stage2_six_notebooks.md). Start from the [project README](../README.md) for active work.
+These artifacts preserve the project's research history. **Nothing here is needed to check the final report.** For the current project, start from the [project README](../README.md) and the [docs index](../docs/README.md); the final Stage 2 configuration is described in [stage2_repair_hints.md](../docs/stage2_repair_hints.md).
 
 ## Notebooks
 
@@ -40,4 +40,21 @@ No experiment data or model weights were deleted. The trained adapters remain un
 
 ## Report-focused cleanup (2026-11-15)
 
-Start with [the report guide](../docs/REPORT_GUIDE.md). Redundant upload ZIPs and extracted distributions were removed after checking canonical copies. Four differing historical selective-facts source files are preserved in `notebooks/training/selective_facts_extracted_source_delta.zip`; reconstruction details are in [the cleanup manifest](../docs/report_cleanup_manifest_2026-11-15.json). Unique historical benchmark files remain available.
+Start with [the report guide](../docs/REPORT_GUIDE.md). Redundant upload ZIPs and extracted distributions were removed after checking canonical copies. Four differing historical selective-facts source files are preserved in `notebooks/training/selective_facts_extracted_source_delta.zip`; reconstruction details are in [the cleanup manifest](report_cleanup_manifest_2026-11-15.json). Unique historical benchmark files remain available.
+
+## Evaluation cleanup (2026-11-18)
+
+The active tree now holds what the final report ([ssss_report.pdf](../ssss_report.pdf)) uses, plus the Stage 2 runs and code it depends on. All moves used `git mv`, so history is kept and contents are unchanged. Markdown links were updated.
+
+Moved into the archive (not used in the report):
+
+- [stage2_fresh/](stage2_fresh/): from-scratch reimplementation of the Stage 2 pipeline (diagnostic runs 71/2/27 and 68/8/24).
+- [stage2_dual_7b/](stage2_dual_7b/): Stage 2 with the 7B NF4 repair agent (78/1/21): code, notebooks, outputs, analysis, test and docs.
+- [stage2_combined_gold_7b_not_run/](stage2_combined_gold_7b_not_run/): gold workflow with 7B repair that was never run on GPU.
+- [docs/stage2_post_combined_next_steps.md](docs/stage2_post_combined_next_steps.md) (superseded plan) and [tools/restructure.py](tools/restructure.py) (one-off 2026-10-30 layout script).
+
+Brought back from the archive (cited by the report as evidence):
+
+- `notebooks/executed/stage1/`: Baseline 1, Baseline 3 and generation runs (Experiments 1, 4, A2, A4, A6).
+- `notebooks/executed/agent/agent-eval.ipynb`: agent evaluation (Experiment 5, A7).
+- `notebooks/executed/training/finetune_qlora_full.ipynb`: parser fine-tuning (Experiment 6).

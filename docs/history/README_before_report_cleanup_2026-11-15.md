@@ -101,7 +101,7 @@ The [inference-only correction workflow](docs/selective_facts_correction.md) com
 
 ### Stage 2: selective facts versus trained tools
 
-The [two independent Stage 2 workflows](docs/stage2_dual.md) use the existing selected 1.5B adapters with operator normalization, a shared 3B generator and 7B repair agent. [Colab notebooks](notebooks/colab/stage2_dual/) · [Kaggle notebooks and source ZIP](notebooks/kaggle/stage2_dual/). Start with the selective proposed run, then the tool proposed run, then the CPU collector. No retraining or previous evaluation outputs are required.
+The [two independent Stage 2 workflows](archive/stage2_dual_7b/docs/stage2_dual.md) use the existing selected 1.5B adapters with operator normalization, a shared 3B generator and 7B repair agent. [Colab notebooks](notebooks/colab/stage2_dual/) · [Kaggle notebooks and source ZIP](archive/stage2_dual_7b/notebooks/kaggle/stage2_dual/). Start with the selective proposed run, then the tool proposed run, then the CPU collector. No retraining or previous evaluation outputs are required.
 
 ### Current Stage 2 choice: unquantized 3B for generation and repair
 

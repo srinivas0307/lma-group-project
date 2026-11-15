@@ -1,57 +1,71 @@
 # Intent-Gated Data Transformation Agent
 
-Pandas code generation with an intent-contract parser, deterministic verification, and bounded tool-assisted repair. Team SSSS · LMA Group Project 2026.
+Pandas code generation with an intent-contract parser, deterministic verification and bounded tool-assisted repair. Team SSSS · LMA Group Project 2026.
 
-## Start here for the report
+**Research question:** does an intent contract that states what must change and what must be preserved catch silent semantic errors in LLM-generated data transformations better than conventional data-quality checks?
 
-Use the [report guide](docs/REPORT_GUIDE.md) for the main results, evidence locations, limitations, and which experiments can be compared. It replaces the long chronological list of notebooks as the project entry point.
+**New here? Start with [docs/README.md](docs/README.md)**: a reading order and an index of every document. Then:
+[docs/system_design.md](docs/system_design.md) (architecture and design decisions),
+[docs/FILE_INDEX.md](docs/FILE_INDEX.md) (where every file is) and
+[docs/REPO_GUIDE.md](docs/REPO_GUIDE.md) (what every folder is for, and the 2026-11-18 cleanup).
 
-- [Original six-system Stage 2 evaluation](results/stage2_clean_v1/stage2_summary.csv) and [failure analysis](results/STAGE2_FAILURE_ANALYSIS.md).
-- [3B FP16 generator/repair comparison](results/stage2_dual_3b_analysis/ANALYSIS.md): both parser methods give **73 correct, 2 incorrect accepted, 25 withheld** on 100 tasks.
-- [7B NF4 repair comparison](results/stage2_dual_7b_analysis/ANALYSIS.md): both methods give **78 correct, 1 incorrect accepted, 21 withheld**. The generator stays 3B FP16.
-- [Complete 3B failure inventory](results/stage2_dual_3b_analysis/failure_review/INVENTORY.md) and [improvement plan](docs/stage2_3b_improvement_plan.md).
+## Deliverables
 
-These experiments use different protocol versions. Previously inspected test cases are diagnostic; do not describe them as a new independent benchmark. The 7B/3B repair comparison changes both model size and precision. See the report guide before combining results.
+| | File |
+|---|---|
+| Final report | [ssss_report.pdf](ssss_report.pdf) (source: [report_acl/final_report_short.tex](report_acl/final_report_short.tex)) |
+| Detailed report | [ssss_detailed_report.pdf](ssss_detailed_report.pdf) (source: [report_acl/final_report.tex](report_acl/final_report.tex)) |
+| Proposal and handout | [docs/course/](docs/course/) |
+| Mid-submission report | [docs/reports/mid_submission_report.pdf](docs/reports/mid_submission_report.pdf) |
 
-## Current runnable work
+## Headline result (Stage 2, 100 test tasks: correct / wrong accepted / withheld)
 
-The [current-stack Baseline 2 analysis](results/baselines_hints_v1/BASELINE2_ANALYSIS.md) reports **75/11/14**, versus repair-hints proposed selective **82/2/16** and tools **80/1/19**. Generic distribution checks reject legitimate requested changes; all 100 baseline records passed CPU audit.
+| System | Result | Evidence |
+|---|---|---|
+| Baseline 1, direct generation | 78 / 20 / 2 | [stage2_clean_v1](results/stage2_clean_v1/stage2_summary.csv) |
+| Proposed, initial | 76 / 2 / 22 | [stage2_clean_v1](results/stage2_clean_v1/stage2_metrics_test.json) |
+| Baseline 2 + repair (final config) | 75 / 11 / 14 | [BASELINE2_ANALYSIS.md](results/baselines_hints_v1/BASELINE2_ANALYSIS.md) |
+| **Proposed, final (selective facts)** | **82 / 2 / 16** | [selective_paired.json](results/repair_hints_v1/selective_paired.json) |
+| **Proposed, final (tool use)** | **80 / 1 / 19** | [tools_paired.json](results/repair_hints_v1/tools_paired.json) |
+| Gold contract, final | 92 / 0 / 8 | [gold_paired.json](results/repair_hints_v1/gold_paired.json) |
 
-The [completed contract-check experiment](results/contract_check_v1/completed/ANALYSIS.md) gives selective facts **76/1/23** and tools **74/1/25**, with lower token use but the shared wrong acceptance still unresolved. All 200 task records pass the CPU audit.
+The final configuration was developed after inspecting the same test tasks, so its gains are diagnostic (see the report's Limitations).
 
-The [combined gold workflow with 7B NF4 repair](docs/stage2_combined_gold_7b.md) is ready for Kaggle. It retains 3B FP16 generation and the same combined procedure/budgets, with an optional comparison against the completed 84/100 combined 3B gold run. GPU results are pending.
+## Where each report section's evidence lives
 
-The [combined 3B gold-contract diagnostic](docs/stage2_combined_gold.md) is implemented for comparison with both completed parser methods. It needs only its new source ZIP and no parser adapter. Its completed result is **84 correct, zero incorrect accepted, 16 withheld**, versus 74/1/25 for each predicted-contract method; see [the audited gold analysis](results/stage2_combined_gold_analysis/ANALYSIS.md). A post-run collector serialization bug is handled offline.
+| Report section | Results | Run notebooks / raw outputs |
+|---|---|---|
+| Dataset: tasks, pool, scenarios, red team | [benchmark/tasks/INDEX.md](benchmark/tasks/INDEX.md), [data/README.md](data/README.md), [docs/eval_set_and_contract_guide.md](docs/eval_set_and_contract_guide.md) | `benchmark/`, `data/` |
+| Contracts and verifier | [docs/contract_schema.md](docs/contract_schema.md), [docs/verdict_format.md](docs/verdict_format.md) | `src/igt/contracts/`, `src/igt/verifier/` |
+| Exp 1–4, 6 and ablations A1–A6: Stage 1 verification | [results/STAGE1_RESULTS.md](results/STAGE1_RESULTS.md), `results/stage1/` | [notebooks/executed/stage1/](notebooks/executed/stage1/), `kaggle_outputs/generation/`, `kaggle_outputs/parsing/` |
+| Exp 6: fine-tuning (QLoRA) | [results/FINETUNE_RESULTS.md](results/FINETUNE_RESULTS.md), [results/FINETUNE_AUDIT.md](results/FINETUNE_AUDIT.md) | [finetune_qlora_full.ipynb](notebooks/executed/training/finetune_qlora_full.ipynb), [finetune/README.md](finetune/README.md) |
+| Exp 6b: selective-facts and tool-use parsers | `results/selective_facts_analysis/`, `results/tool_use_v2_analysis/` | `notebooks/executed/training/selective_facts_v1/`, `notebooks/executed/tool_use_v2/`, `notebooks/executed/parsing/` |
+| Contract quality | `results/contract_quality_v1/`, [docs/contract_quality/RUNBOOK.md](docs/contract_quality/RUNBOOK.md) | `notebooks/executed/contract_quality/` |
+| Exp 5 and A7: agent evaluation | [results/STAGE2_AGENT_RESULTS.md](results/STAGE2_AGENT_RESULTS.md), `results/stage2_agent/` | [agent-eval.ipynb](notebooks/executed/agent/agent-eval.ipynb) |
+| Exp 7, A8–A10: Stage 2 six-system comparison | [stage2_summary.csv](results/stage2_clean_v1/stage2_summary.csv), [STAGE2_FAILURE_ANALYSIS.md](results/STAGE2_FAILURE_ANALYSIS.md) | `notebooks/executed/stage2/clean_v1/`, `kaggle_outputs/stage2/clean_v1/` |
+| Stage 2 final configuration | `results/repair_hints_v1/`, [docs/stage2_repair_hints.md](docs/stage2_repair_hints.md) | `notebooks/executed/stage2/repair_hints_v1/`, `kaggle_outputs/stage2/repair_hints_v1/` |
+| Final-config Baseline 2 and no-contract ablations | `results/baselines_hints_v1/` ([B2](results/baselines_hints_v1/BASELINE2_ANALYSIS.md), [selective](results/baselines_hints_v1/NO_CONTRACT_SELECTIVE_ANALYSIS.md), [tools](results/baselines_hints_v1/NO_CONTRACT_TOOLS_ANALYSIS.md)) | `notebooks/executed/stage2/baselines_hints_v1/` |
+| Exp 8: safety | [results/safety/redteam_table.md](results/safety/redteam_table.md) | `benchmark/redteam/`, `src/igt/sandbox/` |
 
-The [combined 3B end-to-end workflow](docs/stage2_combined_3b.md) is ready for both **selective facts** and **trained tool use**. Each notebook generates fresh contracts and code, then uses the combined repair implementation. Generation and repair remain unquantized 3B FP16; the selected method-specific 1.5B parser adapters are unchanged.
+The intermediate Stage 2 runs that lead to the final configuration (`dual_parser_3b_fp16_v1`, `combined_3b_v1`, `combined_gold_v1`, `contract_check_v1`, `repair_dev_v1`, and earlier `independent`/`selective`/`tools` runs) stay in `results/`, `kaggle_outputs/stage2/` and `notebooks/executed/stage2/`. The final runs are paired against them, and the analysis scripts in `tools/` read them. [docs/REPORT_GUIDE.md](docs/REPORT_GUIDE.md) describes each one.
 
-- [Selective-facts Kaggle notebook](notebooks/kaggle/stage2_combined_3b/stage2_combined_3b_selective_proposed_kaggle.ipynb).
-- [Tool-use Kaggle notebook](notebooks/kaggle/stage2_combined_3b/stage2_combined_3b_tools_proposed_kaggle.ipynb).
-- [Shared source/data ZIP](notebooks/kaggle/stage2_combined_3b/stage2_combined_3b_source.zip).
-- [Optional CPU comparison collector](notebooks/kaggle/stage2_combined_3b/stage2_combined_3b_collect_kaggle.ipynb).
+## Code
 
-Attach the new source dataset and the selected adapter dataset from the corresponding completed 3B run. No GitHub push or previous predictions are needed. Each notebook runs smoke, 20 development tasks and 100 diagnostic test tasks. Completed combined end-to-end results: **74 correct / 1 incorrect accepted / 25 withheld** for each method, compared with original 3B **73/2/25**. Total tokens increase 3.5% for selective facts and 8.4% for tools. See [the analysis](results/stage2_combined_3b_analysis/ANALYSIS.md).
-
-The [completed repair-only development experiment](results/stage2_repair_dev_analysis/v1/ANALYSIS.md) gives control **11/1/5** versus combined **16/0/1** (correct/incorrect accepted/withheld), using 26.1% fewer tokens. This motivates the new integration; it does not establish its full Stage 2 accuracy. Parser correction and information-routing changes remain planned.
-
-## Folder map
-
-- `results/`: report analyses, scores, audits and per-task evidence.
-- `docs/`: specifications, current instructions, proposal and submitted report material.
-- `kaggle_outputs/`: canonical uploaded runs and training bundles; keep these as original evidence.
-- `notebooks/executed/`: executed notebooks backing those runs.
-- `notebooks/kaggle/` and `notebooks/colab/`: runnable templates and sealed source packages.
-- `src/`, `eval/`, `finetune/`, `tests/`, `benchmark/`, `data/`, `configs/`: implementation, reproducibility inputs and checks.
-- `archive/`: earlier experiments and historical evidence.
-- `kaggle_uploads/`: builders for optional adapter-containing upload packages. Redundant generated ZIPs were removed; rebuild only when needed.
+- `src/igt/`: verifier, contracts, parser and repair agents, tools, sandbox, model interface.
+- `eval/`: experiment runners (one package per Stage 2 experiment; later ones import earlier ones).
+- `finetune/`: data generation and QLoRA training for the parsers.
+- `tools/`: analysis and audit scripts that produce the files in `results/`.
+- `tests/`: unit and regression tests.
+- `notebooks/kaggle/`, `notebooks/colab/`: runnable notebooks with sealed source packs; `kaggle_uploads/`: builders for the adapter datasets the Kaggle runs attach.
+- `app/`: small demo UI (`requirements-demo.txt`).
+- `archive/`: superseded experiments and history (see [archive/README.md](archive/README.md)).
 
 ## Local verification
 
 ```bash
-.venv/bin/python -m pytest -q tests/test_stage2_repair_dev.py tests/agent/test_repair_agent.py
-./reproduce_all.sh
+python -m venv .venv && .venv/bin/pip install -r requirements-dev.txt
+.venv/bin/python -m pytest -q tests/verifier tests/sandbox tests/test_data_checksums.py
+./reproduce_all.sh   # recomputes the Stage 1 and safety results on CPU; no GPU inference
 ```
 
-The reproduction script recomputes existing CPU results; it does not launch new GPU inference. Setup dependencies are in `requirements-dev.txt`; training instructions are in [finetune/README.md](finetune/README.md).
-
-[Uploaded artifact index](docs/uploaded_artifacts.md) · [Cleanup manifest](docs/report_cleanup_manifest_2026-11-15.json) · [Historical index](archive/README.md).
+GPU runs were done on Kaggle (T4 x2). Their outputs are stored in `kaggle_outputs/` and the executed notebooks in `notebooks/executed/`. [Uploaded artifact index](docs/uploaded_artifacts.md).

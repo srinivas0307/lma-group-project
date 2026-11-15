@@ -8,7 +8,7 @@ Both Qwen2.5 adapters completed training and generated contracts for all 120 eva
 
 ## Artifact locations
 
-- Executed full-run notebook: [finetune_qlora_full.ipynb](../archive/notebooks/executed/training/finetune_qlora_full.ipynb).
+- Executed full-run notebook: [finetune_qlora_full.ipynb](../notebooks/executed/training/finetune_qlora_full.ipynb).
 - Training logs, adapters, and tokenizers: `finetune/runs/qwen25_1_5b/` and `finetune/runs/qwen25_3b/`.
 - Downloaded parser outputs: [ft_1_5b](../kaggle_outputs/parsing/ft_1_5b) and [ft_3b](../kaggle_outputs/parsing/ft_3b).
 - Contract metrics, full/change-only/preserve-only verdicts, and portable training metadata: [intent_ft_1_5b](stage1/finetuned/intent_ft_1_5b) and [intent_ft_3b](stage1/finetuned/intent_ft_3b).

@@ -5,7 +5,7 @@ Use this guide for writing. Raw run bundles and executed notebooks remain in the
 ## Project definition and methods
 
 - [Course proposal](course/SSSS_LMA_PROJECT_PROPOSAL.pdf) and [project handout](course/handout.txt).
-- [Existing report text](mid_submission_report.md) and [submitted PDF](reports/mid_submission_report.pdf). These describe an earlier project state; update experimental claims for the final report.
+- [Existing report text](reports/mid_submission_report.md) and [submitted PDF](reports/mid_submission_report.pdf). These describe an earlier project state; update experimental claims for the final report.
 - [Contract schema](contract_schema.md), [evaluation guide](eval_set_and_contract_guide.md), and [verdict format](verdict_format.md).
 - Implementation: `src/igt/` contains the verifier, contracts, agent, tools, sandbox and model interface. `eval/` contains experiment-specific runners. Keep source paths stable because source hashes and reproducibility checks depend on them.
 
@@ -42,12 +42,14 @@ The historical direct baseline gives 78 correct, 20 incorrect accepted, two with
 
 Selective facts and tools each give 73 correct, two incorrect accepted and 25 withheld on 100 tasks. Their correct task sets differ. Both generator and repair are unquantized Qwen2.5-3B-Instruct; the parsers use the selected 1.5B NF4 adapters. Tools uses 17.7% more total tokens for equal overall correctness. The remaining matched baseline runs for this newer workflow are not established by the old direct-baseline result.
 
-### Repair-model comparison: 7B NF4
+### Repair-model comparison: 7B NF4 (archived)
 
-- [Complete 7B analysis](../results/stage2_dual_7b_analysis/ANALYSIS.md).
-- [Paired 3B/7B evidence](../results/stage2_dual_7b_analysis/repair_model_comparison.json).
-- Original bundles: `kaggle_outputs/stage2/dual_parser_v1/`.
-- Executed notebooks: `notebooks/executed/stage2/dual_parser_v1/`.
+Not used in the final report; moved to `archive/stage2_dual_7b/` on 2026-11-18.
+
+- [Complete 7B analysis](../archive/stage2_dual_7b/results/stage2_dual_7b_analysis/ANALYSIS.md).
+- [Paired 3B/7B evidence](../archive/stage2_dual_7b/results/stage2_dual_7b_analysis/repair_model_comparison.json).
+- Original bundles: `archive/stage2_dual_7b/kaggle_outputs/dual_parser_v1/`.
+- Executed notebooks: `archive/stage2_dual_7b/notebooks/executed/dual_parser_v1/`.
 
 Both methods give 78 correct, one incorrect accepted, 21 withheld. Parser outputs and initial code match the corresponding 3B repair runs. Six tasks improve, one regresses, giving five additional correct results. The comparison changes repair size and precision (3B FP16 versus 7B NF4), so describe it accordingly. The initial generator is 3B FP16 in both.
 
@@ -83,7 +85,7 @@ Other limitations for the report: repeated inspection of the 100 test cases; sem
 
 No original uploaded run, executed notebook, trained adapter, scored result or unique benchmark was deleted. The historical `pool_v3` is intentionally retained: five files differ from the current pool, so it is not a duplicate. Source and environment remain available for verification. The previous long README is preserved under `docs/history/README_before_report_cleanup_2026-11-15.md` for historical context.
 
-[Machine-readable cleanup manifest](report_cleanup_manifest_2026-11-15.json) records removed file hashes, reasons and recovery locations. [Uploaded artifact index](uploaded_artifacts.md) records original upload names and canonical paths.
+[Machine-readable cleanup manifest](../archive/report_cleanup_manifest_2026-11-15.json) records removed file hashes, reasons and recovery locations. [Uploaded artifact index](uploaded_artifacts.md) records original upload names and canonical paths.
 
 ## Combined 3B gold-contract diagnostic
 

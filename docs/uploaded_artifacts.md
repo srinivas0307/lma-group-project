@@ -83,11 +83,11 @@ Both complete runs give 73 correct, two incorrect accepted and 25 withheld. The 
 
 ## Completed Stage 2: 3B generator and 7B NF4 repair
 
-- Selective output: [stage2_dual_selective_proposed.zip](../kaggle_outputs/stage2/dual_parser_v1/stage2_dual_selective_proposed.zip).
-- Tools output: [stage2_dual_tools_proposed.zip](../kaggle_outputs/stage2/dual_parser_v1/stage2_dual_tools_proposed.zip).
-- Selective notebook: [stage2_dual_selective_proposed_kaggle_executed.ipynb](../notebooks/executed/stage2/dual_parser_v1/stage2_dual_selective_proposed_kaggle_executed.ipynb), uploaded as `stage2-selective-proposed.ipynb`.
-- Tools notebook: [stage2_dual_tools_proposed_kaggle_executed.ipynb](../notebooks/executed/stage2/dual_parser_v1/stage2_dual_tools_proposed_kaggle_executed.ipynb), uploaded as `stage2-tooluse.ipynb`.
-- [Analysis and paired comparison](../results/stage2_dual_7b_analysis/ANALYSIS.md).
+- Selective output: [stage2_dual_selective_proposed.zip](../archive/stage2_dual_7b/kaggle_outputs/dual_parser_v1/stage2_dual_selective_proposed.zip).
+- Tools output: [stage2_dual_tools_proposed.zip](../archive/stage2_dual_7b/kaggle_outputs/dual_parser_v1/stage2_dual_tools_proposed.zip).
+- Selective notebook: [stage2_dual_selective_proposed_kaggle_executed.ipynb](../archive/stage2_dual_7b/notebooks/executed/dual_parser_v1/stage2_dual_selective_proposed_kaggle_executed.ipynb), uploaded as `stage2-selective-proposed.ipynb`.
+- Tools notebook: [stage2_dual_tools_proposed_kaggle_executed.ipynb](../archive/stage2_dual_7b/notebooks/executed/dual_parser_v1/stage2_dual_tools_proposed_kaggle_executed.ipynb), uploaded as `stage2-tooluse.ipynb`.
+- [Analysis and paired comparison](../archive/stage2_dual_7b/results/stage2_dual_7b_analysis/ANALYSIS.md).
 
 Both runs: 78 correct, one incorrect accepted, 21 withheld. The generator remains unquantized 3B; repair is 7B NF4. Original bytes are preserved in the hash index.
 
